@@ -9,7 +9,7 @@ namespace TP0.Helpers
     {
         public Documento documento;
         public string telefono;
-        public Categoria categoria;
+        public enum categoria{ R1, R2, R3, R4, R5, R6, R7, R9, R9 };
         public Dispositivo[] dispositivos;
         public bool AlgunDispositivoEncendido()
         {
@@ -33,6 +33,12 @@ namespace TP0.Helpers
         {
             return dispositivos.Count();
         }
-
+        public int calcularConsumo()
+        {
+            return dispositivos.Sum(d=>d.kWxHora);
+        }
+        public void actualizarCategoria(){
+            
+        }
     }
 }
