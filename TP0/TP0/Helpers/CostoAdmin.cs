@@ -5,7 +5,10 @@ using System.Web;
 
 namespace TP0.Helpers
 {
-    public class Categoria
+    public class CostoAdmin
     {
+        public int calcularCostoMensual(int consumo, int categoria){
+        
+        }
     }
 }
