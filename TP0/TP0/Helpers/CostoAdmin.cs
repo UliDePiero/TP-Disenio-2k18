@@ -7,8 +7,9 @@ namespace TP0.Helpers
 {
     public class CostoAdmin
     {
-        public int calcularCostoMensual(int consumo, int categoria){
-        
-        }
+        /*public int calcularCostoMensual(int consumo, int categoria)
+        {
+            
+        }*/
     }
 }

@@ -9,10 +9,9 @@ namespace TP0.Helpers
     {
         FechasAdmin f = new FechasAdmin();
         public int id;
-        public int mesesQueLleva()
+        public int MesesQueLleva()
         {
-            int meses = f.diferenciaDeMeses(fechaDeAlta);
-            return meses;
+            return f.DiferenciaDeMeses(fechaDeAlta);
         }
     }
 }

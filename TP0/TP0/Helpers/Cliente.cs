@@ -9,35 +9,29 @@ namespace TP0.Helpers
     {
         public Documento documento;
         public string telefono;
-        public enum categoria{ R1, R2, R3, R4, R5, R6, R7, R9, R9 };
+        public enum Categoria{ R1, R2, R3, R4, R5, R6, R7, R8, R9 };
         public Dispositivo[] dispositivos;
         public bool AlgunDispositivoEncendido()
         {
-            if (dispositivos.Any(d => d.encendido))
-            {
-                return true;
-            }
-            else return false;
+            return dispositivos.Any(d => d.encendido);
         }
-        public int dispositivosEncendidos()
+        public int DispositivosEncendidos()
         {
-            int cant = dispositivos.Count(d=>d.encendido);
-            return cant;
+            return dispositivos.Count(d=>d.encendido);
         }
-        public int dispositivosApagados()
+        public int DispositivosApagados()
         {
-            int cant = dispositivos.Count(d => !d.encendido);
-            return cant;
+            return dispositivos.Count(d => !d.encendido);
         }
-        public int dispositivosTotales()
+        public int DispositivosTotales()
         {
             return dispositivos.Count();
         }
-        public int calcularConsumo()
+        public int CalcularConsumo()
         {
             return dispositivos.Sum(d=>d.kWxHora);
         }
-        public void actualizarCategoria(){
+        public void ActualizarCategoria(){
             
         }
     }

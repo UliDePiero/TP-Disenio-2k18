@@ -7,7 +7,7 @@ namespace TP0.Helpers
 {
     public class Documento
     {
-        public string tipo;
+        public enum Tipo { DNI, CI, LE, LC };
         public string numero;
     }
 }

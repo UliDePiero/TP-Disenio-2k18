@@ -9,15 +9,12 @@ namespace TP0.Helpers
     {
         DateTime fechaActual = DateTime.Now;
 
-        public int diferenciaDeMeses(DateTime fechaDeAlta)
+        public int DiferenciaDeMeses(DateTime fechaDeAlta)
         {
             int mesesTotales = 0;
-            int dias;
-            int meses;
-            int años;
-            dias = fechaActual.Day - fechaDeAlta.Day;
-            meses = fechaActual.Month - fechaDeAlta.Month;
-            años = fechaActual.Year - fechaDeAlta.Year;
+            int dias = fechaActual.Day - fechaDeAlta.Day;
+            int meses = fechaActual.Month - fechaDeAlta.Month;
+            int años = fechaActual.Year - fechaDeAlta.Year;
             if (dias < 0)
             {
                 meses--;
