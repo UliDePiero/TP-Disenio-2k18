@@ -11,17 +11,13 @@ namespace TP0.Helpers
         [JsonProperty]
         public string nombre;
         [JsonProperty]
-        public int kWxHora;
+        public float kWxHora;
         [JsonProperty]
         public bool encendido;
 
         public bool EstaEncendido()
         {
             return encendido;
-        }
-        public int KWxHora()
-        {
-            return kWxHora;
         }
     }
 }

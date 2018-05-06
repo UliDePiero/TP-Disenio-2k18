@@ -7,7 +7,7 @@ using TP0.Helpers;
 
 namespace TP0.Helpers
 {
-    public class Cliente:Persona
+    public class Usuario:Persona
     {
         [JsonProperty]
         public Documento documento;
@@ -33,9 +33,9 @@ namespace TP0.Helpers
         {
             return dispositivos.Count();
         }
-        public int CalcularConsumo()
+        public float CalcularConsumo()
         {
-            return dispositivos.Sum(d=>d.KWxHora());
+            return dispositivos.Sum(d=>d.kWxHora);
         }
         public void ActualizarCategoria(){
             
