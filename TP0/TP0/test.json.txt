@@ -1,5 +1,15 @@
 [
   {
+  "nombre":"nicolas",
+  "apellido":"coen",
+  "domicilio":"olleros 3030",
+  "fechaDeAlta":{
+					"year":2018,
+					"month":1,
+					"day":1
+				},
+  "usuario":"nicocoen",
+  "contraseña":"nicocoen",
   "documento" : {
                   "tipo" : "DNI",
                   "numero" :40513128
@@ -26,6 +36,16 @@
     ]
   },
     {
+  "nombre":"nacho",
+  "apellido":"sara",
+  "domicilio":"por ahi",
+  "fechaDeAlta":{
+					"year":2010,
+					"month":1,
+					"day":1
+				},
+  "usuario":"nachin",
+  "contraseña":"nachin",
   "documento" : {
                   "tipo" : "DNI",
                   "numero" :12345671

@@ -12,6 +12,7 @@ namespace TP0.Controllers
 {
     public class FileUploadController : Controller
     {
+        string path;
         // GET: FileUpload
         public ActionResult Index()
         {
@@ -25,15 +26,22 @@ namespace TP0.Controllers
             {
                 try
                 {
-
                     if (file != null && file.ContentLength > 0)
                     {
-                        string path = Path.Combine(Server.MapPath("~/App_Data/uploads"), Path.GetFileName(file.FileName));
+                        path = Path.Combine(Server.MapPath("~/App_Data/uploads"), Path.GetFileName(file.FileName));
                         file.SaveAs(path);
-                        string Json = System.IO.File.ReadAllText(path);
-         //               List<Cliente> userList = JsonConvert.DeserializeObject<List<Cliente>>(Json);
                     }
-                    ViewBag.FileStatus = "Archivo cargado correctamente.";
+                    try
+                    {
+
+                        string Json = System.IO.File.ReadAllText(path);
+                        List<Usuario> userList = JsonConvert.DeserializeObject<List<Usuario>>(Json);
+                        ViewBag.FileStatus = "Archivo cargado correctamente.";
+                    }
+                    catch(Exception)
+                    {
+                        ViewBag.FileStatus = "El archivo no es del formato correcto.";
+                    }
                 }
                 catch (Exception)
                 {
