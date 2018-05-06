@@ -1,0 +1,40 @@
+{
+  "documento": {
+    "Tipo": 2,
+    "numero": "\"46465465\""
+  },
+  "telefono": "\"79432321\"",
+  "Categoria": 1,
+  dispositivos[
+    {
+      "nombre": "Lampara",
+      "kWxHora": 12,
+      "encendido": true
+    },
+    {
+      "nombre": "tele",
+      "kWxHora": 15,
+      "encendido": false
+    }
+  ]
+},
+{
+  "documento": {
+    "Tipo": 1,
+    "numero": "\"46465465\""
+  },
+  "telefono": "\"79432321\"",
+  "Categoria": 4,
+  dispositivos[
+    {
+      "nombre": "Lampara",
+      "kWxHora": 12,
+      "encendido": true
+    },
+    {
+      "nombre": "tele",
+      "kWxHora": 15,
+      "encendido": false
+    }
+  ]
+}
