@@ -30,7 +30,8 @@ namespace TP0.Controllers
                     {
                         string path = Path.Combine(Server.MapPath("~/App_Data/uploads"), Path.GetFileName(file.FileName));
                         file.SaveAs(path);
-
+                        string Json = System.IO.File.ReadAllText(path);
+                        List<Cliente> userList = JsonConvert.DeserializeObject<List<Cliente>>(Json);
                     }
                     ViewBag.FileStatus = "Archivo cargado correctamente.";
                 }

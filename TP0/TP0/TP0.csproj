@@ -205,7 +205,6 @@
     <Compile Include="Helpers\FechasAdmin.cs" />
     <Compile Include="Helpers\Persona.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
-    <Compile Include="Models\FileUploadModel.cs" />
     <Compile Include="Models\FileUploadViewModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
@@ -314,7 +313,7 @@
     <Content Include="Views\FileUpload\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Data\" />
+    <Folder Include="App_Data\uploads\" />
     <Folder Include="obj\Debug\TempPE\" />
   </ItemGroup>
   <ItemGroup>
