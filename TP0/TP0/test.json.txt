@@ -1,40 +1,54 @@
-{
-  "documento": {
-    "Tipo": 2,
-    "numero": "\"46465465\""
+[
+  {
+  "documento" : {
+                  "tipo" : "DNI",
+                  "numero" :40513128
+                },
+  "telefono" : 1560411723,
+  "categoria":{
+                "consumoMin":0,
+                "consumoMax":150,
+                "cargoFijo":18.76,
+                "cargoVariable":0.644
+              }
+  ,
+  "dispositivos":[
+      {
+        "nombre":"vibrador",
+        "kWxHora":10,
+        "encendido":false
+      },
+      {
+        "nombre":"compu",
+        "kWxHora":12,
+        "encendido":false
+      }
+    ]
   },
-  "telefono": "\"79432321\"",
-  "Categoria": 1,
-  dispositivos[
     {
-      "nombre": "Lampara",
-      "kWxHora": 12,
-      "encendido": true
-    },
-    {
-      "nombre": "tele",
-      "kWxHora": 15,
-      "encendido": false
-    }
-  ]
-},
-{
-  "documento": {
-    "Tipo": 1,
-    "numero": "\"46465465\""
-  },
-  "telefono": "\"79432321\"",
-  "Categoria": 4,
-  dispositivos[
-    {
-      "nombre": "Lampara",
-      "kWxHora": 12,
-      "encendido": true
-    },
-    {
-      "nombre": "tele",
-      "kWxHora": 15,
-      "encendido": false
-    }
-  ]
-}
+  "documento" : {
+                  "tipo" : "DNI",
+                  "numero" :12345671
+                },
+  "telefono" : 1512345678,
+  "categoria":{
+                "consumoMin":0,
+                "consumoMax":150,
+                "cargoFijo":18.76,
+                "cargoVariable":0.644
+              }
+  ,
+  "dispositivos":[
+      {
+        "nombre":"vibrador",
+        "kWxHora":10,
+        "encendido":true
+      },
+      {
+        "nombre":"compu",
+        "kWxHora":12,
+        "encendido":false
+      }
+    ]
+  }
+]

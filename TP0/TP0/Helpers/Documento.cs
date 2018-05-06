@@ -9,7 +9,7 @@ namespace TP0.Helpers
     public class Documento
     {
         [JsonProperty]
-        public string Tipo;
+        public string tipo;
         [JsonProperty]
         public string numero;
     }
