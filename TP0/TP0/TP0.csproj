@@ -190,12 +190,14 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\FileUploadController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helpers\Administrador.cs" />
+    <Compile Include="Helpers\Categoria.cs" />
     <Compile Include="Helpers\Cliente.cs" />
     <Compile Include="Helpers\CostoAdmin.cs" />
     <Compile Include="Helpers\Dispositivo.cs" />
@@ -203,6 +205,8 @@
     <Compile Include="Helpers\FechasAdmin.cs" />
     <Compile Include="Helpers\Persona.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\FileUploadModel.cs" />
+    <Compile Include="Models\FileUploadViewModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="obj\Debug\TemporaryGeneratedFile_036C0B5B-1481-4323-8D20-8F5ADCB23D92.cs" />
@@ -307,6 +311,7 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\FileUpload\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

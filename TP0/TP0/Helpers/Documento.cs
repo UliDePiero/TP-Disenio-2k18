@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -7,7 +8,9 @@ namespace TP0.Helpers
 {
     public class Documento
     {
-        public enum Tipo { DNI, CI, LE, LC };
+        [JsonProperty]
+        public string Tipo;
+        [JsonProperty]
         public string numero;
     }
 }

@@ -1,15 +1,21 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using TP0.Helpers;
 
 namespace TP0.Helpers
 {
     public class Cliente:Persona
     {
+        [JsonProperty]
         public Documento documento;
+        [JsonProperty]
         public string telefono;
-        public enum Categoria { R1, R2, R3, R4, R5, R6, R7, R8, R9 };
+        [JsonProperty]
+        public Categoria categoria;
+        [JsonProperty]
         public List<Dispositivo> dispositivos;
         public bool AlgunDispositivoEncendido()
         {
