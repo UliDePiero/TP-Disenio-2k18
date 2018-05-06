@@ -10,5 +10,14 @@ namespace TP0.Helpers
         public string nombre;
         public int kWxHora;
         public bool encendido;
+
+        public bool EstaEncendido()
+        {
+            return encendido;
+        }
+        public int KWxHora()
+        {
+            return kWxHora;
+        }
     }
 }
