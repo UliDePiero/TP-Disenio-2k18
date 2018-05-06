@@ -37,7 +37,7 @@ namespace TP0.Controllers
                 catch (Exception)
                 {
 
-                    ViewBag.FileStatus = "Error while file uploading.";
+                    ViewBag.FileStatus = "Error cargando archivo.";
                 }
 
             }

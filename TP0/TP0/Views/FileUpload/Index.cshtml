@@ -3,13 +3,12 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-Compruebe la configuración de configuration/system.webServer/security/requestFiltering/requestLimits@maxAllowedContentLength del archivo applicationhost.config o web.config.
 <div class="jumbotron">
-    <h1>Entrega 0</h1>
+    <h2>Importar usuarios o dispositivos</h2>
     <p class="lead">Seleccione el archivo .json que desea cargar a memoria</p>
 </div>
 
-@using (Html.BeginForm("Index", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
+@using (Html.BeginForm("Index", "FileUpload", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
 
@@ -26,9 +25,10 @@ Compruebe la configuración de configuration/system.webServer/security/requestFi
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Cargar" class="btn btn-primary" />
+                <input type="submit" value="Importar" class="btn btn-primary" >
             </div>
         </div>
+
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10 text-success">
                 @ViewBag.FileStatus
