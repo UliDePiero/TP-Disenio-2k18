@@ -17,47 +17,6 @@ namespace TP0.Controllers
             return View();
         }
 
-        [HttpPost]
-        public ActionResult Index(HttpPostedFileBase file)
-        {
-            if (ModelState.IsValid)
-            {
-                try
-                {
-
-                    if (file != null && file.ContentLength > 0)
-                    {
-                        string path = Path.Combine(Server.MapPath("~/App_Data/uploads"), Path.GetFileName(file.FileName));
-                        file.SaveAs(path);
-
-                    }
-                    ViewBag.FileStatus = "Archivo cargado correctamente.";
-                }
-                catch (Exception)
-                {
-
-                    ViewBag.FileStatus = "Error while file uploading.";
-                }
-
-            }
-            return View("Index");
-        }
-
-
-        /* if (file != null && file.ContentLength > 0)
-         {
-             string fileName = Path.GetFileName(file.FileName);
-             string f = Server.MapPath(fileName);
-             string Json = System.IO.File.ReadAllText(f);
-             List<Cliente> userList = JsonConvert.DeserializeObject<List<Cliente>>(Json);
-             //return View(userList);
-         }
-         // redirect back to the index action to show the form once again
-             return RedirectToAction("Index");
-     */
-
-
-
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";
