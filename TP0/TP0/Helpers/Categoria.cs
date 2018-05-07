@@ -21,7 +21,7 @@ namespace TP0.Helpers
            return costo;
         }
         public bool PerteneceACategoria(float consumo){
-            return consumoMin <= consumo || consumo <= consumoMax;
+            return consumoMin <= consumo && consumo <= consumoMax;
         }
     }
 }
