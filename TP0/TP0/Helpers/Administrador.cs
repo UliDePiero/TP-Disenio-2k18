@@ -8,10 +8,10 @@ namespace TP0.Helpers
     public class Administrador : Persona
     {
         public int id;
-        FechasAdmin f = new FechasAdmin();
+        public FechasAdmin fAdmin;
         public int MesesQueLleva()
         {
-            return f.DiferenciaDeMeses(fechaDeAlta);
+            return fAdmin.HaceCuantosMeses(fechaDeAlta);
         }
     }
 }

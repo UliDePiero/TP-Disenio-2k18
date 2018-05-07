@@ -7,14 +7,14 @@ namespace TP0.Helpers
 {
     public class FechasAdmin
     {
-        DateTime fechaActual = DateTime.Now;
+        Fecha fechaActual = new Fecha(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
 
-        public int DiferenciaDeMeses(DateTime fechaDeAlta)
+        public int HaceCuantosMeses(Fecha fechaDeAlta)
         {
             int mesesTotales = 0;
-            int dias = fechaActual.Day - fechaDeAlta.Day;
-            int meses = fechaActual.Month - fechaDeAlta.Month;
-            int años = fechaActual.Year - fechaDeAlta.Year;
+            int dias = fechaActual.dia - fechaDeAlta.dia;
+            int meses = fechaActual.mes - fechaDeAlta.mes;
+            int años = fechaActual.anio - fechaDeAlta.anio;
             if (dias < 0)
             {
                 meses--;

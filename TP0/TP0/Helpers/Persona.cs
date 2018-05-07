@@ -15,10 +15,10 @@ namespace TP0.Helpers
         [JsonProperty]
         public string domicilio;
         [JsonIgnore]
-        public DateTime fechaDeAlta = new DateTime();
+        public Fecha fechaDeAlta;
         [JsonProperty]
         public string usuario;
         [JsonProperty]
-        public string contraseña;
+        public string contrasenia;
     }
 }

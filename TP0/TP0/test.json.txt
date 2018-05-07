@@ -9,17 +9,17 @@
 					"day":1
 				},
   "usuario":"nicocoen",
-  "contraseña":"nicocoen",
+  "contrasenia":"nicocoen",
   "documento" : {
                   "tipo" : "DNI",
-                  "numero" :40513128
+                  "numero" :"40513128"
                 },
-  "telefono" : 1560411723,
+  "telefono" : "1560411723",
   "categoria":{
                 "consumoMin":0,
                 "consumoMax":150,
-                "cargoFijo":18.76,
-                "cargoVariable":0.644
+                "cargoFijo":18,
+                "cargoVariable":1
               }
   ,
   "dispositivos":[
@@ -45,17 +45,17 @@
 					"day":1
 				},
   "usuario":"nachin",
-  "contraseña":"nachin",
+  "contrasenia":"nachin",
   "documento" : {
                   "tipo" : "DNI",
-                  "numero" :12345671
+                  "numero" :"12345671"
                 },
-  "telefono" : 1512345678,
+  "telefono" : "1512345678",
   "categoria":{
                 "consumoMin":0,
                 "consumoMax":150,
-                "cargoFijo":18.76,
-                "cargoVariable":0.644
+                "cargoFijo":18,
+                "cargoVariable":1
               }
   ,
   "dispositivos":[
