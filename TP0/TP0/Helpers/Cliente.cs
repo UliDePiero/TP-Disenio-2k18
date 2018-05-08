@@ -7,7 +7,7 @@ using TP0.Helpers;
 
 namespace TP0.Helpers
 {
-    public class Cliente:Usuario
+    public class Cliente : Usuario
     {
         [JsonProperty]
         public Documento documento;
@@ -23,7 +23,7 @@ namespace TP0.Helpers
         }
         public int DispositivosEncendidos()
         {
-            return dispositivos.Count(d=>d.EstaEncendido());
+            return dispositivos.Count(d => d.EstaEncendido());
         }
         public int DispositivosApagados()
         {
@@ -35,14 +35,15 @@ namespace TP0.Helpers
         }
         public float EstimarFacturacion()
         {
-            var consumo = KwTotales();
+            float consumo = KwTotales();
             return categoria.CalcularTarifa(consumo);
         }
         float KwTotales()
         {
             return dispositivos.Sum(d => d.KWxHora());
         }
-        public void ActualizarCategoria(){
+        public void ActualizarCategoria()
+        {
             
         }
     }
