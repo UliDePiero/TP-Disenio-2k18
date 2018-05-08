@@ -16,9 +16,9 @@ namespace TP0.Helpers
         public float cargoFijo;      //  $/mes
         [JsonProperty]
         public float cargoVariable;  //  $/kWh
-        public float CalcularCostoMensual(float consumo){
-            float costo = consumo * cargoVariable + cargoFijo;
-           return costo;
+        public float CalcularTarifa(float consumo)
+        {
+            return (cargoFijo + consumo * cargoVariable);
         }
         public bool PerteneceACategoria(float consumo){
             return consumoMin <= consumo && consumo <= consumoMax;

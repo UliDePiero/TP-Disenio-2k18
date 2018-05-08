@@ -19,5 +19,9 @@ namespace TP0.Helpers
         {
             return encendido;
         }
+        public float KWxHora()
+        {
+            return kWxHora;
+        }
     }
 }

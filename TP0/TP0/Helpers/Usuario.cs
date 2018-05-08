@@ -33,9 +33,14 @@ namespace TP0.Helpers
         {
             return dispositivos.Count();
         }
-        public float CalcularConsumo()
+        public float EstimarFacturacion()
         {
-            return dispositivos.Sum(d=>d.kWxHora);
+            var consumo = KwTotales();
+            return categoria.CalcularTarifa(consumo);
+        }
+        float KwTotales()
+        {
+            return dispositivos.Sum(d => d.KWxHora());
         }
         public void ActualizarCategoria(){
             
