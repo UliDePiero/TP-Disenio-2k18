@@ -9,9 +9,9 @@ namespace TP0.Helpers
     public class Categoria
     {
         [JsonProperty]
-        public int consumoMin;
+        public float consumoMin;
         [JsonProperty]
-        public int consumoMax;
+        public float consumoMax;
         [JsonProperty]
         public float cargoFijo;      //  $/mes
         [JsonProperty]
