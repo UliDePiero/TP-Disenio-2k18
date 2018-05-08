@@ -5,7 +5,7 @@ using System.Web;
 
 namespace TP0.Helpers
 {
-    public class Administrador : Persona
+    public class Administrador : Usuario
     {
         public int id;
         public FechasAdmin fAdmin;
