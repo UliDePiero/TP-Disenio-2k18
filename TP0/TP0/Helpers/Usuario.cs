@@ -15,7 +15,7 @@ namespace TP0.Helpers
         [JsonProperty]
         public string domicilio;
         [JsonIgnore]
-        public Fecha fechaDeAlta;
+        public string fechaDeAlta;
         [JsonProperty]
         public string usuario;
         [JsonProperty]

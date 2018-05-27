@@ -8,10 +8,9 @@ namespace TP0.Helpers
     public class Administrador : Usuario
     {
         public int id;
-        public FechasAdmin fAdmin;
         public int MesesQueLleva()
         {
-            return fAdmin.HaceCuantosMeses(fechaDeAlta);
+            return fAdmin.HaceCuantosMeses(DateTime.Parse(fechaDeAlta));
         }
     }
 }

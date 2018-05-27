@@ -10,37 +10,42 @@ namespace TP0.Helpers
     public class Cliente : Usuario
     {
         [JsonProperty]
-        public Documento documento;
+        public string documento;
+        [JsonProperty]
+        public string tipoDocumento;
         [JsonProperty]
         public string telefono;
         [JsonProperty]
         public Categoria categoria;
         [JsonProperty]
-        public List<Dispositivo> dispositivos;
+        public List<DispositivoEstandar> dispositivos;
+        [JsonProperty]
+        public List<DispositivoInteligente> dispositivosInteligentes;
+        [JsonProperty]
+        public int puntos;
         public bool AlgunDispositivoEncendido()
         {
-            return dispositivos.Any(d => d.EstaEncendido());
+            return dispositivosInteligentes.Any(d => d.estaEncendido());
         }
         public int DispositivosEncendidos()
         {
-            return dispositivos.Count(d => d.EstaEncendido());
+            return dispositivosInteligentes.Count(d => d.estaEncendido());
         }
         public int DispositivosApagados()
         {
-            return dispositivos.Count(d => !d.EstaEncendido());
+            return dispositivosInteligentes.Count(d => !d.estaEncendido());
         }
         public int DispositivosTotales()
         {
-            return dispositivos.Count();
+            return dispositivos.Count()+ dispositivosInteligentes.Count();
         }
+        //falta esto
         public float EstimarFacturacion()
         {
-            float consumo = KwTotales();
-            return categoria.CalcularTarifa(consumo);
+
         }
         float KwTotales()
         {
-            return dispositivos.Sum(d => d.KWxHora());
         }
         public void ActualizarCategoria()
         {

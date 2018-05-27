@@ -1,0 +1,66 @@
+[
+  {
+  "nombre":"nicolas",
+  "apellido":"coen",
+  "domicilio":"olleros 3030",
+  "fechaDeAlta":"2018-12-01",
+  "usuario":"nicocoen",
+  "contrasenia":"nicocoen",
+  "documento" : {
+                  "tipo" : "DNI",
+                  "numero" :"40513128"
+                },
+  "telefono" : "1560411723",
+  "categoria":{
+                "consumoMin":0,
+                "consumoMax":150,
+                "cargoFijo":18,
+                "cargoVariable":1
+              }
+  ,
+  "dispositivos":[
+      {
+        "nombre":"vibrador",
+        "kWxHora":10,
+        "encendido":false
+      },
+      {
+        "nombre":"compu",
+        "kWxHora":12,
+        "encendido":false
+      }
+    ]
+  },
+    {
+  "nombre":"nacho",
+  "apellido":"sara",
+  "domicilio":"por ahi",
+  "fechaDeAlta":"2010-02-30",
+  "usuario":"nachin",
+  "contrasenia":"nachin",
+  "documento" : {
+                  "tipo" : "DNI",
+                  "numero" :"12345671"
+                },
+  "telefono" : "1512345678",
+  "categoria":{
+                "consumoMin":0,
+                "consumoMax":150,
+                "cargoFijo":18,
+                "cargoVariable":1
+              }
+  ,
+  "dispositivos":[
+      {
+        "nombre":"vibrador",
+        "kWxHora":10,
+        "encendido":true
+      },
+      {
+        "nombre":"compu",
+        "kWxHora":12,
+        "encendido":false
+      }
+    ]
+  }
+]

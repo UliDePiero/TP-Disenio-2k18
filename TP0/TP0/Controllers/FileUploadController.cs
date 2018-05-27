@@ -35,7 +35,7 @@ namespace TP0.Controllers
                     {
 
                         string Json = System.IO.File.ReadAllText(path);
-                        List<Usuario> userList = JsonConvert.DeserializeObject<List<Usuario>>(Json);
+                        List<Cliente> userList = JsonConvert.DeserializeObject<List<Cliente>>(Json);
                         ViewBag.FileStatus = "Archivo cargado correctamente.";
                     }
                     catch(Exception)

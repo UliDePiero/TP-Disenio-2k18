@@ -20,7 +20,7 @@ namespace TP0.Helpers
         {
             return (cargoFijo + consumo * cargoVariable);
         }
-        public bool PerteneceACategoria(float consumo){
+        public bool PerteneceA(float consumo){
             return consumoMin <= consumo && consumo <= consumoMax;
         }
     }

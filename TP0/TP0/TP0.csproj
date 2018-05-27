@@ -199,10 +199,10 @@
     <Compile Include="Helpers\Administrador.cs" />
     <Compile Include="Helpers\Categoria.cs" />
     <Compile Include="Helpers\Cliente.cs" />
-    <Compile Include="Helpers\Fecha.cs" />
+    <Compile Include="Helpers\DispositivoInteligente.cs" />
+    <Compile Include="Helpers\Evento.cs" />
     <Compile Include="Helpers\Usuario.cs" />
-    <Compile Include="Helpers\Dispositivo.cs" />
-    <Compile Include="Helpers\Documento.cs" />
+    <Compile Include="Helpers\DispositivoEstandar.cs" />
     <Compile Include="Helpers\FechasAdmin.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\FileUploadViewModel.cs" />
@@ -276,6 +276,7 @@
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
+    <Content Include="test.json.txt" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
