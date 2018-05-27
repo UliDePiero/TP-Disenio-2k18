@@ -44,7 +44,7 @@ namespace TP0.Helpers
             float consumo = 0;
             return consumo;
         }
-        public float consumoenperiodo(DateTime finicial, DateTime ffinal)
+        public float consumoEnPeriodo(DateTime finicial, DateTime ffinal)
         {
             float consumo = 0;
             return consumo;

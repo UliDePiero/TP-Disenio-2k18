@@ -199,8 +199,11 @@
     <Compile Include="Helpers\Administrador.cs" />
     <Compile Include="Helpers\Categoria.cs" />
     <Compile Include="Helpers\Cliente.cs" />
+    <Compile Include="Helpers\Comportamiento.cs" />
     <Compile Include="Helpers\DispositivoInteligente.cs" />
     <Compile Include="Helpers\Evento.cs" />
+    <Compile Include="Helpers\Regla.cs" />
+    <Compile Include="Helpers\Sensor.cs" />
     <Compile Include="Helpers\Usuario.cs" />
     <Compile Include="Helpers\DispositivoEstandar.cs" />
     <Compile Include="Helpers\FechasAdmin.cs" />

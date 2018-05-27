@@ -18,7 +18,7 @@ namespace TP0.Helpers
         [JsonProperty]
         public Categoria categoria;
         [JsonProperty]
-        public List<DispositivoEstandar> dispositivos;
+        public List<DispositivoEstandar> dispositivosEstandares;
         [JsonProperty]
         public List<DispositivoInteligente> dispositivosInteligentes;
         [JsonProperty]
@@ -37,15 +37,16 @@ namespace TP0.Helpers
         }
         public int DispositivosTotales()
         {
-            return dispositivos.Count()+ dispositivosInteligentes.Count();
+            return dispositivosEstandares.Count()+ dispositivosInteligentes.Count();
         }
         //falta esto
         public float EstimarFacturacion()
         {
-
+            return categoria.CalcularTarifa(KwTotales());
         }
         float KwTotales()
         {
+            return dispositivosEstandares.Sum(d => d.consumoEnPeriodo(/*fechas*/))+dispositivosInteligentes.Sum(d=>d.consumo(/*fechas*/));
         }
         public void ActualizarCategoria()
         {

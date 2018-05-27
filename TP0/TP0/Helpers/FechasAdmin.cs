@@ -9,12 +9,12 @@ namespace TP0.Helpers
     {
         DateTime fechaActual = DateTime.Now;
 
-        public int HaceCuantosMeses(DateTime fechaDeAlta)
+        public int diferenciaDeMeses(DateTime fechaDeInicial, DateTime fechaFinal)
         {
             int mesesTotales = 0;
-            int dias = fechaActual.Day - fechaDeAlta.Day;
-            int meses = fechaActual.Month - fechaDeAlta.Month;
-            int años = fechaActual.Year - fechaDeAlta.Year;
+            int dias = fechaActual.Day - fechaFinal.Day;
+            int meses = fechaActual.Month - fechaFinal.Month;
+            int años = fechaActual.Year - fechaFinal.Year;
             if (dias < 0)
             {
                 meses--;

@@ -8,6 +8,7 @@ namespace TP0.Helpers
 {
     public class DispositivoEstandar
     {
+        FechasAdmin fadmin;
         [JsonProperty]
         public string nombre;
         [JsonProperty]
@@ -19,9 +20,10 @@ namespace TP0.Helpers
         {
             DispositivoInteligente convertido = new DispositivoInteligente(this);
         }
-        public float consumo()
+        public float consumoEnPeriodo(DateTime finicial, DateTime ffinal)
         {
-            return kWxHora*horasXDia;
+            int meses = fadmin.diferenciaDeMeses(finicial, ffinal);
+            return kWxHora*horasXDia*meses;
         }
     }
 }
