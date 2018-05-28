@@ -28,13 +28,19 @@ namespace TP0.Helpers
         }
         public void encender()
         {
-            Evento e = new Evento();
-            encendido = true;
-            eventos.Add(e);
+            if (encendido != true){
+                    Evento e = new Evento();
+                    encendido = true;
+                    ahorroDeEnergia = false;
+                    eventos.Add(e);
+            }
         }
         public void apagar()
         {
-            encendido = false;
+            if (encendido == true){                   
+                    encendido = false;
+                    ahorroDeEnergia = false;                    
+            }
         }
         public void ahorrarEnergia()
         {
