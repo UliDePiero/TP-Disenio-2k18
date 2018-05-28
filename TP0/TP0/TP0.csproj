@@ -196,12 +196,18 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\AdaptadorApple.cs" />
+    <Compile Include="Helpers\AdaptadorHp.cs" />
+    <Compile Include="Helpers\AdaptadorSamsung.cs" />
     <Compile Include="Helpers\Administrador.cs" />
     <Compile Include="Helpers\Categoria.cs" />
     <Compile Include="Helpers\Cliente.cs" />
     <Compile Include="Helpers\Comportamiento.cs" />
     <Compile Include="Helpers\DispositivoInteligente.cs" />
     <Compile Include="Helpers\Evento.cs" />
+    <Compile Include="Helpers\Marca_Apple.cs" />
+    <Compile Include="Helpers\Marca_Hp.cs" />
+    <Compile Include="Helpers\Marca_Samsung.cs" />
     <Compile Include="Helpers\Regla.cs" />
     <Compile Include="Helpers\Sensor.cs" />
     <Compile Include="Helpers\Usuario.cs" />

@@ -13,9 +13,10 @@ namespace TP0.Helpers
         public bool ahorroDeEnergia;
         public List<Evento> eventos;
         //hacer constructor con dispostivo estandar
-        public DispositivoInteligente(DispositivoEstandar d)
+        public DispositivoInteligente(string nom, string idnuevo)
         {
-
+            nombre = nom;
+            id = idnuevo;
         }
         public bool estaEncendido()
         {

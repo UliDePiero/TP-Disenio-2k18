@@ -8,6 +8,8 @@ namespace TP0.Helpers
 {
     public class DispositivoEstandar
     {
+        [JsonProperty]
+        public string id;
         FechasAdmin fadmin;
         [JsonProperty]
         public string nombre;
@@ -16,9 +18,22 @@ namespace TP0.Helpers
         [JsonProperty]
         public int horasXDia;
 
-        public void convertirEnInteligente()
+        public void convertirEnInteligente(string tipo)
         {
-            DispositivoInteligente convertido = new DispositivoInteligente(this);
+            DispositivoInteligente convertido;
+            switch (tipo)
+            {
+                case "Samsung":
+                    convertido = new AdaptadorSamsung(this.nombre, this.id);
+                    break;
+                case "HP":
+                    convertido = new AdaptadorHp(this.nombre, this.id);
+                    break;
+                case "Apple":
+                    convertido = new AdaptadorApple(this.nombre, this.id);
+                    break;
+
+            }
         }
         public float consumoEnPeriodo(DateTime finicial, DateTime ffinal)
         {
