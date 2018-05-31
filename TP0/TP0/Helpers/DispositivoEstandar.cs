@@ -10,7 +10,6 @@ namespace TP0.Helpers
     {
         [JsonProperty]
         public string id;
-        FechasAdmin fadmin;
         [JsonProperty]
         public string nombre;
         [JsonProperty]
@@ -35,10 +34,14 @@ namespace TP0.Helpers
 
             }
         }
-        public float consumoEnPeriodo(DateTime finicial, DateTime ffinal)
+        public void setHorasXdia(int horas)
         {
-            int meses = fadmin.diferenciaDeMeses(finicial, ffinal);
-            return kWxHora*horasXDia*meses;
+            horasXDia = horas;
+        }
+
+        public float consumo()
+        {
+            return horasXDia * kWxHora;
         }
     }
 }

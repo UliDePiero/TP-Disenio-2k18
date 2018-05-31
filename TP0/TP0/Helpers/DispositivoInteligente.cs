@@ -3,58 +3,84 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
+
 namespace TP0.Helpers
 {
     public class DispositivoInteligente
     {
+        FechasAdmin fadmin;
         public string id;
         public string nombre;
-        public bool encendido;
-        public bool ahorroDeEnergia;
+        public State Estado;
+        public float kWxHora;
         public List<Evento> eventos;
+
         //hacer constructor con dispostivo estandar
         public DispositivoInteligente(string nom, string idnuevo)
         {
             nombre = nom;
             id = idnuevo;
         }
+
+        
+
         public bool estaEncendido()
         {
-            return encendido;
+            return Estado is Encendido;
         }
         public bool estaApagado()
         {
-            return !encendido;
+            return Estado is Apagado ;
         }
         public void encender()
         {
-            if (encendido != true){
-                    Evento e = new Evento();
-                    encendido = true;
-                    ahorroDeEnergia = false;
-                    eventos.Add(e);
-            }
+            Estado.Encender();
         }
         public void apagar()
         {
-            if (encendido == true){                   
-                    encendido = false;
-                    ahorroDeEnergia = false;                    
-            }
+            Estado.Apagar();
         }
         public void ahorrarEnergia()
         {
-            ahorroDeEnergia = true;
+            Estado.AhorrarEnergia();
         }
-        public float consumoenhoras(float horas)
+        public double consumoenhoras(float horas)
         {
-            float consumo = 0;
-            return consumo;
+            
+            double hs = Estado.consumo(horas);
+            return hs * kWxHora;
         }
-        public float consumoEnPeriodo(DateTime finicial, DateTime ffinal)
+
+/*        public float consumoEnPeriodo(DateTime finicial, DateTime ffinal)
         {
-            float consumo = 0;
-            return consumo;
+            double hs = Estado.HorasEncendidoEnPeriodo(finicial, ffinal);
+            return hs * kWxHora;
         }
+        */
+
+        public List<Evento> filtrarLista(float horas)
+        {
+           return eventos.Where(x => x.horasDiferencia() <= horas).ToList();
+        }
+
+        public State siguienteEstado(int n)
+        {
+            return eventos.ElementAt(n - 1).TipoEvento;
+        }
+
+        public DateTime fechaEvento(int n)
+        {
+            return eventos.ElementAt(n).Tiempo;
+        }
+
+        
+ 
+
+        public void agregarEvento(State Estado)
+        {
+            Evento e = new Evento() { TipoEvento = Estado, Tiempo = new DateTime() };
+            eventos.Add(e);
+        }
+
     }
 }

@@ -7,7 +7,17 @@ namespace TP0.Helpers
 {
     public class Evento
     {
-        public string tipo;
-        public DateTime tiempo;
+        public State TipoEvento;
+        public DateTime Tiempo;
+
+        public double horasDiferencia()
+        {
+
+            DateTime date = new DateTime();
+            return (date - Tiempo).TotalHours;
+        }
     }
+
+   
+
 }

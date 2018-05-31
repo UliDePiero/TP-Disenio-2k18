@@ -204,6 +204,7 @@
     <Compile Include="Helpers\Cliente.cs" />
     <Compile Include="Helpers\Comportamiento.cs" />
     <Compile Include="Helpers\DispositivoInteligente.cs" />
+    <Compile Include="Helpers\Estado.cs" />
     <Compile Include="Helpers\Evento.cs" />
     <Compile Include="Helpers\Marca_Apple.cs" />
     <Compile Include="Helpers\Marca_Hp.cs" />
