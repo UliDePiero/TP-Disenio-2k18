@@ -44,10 +44,10 @@ namespace TP0.Helpers
         {
             Estado.AhorrarEnergia();
         }
-        public double consumoenhoras(float horas)
+        public double consumoEnHoras(float horas)
         {
             
-            double hs = Estado.consumo(horas);
+            double hs = Estado.consumoEnHoras(horas);
             return hs * kWxHora;
         }
 

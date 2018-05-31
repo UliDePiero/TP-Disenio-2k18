@@ -20,8 +20,8 @@ namespace TP0.Helpers
         public abstract void Encender();
         public abstract void Apagar();
         public abstract void AhorrarEnergia();
-        public abstract double consumo(float horas);
-        //public abstract float AhorrarEnergia(DateTime fInicial, DateTime fFinal);
+        public abstract double consumoEnHoras(float horas);
+        public abstract double consumoEnPeriodo(DateTime fInicial, DateTime fFinal);
         public abstract double Resta(DateTime fInicial, double acum , int cont);
     }
 
@@ -45,7 +45,7 @@ namespace TP0.Helpers
         {
             DI.Estado = new Ahorro(this);
         }
-        public override double consumo(float horas)
+        public override double consumoEnHoras(float horas)
         {
             List<Evento> eventosQueCumplenHoras = Di.filtrarLista(horas);
             double acum = 0;
@@ -61,6 +61,11 @@ namespace TP0.Helpers
             {   
                 return horas;
             }
+        }
+
+        public override float consumoEnPeriodo(DateTime fInicial, DateTime fFinal)
+        {
+
         }
 
         public override double Resta(DateTime dateIn, double acum, int n)
@@ -81,11 +86,8 @@ namespace TP0.Helpers
         }
 
 
-        /*public override float HorasEncendidoEnPeriodo(DateTime fInicial, DateTime fFinal)
-        {
 
-        }*/
-        
+
     }
 
     class Apagado : State
@@ -109,7 +111,7 @@ namespace TP0.Helpers
             DI.Estado = new Ahorro(this);
         }
 
-        public override double consumo(float horas)
+        public override double consumoEnHoras(float horas)
         {
             List<Evento> eventosQueCumplenHoras = Di.filtrarLista(horas);
             double acum = 0;
@@ -139,10 +141,10 @@ namespace TP0.Helpers
             
         }
 
-        /*public override float HorasEncendidoEnPeriodo(DateTime fInicial, DateTime fFinal)
+        public override float consumoEnPeriodo(DateTime fInicial, DateTime fFinal)
         {
 
-        }*/
+        }
 
     }
 
@@ -168,7 +170,7 @@ namespace TP0.Helpers
         public override void AhorrarEnergia() => throw new NotImplementedException();
 
 
-        public override double consumo(float horas)
+        public override double consumoEnHoras(float horas)
         {
             List<Evento> eventosQueCumplenHoras = Di.filtrarLista(horas);
             double acum = 0;
@@ -203,11 +205,11 @@ namespace TP0.Helpers
         }
 
 
-        /*public override float HorasEncendidoEnPeriodo(DateTime fInicial, DateTime fFinal)
+        public override float consumoEnPeriodo(DateTime fInicial, DateTime fFinal)
         {
 
-        }*/
-        
+        }
+
     }
 
 
