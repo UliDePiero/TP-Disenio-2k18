@@ -9,20 +9,36 @@ namespace TP0.Helpers
     {
         protected DispositivoInteligente DI;
 
+        public DateTime FechaInicial;
+        public DateTime FechaFinal;
+
         //Propiedades
         public DispositivoInteligente Di
         {
             get { return DI; }
             set { DI = value; }
         }
+        public DateTime fechaInicialEstado
+        {
+            get { return FechaInicial; }
+            set { FechaInicial = value; }
+        }
+        public DateTime fechaFinalEstado
+        {
+            get { return FechaFinal; }
+            set { FechaFinal = value; }
+        }
 
 
         public abstract void Encender();
         public abstract void Apagar();
         public abstract void AhorrarEnergia();
-        public abstract double consumoEnHoras(float horas);
-        public abstract double consumoEnPeriodo(DateTime fInicial, DateTime fFinal);
-        public abstract double Resta(DateTime fInicial, double acum , int cont);
+        public abstract double consumoEnHoras(DateTime fInicial, DateTime fFinal);
+        public abstract bool dentroDelPeriodo(DateTime fInicial, DateTime fFinal);
+        public abstract bool parteDelPeriodo(DateTime fInicial, DateTime fFinal);
+        public abstract double consumoExtremoPeriodo(DateTime fInicial, DateTime fFinal);
+
+
     }
 
     class Encendido : State
@@ -31,6 +47,8 @@ namespace TP0.Helpers
         public Encendido(State state)
         {
             DI = state.Di;
+            fechaInicialEstado = new DateTime();
+            fechaFinalEstado = new DateTime(3000, 1, 1, 0, 0, 0);
             Di.agregarEvento(state);
         }
 
@@ -38,55 +56,38 @@ namespace TP0.Helpers
 
         public override void Apagar()
         {
-            DI.Estado = new Apagado(this);
+            Di.Estado = new Apagado(this);
         }
 
         public override void AhorrarEnergia()
         {
-            DI.Estado = new Ahorro(this);
+            Di.Estado = new Ahorro(this);
         }
-        public override double consumoEnHoras(float horas)
+        public override double consumoEnHoras(DateTime fInicial, DateTime fFinal)
         {
-            List<Evento> eventosQueCumplenHoras = Di.filtrarLista(horas);
-            double acum = 0;
-            int n = eventosQueCumplenHoras.Count()-1;
-            DateTime dateIn = new DateTime();
+                double diff = (fFinal - fInicial).TotalHours;
+                return diff;
+            
+        }
 
-
-            if (n >= 0)
-            {
-               return Resta(dateIn, acum, n);
-            }
+        public override double consumoExtremoPeriodo(DateTime fInicial, DateTime fFinal)
+        {
+            if (fechaInicialEstado <= fFinal)
+                return consumoEnHoras(fechaInicialEstado, fFinal);
             else
-            {   
-                return horas;
-            }
+                return consumoEnHoras(fInicial, fechaFinalEstado);
         }
+        
 
-        public override float consumoEnPeriodo(DateTime fInicial, DateTime fFinal)
+        public override bool dentroDelPeriodo(DateTime fInicial, DateTime fFinal)
         {
-
+            return fInicial < fechaInicialEstado && fechaFinalEstado < fFinal ;
         }
 
-        public override double Resta(DateTime dateIn, double acum, int n)
+        public override bool parteDelPeriodo(DateTime fInicial, DateTime fFinal)
         {
-            if (n >= 0)
-            {
-                State SigEstado = Di.siguienteEstado(n);
-                DateTime dateF = Di.fechaEvento(n);
-                TimeSpan time = (dateIn - dateF);
-                acum += (time.TotalHours);
-
-                return SigEstado.Resta(dateF, acum, n - 1);
-            }
-            else
-            {
-                return acum;
-            }
+            return (fInicial <= fechaInicialEstado && fechaInicialEstado <= fFinal) || (fInicial <= fechaFinalEstado && fechaFinalEstado <= fFinal);
         }
-
-
-
 
     }
 
@@ -96,6 +97,8 @@ namespace TP0.Helpers
         public Apagado(State state)
         {
             DI = state.Di;
+            fechaInicialEstado = new DateTime();
+            fechaFinalEstado = new DateTime(3000, 1, 1, 0, 0, 0);
             Di.agregarEvento(state);
         }
 
@@ -111,41 +114,28 @@ namespace TP0.Helpers
             DI.Estado = new Ahorro(this);
         }
 
-        public override double consumoEnHoras(float horas)
+        public override double consumoEnHoras(DateTime fInicial, DateTime fFinal)
         {
-            List<Evento> eventosQueCumplenHoras = Di.filtrarLista(horas);
-            double acum = 0;
-            int n = eventosQueCumplenHoras.Count()-1;
-            DateTime dateIn = new DateTime();
-
-            if (n >= 0)
-            {
-                return Resta(dateIn, acum, n);
-            }
+           return 0;
+        }
+        public override double consumoExtremoPeriodo(DateTime fInicial, DateTime fFinal)
+        {
+            if (fechaInicialEstado <= fFinal)
+                return consumoEnHoras(fechaInicialEstado, fFinal);
             else
-                return 0;
+                return consumoEnHoras(fInicial, fechaFinalEstado);
         }
 
-        public override double Resta(DateTime dateIn, double acum, int n)
+
+        public override bool dentroDelPeriodo(DateTime fInicial, DateTime fFinal)
         {
-            
-            if (n >= 0)
-            {
-                State SigEstado = Di.siguienteEstado(n);
-                DateTime dateF = Di.fechaEvento(n);
-
-                return SigEstado.Resta(dateF, acum, n - 1);
-            }
-            else
-                return acum;
-            
+            return fInicial < fechaInicialEstado && fechaFinalEstado < fFinal;
         }
 
-        public override float consumoEnPeriodo(DateTime fInicial, DateTime fFinal)
+        public override bool parteDelPeriodo(DateTime fInicial, DateTime fFinal)
         {
-
+            return (fInicial <= fechaInicialEstado && fechaInicialEstado <= fFinal) || (fInicial <= fechaFinalEstado && fechaFinalEstado <= fFinal);
         }
-
     }
 
     class Ahorro : State
@@ -154,6 +144,8 @@ namespace TP0.Helpers
         public Ahorro(State state)
         {
             DI = state.Di;
+            fechaInicialEstado = new DateTime();
+            fechaFinalEstado = new DateTime(3000, 1, 1, 0, 0, 0);
             Di.agregarEvento(state);
         }
 
@@ -170,45 +162,30 @@ namespace TP0.Helpers
         public override void AhorrarEnergia() => throw new NotImplementedException();
 
 
-        public override double consumoEnHoras(float horas)
+        public override double consumoEnHoras(DateTime fInicial, DateTime fFinal)
         {
-            List<Evento> eventosQueCumplenHoras = Di.filtrarLista(horas);
-            double acum = 0;
-            int n = eventosQueCumplenHoras.Count()-1;
-            DateTime dateIn = new DateTime();
-
-            if (n >= 0)
-            { 
-                return Resta(dateIn, acum, n);
-            }
+            double diff = (fFinal - fInicial).TotalHours*1/3;
+            return diff;
+        }
+        public override double consumoExtremoPeriodo(DateTime fInicial, DateTime fFinal)
+        {
+            if (fechaInicialEstado <= fFinal)
+                return consumoEnHoras(fechaInicialEstado, fFinal);
             else
-                return horas*1/3;
+                return consumoEnHoras(fInicial, fechaFinalEstado);
         }
 
 
-        public override double Resta(DateTime dateIn, double acum, int n)
+        public override bool dentroDelPeriodo(DateTime fInicial, DateTime fFinal)
         {
-            if (n >= 0)
-            {
-                State SigEstado = Di.siguienteEstado(n);
-                DateTime dateF = Di.fechaEvento(n);
-                TimeSpan time = (dateIn - dateF);
-                acum += (time.TotalHours)/3;
-
-                return SigEstado.Resta(dateF, acum, n - 1);
-
-            }
-            else
-            {
-                return acum;
-            }
+            return fInicial < fechaInicialEstado && fechaFinalEstado < fFinal;
         }
 
-
-        public override float consumoEnPeriodo(DateTime fInicial, DateTime fFinal)
+        public override bool parteDelPeriodo(DateTime fInicial, DateTime fFinal)
         {
-
+            return (fInicial <= fechaInicialEstado && fechaInicialEstado <= fFinal) || (fInicial <= fechaFinalEstado && fechaFinalEstado <= fFinal);
         }
+
 
     }
 

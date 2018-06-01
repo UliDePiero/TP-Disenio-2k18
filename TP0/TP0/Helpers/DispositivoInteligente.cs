@@ -13,7 +13,7 @@ namespace TP0.Helpers
         public string nombre;
         public State Estado;
         public float kWxHora;
-        public List<Evento> eventos;
+        public List<State> estadosAnteriores;
 
         //hacer constructor con dispostivo estandar
         public DispositivoInteligente(string nom, string idnuevo)
@@ -46,40 +46,51 @@ namespace TP0.Helpers
         }
         public double consumoEnHoras(float horas)
         {
-            
-            double hs = Estado.consumoEnHoras(horas);
+            DateTime fFinal = new DateTime();
+            DateTime fInicial = fFinal.AddHours(-horas);
+
+            double hs = ConsumoHsTotalPeriodo(fInicial, fFinal);
             return hs * kWxHora;
         }
 
-/*        public float consumoEnPeriodo(DateTime finicial, DateTime ffinal)
-        {
-            double hs = Estado.HorasEncendidoEnPeriodo(finicial, ffinal);
-            return hs * kWxHora;
-        }
-        */
+       public double consumoEnPeriodo(DateTime finicial, DateTime ffinal)
+       { 
+       double hs = ConsumoHsTotalPeriodo(finicial, ffinal);
+       return hs * kWxHora;
+       }
+       
 
-        public List<Evento> filtrarLista(float horas)
+        public double ConsumoHsTotalPeriodo(DateTime fInicial, DateTime fFinal)
         {
-           return eventos.Where(x => x.horasDiferencia() <= horas).ToList();
+            double consumo=0;
+           List<State> CambiosEstadosDentroPeriodo = estadosAnteriores.Where(x => x.parteDelPeriodo(fInicial, fFinal)).ToList();
+
+            if (CambiosEstadosDentroPeriodo.Count() == 0)
+               return Estado.consumoEnHoras(fInicial, fFinal);
+
+            foreach (State e in CambiosEstadosDentroPeriodo)
+            {
+                if (e.dentroDelPeriodo(fInicial, fFinal))
+                    consumo += e.consumoEnHoras(fInicial, fFinal);
+
+                else
+                    consumo = e.consumoExtremoPeriodo(fInicial, fFinal);
+                
+            }
+
+            return consumo;
+
         }
 
-        public State siguienteEstado(int n)
-        {
-            return eventos.ElementAt(n - 1).TipoEvento;
-        }
-
-        public DateTime fechaEvento(int n)
-        {
-            return eventos.ElementAt(n).Tiempo;
-        }
-
-        
- 
 
         public void agregarEvento(State Estado)
         {
-            Evento e = new Evento() { TipoEvento = Estado, Tiempo = new DateTime() };
-            eventos.Add(e);
+            DateTime fechaActual = new DateTime();
+
+            if (estadosAnteriores.Count()!=0)
+            estadosAnteriores.Last().fechaFinalEstado = fechaActual;
+
+            estadosAnteriores.Add(Estado);
         }
 
     }
