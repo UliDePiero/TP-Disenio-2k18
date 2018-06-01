@@ -70,6 +70,7 @@ namespace TP0.Helpers
             
         }
 
+        //codigo repetido pq es una clase abstracta 
         public override double consumoExtremoPeriodo(DateTime fInicial, DateTime fFinal)
         {
             if (fechaInicialEstado <= fFinal)
@@ -77,8 +78,6 @@ namespace TP0.Helpers
             else
                 return consumoEnHoras(fInicial, fechaFinalEstado);
         }
-        
-
         public override bool dentroDelPeriodo(DateTime fInicial, DateTime fFinal)
         {
             return fInicial < fechaInicialEstado && fechaFinalEstado < fFinal ;
@@ -118,6 +117,8 @@ namespace TP0.Helpers
         {
            return 0;
         }
+
+        //codigo repetido pq es una clase abstracta 
         public override double consumoExtremoPeriodo(DateTime fInicial, DateTime fFinal)
         {
             if (fechaInicialEstado <= fFinal)
@@ -125,8 +126,6 @@ namespace TP0.Helpers
             else
                 return consumoEnHoras(fInicial, fechaFinalEstado);
         }
-
-
         public override bool dentroDelPeriodo(DateTime fInicial, DateTime fFinal)
         {
             return fInicial < fechaInicialEstado && fechaFinalEstado < fFinal;
@@ -167,6 +166,8 @@ namespace TP0.Helpers
             double diff = (fFinal - fInicial).TotalHours*1/3;
             return diff;
         }
+
+        //codigo repetido pq es una clase abstracta 
         public override double consumoExtremoPeriodo(DateTime fInicial, DateTime fFinal)
         {
             if (fechaInicialEstado <= fFinal)
@@ -174,8 +175,6 @@ namespace TP0.Helpers
             else
                 return consumoEnHoras(fInicial, fechaFinalEstado);
         }
-
-
         public override bool dentroDelPeriodo(DateTime fInicial, DateTime fFinal)
         {
             return fInicial < fechaInicialEstado && fechaFinalEstado < fFinal;
