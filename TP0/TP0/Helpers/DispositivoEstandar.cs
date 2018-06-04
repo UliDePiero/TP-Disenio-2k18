@@ -13,7 +13,7 @@ namespace TP0.Helpers
         [JsonProperty]
         public string nombre;
         [JsonProperty]
-        public float kWxHora;
+        public double kWxHora;
         [JsonProperty]
         public int horasXDia;
 
@@ -39,9 +39,13 @@ namespace TP0.Helpers
             horasXDia = horas;
         }
 
-        public float consumo()
+        public double consumo()
         {
             return horasXDia * kWxHora;
+        }
+        public double consumoEnPeriodo(DateTime fInicial, DateTime fFinal)
+        {
+            return fFinal.Subtract(fInicial).Days;
         }
     }
 }

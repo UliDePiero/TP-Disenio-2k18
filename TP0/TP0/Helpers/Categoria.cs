@@ -9,18 +9,18 @@ namespace TP0.Helpers
     public class Categoria
     {
         [JsonProperty]
-        public float consumoMin;
+        public double consumoMin;
         [JsonProperty]
-        public float consumoMax;
+        public double consumoMax;
         [JsonProperty]
-        public float cargoFijo;      //  $/mes
+        public double cargoFijo;      //  $/mes
         [JsonProperty]
-        public float cargoVariable;  //  $/kWh
-        public float CalcularTarifa(float consumo)
+        public double cargoVariable;  //  $/kWh
+        public double CalcularTarifa(double consumo)
         {
             return (cargoFijo + consumo * cargoVariable);
         }
-        public bool PerteneceA(float consumo){
+        public bool PerteneceA(double consumo){
             return consumoMin <= consumo && consumo <= consumoMax;
         }
     }

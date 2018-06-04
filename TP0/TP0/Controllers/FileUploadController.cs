@@ -54,16 +54,4 @@ namespace TP0.Controllers
         }
     }
 
-
-    /* if (file != null && file.ContentLength > 0)
-     {
-         string fileName = Path.GetFileName(file.FileName);
-         string f = Server.MapPath(fileName);
-         string Json = System.IO.File.ReadAllText(f);
-         List<Cliente> userList = JsonConvert.DeserializeObject<List<Cliente>>(Json);
-         //return View(userList);
-     }
-     // redirect back to the index action to show the form once again
-         return RedirectToAction("Index");
- */
 }

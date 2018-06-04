@@ -40,13 +40,13 @@ namespace TP0.Helpers
             return dispositivosEstandares.Count()+ dispositivosInteligentes.Count();
         }
         //falta esto
-        public float EstimarFacturacion()
+        public double EstimarFacturacion(DateTime fInicial, DateTime fFinal)
         {
-            return categoria.CalcularTarifa(KwTotales());
+            return categoria.CalcularTarifa(KwTotales(fInicial, fFinal));
         }
-        float KwTotales()
+        double KwTotales(DateTime fInicial, DateTime fFinal)
         {
-            return dispositivosEstandares.Sum(d => d.consumoEnPeriodo(/*fechas*/))+dispositivosInteligentes.Sum(d=>d.consumo(/*fechas*/));
+            return dispositivosEstandares.Sum(d => d.consumoEnPeriodo(fInicial, fFinal))+dispositivosInteligentes.Sum(d=>d.consumoEnPeriodo(fInicial, fFinal));
         }
         public void ActualizarCategoria()
         {

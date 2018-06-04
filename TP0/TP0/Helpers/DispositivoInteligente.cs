@@ -12,7 +12,7 @@ namespace TP0.Helpers
         public string id;
         public string nombre;
         public State Estado;
-        public float kWxHora;
+        public double kWxHora;
         public List<State> estadosAnteriores;
 
         //hacer constructor con dispostivo estandar
@@ -21,9 +21,7 @@ namespace TP0.Helpers
             nombre = nom;
             id = idnuevo;
         }
-
         
-
         public bool estaEncendido()
         {
             return Estado is Encendido;
@@ -44,7 +42,7 @@ namespace TP0.Helpers
         {
             Estado.AhorrarEnergia();
         }
-        public double consumoEnHoras(float horas)
+        public double consumoEnHoras(double horas)
         {
             DateTime fFinal = new DateTime();
             DateTime fInicial = fFinal.AddHours(-horas);
@@ -55,8 +53,8 @@ namespace TP0.Helpers
 
        public double consumoEnPeriodo(DateTime finicial, DateTime ffinal)
        { 
-       double hs = ConsumoHsTotalPeriodo(finicial, ffinal);
-       return hs * kWxHora;
+           double hs = ConsumoHsTotalPeriodo(finicial, ffinal);
+           return hs * kWxHora;
        }
        
 
