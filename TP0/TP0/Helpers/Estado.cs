@@ -67,7 +67,6 @@ namespace TP0.Helpers
         {
                 double diff = (fFinal - fInicial).TotalHours;
                 return diff;
-            
         }
 
         //codigo repetido pq es una clase abstracta 

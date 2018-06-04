@@ -63,7 +63,7 @@ namespace TP0.Helpers
         public double ConsumoHsTotalPeriodo(DateTime fInicial, DateTime fFinal)
         {
             double consumo=0;
-           List<State> CambiosEstadosDentroPeriodo = estadosAnteriores.Where(x => x.parteDelPeriodo(fInicial, fFinal)).ToList();
+            List<State> CambiosEstadosDentroPeriodo = estadosAnteriores.Where(x => x.parteDelPeriodo(fInicial, fFinal)).ToList();
 
             if (CambiosEstadosDentroPeriodo.Count() == 0)
                return Estado.consumoEnHoras(fInicial, fFinal);
@@ -79,7 +79,6 @@ namespace TP0.Helpers
             }
 
             return consumo;
-
         }
 
 
