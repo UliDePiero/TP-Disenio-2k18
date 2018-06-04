@@ -5,40 +5,45 @@ using System.Web;
 
 namespace TP0.Helpers
 {
-    public abstract class State
+    public class State
     {
-        protected DispositivoInteligente DI;
-
+        public DispositivoInteligente DI;
         public DateTime FechaInicial;
         public DateTime FechaFinal;
 
-        //Propiedades
-        public DispositivoInteligente Di
+        public void Encender() => throw new NotImplementedException();
+
+        public void Apagar()
         {
-            get { return DI; }
-            set { DI = value; }
-        }
-        public DateTime fechaInicialEstado
-        {
-            get { return FechaInicial; }
-            set { FechaInicial = value; }
-        }
-        public DateTime fechaFinalEstado
-        {
-            get { return FechaFinal; }
-            set { FechaFinal = value; }
+            DI.Estado = new Apagado(this);
         }
 
+        public void AhorrarEnergia()
+        {
+            DI.Estado = new Ahorro(this);
+        }
+        
+        public double consumoEnHoras(DateTime fInicial, DateTime fFinal)
+        {
+            double diff = (fFinal - fInicial).TotalHours;
+            return diff;
+        }
+        public double consumoExtremoPeriodo(DateTime fInicial, DateTime fFinal)
+        {
+            if (FechaInicial <= fFinal)
+                return consumoEnHoras(FechaInicial, fFinal);
+            else
+                return consumoEnHoras(fInicial, FechaFinal);
+        }
+        public bool dentroDelPeriodo(DateTime fInicial, DateTime fFinal)
+        {
+            return fInicial < FechaInicial && FechaFinal < fFinal;
+        }
 
-        public abstract void Encender();
-        public abstract void Apagar();
-        public abstract void AhorrarEnergia();
-        public abstract double consumoEnHoras(DateTime fInicial, DateTime fFinal);
-        public abstract bool dentroDelPeriodo(DateTime fInicial, DateTime fFinal);
-        public abstract bool parteDelPeriodo(DateTime fInicial, DateTime fFinal);
-        public abstract double consumoExtremoPeriodo(DateTime fInicial, DateTime fFinal);
-
-
+        public bool parteDelPeriodo(DateTime fInicial, DateTime fFinal)
+        {
+            return (fInicial <= FechaInicial && FechaInicial <= fFinal) || (fInicial <= FechaFinal && FechaFinal <= fFinal);
+        }
     }
 
     class Encendido : State
@@ -46,93 +51,39 @@ namespace TP0.Helpers
         // Constructor
         public Encendido(State state)
         {
-            DI = state.Di;
-            fechaInicialEstado = new DateTime();
-            fechaFinalEstado = new DateTime(3000, 1, 1, 0, 0, 0);
-            Di.agregarEvento(state);
+            DI = state.DI;
+            FechaInicial = new DateTime();
+            FechaFinal = new DateTime(3000, 1, 1, 0, 0, 0);
+            DI.agregarEvento(state);
         }
-
-        public override void Encender() => throw new NotImplementedException();
-
-        public override void Apagar()
-        {
-            Di.Estado = new Apagado(this);
-        }
-
-        public override void AhorrarEnergia()
-        {
-            Di.Estado = new Ahorro(this);
-        }
-        public override double consumoEnHoras(DateTime fInicial, DateTime fFinal)
-        {
-                double diff = (fFinal - fInicial).TotalHours;
-                return diff;
-        }
-
-        //codigo repetido pq es una clase abstracta 
-        public override double consumoExtremoPeriodo(DateTime fInicial, DateTime fFinal)
-        {
-            if (fechaInicialEstado <= fFinal)
-                return consumoEnHoras(fechaInicialEstado, fFinal);
-            else
-                return consumoEnHoras(fInicial, fechaFinalEstado);
-        }
-        public override bool dentroDelPeriodo(DateTime fInicial, DateTime fFinal)
-        {
-            return fInicial < fechaInicialEstado && fechaFinalEstado < fFinal ;
-        }
-
-        public override bool parteDelPeriodo(DateTime fInicial, DateTime fFinal)
-        {
-            return (fInicial <= fechaInicialEstado && fechaInicialEstado <= fFinal) || (fInicial <= fechaFinalEstado && fechaFinalEstado <= fFinal);
-        }
-
-    }
+     }
 
     class Apagado : State
     {
         // Constructor
         public Apagado(State state)
         {
-            DI = state.Di;
-            fechaInicialEstado = new DateTime();
-            fechaFinalEstado = new DateTime(3000, 1, 1, 0, 0, 0);
-            Di.agregarEvento(state);
+            DI = state.DI;
+            FechaInicial = new DateTime();
+            FechaFinal = new DateTime(3000, 1, 1, 0, 0, 0);
+            DI.agregarEvento(state);
         }
 
-        public override void Encender()
+        public new void Encender()
         {
             DI.Estado = new Encendido(this);
         }
 
-        public override void Apagar() => throw new NotImplementedException();
+        public new void Apagar() => throw new NotImplementedException();
 
-        public override void AhorrarEnergia()
+        public new void AhorrarEnergia()
         {
             DI.Estado = new Ahorro(this);
         }
 
-        public override double consumoEnHoras(DateTime fInicial, DateTime fFinal)
+        public new double consumoEnHoras(DateTime fInicial, DateTime fFinal)
         {
            return 0;
-        }
-
-        //codigo repetido pq es una clase abstracta 
-        public override double consumoExtremoPeriodo(DateTime fInicial, DateTime fFinal)
-        {
-            if (fechaInicialEstado <= fFinal)
-                return consumoEnHoras(fechaInicialEstado, fFinal);
-            else
-                return consumoEnHoras(fInicial, fechaFinalEstado);
-        }
-        public override bool dentroDelPeriodo(DateTime fInicial, DateTime fFinal)
-        {
-            return fInicial < fechaInicialEstado && fechaFinalEstado < fFinal;
-        }
-
-        public override bool parteDelPeriodo(DateTime fInicial, DateTime fFinal)
-        {
-            return (fInicial <= fechaInicialEstado && fechaInicialEstado <= fFinal) || (fInicial <= fechaFinalEstado && fechaFinalEstado <= fFinal);
         }
     }
 
@@ -141,51 +92,28 @@ namespace TP0.Helpers
         // Constructor
         public Ahorro(State state)
         {
-            DI = state.Di;
-            fechaInicialEstado = new DateTime();
-            fechaFinalEstado = new DateTime(3000, 1, 1, 0, 0, 0);
-            Di.agregarEvento(state);
+            DI = state.DI;
+            FechaInicial = new DateTime();
+            FechaFinal = new DateTime(3000, 1, 1, 0, 0, 0);
+            DI.agregarEvento(state);
         }
 
-        public override void Encender()
+        public new void Encender()
         {
             DI.Estado = new Encendido(this);
         }
 
-        public override void Apagar()
+        public new void Apagar()
         {
             DI.Estado = new Apagado(this);
         }
 
-        public override void AhorrarEnergia() => throw new NotImplementedException();
+        public new void AhorrarEnergia() => throw new NotImplementedException();
 
-
-        public override double consumoEnHoras(DateTime fInicial, DateTime fFinal)
+        public new double consumoEnHoras(DateTime fInicial, DateTime fFinal)
         {
             double diff = (fFinal - fInicial).TotalHours*1/3;
             return diff;
         }
-
-        //codigo repetido pq es una clase abstracta 
-        public override double consumoExtremoPeriodo(DateTime fInicial, DateTime fFinal)
-        {
-            if (fechaInicialEstado <= fFinal)
-                return consumoEnHoras(fechaInicialEstado, fFinal);
-            else
-                return consumoEnHoras(fInicial, fechaFinalEstado);
-        }
-        public override bool dentroDelPeriodo(DateTime fInicial, DateTime fFinal)
-        {
-            return fInicial < fechaInicialEstado && fechaFinalEstado < fFinal;
-        }
-
-        public override bool parteDelPeriodo(DateTime fInicial, DateTime fFinal)
-        {
-            return (fInicial <= fechaInicialEstado && fechaInicialEstado <= fFinal) || (fInicial <= fechaFinalEstado && fechaFinalEstado <= fFinal);
-        }
-
-
     }
-
-
 }

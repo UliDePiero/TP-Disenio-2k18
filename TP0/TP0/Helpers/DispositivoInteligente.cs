@@ -87,7 +87,7 @@ namespace TP0.Helpers
             DateTime fechaActual = new DateTime();
 
             if (estadosAnteriores.Count()!=0)
-            estadosAnteriores.Last().fechaFinalEstado = fechaActual;
+            estadosAnteriores.Last().FechaFinal = fechaActual;
 
             estadosAnteriores.Add(Estado);
         }
