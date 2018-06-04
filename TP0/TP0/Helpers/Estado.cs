@@ -15,11 +15,13 @@ namespace TP0.Helpers
 
         public void Apagar()
         {
+            FechaFinal = new DateTime();
             DI.Estado = new Apagado(this);
         }
 
         public void AhorrarEnergia()
         {
+            FechaFinal = new DateTime();
             DI.Estado = new Ahorro(this);
         }
         
@@ -52,7 +54,7 @@ namespace TP0.Helpers
         public Encendido(State state)
         {
             DI = state.DI;
-            FechaInicial = new DateTime();
+            FechaInicial = state.FechaFinal;
             FechaFinal = new DateTime(3000, 1, 1, 0, 0, 0);
             DI.agregarEvento(state);
         }
@@ -64,13 +66,14 @@ namespace TP0.Helpers
         public Apagado(State state)
         {
             DI = state.DI;
-            FechaInicial = new DateTime();
+            FechaInicial = state.FechaFinal;
             FechaFinal = new DateTime(3000, 1, 1, 0, 0, 0);
             DI.agregarEvento(state);
         }
 
         public new void Encender()
         {
+            FechaFinal = new DateTime();
             DI.Estado = new Encendido(this);
         }
 
@@ -78,6 +81,7 @@ namespace TP0.Helpers
 
         public new void AhorrarEnergia()
         {
+            FechaFinal = new DateTime();
             DI.Estado = new Ahorro(this);
         }
 
@@ -93,18 +97,20 @@ namespace TP0.Helpers
         public Ahorro(State state)
         {
             DI = state.DI;
-            FechaInicial = new DateTime();
+            FechaInicial = state.FechaFinal;
             FechaFinal = new DateTime(3000, 1, 1, 0, 0, 0);
             DI.agregarEvento(state);
         }
 
         public new void Encender()
         {
+            FechaFinal = new DateTime();
             DI.Estado = new Encendido(this);
         }
 
         public new void Apagar()
         {
+            FechaFinal = new DateTime();
             DI.Estado = new Apagado(this);
         }
 
