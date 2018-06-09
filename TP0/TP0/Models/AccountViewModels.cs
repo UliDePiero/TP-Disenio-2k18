@@ -70,6 +70,31 @@ namespace TP0.Models
         public string Email { get; set; }
 
         [Required]
+        [Display(Name = "Nombre")]
+        public string nombre { get; set; }
+
+        [Required]
+        [Display(Name = "Apellido")]
+        public string apellido { get; set; }
+
+        [Required]
+        [Display(Name = "Domicilio")]
+        public string domicilio { get; set; }
+
+        [Required]
+        [Display(Name = "Documento")]
+        public double documento { get; set; }
+        [Required]
+        [Display(Name = "Tipo Documento")]
+        public string tipo { get; set; }
+
+        [Required]
+        [Display(Name = "Telefono")]
+        public double telefono { get; set; }
+
+
+
+        [Required]
         [StringLength(100, ErrorMessage = "El número de caracteres de {0} debe ser al menos {2}.", MinimumLength = 1)]
         [DataType(DataType.Password)]
         [Display(Name = "Contraseña")]

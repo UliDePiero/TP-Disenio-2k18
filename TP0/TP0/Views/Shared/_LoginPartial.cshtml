@@ -9,6 +9,7 @@
     <li>
         @Html.ActionLink("Hola " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
     </li>
+
     <li>@Html.ActionLink("Detalles de usuario", "About", "Home")</li>
     <li>@Html.ActionLink("Administrar dispositivos", "Contact", "Home")</li>
     <li>@Html.ActionLink("Cargar Info", "Index", "FileUpload")</li>

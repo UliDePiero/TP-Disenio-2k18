@@ -9,6 +9,8 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using TP0.Models;
+using TP0.Helpers;
+using System.Web.UI;
 
 namespace TP0.Controllers
 {
@@ -152,7 +154,12 @@ namespace TP0.Controllers
             if (ModelState.IsValid)
             {
                 var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                Usuario usu = new Usuario(model.nombre,model.apellido, model.domicilio,DateTime.Today, model.Email, model.ConfirmPassword);
+                Cliente cliente = new Cliente(usu, model.documento, model.tipo, model.telefono);
                 var result = await UserManager.CreateAsync(user, model.Password);
+            
+               
+
                 if (result.Succeeded)
                 {
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);

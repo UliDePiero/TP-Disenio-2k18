@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using System;
+using System.Activities.Expressions;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -9,12 +10,13 @@ namespace TP0.Helpers
 {
     public class Cliente : Usuario
     {
+
         [JsonProperty]
-        public string documento;
+        public double documento;
         [JsonProperty]
         public string tipoDocumento;
         [JsonProperty]
-        public string telefono;
+        public double telefono;
         [JsonProperty]
         public Categoria categoria;
         [JsonProperty]
@@ -23,6 +25,22 @@ namespace TP0.Helpers
         public List<DispositivoInteligente> dispositivosInteligentes;
         [JsonProperty]
         public int puntos;
+
+        public Cliente(Usuario u, double doc, string tipo, double tel):base(u)
+        {
+            this.nombre = u.nombre;
+            this.apellido = u.apellido;
+            this.domicilio = u.domicilio;
+            this.usuario = u.usuario;
+            this.contrasenia = u.contrasenia;
+
+            this.documento = doc;
+            this.tipoDocumento = tipo;
+            this.telefono = tel;
+                  
+        }
+         
+
 
         public bool AlgunDispositivoEncendido()
         {

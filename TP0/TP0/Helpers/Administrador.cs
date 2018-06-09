@@ -15,10 +15,15 @@ namespace TP0.Helpers
         [JsonProperty]
         public int id;
 
-    
+        public Administrador (Usuario u, FechasAdmin fAdmin, int id) : base (u)
+        {
+            this.fAdmin = fAdmin;
+            this.id = id;
+        }
+
         public int MesesQueLleva()
         {
-            return fAdmin.diferenciaDeMeses(DateTime.Parse(fechaDeAlta), DateTime.Now);
+            return fAdmin.diferenciaDeMeses(fechaDeAlta, DateTime.Now);
         }
     }
 }

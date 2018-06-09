@@ -7,17 +7,17 @@ namespace TP0.Helpers
 {
     public class Regla
     {
-        Actuador actuador;
-        public bool seCumple;
-        public float valorMax;
-        public float valorMin;
-        public void notificar(float valor)
+        public List<Comportamiento> comportamientos;
+        public void chequearComportamientos()
         {
-            if (valor >= valorMin && valor <= valorMax)
+            if (comportamientos.All(c=>c.seCumple))
             {
-                seCumple = true;
+                ejecutarRegla();
             }
-            actuador.verificarRegla();
+        }
+        public void ejecutarRegla()
+        {
+            //faltan actuadores
         }
     }
 }
