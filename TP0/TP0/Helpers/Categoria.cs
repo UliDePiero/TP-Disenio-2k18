@@ -16,10 +16,12 @@ namespace TP0.Helpers
         public double cargoFijo;      //  $/mes
         [JsonProperty]
         public double cargoVariable;  //  $/kWh
+
         public double CalcularTarifa(double consumo)
         {
             return (cargoFijo + consumo * cargoVariable);
         }
+
         public bool PerteneceA(double consumo){
             return consumoMin <= consumo && consumo <= consumoMax;
         }

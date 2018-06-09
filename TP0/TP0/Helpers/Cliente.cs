@@ -23,6 +23,7 @@ namespace TP0.Helpers
         public List<DispositivoInteligente> dispositivosInteligentes;
         [JsonProperty]
         public int puntos;
+
         public bool AlgunDispositivoEncendido()
         {
             return dispositivosInteligentes.Any(d => d.estaEncendido());

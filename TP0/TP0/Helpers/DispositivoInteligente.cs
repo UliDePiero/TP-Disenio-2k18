@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -8,20 +9,36 @@ namespace TP0.Helpers
 {
     public class DispositivoInteligente
     {
+        [JsonProperty]
         FechasAdmin fadmin;
+        [JsonProperty]
         public string id;
+        [JsonProperty]
         public string nombre;
+        [JsonProperty]
         public State Estado;
+        [JsonProperty]
         public double kWxHora;
+        [JsonProperty]
         public List<State> estadosAnteriores;
+        private string nom;
+        private string idnuevo;
 
         //hacer constructor con dispostivo estandar
+        public DispositivoInteligente(string nom, string idnuevo, Cliente cliente)
+        {
+            DispositivoInteligente di = new DispositivoInteligente(nom, idnuevo, cliente);
+            di.kWxHora = 0;
+            cliente.dispositivosInteligentes.Add(di);         
+
+        }
+
         public DispositivoInteligente(string nom, string idnuevo)
         {
-            nombre = nom;
-            id = idnuevo;
+            this.nom = nom;
+            this.idnuevo = idnuevo;
         }
-        
+
         public bool estaEncendido()
         {
             return Estado is Encendido;
