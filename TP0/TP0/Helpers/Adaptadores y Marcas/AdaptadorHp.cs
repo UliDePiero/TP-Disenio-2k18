@@ -11,8 +11,10 @@ namespace TP0.Helpers
         {
         }
 
+        /*
         public AdaptadorHp(string nom, string idnuevo, Cliente cliente) : base(nom, idnuevo, cliente)
         {
         }
+        */
     }
 }
