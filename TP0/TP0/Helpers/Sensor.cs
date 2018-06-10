@@ -19,7 +19,7 @@ namespace TP0.Helpers
         }
         public void notificar()
         {
-            observers.ForEach(o => o.notificar(valor));
+            observers.ForEach(o => o.Notificar(valor));
         }
     }
 }

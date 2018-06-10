@@ -17,7 +17,7 @@ namespace TP0.Helpers
         }
         public void ejecutarRegla()
         {
-            
+            //Metodo para ejecutar la regla
         }
     }
 }

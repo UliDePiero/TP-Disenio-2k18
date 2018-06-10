@@ -11,13 +11,18 @@ namespace TP0.Helpers
         public bool seCumple;
         public float valorMax;
         public float valorMin;
-        public void notificar(float valor)
+        public void Notificar(float valor)
         {
+            seCumple = false;
             if (valor >= valorMin && valor <= valorMax)
             {
                 seCumple = true;
             }
             actuador.verificarRegla();
+        }
+        public bool ChequearComportamiento()
+        {
+            return seCumple;
         }
     }
 }
