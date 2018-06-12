@@ -5,121 +5,160 @@ using System.Web;
 
 namespace TP0.Helpers
 {
-    public class State
+    public abstract class State
     {
-        public DispositivoInteligente DI;
+        public FechasAdmin fAdmin;
         public DateTime FechaInicial;
         public DateTime FechaFinal;
 
-        public void Encender() => throw new NotImplementedException();
+        public abstract void Encender(DispositivoInteligente dips);
 
-        public void Apagar()
+        public abstract void Apagar(DispositivoInteligente dips);
+
+        public abstract void AhorrarEnergia(DispositivoInteligente dips);
+
+        public abstract double consumoEnHoras(DateTime fInicial, DateTime fFinal);
+
+        public abstract double consumoExtremoPeriodo(DateTime fInicial, DateTime fFinal);
+
+        public abstract bool dentroDelPeriodo(DateTime fInicial, DateTime fFinal);
+
+        public abstract bool parteDelPeriodo(DateTime fInicial, DateTime fFinal);
+
+    }
+
+        class Encendido : State
+    {
+        // Constructor
+        public Encendido()
+        {
+            FechaInicial = new DateTime();
+            FechaFinal = new DateTime(3000, 1, 1, 0, 0, 0);
+        }
+        public override void Encender(DispositivoInteligente dips) => throw new NotImplementedException();
+
+        public override void Apagar(DispositivoInteligente dips)
         {
             FechaFinal = new DateTime();
-            DI.Estado = new Apagado(this);
+            dips.agregarEstado(new Apagado());
         }
 
-        public void AhorrarEnergia()
+        public override void AhorrarEnergia(DispositivoInteligente dips)
         {
             FechaFinal = new DateTime();
-            DI.Estado = new Ahorro(this);
+            dips.agregarEstado(new Ahorro());
         }
-        
-        public double consumoEnHoras(DateTime fInicial, DateTime fFinal)
+
+        public override double consumoEnHoras(DateTime fInicial, DateTime fFinal)
         {
             double diff = (fFinal - fInicial).TotalHours;
             return diff;
         }
-        public double consumoExtremoPeriodo(DateTime fInicial, DateTime fFinal)
+
+        public override double consumoExtremoPeriodo(DateTime fInicial, DateTime fFinal)
         {
-            if (FechaInicial <= fFinal)
-                return consumoEnHoras(FechaInicial, fFinal);
-            else
-                return consumoEnHoras(fInicial, FechaFinal);
-        }
-        public bool dentroDelPeriodo(DateTime fInicial, DateTime fFinal)
-        {
-            return fInicial < FechaInicial && FechaFinal < fFinal;
+               return fAdmin.consumoExtremoPeriodo(fInicial, fFinal, this);
         }
 
-        public bool parteDelPeriodo(DateTime fInicial, DateTime fFinal)
+        public override bool dentroDelPeriodo(DateTime fInicial, DateTime fFinal)
         {
-            return (fInicial <= FechaInicial && FechaInicial <= fFinal) || (fInicial <= FechaFinal && FechaFinal <= fFinal);
+                return fAdmin.dentroDelPeriodo(fInicial, fFinal, this);
         }
-    }
 
-    class Encendido : State
-    {
-        // Constructor
-        public Encendido(State state)
+        public override bool parteDelPeriodo(DateTime fInicial, DateTime fFinal)
         {
-            DI = state.DI;
-            FechaInicial = state.FechaFinal;
-            FechaFinal = new DateTime(3000, 1, 1, 0, 0, 0);
-            DI.agregarEvento(state);
+                return fAdmin.parteDelPeriodo(fInicial, fFinal, this);
         }
-     }
+            
+        }
 
     class Apagado : State
     {
         // Constructor
-        public Apagado(State state)
+        public Apagado()
         {
-            DI = state.DI;
-            FechaInicial = state.FechaFinal;
+            FechaInicial = new DateTime();
             FechaFinal = new DateTime(3000, 1, 1, 0, 0, 0);
-            DI.agregarEvento(state);
-        }
+            }
 
-        public new void Encender()
+        public override void Encender(DispositivoInteligente dips)
         {
             FechaFinal = new DateTime();
-            DI.Estado = new Encendido(this);
-        }
+            dips.agregarEstado(new Encendido());
+            }
 
-        public new void Apagar() => throw new NotImplementedException();
+        public override void Apagar(DispositivoInteligente dips) => throw new NotImplementedException();
 
-        public new void AhorrarEnergia()
+        public override void AhorrarEnergia(DispositivoInteligente dips)
         {
             FechaFinal = new DateTime();
-            DI.Estado = new Ahorro(this);
-        }
+            dips.agregarEstado(new Ahorro());
+            }
 
-        public new double consumoEnHoras(DateTime fInicial, DateTime fFinal)
+        public override double consumoEnHoras(DateTime fInicial, DateTime fFinal)
         {
            return 0;
         }
-    }
+        public override double consumoExtremoPeriodo(DateTime fInicial, DateTime fFinal)
+        {
+           return fAdmin.consumoExtremoPeriodo(fInicial, fFinal, this);
+        }
+
+        public override bool dentroDelPeriodo(DateTime fInicial, DateTime fFinal)
+        {
+           return fAdmin.dentroDelPeriodo(fInicial, fFinal, this);
+        }
+
+        public override bool parteDelPeriodo(DateTime fInicial, DateTime fFinal)
+        {
+           return fAdmin.parteDelPeriodo(fInicial, fFinal, this);
+        }
+
+        }
 
     class Ahorro : State
     {
         // Constructor
-        public Ahorro(State state)
+        public Ahorro()
         {
-            DI = state.DI;
-            FechaInicial = state.FechaFinal;
+            FechaInicial = new DateTime();
             FechaFinal = new DateTime(3000, 1, 1, 0, 0, 0);
-            DI.agregarEvento(state);
         }
 
-        public new void Encender()
+        public override void Encender(DispositivoInteligente dips)
         {
             FechaFinal = new DateTime();
-            DI.Estado = new Encendido(this);
+            dips.agregarEstado(new Encendido());
         }
 
-        public new void Apagar()
+        public override void Apagar(DispositivoInteligente dips)
         {
             FechaFinal = new DateTime();
-            DI.Estado = new Apagado(this);
+            dips.agregarEstado(new Apagado());
         }
 
-        public new void AhorrarEnergia() => throw new NotImplementedException();
+        public override void AhorrarEnergia(DispositivoInteligente dips) => throw new NotImplementedException();
 
-        public new double consumoEnHoras(DateTime fInicial, DateTime fFinal)
+        public override double consumoEnHoras(DateTime fInicial, DateTime fFinal)
         {
             double diff = (fFinal - fInicial).TotalHours*1/3;
             return diff;
         }
-    }
+
+        public override double consumoExtremoPeriodo(DateTime fInicial, DateTime fFinal)
+        {
+           return fAdmin.consumoExtremoPeriodo(fInicial, fFinal, this);
+        }
+
+        public override bool dentroDelPeriodo(DateTime fInicial, DateTime fFinal)
+        {
+           return fAdmin.dentroDelPeriodo(fInicial, fFinal, this);
+        }
+
+        public override bool parteDelPeriodo(DateTime fInicial, DateTime fFinal)
+        {
+           return fAdmin.parteDelPeriodo(fInicial, fFinal, this);
+         }
+
+        }
 }

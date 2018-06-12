@@ -42,61 +42,34 @@ namespace TP0.Helpers
         }
         public void encender()
         {
-            Estado.Encender();
+            Estado.Encender(this);
         }
         public void apagar()
         {
-            Estado.Apagar();
+            Estado.Apagar(this);
         }
         public void ahorrarEnergia()
         {
-            Estado.AhorrarEnergia();
+            Estado.AhorrarEnergia(this);
         }
         public double consumoEnHoras(double horas)
         {
             DateTime fFinal = new DateTime();
             DateTime fInicial = fFinal.AddHours(-horas);
 
-            double hs = ConsumoHsTotalPeriodo(fInicial, fFinal);
+            double hs = fadmin.ConsumoHsTotalPeriodo(fInicial, fFinal, estadosAnteriores);
             return hs * kWxHora;
         }
 
        public double consumoEnPeriodo(DateTime finicial, DateTime ffinal)
        { 
-           double hs = ConsumoHsTotalPeriodo(finicial, ffinal);
+           double hs = fadmin.ConsumoHsTotalPeriodo(finicial, ffinal, estadosAnteriores);
            return hs * kWxHora;
        }
-       
 
-        public double ConsumoHsTotalPeriodo(DateTime fInicial, DateTime fFinal)
+          public void agregarEstado(State stado)
         {
-            double consumo=0;
-            List<State> CambiosEstadosDentroPeriodo = estadosAnteriores.Where(x => x.parteDelPeriodo(fInicial, fFinal)).ToList();
-
-            if (CambiosEstadosDentroPeriodo.Count() == 0)
-               return Estado.consumoEnHoras(fInicial, fFinal);
-
-            foreach (State e in CambiosEstadosDentroPeriodo)
-            {
-                if (e.dentroDelPeriodo(fInicial, fFinal))
-                    consumo += e.consumoEnHoras(fInicial, fFinal);
-
-                else
-                    consumo = e.consumoExtremoPeriodo(fInicial, fFinal);
-                
-            }
-
-            return consumo;
-        }
-
-
-        public void agregarEvento(State Estado)
-        {
-            DateTime fechaActual = new DateTime();
-
-            if (estadosAnteriores.Count()!=0)
-            estadosAnteriores.Last().FechaFinal = fechaActual;
-
+            Estado = stado;
             estadosAnteriores.Add(Estado);
         }
 
