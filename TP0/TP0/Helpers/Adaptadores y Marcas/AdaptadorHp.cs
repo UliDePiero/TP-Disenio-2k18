@@ -7,8 +7,12 @@ namespace TP0.Helpers
 {
     public class AdaptadorHp : DispositivoInteligente
     {
-        public AdaptadorHp(string nom, string idnuevo, double kWxHoraNuevo) : base(nom, idnuevo, kWxHoraNuevo)
+        public AdaptadorHp(string nom, string idnuevo, double kWxHoraNuevo, Cliente cliente) : base(nom, idnuevo, kWxHoraNuevo, cliente)
         {
+            kWxHora = kWxHoraNuevo;
+            nombre = nom;
+            id = idnuevo;
+            cliente.adaptarDispositivo(this);
         }
 
         /*

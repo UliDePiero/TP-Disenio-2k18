@@ -73,6 +73,13 @@ namespace TP0.Helpers
 
         }
 
+        public void adaptarDispositivo(DispositivoInteligente DI)
+        {
+            dispositivosInteligentes.Add(DI);
+            puntos += 10;
+
+        }
+
         public void ActualizarCategoria()
         {
             
