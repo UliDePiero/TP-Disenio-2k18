@@ -66,6 +66,13 @@ namespace TP0.Helpers
         {
             return dispositivosEstandares.Sum(d => d.consumoEnPeriodo(fInicial, fFinal))+dispositivosInteligentes.Sum(d=>d.consumoEnPeriodo(fInicial, fFinal));
         }
+        public void agregarDispInteligente(DispositivoInteligente DI)
+        {
+            dispositivosInteligentes.Add(DI);
+            puntos += 15;
+
+        }
+
         public void ActualizarCategoria()
         {
             

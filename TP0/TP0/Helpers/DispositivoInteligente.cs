@@ -26,10 +26,10 @@ namespace TP0.Helpers
 
         public DispositivoInteligente(string nom, string idnuevo, double kWxHoraNuevo, Cliente cliente)
         {
-            this.kWxHora = kWxHoraNuevo;
-            this.nombre = nom;
-            this.id = idnuevo;
-            cliente.dispositivosInteligentes.Add(this);
+            kWxHora = kWxHoraNuevo;
+            nombre = nom;
+            id = idnuevo;
+            cliente.agregarDispInteligente(this);
         }
 
         public bool estaEncendido()
