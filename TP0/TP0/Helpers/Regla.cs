@@ -5,24 +5,20 @@ using System.Web;
 
 namespace TP0.Helpers
 {
+    // UN ACTUADOR ES UN CONJUNTO DE REGLAS SIMPLES
     public class Regla
     {
-        Actuador actuador;
-        public bool seCumple;
-        public float valorMax;
-        public float valorMin;
-        public void Notificar(float valor)
+        public List<Condicion> Reglas;
+        public void verificarRegla()
         {
-            seCumple = false;
-            if (valor >= valorMin && valor <= valorMax)
+            if (Reglas.All(c=>c.seCumple))
             {
-                seCumple = true;
+                ejecutarRegla();
             }
-            actuador.verificarRegla();
         }
-        public bool ChequearComportamiento()
+        public void ejecutarRegla()
         {
-            return seCumple;
+            //Metodo para ejecutar la regla
         }
     }
 }

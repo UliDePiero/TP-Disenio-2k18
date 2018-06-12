@@ -8,12 +8,12 @@ namespace TP0.Helpers
     public class Sensor
     {
         public float valor;
-        public List<Comportamiento> observers;
-        public void agregarObservador(Comportamiento c)
+        public List<Condicion> observers;
+        public void agregarObservador(Condicion c)
         {
             observers.Add(c);
         }
-        public void quitarObservador(Comportamiento c)
+        public void quitarObservador(Condicion c)
         {
             observers.Remove(c);
         }

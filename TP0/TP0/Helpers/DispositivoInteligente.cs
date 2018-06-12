@@ -21,8 +21,6 @@ namespace TP0.Helpers
         public double kWxHora;
         [JsonProperty]
         public List<State> estadosAnteriores;
-        private string nom;
-        private string idnuevo;
 
         //hacer constructor con dispostivo estandar
         public DispositivoInteligente(string nom, string idnuevo, Cliente cliente)
@@ -33,10 +31,11 @@ namespace TP0.Helpers
 
         }
 
-        public DispositivoInteligente(string nom, string idnuevo)
+        public DispositivoInteligente(string nom, string idnuevo, double kWxHoraNuevo)
         {
-            this.nom = nom;
-            this.idnuevo = idnuevo;
+            this.kWxHora = kWxHoraNuevo;
+            this.nombre = nom;
+            this.id = idnuevo;
         }
 
         public bool estaEncendido()

@@ -23,15 +23,15 @@ namespace TP0.Helpers
             switch (tipo)
             {
                 case "Samsung":
-                    convertido = new AdaptadorSamsung(this.nombre, this.id);
+                    //AdaptadorSamsug convertido = new AdaptadorSamsung(...)
+                    convertido = new AdaptadorSamsung(this.nombre, this.id, this.kWxHora);
                     break;
                 case "HP":
-                    convertido = new AdaptadorHp(this.nombre, this.id);
+                    convertido = new AdaptadorHp(this.nombre, this.id, this.kWxHora);
                     break;
                 case "Apple":
-                    convertido = new AdaptadorApple(this.nombre, this.id);
+                    convertido = new AdaptadorApple(this.nombre, this.id, this.kWxHora);
                     break;
-
             }
         }
         public void setHorasXdia(int horas)
