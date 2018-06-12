@@ -23,19 +23,13 @@ namespace TP0.Helpers
         public List<State> estadosAnteriores;
 
         //hacer constructor con dispostivo estandar
-        public DispositivoInteligente(string nom, string idnuevo, Cliente cliente)
-        {
-            DispositivoInteligente di = new DispositivoInteligente(nom, idnuevo, cliente);
-            di.kWxHora = 0;
-            cliente.dispositivosInteligentes.Add(di);         
 
-        }
-
-        public DispositivoInteligente(string nom, string idnuevo, double kWxHoraNuevo)
+        public DispositivoInteligente(string nom, string idnuevo, double kWxHoraNuevo, Cliente cliente)
         {
             this.kWxHora = kWxHoraNuevo;
             this.nombre = nom;
             this.id = idnuevo;
+            cliente.dispositivosInteligentes.Add(this);
         }
 
         public bool estaEncendido()

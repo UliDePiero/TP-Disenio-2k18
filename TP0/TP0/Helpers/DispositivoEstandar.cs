@@ -34,10 +34,6 @@ namespace TP0.Helpers
                     break;
             }
         }
-        public void setHorasXdia(int horas)
-        {
-            horasXDia = horas;
-        }
 
         public double consumo()
         {
@@ -45,7 +41,7 @@ namespace TP0.Helpers
         }
         public double consumoEnPeriodo(DateTime fInicial, DateTime fFinal)
         {
-            return fFinal.Subtract(fInicial).Days;
+            return fFinal.Subtract(fInicial).Days*consumo();
         }
     }
 }
