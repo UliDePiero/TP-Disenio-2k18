@@ -8,7 +8,7 @@ namespace TP0.Helpers
     public class AdaptadorSamsung : DispositivoInteligente
     {
         
-        public AdaptadorSamsung(string nom, string idnuevo, double kWxHoraNuevo, Cliente cliente) : base(nom, idnuevo, kWxHoraNuevo, cliente)
+        public AdaptadorSamsung(string nom, string idnuevo, double kWxHoraNuevo) : base(nom, idnuevo, kWxHoraNuevo)
         {
             kWxHora = kWxHoraNuevo;
             nombre = nom;

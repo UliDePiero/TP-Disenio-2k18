@@ -72,9 +72,10 @@ namespace TP0.Helpers
             puntos += 15;
 
         }
-
-        public void adaptarDispositivo(DispositivoInteligente DI)
+        public void adaptarDispositivo(DispositivoEstandar D, string marca)
         {
+            DispositivoInteligente DI;
+            DI=D.convertirEnInteligente(marca);
             dispositivosInteligentes.Add(DI);
             puntos += 10;
 

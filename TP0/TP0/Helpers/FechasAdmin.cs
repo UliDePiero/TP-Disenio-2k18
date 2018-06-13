@@ -42,12 +42,12 @@ namespace TP0.Helpers
             List<State> CambiosEstadosDentroPeriodo = estadosAntes.Where(x => x.parteDelPeriodo(fInicial, fFinal)).ToList();
 
             if (CambiosEstadosDentroPeriodo.Count() == 1)
-                return CambiosEstadosDentroPeriodo.ElementAt(0).consumoEnHoras(fInicial, fFinal);
+                return CambiosEstadosDentroPeriodo.ElementAt(0).consumoEnIntervalor(fInicial, fFinal);
 
             foreach (State e in CambiosEstadosDentroPeriodo)
             {
                 if (e.dentroDelPeriodo(fInicial, fFinal))
-                    consumo += e.consumoEnHoras(fInicial, fFinal);
+                    consumo += e.consumoEnIntervalor(fInicial, fFinal);
 
                 else
                     consumo = e.consumoExtremoPeriodo(fInicial, fFinal);
@@ -60,9 +60,9 @@ namespace TP0.Helpers
         public double consumoExtremoPeriodo(DateTime fInicial, DateTime fFinal, State Estado)
         {
             if (Estado.FechaInicial <= fFinal)
-                return Estado.consumoEnHoras(Estado.FechaInicial, fFinal);
+                return Estado.consumoEnIntervalor(Estado.FechaInicial, fFinal);
             else
-                return Estado.consumoEnHoras(fInicial, Estado.FechaFinal);
+                return Estado.consumoEnIntervalor(fInicial, Estado.FechaFinal);
         }
 
         public bool dentroDelPeriodo(DateTime fInicial, DateTime fFinal, State Estado)

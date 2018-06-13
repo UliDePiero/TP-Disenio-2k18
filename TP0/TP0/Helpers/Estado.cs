@@ -17,7 +17,7 @@ namespace TP0.Helpers
 
         public abstract void AhorrarEnergia(DispositivoInteligente dips);
 
-        public abstract double consumoEnHoras(DateTime fInicial, DateTime fFinal);
+        public abstract double consumoEnIntervalor(DateTime fInicial, DateTime fFinal);
 
         public abstract double consumoExtremoPeriodo(DateTime fInicial, DateTime fFinal);
 
@@ -49,7 +49,7 @@ namespace TP0.Helpers
             dips.agregarEstado(new Ahorro());
         }
 
-        public override double consumoEnHoras(DateTime fInicial, DateTime fFinal)
+        public override double consumoEnIntervalor(DateTime fInicial, DateTime fFinal)
         {
             double diff = (fFinal - fInicial).TotalHours;
             return diff;
@@ -70,7 +70,7 @@ namespace TP0.Helpers
                 return fAdmin.parteDelPeriodo(fInicial, fFinal, this);
         }
             
-        }
+     }
 
     class Apagado : State
     {
@@ -95,7 +95,7 @@ namespace TP0.Helpers
             dips.agregarEstado(new Ahorro());
             }
 
-        public override double consumoEnHoras(DateTime fInicial, DateTime fFinal)
+        public override double consumoEnIntervalor(DateTime fInicial, DateTime fFinal)
         {
            return 0;
         }
@@ -114,7 +114,7 @@ namespace TP0.Helpers
            return fAdmin.parteDelPeriodo(fInicial, fFinal, this);
         }
 
-        }
+    }
 
     class Ahorro : State
     {
@@ -139,7 +139,7 @@ namespace TP0.Helpers
 
         public override void AhorrarEnergia(DispositivoInteligente dips) => throw new NotImplementedException();
 
-        public override double consumoEnHoras(DateTime fInicial, DateTime fFinal)
+        public override double consumoEnIntervalor(DateTime fInicial, DateTime fFinal)
         {
             double diff = (fFinal - fInicial).TotalHours*1/3;
             return diff;
@@ -160,5 +160,5 @@ namespace TP0.Helpers
            return fAdmin.parteDelPeriodo(fInicial, fFinal, this);
          }
 
-        }
+    }
 }

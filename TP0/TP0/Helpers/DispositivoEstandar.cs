@@ -16,25 +16,25 @@ namespace TP0.Helpers
         public double kWxHora;
         [JsonProperty]
         public int horasXDia;
-        [JsonProperty]
-        public Cliente cliente;
 
-        public void convertirEnInteligente(string tipo)
+        public DispositivoInteligente convertirEnInteligente(string tipo)
         {
             DispositivoInteligente convertido;
             switch (tipo)
             {
                 case "Samsung":
                     //AdaptadorSamsug convertido = new AdaptadorSamsung(...)
-                    convertido = new AdaptadorSamsung(this.nombre, this.id, this.kWxHora,this.cliente);
+                    convertido = new AdaptadorSamsung(this.nombre, this.id, this.kWxHora);
                     break;
                 case "HP":
-                    convertido = new AdaptadorHp(this.nombre, this.id, this.kWxHora,this.cliente);
+                    convertido = new AdaptadorHp(this.nombre, this.id, this.kWxHora);
                     break;
                 case "Apple":
-                    convertido = new AdaptadorApple(this.nombre, this.id, this.kWxHora,this.cliente);
+                    convertido = new AdaptadorApple(this.nombre, this.id, this.kWxHora);
                     break;
             }
+
+            return convertido;
         }
 
         public double consumo()

@@ -8,10 +8,11 @@ namespace TP0.Helpers
     // UN ACTUADOR ES UN CONJUNTO DE REGLAS SIMPLES
     public class Regla
     {
-        public List<Condicion> Reglas;
+        public DispositivoInteligente DI;
+        public List<Condicion> Condiciones;
         public void verificarRegla()
         {
-            if (Reglas.All(c=>c.seCumple))
+            if (Condiciones.All(c=>c.seCumple))
             {
                 ejecutarRegla();
             }

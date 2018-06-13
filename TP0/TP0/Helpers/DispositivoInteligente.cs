@@ -67,9 +67,9 @@ namespace TP0.Helpers
            return hs * kWxHora;
        }
 
-          public void agregarEstado(State stado)
+          public void agregarEstado(State estado)
         {
-            Estado = stado;
+            Estado = estado;
             estadosAnteriores.Add(Estado);
         }
 
