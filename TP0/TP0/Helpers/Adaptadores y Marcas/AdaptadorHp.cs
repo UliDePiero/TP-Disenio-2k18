@@ -12,7 +12,6 @@ namespace TP0.Helpers
             kWxHora = kWxHoraNuevo;
             nombre = nom;
             id = idnuevo;
-            cliente.adaptarDispositivo(this);
         }
 
         /*
