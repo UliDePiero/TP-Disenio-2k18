@@ -20,8 +20,6 @@ namespace TP0.Helpers
         [JsonProperty]
         public List<State> estadosAnteriores;
 
-        //hacer constructor con dispostivo estandar
-
         public DispositivoInteligente(string nom, string idnuevo, double kWxHoraNuevo)
         {
             kWxHora = kWxHoraNuevo;

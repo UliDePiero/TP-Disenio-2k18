@@ -16,7 +16,13 @@ namespace TP0.Helpers
         public double kWxHora;
         [JsonProperty]
         public double horasXDia;
-
+        public DispositivoEstandar(string nom, string idnuevo, double kWxH, double hxdia)
+        {
+            id = idnuevo;
+            nombre = nom;
+            kWxHora = kWxH;
+            horasXDia = hxdia;
+        }
         public DispositivoInteligente convertirEnInteligente(string tipo)
         {
             DispositivoInteligente convertido = null;
