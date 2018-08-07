@@ -24,12 +24,11 @@ namespace TP0.Helpers
 
         //hacer constructor con dispostivo estandar
 
-        public DispositivoInteligente(string nom, string idnuevo, double kWxHoraNuevo, Cliente cliente)
+        public DispositivoInteligente(string nom, string idnuevo, double kWxHoraNuevo)
         {
             kWxHora = kWxHoraNuevo;
             nombre = nom;
             id = idnuevo;
-            cliente.agregarDispInteligente(this);
         }
 
         public bool estaEncendido()

@@ -19,18 +19,19 @@ namespace TP0.Helpers
 
         public DispositivoInteligente convertirEnInteligente(string tipo)
         {
-            DispositivoInteligente convertido;
+            DispositivoInteligente convertido = null;
             switch (tipo)
             {
+                
                 case "Samsung":
                     //AdaptadorSamsug convertido = new AdaptadorSamsung(...)
-                    convertido = new AdaptadorSamsung(this.nombre, this.id, this.kWxHora);
+                    convertido = new AdaptadorSamsung(this.nombre, this.id, this.kWxHora, null);
                     break;
                 case "HP":
-                    convertido = new AdaptadorHp(this.nombre, this.id, this.kWxHora);
+                    convertido = new AdaptadorHp(this.nombre, this.id, this.kWxHora, null);
                     break;
                 case "Apple":
-                    convertido = new AdaptadorApple(this.nombre, this.id, this.kWxHora);
+                    convertido = new AdaptadorApple(this.nombre, this.id, this.kWxHora, null);
                     break;
             }
 
