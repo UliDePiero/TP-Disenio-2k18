@@ -83,16 +83,22 @@ namespace TP0.Models
 
         [Required]
         [Display(Name = "Documento")]
-        public double documento { get; set; }
+        public string documento { get; set; }
         [Required]
         [Display(Name = "Tipo Documento")]
         public string tipo { get; set; }
 
         [Required]
         [Display(Name = "Telefono")]
-        public double telefono { get; set; }
+        public string telefono { get; set; }
 
+        [Required]
+        [Display(Name = "Usuario")]
+        public string usuario { get; set; }
 
+        [Required]
+        [Display(Name = "Contrasenia")]
+        public string contrasenia { get; set; }
 
         [Required]
         [StringLength(100, ErrorMessage = "El número de caracteres de {0} debe ser al menos {2}.", MinimumLength = 1)]

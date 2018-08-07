@@ -11,11 +11,11 @@ namespace TP0.Helpers
     {
 
         [JsonProperty]
-        public double documento;
+        public string documento;
         [JsonProperty]
         public string tipoDocumento;
         [JsonProperty]
-        public double telefono;
+        public string telefono;
         [JsonProperty]
         public Categoria categoria;
         [JsonProperty]
@@ -25,22 +25,19 @@ namespace TP0.Helpers
         [JsonProperty]
         public int puntos;
 
-        public Cliente(Usuario u, double doc, string tipo, double tel):base(u)
+        public Cliente(string nombre, string apellido, string domicilio, string usuario, string contrasenia, string doc, string tipo, string tel) 
         {
-            this.nombre = u.nombre;
-            this.apellido = u.apellido;
-            this.domicilio = u.domicilio;
-            this.usuario = u.usuario;
-            this.contrasenia = u.contrasenia;
-
+            this.nombre = nombre;
+            this.apellido = apellido;
+            this.domicilio = domicilio;
+            this.usuario = usuario;
+            this.contrasenia = contrasenia;
             this.documento = doc;
             this.tipoDocumento = tipo;
             this.telefono = tel;
                   
         }
          
-
-
         public bool AlgunDispositivoEncendido()
         {
             return dispositivosInteligentes.Any(d => d.estaEncendido());

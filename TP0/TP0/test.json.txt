@@ -6,10 +6,8 @@
   "fechaDeAlta":"2018-12-01",
   "usuario":"nicocoen",
   "contrasenia":"nicocoen",
-  "documento" : {
-                  "tipo" : "DNI",
-                  "numero" :"40513128"
-                },
+  "documento" : "40513128",
+  "tipoDocumento" :"DNI",
   "telefono" : "1560411723",
   "categoria":{
                 "consumoMin":0,
@@ -18,31 +16,43 @@
                 "cargoVariable":1
               }
   ,
-  "dispositivos":[
+  "dispositivosEstandares":[
       {
+        "id" : "0000",
         "nombre":"vibrador",
         "kWxHora":10,
-        "encendido":false
+        "horasXDia":2
       },
       {
+        "id" : "0001",
         "nombre":"compu",
-        "kWxHora":12,
-        "encendido":false
+        "kWxHora":200,
+        "horasXDia":4
+      }
+    ],
+    "dispositivosInteligentes":[
+      {
+        "id" : "0003",
+        "nombre":"aire acondicionado",
+        "kWxHora":10
+      },
+      {
+        "id" : "0004",
+        "nombre":"luz",
+        "kWxHora":2
       }
     ]
   },
-    {
+{
   "nombre":"nacho",
   "apellido":"sara",
-  "domicilio":"por ahi",
-  "fechaDeAlta":"2010-02-30",
-  "usuario":"nachin",
-  "contrasenia":"nachin",
-  "documento" : {
-                  "tipo" : "DNI",
-                  "numero" :"12345671"
-                },
-  "telefono" : "1512345678",
+  "domicilio":"olleros 3032",
+  "fechaDeAlta":"2018-01-01",
+  "usuario":"nachosara",
+  "contrasenia":"nachosara",
+  "documento" : "40513129",
+  "tipoDocumento" :"DNI",
+  "telefono" : "1560411724",
   "categoria":{
                 "consumoMin":0,
                 "consumoMax":150,
@@ -50,16 +60,30 @@
                 "cargoVariable":1
               }
   ,
-  "dispositivos":[
+  "dispositivosEstandares":[
       {
+        "id" : "0000",
         "nombre":"vibrador",
         "kWxHora":10,
-        "encendido":true
+        "horasXDia":2
       },
       {
+        "id" : "0001",
         "nombre":"compu",
-        "kWxHora":12,
-        "encendido":false
+        "kWxHora":200,
+        "horasXDia":4
+      }
+    ],
+    "dispositivosInteligentes":[
+      {
+        "id" : "0003",
+        "nombre":"aire acondicionado",
+        "kWxHora":10
+      },
+      {
+        "id" : "0004",
+        "nombre":"luz",
+        "kWxHora":2
       }
     ]
   }

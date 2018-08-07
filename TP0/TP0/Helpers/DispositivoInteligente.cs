@@ -9,13 +9,11 @@ namespace TP0.Helpers
 {
     public class DispositivoInteligente
     {
-        [JsonProperty]
         FechasAdmin fadmin;
         [JsonProperty]
         public string id;
         [JsonProperty]
         public string nombre;
-        [JsonProperty]
         public State Estado;
         [JsonProperty]
         public double kWxHora;

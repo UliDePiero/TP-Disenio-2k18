@@ -154,8 +154,7 @@ namespace TP0.Controllers
             if (ModelState.IsValid)
             {
                 var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
-                Usuario usu = new Usuario(model.nombre,model.apellido, model.domicilio,DateTime.Today, model.Email, model.ConfirmPassword);
-                Cliente cliente = new Cliente(usu, model.documento, model.tipo, model.telefono);
+                Cliente cliente = new Cliente(model.nombre,model.apellido,model.domicilio,model.usuario,model.contrasenia, model.documento, model.tipo, model.telefono);
                 var result = await UserManager.CreateAsync(user, model.Password);
             
                

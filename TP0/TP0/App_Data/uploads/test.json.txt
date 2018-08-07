@@ -1,26 +1,90 @@
-{
-  "Documento": {
-    "Tipo": "DNI",
-    "numero": "\"46465465\""
+[
+  {
+  "nombre":"nicolas",
+  "apellido":"coen",
+  "domicilio":"olleros 3030",
+  "fechaDeAlta":"2018-12-01",
+  "usuario":"nicocoen",
+  "contrasenia":"nicocoen",
+  "documento" : "40513128",
+  "tipoDocumento" :"DNI",
+  "telefono" : "1560411723",
+  "categoria":{
+                "consumoMin":0,
+                "consumoMax":150,
+                "cargoFijo":18,
+                "cargoVariable":1
+              }
+  ,
+  "dispositivosEstandares":[
+      {
+        "id" : "0000",
+        "nombre":"vibrador",
+        "kWxHora":10,
+        "horasXDia":2
+      },
+      {
+        "id" : "0001",
+        "nombre":"compu",
+        "kWxHora":200,
+        "horasXDia":4
+      }
+    ],
+    "dispositivosInteligentes":[
+      {
+        "id" : "0003",
+        "nombre":"aire acondicionado",
+        "kWxHora":10
+      },
+      {
+        "id" : "0004",
+        "nombre":"luz",
+        "kWxHora":2
+      }
+    ]
   },
-  
-   "Telefono": "\"79432321\"",
-  
-   "Categoria": "R1",
-  
-   "array": [
-    {
-      "nombre": "Lampara",
-      "kWxHora": 12,
-      "encendido": true
-    },
- 
-		 {
-      "nombre": "tele",
-      "kWxHora": 15,
-      "encendido": false
-    }
-  
-	    ]
-
-}
+{
+  "nombre":"nacho",
+  "apellido":"sara",
+  "domicilio":"olleros 3032",
+  "fechaDeAlta":"2018-01-01",
+  "usuario":"nachosara",
+  "contrasenia":"nachosara",
+  "documento" : "40513129",
+  "tipoDocumento" :"DNI",
+  "telefono" : "1560411724",
+  "categoria":{
+                "consumoMin":0,
+                "consumoMax":150,
+                "cargoFijo":18,
+                "cargoVariable":1
+              }
+  ,
+  "dispositivosEstandares":[
+      {
+        "id" : "0000",
+        "nombre":"vibrador",
+        "kWxHora":10,
+        "horasXDia":2
+      },
+      {
+        "id" : "0001",
+        "nombre":"compu",
+        "kWxHora":200,
+        "horasXDia":4
+      }
+    ],
+    "dispositivosInteligentes":[
+      {
+        "id" : "0003",
+        "nombre":"aire acondicionado",
+        "kWxHora":10
+      },
+      {
+        "id" : "0004",
+        "nombre":"luz",
+        "kWxHora":2
+      }
+    ]
+  }
+]
