@@ -1,4 +1,3 @@
-DOCTYPE html>   
 <html>
     <head>
     </head>
@@ -10,24 +9,18 @@ DOCTYPE html>
             <h1> Tus datos </h1>
         </div>
 
-        <h2> Dispositivos </h2>
-   
-        <fieldset>
-            Movie Type <select id="MovieType" name="MovieType">
+        <h2> Agregar dispositivo: </h2>
 
-    <option selected="selected" value="2">Comedy</option>
+        @using (Html.BeginForm("About", "Home", FormMethod.Post))
+        {
+        <h4>
+            @Html.DropDownList("selectListItems", (IEnumerable <SelectListItem>)ViewBag.selectListItems)
+        </h4>
 
-    <option value="0">1</option>
-
-    <option value="1">0</option>
-
-            </select>
-
-            <p><input type="submit" value="Agregar dispositivo"> </p>
-
-        </fieldset>
-
-       
+            <h4>
+                <input type="submit" value="Agregar dispositivo">
+            </h4>
+        }
 
     </body>
 
