@@ -7,7 +7,6 @@ namespace TP0.Helpers
 {
     public abstract class State
     {
-        public FechasAdmin fAdmin;
         public DateTime FechaInicial;
         public DateTime FechaFinal;
 
@@ -57,17 +56,17 @@ namespace TP0.Helpers
 
         public override double consumoExtremoPeriodo(DateTime fInicial, DateTime fFinal)
         {
-               return fAdmin.consumoExtremoPeriodo(fInicial, fFinal, this);
+               return Static.FechasAdmin.consumoExtremoPeriodo(fInicial, fFinal, this);
         }
 
         public override bool dentroDelPeriodo(DateTime fInicial, DateTime fFinal)
         {
-                return fAdmin.dentroDelPeriodo(fInicial, fFinal, this);
+                return Static.FechasAdmin.dentroDelPeriodo(fInicial, fFinal, this);
         }
 
         public override bool parteDelPeriodo(DateTime fInicial, DateTime fFinal)
         {
-                return fAdmin.parteDelPeriodo(fInicial, fFinal, this);
+                return Static.FechasAdmin.parteDelPeriodo(fInicial, fFinal, this);
         }
             
      }
@@ -101,17 +100,17 @@ namespace TP0.Helpers
         }
         public override double consumoExtremoPeriodo(DateTime fInicial, DateTime fFinal)
         {
-           return fAdmin.consumoExtremoPeriodo(fInicial, fFinal, this);
+           return Static.FechasAdmin.consumoExtremoPeriodo(fInicial, fFinal, this);
         }
 
         public override bool dentroDelPeriodo(DateTime fInicial, DateTime fFinal)
         {
-           return fAdmin.dentroDelPeriodo(fInicial, fFinal, this);
+           return Static.FechasAdmin.dentroDelPeriodo(fInicial, fFinal, this);
         }
 
         public override bool parteDelPeriodo(DateTime fInicial, DateTime fFinal)
         {
-           return fAdmin.parteDelPeriodo(fInicial, fFinal, this);
+           return Static.FechasAdmin.parteDelPeriodo(fInicial, fFinal, this);
         }
 
     }
@@ -147,17 +146,17 @@ namespace TP0.Helpers
 
         public override double consumoExtremoPeriodo(DateTime fInicial, DateTime fFinal)
         {
-           return fAdmin.consumoExtremoPeriodo(fInicial, fFinal, this);
+           return Static.FechasAdmin.consumoExtremoPeriodo(fInicial, fFinal, this);
         }
 
         public override bool dentroDelPeriodo(DateTime fInicial, DateTime fFinal)
         {
-           return fAdmin.dentroDelPeriodo(fInicial, fFinal, this);
+           return Static.FechasAdmin.dentroDelPeriodo(fInicial, fFinal, this);
         }
 
         public override bool parteDelPeriodo(DateTime fInicial, DateTime fFinal)
         {
-           return fAdmin.parteDelPeriodo(fInicial, fFinal, this);
+           return Static.FechasAdmin.parteDelPeriodo(fInicial, fFinal, this);
          }
 
     }

@@ -9,7 +9,6 @@ namespace TP0.Helpers
 {
     public class DispositivoInteligente
     {
-        FechasAdmin fadmin;
         [JsonProperty]
         public string id;
         [JsonProperty]
@@ -51,14 +50,13 @@ namespace TP0.Helpers
         {
             DateTime fFinal = new DateTime();
             DateTime fInicial = fFinal.AddHours(-horas);
-
-            double hs = fadmin.ConsumoHsTotalPeriodo(fInicial, fFinal, estadosAnteriores);
+            double hs = Static.FechasAdmin.ConsumoHsTotalPeriodo(fInicial, fFinal, estadosAnteriores);
             return hs * kWxHora;
         }
 
        public double consumoEnPeriodo(DateTime finicial, DateTime ffinal)
        { 
-           double hs = fadmin.ConsumoHsTotalPeriodo(finicial, ffinal, estadosAnteriores);
+           double hs = Static.FechasAdmin.ConsumoHsTotalPeriodo(finicial, ffinal, estadosAnteriores);
            return hs * kWxHora;
        }
 
