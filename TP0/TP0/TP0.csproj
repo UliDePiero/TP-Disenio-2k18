@@ -213,6 +213,10 @@
     <Compile Include="Helpers\Sensor.cs" />
     <Compile Include="Helpers\Static\DispositivosTotales.cs" />
     <Compile Include="Helpers\Static\FechasAdmin.cs" />
+    <Compile Include="Helpers\Static\Simplex\restriction.cs" />
+    <Compile Include="Helpers\Static\Simplex\Simplex.cs" />
+    <Compile Include="Helpers\Static\Simplex\SimplexHelper.cs" />
+    <Compile Include="Helpers\Static\Simplex\vars.cs" />
     <Compile Include="Helpers\Usuario.cs" />
     <Compile Include="Helpers\DispositivoEstandar.cs" />
     <Compile Include="Models\AccountViewModels.cs" />

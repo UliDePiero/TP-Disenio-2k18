@@ -35,7 +35,7 @@ namespace TP0.Helpers.Static
         static DispositivoInteligente lampara20W = new DispositivoInteligente("lampara de 20 W", "0011", 0.02);
         public static void llenarListas()
         {
-            if (opcionesDeDispositivosEstandares == null )
+            if (opcionesDeDispositivosEstandares.Count() == 0)
             {
                 opcionesDeDispositivosEstandares.Add(televisor21);
                 opcionesDeDispositivosEstandares.Add(televisor29a34);
@@ -46,7 +46,7 @@ namespace TP0.Helpers.Static
                 opcionesDeDispositivosEstandares.Add(planchaAVapor);
                 opcionesDeDispositivosEstandares.Add(microondasConvencional);
             }
-            if(opcionesDeDispositivosInteligentes == null)
+            if(opcionesDeDispositivosInteligentes.Count() ==0)
             {
                 opcionesDeDispositivosInteligentes.Add(aireAcondicionado2200);
                 opcionesDeDispositivosInteligentes.Add(aireAcondicionado3500);

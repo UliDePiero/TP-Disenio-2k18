@@ -43,7 +43,6 @@ namespace TP0.Controllers
         public ActionResult About(SubmitViewModel model)
         {
             string id = model.DispositivoSeleccionado;
-            
             //Aca le pasamos el id de dispositivo nuevo del usuario
             return RedirectToAction("About", "Home");
         }
@@ -52,6 +51,11 @@ namespace TP0.Controllers
         {
             ViewBag.Message = "Your contact page.";
             
+            return View();
+        }
+        [HttpGet]
+        public ActionResult Simplex()
+        {
             return View();
         }
     }
