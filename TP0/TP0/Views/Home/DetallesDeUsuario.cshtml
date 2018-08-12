@@ -2,26 +2,27 @@
     <head>
     </head>
     <style type="text/css">
+
     </style>
-
-    <body>
-        <div class="jumbotron">
-            <h1> Tus datos </h1>
-        </div>
-
-        <h2> Agregar dispositivo: </h2>
-
-        @using (Html.BeginForm("DetallesDeUsuario", "Home", FormMethod.Post))
-        {
+    <script>
+        function alertBox() {
+            alert("Dispositivo agregado");
+        }
+       </script>
+<body>
+    <div class="jumbotron">
+        <h1> Tus datos </h1>
+    </div>
+    <h2> Agregar dispositivo: </h2>
+    @using (Html.BeginForm("DetallesDeUsuario", "Home", FormMethod.Post))
+    {
         <h4>
-            @Html.DropDownList("DispositivoSeleccionado", (IEnumerable <SelectListItem>)ViewBag.selectListItems)
+            @Html.DropDownList("DispositivoSeleccionado", (IEnumerable<SelectListItem>)ViewBag.selectListItems)
         </h4>
 
-            <h4>
-                <input type="submit" value="Agregar dispositivo">
-            </h4>
-        }
-
-    </body>
-
+        <h4>
+            <input type="submit" value="Agregar dispositivo" onclick="alertBox()">
+        </h4>
+    }
+</body>
 </html>
