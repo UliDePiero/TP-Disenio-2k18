@@ -13,7 +13,9 @@ namespace TP0.Controllers
     public class FileUploadController : Controller
     {
         string path;
+        public List<Cliente> userList;
         // GET: FileUpload
+
         public ActionResult Index()
         {
             return View();
@@ -35,7 +37,7 @@ namespace TP0.Controllers
                     {
 
                         string Json = System.IO.File.ReadAllText(path);
-                        List<Cliente> userList = JsonConvert.DeserializeObject<List<Cliente>>(Json);
+                        userList = JsonConvert.DeserializeObject<List<Cliente>>(Json);
                         ViewBag.FileStatus = "Archivo cargado correctamente.";
                     }
                     catch(Exception)

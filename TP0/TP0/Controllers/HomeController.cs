@@ -17,7 +17,7 @@ namespace TP0.Controllers
             return View();
         }
         [HttpGet]
-        public ActionResult About()
+        public ActionResult DetalleDeUsuario()
         {
             ViewBag.Message = "Your application description page.";
             
@@ -40,23 +40,27 @@ namespace TP0.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult About(SubmitViewModel model)
+        public ActionResult DetalleDeUsuario(SubmitViewModel model)
         {
             string id = model.DispositivoSeleccionado;
             //Aca le pasamos el id de dispositivo nuevo del usuario
-            return RedirectToAction("About", "Home");
+            return RedirectToAction("DetalleDeUsuario", "Home");
         }
 
-        public ActionResult Contact()
+        public ActionResult AdministrarDispositivos()
         {
-            ViewBag.Message = "Your contact page.";
+            ViewBag.Message = "Your AdministrarDispositivos page.";
             
             return View();
         }
-        [HttpGet]
+
         public ActionResult Simplex()
         {
-            return View();
+            //puse estas listas con todos los dispositivos existentes para probar si funciona. ahora tiene q hacerlo con los dispositivos del cleinte
+            List<DispositivoEstandar> de = Helpers.Static.DispositivosTotales.GetDispositivoEstandars();
+            List<DispositivoInteligente> di = Helpers.Static.DispositivosTotales.GetDispositivoInteligentes();
+            string json = Helpers.Static.Simplex.SimplexHelper.generarJson(de, di);
+            return RedirectToAction("AdministrarDispositivos", "Home");
         }
     }
 }
