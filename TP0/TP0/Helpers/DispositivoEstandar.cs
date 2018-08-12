@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,12 +16,28 @@ namespace TP0.Helpers
         public double kWxHora;
         [JsonProperty]
         public double horasXDia;
+        [JsonProperty]
+        public double max;
+        [JsonProperty]
+        public double min;
+
+
         public DispositivoEstandar(string nom, string idnuevo, double kWxH, double hxdia)
         {
             id = idnuevo;
             nombre = nom;
             kWxHora = kWxH;
             horasXDia = hxdia;
+        }
+
+        public DispositivoEstandar(string nom, string idnuevo, double kWxH, double hxdia, double mx, double mn)
+        {
+            id = idnuevo;
+            nombre = nom;
+            kWxHora = kWxH;
+            horasXDia = hxdia;
+            max = mx;
+            min = mn;
         }
         public DispositivoInteligente convertirEnInteligente(string tipo)
         {
