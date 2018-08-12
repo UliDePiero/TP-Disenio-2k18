@@ -117,10 +117,5 @@ C:\Users\pow20\Desktop\Nico\UTN\Diseño\TP\TP-0\TP-0\TP0\TP0\bin\roslyn\Microsof
 C:\Users\pow20\Desktop\Nico\UTN\Diseño\TP\TP-0\TP-0\TP0\TP0\bin\roslyn\Microsoft.CodeAnalysis.dll
 C:\Users\pow20\Desktop\Nico\UTN\Diseño\TP\TP-0\TP-0\TP0\TP0\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
 C:\Users\pow20\Desktop\Nico\UTN\Diseño\TP\TP-0\TP-0\TP0\TP0\bin\roslyn\Microsoft.DiaSymReader.Native.amd64.dll
-C:\Users\pow20\Desktop\Nico\UTN\Diseño\TP\TP-0\TP-0\TP0\TP0\bin\roslyn\System.Collections.Immutable.dll
-C:\Users\pow20\Desktop\Nico\UTN\Diseño\TP\TP-0\TP-0\TP0\TP0\bin\roslyn\System.IO.FileSystem.dll
-C:\Users\pow20\Desktop\Nico\UTN\Diseño\TP\TP-0\TP-0\TP0\TP0\bin\roslyn\System.IO.FileSystem.Primitives.dll
-C:\Users\pow20\Desktop\Nico\UTN\Diseño\TP\TP-0\TP-0\TP0\TP0\bin\roslyn\System.Reflection.Metadata.dll
-C:\Users\pow20\Desktop\Nico\UTN\Diseño\TP\TP-0\TP-0\TP0\TP0\bin\roslyn\System.Security.Cryptography.Primitives.dll
-C:\Users\pow20\Desktop\Nico\UTN\Diseño\TP\TP-0\TP-0\TP0\TP0\bin\roslyn\System.ValueTuple.dll
 C:\Users\pow20\Desktop\Nico\UTN\Diseño\TP\TP-0\TP-0\TP0\TP0\bin\roslyn\VBCSCompiler.exe
+C:\Users\pow20\Desktop\Nico\UTN\Diseño\TP\TP-0\TP-0\TP0\TP0\bin\roslyn\System.IO.Compression.dll

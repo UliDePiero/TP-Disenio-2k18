@@ -17,7 +17,7 @@ namespace TP0.Controllers
             return View();
         }
         [HttpGet]
-        public ActionResult DetalleDeUsuario()
+        public ActionResult DetallesDeUsuario()
         {
             ViewBag.Message = "Your application description page.";
             
@@ -40,11 +40,11 @@ namespace TP0.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult DetalleDeUsuario(SubmitViewModel model)
+        public ActionResult DetallesDeUsuario(SubmitViewModel model)
         {
             string id = model.DispositivoSeleccionado;
             //Aca le pasamos el id de dispositivo nuevo del usuario
-            return RedirectToAction("DetalleDeUsuario", "Home");
+            return RedirectToAction("DetallesDeUsuario", "Home");
         }
 
         public ActionResult AdministrarDispositivos()
