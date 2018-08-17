@@ -218,6 +218,7 @@
     <Compile Include="Helpers\Static\Simplex\SimplexHelper.cs" />
     <Compile Include="Helpers\Usuario.cs" />
     <Compile Include="Helpers\DispositivoEstandar.cs" />
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\FileUploadViewModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />

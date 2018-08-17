@@ -24,12 +24,12 @@ namespace TP0.Helpers.Static.Simplex
 
         public List<Double> generarValues(int cantidadDispos, int ubicacionDispositivo, double max1min0, double valorDeReferencia)
         {
-            List<Double> valores = new List<Double>(cantidadDispos+2); //uno por cada dispositivo que haya + el valor de referencia + si es max o min
+            List<Double> valores = new List<Double>(cantidadDispos+3); //uno por cada dispositivo que haya + el valor de referencia + si es max o min
 
             valores.Add(valorDeReferencia); // que es el primero
             int i = 1;
 
-            for (; i < cantidadDispos; i++) 
+            for (; i <= cantidadDispos; i++) 
             { 
                 if (i != ubicacionDispositivo)
                 {

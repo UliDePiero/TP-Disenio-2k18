@@ -19,11 +19,11 @@ namespace TP0.Helpers.Static.Simplex
         {
             List<restriction> rs = new List<restriction>();
             if (vs.Last() == 1) {
-                operador = ">="; //max
+                operador = "<="; //max
                    } else {
-                operador = "<="; //min
+                operador = ">="; //min
                     }
-            vs.Remove(vs.Last());
+            vs.RemoveAt(vs.Count-1);
             values = vs;
             
         }

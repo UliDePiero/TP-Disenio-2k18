@@ -36,7 +36,7 @@ namespace TP0.Helpers.Static.Simplex
             obj.restrictions = new List<restriction>();
             obj.restrictions.Add(restriccion1);
             //faltan todas las otras restricciones
-            int contador = 0;
+            int contador = 1;
             foreach (DispositivoEstandar de in estandars)
             {
                 if (de.max >0)
@@ -85,11 +85,11 @@ namespace TP0.Helpers.Static.Simplex
 
          
            
-            string filepath = "Desktop\txt.json";
+       //     string filepath = "Desktop\txt.json";
             string result = JsonConvert.SerializeObject(obj);
 
 
-            File.WriteAllText(filepath, result);
+       //     File.WriteAllText(filepath, result);
 
             return JsonConvert.SerializeObject(obj);
         }
