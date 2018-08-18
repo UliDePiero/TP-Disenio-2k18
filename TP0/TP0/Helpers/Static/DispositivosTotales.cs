@@ -6,7 +6,7 @@ using System.Web;
 namespace TP0.Helpers.Static
 {
     public static class DispositivosTotales
-    {
+    {//todas las opciones de dispositivos en el sistema
         static List<DispositivoEstandar> opcionesDeDispositivosEstandares = new List<DispositivoEstandar>();
         static List<DispositivoInteligente> opcionesDeDispositivosInteligentes = new List<DispositivoInteligente>();
         static DispositivoInteligente aireAcondicionado3500 = new DispositivoInteligente("aire acondicionado de 3500 frigorias", "0011", 1.613, 360, 90);
@@ -67,6 +67,7 @@ namespace TP0.Helpers.Static
                 opcionesDeDispositivosInteligentes.Add(lampara20W);
             }
         }
+
         public static List<DispositivoEstandar> GetDispositivoEstandars()
         {
             llenarListas();

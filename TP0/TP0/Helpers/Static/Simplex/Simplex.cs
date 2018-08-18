@@ -9,7 +9,8 @@ namespace TP0.Helpers.Static.Simplex
     {
         public List<Double> vars { get; set; }
         public List<restriction> restrictions { get; set; }
-        public List<Double> getVars(int cantidad)
+
+        public List<Double> getVars(int cantidad) //se carga la lista de variables (por cada una hay un 1 en la lista)
         {
             List<Double> valores = new List<Double>(50);
             int i = 0;
@@ -27,10 +28,10 @@ namespace TP0.Helpers.Static.Simplex
             valores.Add(valorDeReferencia); // que es el primero
             int i = 1;
             for (; i <= cantidadDispos; i++)
-            {
+            {//si la regla es para el dispositivo en ubicacionDispositivo, se agrega un 1 en esa posicion
                 if (i != ubicacionDispositivo)
                 {
-                    valores.Add(0);
+                    valores.Add(0); 
                 }
                 else
                 {

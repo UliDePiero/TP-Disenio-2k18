@@ -30,12 +30,13 @@ namespace TP0.Controllers
                 {
                     if (file != null && file.ContentLength > 0)
                     {
+                        //se abre el buscador de archivos y se agarra el path del archivo seleccionado
                         path = Path.Combine(Server.MapPath("~/App_Data/uploads"), Path.GetFileName(file.FileName));
                         file.SaveAs(path);
                     }
                     try
                     {
-
+                        //se agarra el texto del archivo y se lo convierte a una lista de Cliente
                         string Json = System.IO.File.ReadAllText(path);
                         userList = JsonConvert.DeserializeObject<List<Cliente>>(Json);
                         ViewBag.FileStatus = "Archivo cargado correctamente.";

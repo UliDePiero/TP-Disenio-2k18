@@ -17,7 +17,7 @@
     </div>
     <h2> Agregar dispositivo: </h2>
     @using (Html.BeginForm("DetallesDeUsuario", "Home", FormMethod.Post))
-    {
+    {@*lista con todos los dispositivos para agregar uno a los propios*@
         <h4>
             @Html.DropDownList("DispositivoSeleccionado", (IEnumerable<SelectListItem>)ViewBag.selectListItems)
         </h4>

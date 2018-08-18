@@ -37,39 +37,35 @@ namespace TP0.Helpers.Static.Simplex
                     List<Double> vv = obj.generarValues(dispTotales, contador, 1, de.max); //hay que agregarle a cada dispositivo max y min y numeros de referencia
                     restriction r = new restriction(vv);
                     obj.restrictions.Add(r);
-
+                    //se crea nueva restriccion para el maximo
                 }
                 if (de.min > 0)
                 {
                     List<Double> vv = obj.generarValues(dispTotales, contador, 0, de.min); //hay que agregarle a cada dispositivo max y min y numeros de referencia
                     restriction r = new restriction(vv);
                     obj.restrictions.Add(r);
+                    //se crea nueva restriccion para el minimo
                 }
                 contador++;
             }
-            foreach (DispositivoInteligente di in inteligentes)
+            foreach (DispositivoInteligente di in inteligentes) //lo mismo q la anterior pero para inteligentes
             {
                 if (di.max > 0)
                 {
-                    List<Double> vv = obj.generarValues(dispTotales, contador, 1, di.max); //hay que agregarle a cada dispositivo max y min y numeros de referencia
+                    List<Double> vv = obj.generarValues(dispTotales, contador, 1, di.max);
                     restriction r = new restriction(vv);
                     obj.restrictions.Add(r);
                 }
                 if (di.min > 0)
                 {
-                    List<Double> vv = obj.generarValues(dispTotales, contador, 0, di.min); //hay que agregarle a cada dispositivo max y min y numeros de referencia
+                    List<Double> vv = obj.generarValues(dispTotales, contador, 0, di.min);
                     restriction r = new restriction(vv);
                     obj.restrictions.Add(r);
                 }
                 contador++;
             }
-
-
-           
-            string result = JsonConvert.SerializeObject(obj);
-           
-
-            return JsonConvert.SerializeObject(obj);
+            
+            return JsonConvert.SerializeObject(obj); //se devuelve un string con formato Json
         }
     }
 }

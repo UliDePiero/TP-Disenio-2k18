@@ -20,7 +20,7 @@ namespace TP0.Controllers
         public ActionResult DetallesDeUsuario()
         {
             ViewBag.Message = "Your application description page.";
-            
+            //se llenan las listas de todas las opciones de dispositivos para poder agregarlos a los propios del usuario
             List<DispositivoEstandar> opcionesDeDispositivosEstandares = Helpers.Static.DispositivosTotales.GetDispositivoEstandars();
             List<DispositivoInteligente> opcionesDeDispositivosInteligentes = Helpers.Static.DispositivosTotales.GetDispositivoInteligentes();
             
@@ -59,7 +59,7 @@ namespace TP0.Controllers
             //puse estas listas con todos los dispositivos existentes para probar si funciona. ahora tiene q hacerlo con los dispositivos del cleinte
             List<DispositivoEstandar> de = Helpers.Static.DispositivosTotales.GetDispositivoEstandars();
             List<DispositivoInteligente> di = Helpers.Static.DispositivosTotales.GetDispositivoInteligentes();
-
+            //maximos y minimos predeterminados para poder probar la funcionalidad
             foreach (DispositivoEstandar d in de)
             {
                 d.max = 100;
