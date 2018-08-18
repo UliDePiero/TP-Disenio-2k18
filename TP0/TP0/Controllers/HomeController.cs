@@ -59,16 +59,18 @@ namespace TP0.Controllers
             //puse estas listas con todos los dispositivos existentes para probar si funciona. ahora tiene q hacerlo con los dispositivos del cleinte
             List<DispositivoEstandar> de = Helpers.Static.DispositivosTotales.GetDispositivoEstandars();
             List<DispositivoInteligente> di = Helpers.Static.DispositivosTotales.GetDispositivoInteligentes();
-            foreach(DispositivoEstandar d in de)
+
+            foreach (DispositivoEstandar d in de)
             {
                 d.max = 100;
                 d.min = 50;
             }
-            foreach(DispositivoInteligente d in di)
+            foreach (DispositivoInteligente d in di)
             {
                 d.max = 200;
                 d.max = 150;
             }
+
             string json = Helpers.Static.Simplex.SimplexHelper.generarJson(de, di);
             return RedirectToAction("AdministrarDispositivos", "Home");
         }

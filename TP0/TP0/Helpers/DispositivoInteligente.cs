@@ -1,4 +1,4 @@
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,17 +18,16 @@ namespace TP0.Helpers
         public double kWxHora;
         [JsonProperty]
         public List<State> estadosAnteriores;
-        [JsonProperty]
-        public double max;
-        [JsonProperty]
         public double min;
+        public double max;
 
-        public DispositivoInteligente(string nom, string idnuevo, double kWxHoraNuevo)
+
+        /*public DispositivoInteligente(string nom, string idnuevo, double kWxHoraNuevo)
         {
             kWxHora = kWxHoraNuevo;
             nombre = nom;
             id = idnuevo;
-        }
+        }*/
 
         public DispositivoInteligente(string nom, string idnuevo, double kWxHoraNuevo, double mx, double mn)
         {
@@ -38,6 +37,7 @@ namespace TP0.Helpers
             max = mx;
             min = mn;
         }
+
 
         public bool estaEncendido()
         {

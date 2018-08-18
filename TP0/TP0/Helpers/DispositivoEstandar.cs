@@ -1,4 +1,4 @@
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,19 +16,16 @@ namespace TP0.Helpers
         public double kWxHora;
         [JsonProperty]
         public double horasXDia;
-        [JsonProperty]
-        public double max;
-        [JsonProperty]
         public double min;
+        public double max;
 
-
-        public DispositivoEstandar(string nom, string idnuevo, double kWxH, double hxdia)
+        /*public DispositivoEstandar(string nom, string idnuevo, double kWxH, double hxdia)
         {
             id = idnuevo;
             nombre = nom;
             kWxHora = kWxH;
             horasXDia = hxdia;
-        }
+        }*/
 
         public DispositivoEstandar(string nom, string idnuevo, double kWxH, double hxdia, double mx, double mn)
         {
@@ -39,6 +36,8 @@ namespace TP0.Helpers
             max = mx;
             min = mn;
         }
+
+
         public DispositivoInteligente convertirEnInteligente(string tipo)
         {
             DispositivoInteligente convertido = null;
@@ -47,13 +46,13 @@ namespace TP0.Helpers
                 
                 case "Samsung":
                     //AdaptadorSamsug convertido = new AdaptadorSamsung(...)
-                    convertido = new AdaptadorSamsung(this.nombre, this.id, this.kWxHora);
+                    convertido = new AdaptadorSamsung(nombre, id, kWxHora,max,min);
                     break;
                 case "HP":
-                    convertido = new AdaptadorHp(this.nombre, this.id, this.kWxHora);
+                    convertido = new AdaptadorHp(nombre, id, kWxHora,max,min);
                     break;
                 case "Apple":
-                    convertido = new AdaptadorApple(this.nombre, this.id, this.kWxHora);
+                    convertido = new AdaptadorApple(nombre, id, kWxHora,max,min);
                     break;
             }
 
