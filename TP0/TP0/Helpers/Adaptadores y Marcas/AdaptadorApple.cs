@@ -13,7 +13,6 @@ namespace TP0.Helpers
             nombre = nom;
             id = idnuevo;
         }
-        
     }
 
 }

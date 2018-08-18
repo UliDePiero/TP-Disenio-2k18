@@ -7,7 +7,7 @@ namespace TP0.Helpers
 {
     public class Sensor
     {
-        public float valor;
+        public float medicion;
         public List<Condicion> observers;
         public void agregarObservador(Condicion c)
         {
@@ -19,7 +19,7 @@ namespace TP0.Helpers
         }
         public void notificar()
         {
-            observers.ForEach(o => o.Notificar(valor));
+            observers.ForEach(o => o.Notificar(medicion));
         }
     }
 }
