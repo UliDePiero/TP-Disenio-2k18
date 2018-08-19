@@ -38,10 +38,10 @@ namespace TP0.Helpers
         }
 
 
-        public DispositivoInteligente convertirEnInteligente(string tipo)
+        public DispositivoInteligente convertirEnInteligente(string marca)
         {
             DispositivoInteligente convertido = null;
-            switch (tipo)
+            switch (marca)
             {
                 
                 case "Samsung":

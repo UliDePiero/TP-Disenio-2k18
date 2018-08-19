@@ -9,8 +9,8 @@ namespace TP0.Models
     public class FileUploadViewModel
     {
         [DataType(DataType.Upload)]
-        [Display(Name = "Upload File")]
-        [Required(ErrorMessage = "Please choose file to upload.")]
+        [Display(Name = "Cargar archivo.")]
+        [Required(ErrorMessage = "Por favor seleccionar el archivo a subir.")]
         public string file { get; set; }
 
     }

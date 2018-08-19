@@ -205,10 +205,10 @@
     <Compile Include="Helpers\Condicion.cs" />
     <Compile Include="Helpers\DispositivoInteligente.cs" />
     <Compile Include="Helpers\Estado.cs" />
-    <Compile Include="Helpers\Evento.cs" />
     <Compile Include="Helpers\Adaptadores y Marcas\Marca_Apple.cs" />
     <Compile Include="Helpers\Adaptadores y Marcas\Marca_Hp.cs" />
     <Compile Include="Helpers\Adaptadores y Marcas\Marca_Samsung.cs" />
+    <Compile Include="Helpers\Recomendacion.cs" />
     <Compile Include="Helpers\Regla.cs" />
     <Compile Include="Helpers\Sensor.cs" />
     <Compile Include="Helpers\Static\DispositivosTotales.cs" />
