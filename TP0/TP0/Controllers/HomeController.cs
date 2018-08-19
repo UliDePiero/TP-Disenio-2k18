@@ -7,6 +7,7 @@ using System.Web.Mvc;
 using Newtonsoft.Json;
 using TP0.Helpers;
 using TP0.Models;
+using Microsoft.AspNet.Identity;
 
 namespace TP0.Controllers
 {
@@ -43,8 +44,40 @@ namespace TP0.Controllers
         public ActionResult DetallesDeUsuario(SubmitViewModel model)
         {
             string id = model.DispositivoSeleccionado;
-            //Aca le pasamos el id de dispositivo nuevo del usuario
-            return RedirectToAction("DetallesDeUsuario", "Home");
+            List<Cliente> clientes = JsonConvert.DeserializeObject<List<Cliente>>(System.IO.File.ReadAllText(System.IO.Path.Combine(System.AppDomain.CurrentDomain.BaseDirectory.ToString(), "test.json.txt")));
+            string user = User.Identity.GetUserName();
+            foreach (Cliente clie in clientes)
+            {
+                if (clie.usuario == user)
+                {
+                    if(EsInteligente(id))
+                    {
+                        clie.dispositivosInteligentes.Add(EncontrarDispositivoInteligente(id));
+                    }
+                    else
+                    {
+                        clie.dispositivosEstandares.Add(EncontrarDispositivoEstandard(id));
+                    }
+                }
+            }
+            var json = JsonConvert.SerializeObject(clientes);
+            System.IO.File.WriteAllText(System.IO.Path.Combine(System.AppDomain.CurrentDomain.BaseDirectory.ToString(), "test.json.txt"), json.ToString());
+            return RedirectToAction("Index", "Home");
+        }
+        private bool EsInteligente(string id)
+        {
+            List<DispositivoInteligente> opcionesDeDispositivosInteligentes = Helpers.Static.DispositivosTotales.GetDispositivoInteligentes();
+            return opcionesDeDispositivosInteligentes.Any(disp => disp.id == id);
+        }
+        private DispositivoInteligente EncontrarDispositivoInteligente(string id)
+        {
+            List<DispositivoInteligente> opcionesDeDispositivosInteligentes = Helpers.Static.DispositivosTotales.GetDispositivoInteligentes();
+            return opcionesDeDispositivosInteligentes.Find(disp => disp.id == id);
+        }
+        private DispositivoEstandar EncontrarDispositivoEstandard(string id)
+        {
+            List<DispositivoEstandar> opcionesDeDispositivosEstandares = Helpers.Static.DispositivosTotales.GetDispositivoEstandars();
+            return opcionesDeDispositivosEstandares.Find(disp => disp.id == id);
         }
 
         public ActionResult AdministrarDispositivos()

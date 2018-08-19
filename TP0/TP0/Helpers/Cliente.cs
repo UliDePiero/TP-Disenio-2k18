@@ -35,7 +35,8 @@ namespace TP0.Helpers
             this.documento = doc;
             this.tipoDocumento = tipo;
             this.telefono = tel;
-                  
+            this.dispositivosInteligentes = new List<DispositivoInteligente>();
+            this.dispositivosEstandares = new List<DispositivoEstandar>();
         }
          
         public bool AlgunDispositivoEncendido()
