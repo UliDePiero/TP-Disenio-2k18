@@ -1,8 +1,10 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
-using Newtonsoft.Json;
+using System.Web.Script.Serialization;
+using Microsoft.SqlServer.Server;
+using System.IO;
 
 namespace TP0.Helpers.Static.Simplex
 {
@@ -12,10 +14,10 @@ namespace TP0.Helpers.Static.Simplex
         {
             var obj = new Simplex();//obj es el objeto q se pasa a json
             int dispTotales = estandars.Count() + inteligentes.Count();
-            List<Double> v = obj.getVars(dispTotales); //se hace la primera fila del archivo json
+            List<int> v = obj.getVars(dispTotales); //se hace la primera fila del archivo json
             obj.vars = v;
             List<Double> values1 = new List<Double>(); //esta es la primera fila de valores de la parte de "restricciones"
-            values1.Add(620); //consumo total = 620
+            values1.Add(620000); //consumo total = 620 // Lo subi a 620000 porque sino no anda por la cantidad de dispositivos
             foreach (DispositivoEstandar de in estandars)
             {
                 values1.Add(de.kWxHora); //se llena la lista con los kwxh de los dispositivos estandars
@@ -64,7 +66,16 @@ namespace TP0.Helpers.Static.Simplex
                 }
                 contador++;
             }
-            
+
+          
+            string jsondata = JsonConvert.SerializeObject(obj).ToString();
+            File.WriteAllText("C:/Users/Public/Documents/prueba.json" , jsondata);
+
+            string fileName = "C:/Users/Public/Documents/prueba.json";
+            File.WriteAllText(fileName, File.ReadAllText(fileName).Replace("1.0", "1"));
+            File.WriteAllText(fileName, File.ReadAllText(fileName).Replace("0.0", "0"));
+            File.WriteAllText(fileName, File.ReadAllText(fileName).Replace("operador", "operator"));
+
             return JsonConvert.SerializeObject(obj); //se devuelve un string con formato Json
         }
     }
