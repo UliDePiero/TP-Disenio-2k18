@@ -8,9 +8,10 @@ namespace TP0.Helpers
     public class Recomendacion
     {
         public Cliente cliente;
-        public double generaRecomendacion()
+        public List<double> generaRecomendacion()
         {
-            return 0;
+            List<double> retorno = new List<double>();
+            return retorno;
         }
     }
 }
