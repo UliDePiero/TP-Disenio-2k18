@@ -66,17 +66,16 @@ namespace TP0.Helpers.Static.Simplex
                 }
                 contador++;
             }
-
-          
             string jsondata = JsonConvert.SerializeObject(obj).ToString();
-            File.WriteAllText("C:/Users/Public/Documents/prueba.json" , jsondata);
 
-            string fileName = "C:/Users/Public/Documents/prueba.json";
+            string fileName = "~/App_Data/uploads/webService/prueba.json";
+            File.WriteAllText(fileName, jsondata);
             File.WriteAllText(fileName, File.ReadAllText(fileName).Replace("1.0", "1"));
             File.WriteAllText(fileName, File.ReadAllText(fileName).Replace("0.0", "0"));
             File.WriteAllText(fileName, File.ReadAllText(fileName).Replace("operador", "operator"));
 
-            return JsonConvert.SerializeObject(obj); //se devuelve un string con formato Json
+            return fileName;
+            //return JsonConvert.SerializeObject(obj); //se devuelve un string con formato Json
         }
     }
 }
