@@ -45,21 +45,7 @@ namespace TP0.Controllers
         {
             string id = model.DispositivoSeleccionado;
             List<Cliente> clientes = JsonConvert.DeserializeObject<List<Cliente>>(System.IO.File.ReadAllText(System.IO.Path.Combine(System.AppDomain.CurrentDomain.BaseDirectory.ToString(), "test.json.txt")));
-            string user = User.Identity.GetUserName();
-            foreach (Cliente clie in clientes)
-            {
-                if (clie.usuario == user)
-                {
-                    if(EsInteligente(id))
-                    {
-                        clie.dispositivosInteligentes.Add(EncontrarDispositivoInteligente(id));
-                    }
-                    else
-                    {
-                        clie.dispositivosEstandares.Add(EncontrarDispositivoEstandard(id));
-                    }
-                }
-            }
+            AgregarDispositivo(clientes, id);
             var json = JsonConvert.SerializeObject(clientes);
             System.IO.File.WriteAllText(System.IO.Path.Combine(System.AppDomain.CurrentDomain.BaseDirectory.ToString(), "test.json.txt"), json.ToString());
             return RedirectToAction("Index", "Home");
@@ -78,6 +64,37 @@ namespace TP0.Controllers
         {
             List<DispositivoEstandar> opcionesDeDispositivosEstandares = Helpers.Static.DispositivosTotales.GetDispositivoEstandars();
             return opcionesDeDispositivosEstandares.Find(disp => disp.id == id);
+        }
+        private void AgregarDispositivo(List<Cliente> clientes, string Disp)
+        {
+            string user = User.Identity.GetUserName();
+            foreach (Cliente clie in clientes)
+            {
+                if (clie.usuario == user)
+                {
+                    if (EsInteligente(Disp))
+                    {
+                        clie.dispositivosInteligentes.Add(EncontrarDispositivoInteligente(Disp));
+                        return;
+                    }
+                    else
+                    {
+                        clie.dispositivosEstandares.Add(EncontrarDispositivoEstandard(Disp));
+                        return;
+                    }
+                }
+            }
+            //Si el cliente no esta en el json, lo agrega
+            Cliente c = new Cliente(User.Identity.Name, "", "", "", "", "", "", "");
+            if (EsInteligente(Disp))
+            {
+                c.dispositivosInteligentes.Add(EncontrarDispositivoInteligente(Disp));
+            }
+            else
+            {
+                c.dispositivosEstandares.Add(EncontrarDispositivoEstandard(Disp));
+            }
+            clientes.Add(c);
         }
 
         public ActionResult AdministrarDispositivos()
