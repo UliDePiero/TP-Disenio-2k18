@@ -60,7 +60,7 @@ namespace TP0.Helpers
         {
             return categoria.CalcularTarifa(KwTotales(fInicial, fFinal));
         }
-        double KwTotales(DateTime fInicial, DateTime fFinal)
+        public double KwTotales(DateTime fInicial, DateTime fFinal)
         {
             return dispositivosEstandares.Sum(d => d.consumoEnPeriodo(fInicial, fFinal))+dispositivosInteligentes.Sum(d=>d.consumoEnPeriodo(fInicial, fFinal));
         }
