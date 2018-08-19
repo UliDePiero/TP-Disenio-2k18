@@ -10,6 +10,7 @@ namespace TP0.Helpers
 {
     public class Recomendacion
     {
+<<<<<<< HEAD
         public WebClient myWebClient = new WebClient(); //uno por cliente o por consulta?
         public List<Resultado> resultados = new List<Resultado>();
         public double horasTotalesXMes;
@@ -44,6 +45,13 @@ namespace TP0.Helpers
 
 
 
+=======
+        public Cliente cliente;
+        public List<double> generaRecomendacion()
+        {
+            List<double> retorno = new List<double>();
+            return retorno;
+>>>>>>> 3bcf34725507773a1e127f43d4e0fae1142eed02
         }
     }
 }
