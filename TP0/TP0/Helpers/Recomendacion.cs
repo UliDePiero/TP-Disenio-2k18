@@ -5,12 +5,17 @@ using System.Web;
 using TP0.Helpers.Static.Simplex;
 using System.Threading.Tasks;
 using System.Net;
+using System.Net.Http;
+using System.Text;
 
 namespace TP0.Helpers
 {
     public class Recomendacion
     {
+<<<<<<< HEAD
 
+=======
+>>>>>>> c42433d79e0257719e28a9ca736ecdd1809bfb8e
         public WebClient myWebClient = new WebClient(); //uno por cliente o por consulta?
         public List<Resultado> horasXDisp = new List<Resultado>();
         public double horasTotalesXMes;
@@ -30,18 +35,43 @@ namespace TP0.Helpers
             //el primer elemento de respuesta es las horas totales por mes 
             //horasTotalesXMes = respuesta.Take(1);
             //respuesta.Reverse();
+<<<<<<< HEAD
 
      
             /*foreach ( DispositivoEstandar d in cliente.dispositivosEstandares)
+=======
+            /*
+            //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+            */
+            string Json = SimplexHelper.generarJson(cliente.dispositivosEstandares, cliente.dispositivosInteligentes);
+            var client = new HttpClient();
+            var respuesta2 = client.PostAsync("https://dds-simplexapi.herokuapp.com/consultar", new StringContent(Json, Encoding.UTF8, "application/json"));
+
+            var arrayDeCaracteres = respuesta.ToCharArray();
+            /*
+            foreach ( DispositivoEstandar d in cliente.dispositivosEstandares)
+>>>>>>> c42433d79e0257719e28a9ca736ecdd1809bfb8e
             {
-                horasXDisp.Add(new Resultado(d.nombre,respuesta.Take(1)));
+                //horasXDisp.Add(new Resultado(d.nombre,respuesta.Take(1)));
+                horasXDisp.Add(new Resultado(d.nombre, respuesta.Take(1)));
             }
 
             foreach (DispositivoInteligente d in cliente.dispositivosInteligentes)
             {
                 horasXDisp.Add(new Resultado(d.nombre, respuesta.Take(1)));
+<<<<<<< HEAD
             }*/
             
+=======
+            }
+            */
+        }
+        public Cliente cliente;
+        public List<double> generaRecomendacion()
+        {
+            List<double> retorno = new List<double>();
+            return retorno;
+>>>>>>> c42433d79e0257719e28a9ca736ecdd1809bfb8e
         }
     }
 }
