@@ -28,7 +28,7 @@ namespace TP0.Helpers
             nombre = nom;
             id = idnuevo;
         }*/
-
+        
         public DispositivoInteligente(string nom, string idnuevo, double kWxHoraNuevo, double mx, double mn)
         {
             kWxHora = kWxHoraNuevo;
@@ -36,7 +36,9 @@ namespace TP0.Helpers
             id = idnuevo;
             max = mx;
             min = mn;
-        }
+            estadosAnteriores = new List<State>();
+            agregarEstado(new Apagado(this));
+    }
 
 
         public bool estaEncendido()
@@ -49,34 +51,34 @@ namespace TP0.Helpers
         }
         public void encender()
         {
-            Estado.Encender(this);
+            Estado.Encender();
         }
         public void apagar()
         {
-            Estado.Apagar(this);
+            Estado.Apagar();
         }
         public void ahorrarEnergia()
         {
-            Estado.AhorrarEnergia(this);
+            Estado.AhorrarEnergia();
         }
         public double consumoEnHoras(double horas)
         {
-            DateTime fFinal = new DateTime();
+            DateTime fFinal = DateTime.Now;
             DateTime fInicial = fFinal.AddHours(-horas);
             double hs = Static.FechasAdmin.ConsumoHsTotalPeriodo(fInicial, fFinal, estadosAnteriores);
             return hs * kWxHora;
         }
 
-       public double consumoEnPeriodo(DateTime finicial, DateTime ffinal)
+       public double consumoEnPeriodo(DateTime fInicial, DateTime fFinal)
        { 
-           double hs = Static.FechasAdmin.ConsumoHsTotalPeriodo(finicial, ffinal, estadosAnteriores);
+           double hs = Static.FechasAdmin.ConsumoHsTotalPeriodo(fInicial, fFinal, estadosAnteriores);
            return hs * kWxHora;
        }
 
-       public void agregarEstado(State estado)
+       public void agregarEstado(State est)
        {
-           //Estado = estado;
-           estadosAnteriores.Add(estado);
+           Estado = est;
+           estadosAnteriores.Add(est);
        }
 
     }

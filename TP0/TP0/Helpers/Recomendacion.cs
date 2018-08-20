@@ -10,9 +10,9 @@ namespace TP0.Helpers
 {
     public class Recomendacion
     {
-<<<<<<< HEAD
+
         public WebClient myWebClient = new WebClient(); //uno por cliente o por consulta?
-        public List<Resultado> resultados = new List<Resultado>();
+        public List<Resultado> horasXDisp = new List<Resultado>();
         public double horasTotalesXMes;
 
         public Recomendacion(Cliente cliente)
@@ -32,7 +32,7 @@ namespace TP0.Helpers
             //respuesta.Reverse();
 
      
-            foreach ( DispositivoEstandar d in cliente.dispositivosEstandares)
+            /*foreach ( DispositivoEstandar d in cliente.dispositivosEstandares)
             {
                 horasXDisp.Add(new Resultado(d.nombre,respuesta.Take(1)));
             }
@@ -40,18 +40,8 @@ namespace TP0.Helpers
             foreach (DispositivoInteligente d in cliente.dispositivosInteligentes)
             {
                 horasXDisp.Add(new Resultado(d.nombre, respuesta.Take(1)));
-            }
-
-
-
-
-=======
-        public Cliente cliente;
-        public List<double> generaRecomendacion()
-        {
-            List<double> retorno = new List<double>();
-            return retorno;
->>>>>>> 3bcf34725507773a1e127f43d4e0fae1142eed02
+            }*/
+            
         }
     }
 }

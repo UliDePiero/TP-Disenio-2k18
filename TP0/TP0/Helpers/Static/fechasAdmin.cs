@@ -36,30 +36,30 @@ namespace TP0.Helpers.Static
             return mesesTotales;
         }
 
-        public static double ConsumoHsTotalPeriodo(DateTime fInicial, DateTime fFinal, List<State> estadosAntes)
+        public static double ConsumoHsTotalPeriodo(DateTime fInicialPer, DateTime fFinalPer, List<State> estadosAntes)
         {
             double consumo = 0;
-            List<State> CambiosEstadosDentroPeriodo = estadosAntes.Where(x => x.parteDelPeriodo(fInicial, fFinal)).ToList();
+            List<State> EstadosPartePeriodo = estadosAntes.Where(x => parteDelPeriodo(fInicialPer, fFinalPer, x)).ToList();
+            
+            if (EstadosPartePeriodo.Count() == 1) //igual de tamaño , o mayor de tamaño
+                return EstadosPartePeriodo.ElementAt(0).consumoEnIntervalor(fInicialPer, fFinalPer);
 
-            if (CambiosEstadosDentroPeriodo.Count() == 1)
-                return CambiosEstadosDentroPeriodo.ElementAt(0).consumoEnIntervalor(fInicial, fFinal);
-
-            foreach (State e in CambiosEstadosDentroPeriodo)
+            foreach (State e in EstadosPartePeriodo)
             {
-                if (e.dentroDelPeriodo(fInicial, fFinal))
-                    consumo += e.consumoEnIntervalor(fInicial, fFinal);
+                if (dentroDelPeriodo(fInicialPer, fFinalPer, e))
+                    consumo += e.consumoEnIntervalor(fInicialPer, fFinalPer);
 
                 else
-                    consumo = e.consumoExtremoPeriodo(fInicial, fFinal);
-
+                    consumo += consumoExtremoPeriodo(fInicialPer, fFinalPer, e);
             }
 
             return consumo;
+            
         }
 
         public static double consumoExtremoPeriodo(DateTime fInicial, DateTime fFinal, State Estado)
         {
-            if (Estado.FechaInicial <= fFinal)
+            if (Estado.FechaInicial <= fFinal && fFinal <= Estado.FechaFinal )
                 return Estado.consumoEnIntervalor(Estado.FechaInicial, fFinal);
             else
                 return Estado.consumoEnIntervalor(fInicial, Estado.FechaFinal);
@@ -70,9 +70,9 @@ namespace TP0.Helpers.Static
             return fInicial < Estado.FechaInicial && Estado.FechaFinal < fFinal;
         }
 
-        public static bool parteDelPeriodo(DateTime fInicial, DateTime fFinal, State Estado)
+        public static bool parteDelPeriodo(DateTime fInicialPer, DateTime fFinalPer, State Estado)
         {
-            return (fInicial <= Estado.FechaInicial && Estado.FechaInicial <= fFinal) || (fInicial <= Estado.FechaFinal && Estado.FechaFinal <= fFinal);
+            return (fInicialPer <= Estado.FechaInicial && Estado.FechaInicial <= fFinalPer) || (fInicialPer <= Estado.FechaFinal && Estado.FechaFinal <= fFinalPer);
         }
 
     }
