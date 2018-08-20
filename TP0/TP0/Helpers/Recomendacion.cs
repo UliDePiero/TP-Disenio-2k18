@@ -37,9 +37,9 @@ namespace TP0.Helpers
             string Json = SimplexHelper.generarJson(cliente.dispositivosEstandares, cliente.dispositivosInteligentes);
             var client = new HttpClient();
             var respuesta2 = client.PostAsync("https://dds-simplexapi.herokuapp.com/consultar", new StringContent(Json, Encoding.UTF8, "application/json"));
-            
-            
-            
+
+
+            /*
             foreach ( DispositivoEstandar d in cliente.dispositivosEstandares)
             {
                 //horasXDisp.Add(new Resultado(d.nombre,respuesta.Take(1)));
@@ -49,7 +49,8 @@ namespace TP0.Helpers
             foreach (DispositivoInteligente d in cliente.dispositivosInteligentes)
             {
                 horasXDisp.Add(new Resultado(d.nombre, respuesta.Take(1)));
-            }
+            }*/
+        }
 
 
 
