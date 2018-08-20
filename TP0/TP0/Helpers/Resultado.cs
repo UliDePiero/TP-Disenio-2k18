@@ -8,13 +8,13 @@ namespace TP0.Helpers
     public class Resultado
     {
         string dispositivo;
-        double horasMaxConsumo;
+        string horasMaxConsumo;
 
         public Resultado()
         {
         }
 
-        public Resultado(string nombre, double horas)
+        public Resultado(string nombre, string horas)
         {
             dispositivo = nombre;
             horasMaxConsumo = horas;
