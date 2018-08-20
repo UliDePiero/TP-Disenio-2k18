@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using TP0.Helpers;
+using Windows.Devices.Geolocation;
 
 namespace TP0.Helpers
 {
@@ -82,6 +83,16 @@ namespace TP0.Helpers
         public void ActualizarCategoria()
         {
             
+        }
+        public double[] UbicacionDomicilio()
+        {
+            Geolocator geolocator = new Geolocator();
+            geolocator.DesiredAccuracy.InMeters = 10;
+            Geoposition ubicacion = await geolocator.GetGeopositionAsync();
+            double latitud = ubicacion.Coordinate.Point.Position.Latitude;
+            double longitud = ubicacion.Coordinate.Point.Position.Longitude;
+            double[] CoordUbicacion = new double[] { latitud, longitud };
+            return CoordUbicacion;
         }
     }
 }

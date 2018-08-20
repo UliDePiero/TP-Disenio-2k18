@@ -13,7 +13,7 @@ namespace TP0.Helpers
     public class Recomendacion
     {
         public WebClient myWebClient = new WebClient(); //uno por cliente o por consulta?
-        public List<Resultado> resultados = new List<Resultado>();
+        public List<Resultado> horasXDisp = new List<Resultado>();
         public double horasTotalesXMes;
 
         public Recomendacion(Cliente cliente)
@@ -38,30 +38,25 @@ namespace TP0.Helpers
             var client = new HttpClient();
             var respuesta2 = client.PostAsync("https://dds-simplexapi.herokuapp.com/consultar", new StringContent(Json, Encoding.UTF8, "application/json"));
 
-
+            var arrayDeCaracteres = respuesta.ToCharArray();
             /*
             foreach ( DispositivoEstandar d in cliente.dispositivosEstandares)
             {
                 //horasXDisp.Add(new Resultado(d.nombre,respuesta.Take(1)));
-                horasXDisp.Add(new Resultado(d.nombre, respuesta2.Take(1)));
+                horasXDisp.Add(new Resultado(d.nombre, respuesta.Take(1)));
             }
 
             foreach (DispositivoInteligente d in cliente.dispositivosInteligentes)
             {
                 horasXDisp.Add(new Resultado(d.nombre, respuesta.Take(1)));
-            }*/
+            }
+            */
         }
-
-
-
-
-
         public Cliente cliente;
         public List<double> generaRecomendacion()
         {
             List<double> retorno = new List<double>();
             return retorno;
-
         }
     }
 }
