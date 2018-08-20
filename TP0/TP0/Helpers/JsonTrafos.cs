@@ -17,7 +17,7 @@ namespace TP0.Helpers
             using (StreamReader r = new StreamReader(JsonPath))
             {
                 string json = r.ReadToEnd();
-                List<Transformador> items = JsonConvert.DeserializeObject<List<Transformador>>(json);
+                List<Transformador> transformadores = JsonConvert.DeserializeObject<List<Transformador>>(json);
                 //JsonConvert.DeserializeObject<IEnumerable<T>>()
             }
         }
