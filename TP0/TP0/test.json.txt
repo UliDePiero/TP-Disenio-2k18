@@ -1,1 +1,35 @@
-[{"documento":"doc","tipoDocumento":"tipo","telefono":"tel","categoria":null,"dispositivosEstandares":[{"id":"0023","nombre":"ventilador de pie","kWxHora":0.09,"horasXDia":0.0,"min":120.0,"max":360.0},{"id":"0022","nombre":"lavarropas semi-automatico de 5kg","kWxHora":0.1275,"horasXDia":0.0,"min":6.0,"max":30.0}],"dispositivosInteligentes":[{"id":"0017","nombre":"televisor LED de 40 pulgadas","Estado":null,"kWxHora":0.08,"estadosAnteriores":null,"min":90.0,"max":360.0}],"puntos":0,"nombre":"Igna","apellido":"Sara","domicilio":"dom","usuario":"nachos","contrasenia":"contra"},{"documento":"1234567","tipoDocumento":"DNI","telefono":"49156483","categoria":null,"dispositivosEstandares":[],"dispositivosInteligentes":[],"puntos":0,"nombre":"nico","apellido":"coen","domicilio":"123","usuario":"nicocoen","contrasenia":"contra"},{"documento":"","tipoDocumento":"","telefono":"","categoria":null,"dispositivosEstandares":[],"dispositivosInteligentes":[{"id":"0011","nombre":"aire acondicionado de 3500 frigorias","Estado":null,"kWxHora":1.613,"estadosAnteriores":null,"min":90.0,"max":360.0}],"puntos":0,"nombre":"a@a.com","apellido":"","domicilio":"","usuario":"","contrasenia":""}]
+[
+  {
+    "documento": "123",
+    "tipoDocumento": "dni",
+    "telefono": "123",
+    "dispositivosEstandares": [],
+    "dispositivosInteligentes": [],
+    "puntos": 0,
+    "nombre": "ignacio",
+    "apellido": "sarasibar",
+    "domicilio": "asd",
+    "usuario": "asd@asd.com"
+  },
+  {
+    "documento": "",
+    "tipoDocumento": "",
+    "telefono": "",
+    "dispositivosEstandares": [],
+    "dispositivosInteligentes": [
+      {
+        "id": "0012",
+        "nombre": "aire acondicionado de 2200 frigorias",
+        "kWxHora": 1.013,
+        "min": 90.0,
+        "max": 360.0
+      }
+    ],
+    "puntos": 0,
+    "nombre": "a@a.com",
+    "apellido": "",
+    "domicilio": "",
+    "usuario": "a@a.com",
+    "contrasenia": ""
+  }
+]
