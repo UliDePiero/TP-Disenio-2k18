@@ -36,9 +36,25 @@ namespace TP0.Controllers
                     }
                     try
                     {
-                        //se agarra el texto del archivo y se lo convierte a una lista de Cliente
+                        //se agarra el texto del archivo y se lo convierte a una lista de Cliente, Transformadores o Dispositivos
                         string Json = System.IO.File.ReadAllText(path);
-                        userList = JsonConvert.DeserializeObject<List<Cliente>>(Json);
+                        switch (Path.GetFileName(file.FileName))
+                        {
+                            case "usuarios.json":
+                                List<Cliente> userList = JsonConvert.DeserializeObject<List<Cliente>>(Json);
+                                break;
+                            case "transformadores.json":
+                                List<Transformador> transformadoresActivos = JsonConvert.DeserializeObject<List<Transformador>>(Json);
+                                break;
+                            case "dispositivosEstandares.json":
+                                List<DispositivoEstandar> dispositivosEstandares = JsonConvert.DeserializeObject<List<DispositivoEstandar>>(Json);
+                                break;
+                            case "dispositivosInteligentes.json":
+                                List<DispositivoInteligente> dispositivosInteligentes = JsonConvert.DeserializeObject<List<DispositivoInteligente>>(Json);
+                                break;
+                            default:
+                                break;
+                        }
                         ViewBag.FileStatus = "Archivo cargado correctamente.";
                     }
                     catch(Exception)

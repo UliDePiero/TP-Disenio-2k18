@@ -16,13 +16,13 @@ namespace TP0.Helpers
         //public double horasTotalesXMes;
 
         public WebClient myWebClient = new WebClient(); //uno por cliente o por consulta?
-        public Schedule planEjeucion;
+        public Schedule planEjecucion;
         public bool accionAutomatica;
 
         public Recomendacion()
         {
             //generarRecomendacion(cliente);
-            this.planEjeucion = new Schedule(this);
+            this.planEjecucion = new Schedule(this);
         }
 
         public string generarRecomendacion(Cliente cliente)
