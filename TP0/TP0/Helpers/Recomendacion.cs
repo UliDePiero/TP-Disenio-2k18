@@ -12,14 +12,17 @@ namespace TP0.Helpers
 {
     public class Recomendacion
     {
+        //public List<Resultado> horasXDisp = new List<Resultado>();
+        //public double horasTotalesXMes;
 
         public WebClient myWebClient = new WebClient(); //uno por cliente o por consulta?
-        public List<Resultado> horasXDisp = new List<Resultado>();
-        public double horasTotalesXMes;
+        public Schedule planEjeucion;
+        public bool accionAutomatica;
 
-        public Recomendacion(Cliente cliente)
+        public Recomendacion()
         {
-            generarRecomendacion(cliente);
+            //generarRecomendacion(cliente);
+            this.planEjeucion = new Schedule(this);
         }
 
         public string generarRecomendacion(Cliente cliente)
@@ -29,30 +32,9 @@ namespace TP0.Helpers
             var sURI = "https://dds-simplexapi.herokuapp.com/consultar";
             var json = System.IO.File.ReadAllText(fileName);
             var respuesta = myWebClient.UploadString(sURI, json);
-            //el primer elemento de respuesta es las horas totales por mes 
-            //horasTotalesXMes = respuesta.Take(1);
-            //respuesta.Reverse();
-
+ 
             return respuesta;
-
-            /*string Json = SimplexHelper.generarJson(cliente.dispositivosEstandares, cliente.dispositivosInteligentes);
-            var client = new HttpClient();
-            var respuesta2 = client.PostAsync("https://dds-simplexapi.herokuapp.com/consultar", new StringContent(Json, Encoding.UTF8, "application/json"));
-
-            var arrayDeCaracteres = respuesta.ToCharArray();
-            /*
-            foreach ( DispositivoEstandar d in cliente.dispositivosEstandares)
-            {
-                horasXDisp.Add(new Resultado(d.nombre, respuesta.Take(1)));
-            }
-
-            foreach (DispositivoInteligente d in cliente.dispositivosInteligentes)
-            {
-                horasXDisp.Add(new Resultado(d.nombre, respuesta.Take(1)));
-
-            }
-        }*/
-
+            
         }
     }
 }

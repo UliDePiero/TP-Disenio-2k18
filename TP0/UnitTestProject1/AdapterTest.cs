@@ -9,7 +9,7 @@ namespace UnitTestProject1
     public class AdapterTest
     {
         [TestMethod]
-        public void ConvertirDEaDI_test()
+        public void ConvertirDEaDIyCambioState_test()
         {
             //Arrenge
             var tvsamsung = new DispositivoEstandar("televisor LCD de 40 pulgadas", "0014", 0.18, 0, 360, 90);

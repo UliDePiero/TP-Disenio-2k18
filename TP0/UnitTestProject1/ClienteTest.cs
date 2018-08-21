@@ -6,7 +6,7 @@ using TP0.Helpers;
 namespace UnitTestProject1
 {
     [TestClass]
-    public class ClientesTest
+    public class ClienteTest
     {
         [TestMethod]
         public void CantidadPuntosUsuario15_test()

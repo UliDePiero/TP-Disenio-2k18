@@ -54,7 +54,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AdapterTest.cs" />
-    <Compile Include="ClientesTest.cs" />
+    <Compile Include="JsonTest.cs" />
+    <Compile Include="WebServiceTest.cs" />
+    <Compile Include="ClienteTest.cs" />
     <Compile Include="DispInteligentesTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

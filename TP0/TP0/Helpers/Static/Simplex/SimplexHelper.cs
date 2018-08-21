@@ -17,7 +17,7 @@ namespace TP0.Helpers.Static.Simplex
             List<Double> v = obj.getVars(dispTotales); //se hace la primera fila del archivo json
             obj.vars = v;
             List<Double> values1 = new List<Double>(); //esta es la primera fila de valores de la parte de "restricciones"
-            values1.Add(620000); //consumo total = 620 // Lo subi a 620000 porque sino no anda por la cantidad de dispositivos
+            values1.Add(612); //consumo total = 620 // Lo subi a 620000 porque sino no anda por la cantidad de dispositivos
             foreach (DispositivoEstandar de in estandars)
             {
                 values1.Add(de.kWxHora); //se llena la lista con los kwxh de los dispositivos estandars
@@ -66,16 +66,16 @@ namespace TP0.Helpers.Static.Simplex
                 }
                 contador++;
             }
-            string jsondata = JsonConvert.SerializeObject(obj).ToString();
+            string jsondata = JsonConvert.SerializeObject(obj);
+            string fileName = @"c:\temp\test.json";
 
-            string fileName = "~/App_Data/uploads/webService/prueba.json";
             File.WriteAllText(fileName, jsondata);
-            File.WriteAllText(fileName, File.ReadAllText(fileName).Replace("1.0", "1"));
-            File.WriteAllText(fileName, File.ReadAllText(fileName).Replace("0.0", "0"));
+            //File.WriteAllText(fileName, File.ReadAllText(fileName).Replace("0.0", "0"));
+            //File.WriteAllText(fileName, File.ReadAllText(fileName).Replace("1.0", "1"));
             File.WriteAllText(fileName, File.ReadAllText(fileName).Replace("operador", "operator"));
 
             return fileName;
-            //return JsonConvert.SerializeObject(obj); //se devuelve un string con formato Json
+       
         }
     }
 }

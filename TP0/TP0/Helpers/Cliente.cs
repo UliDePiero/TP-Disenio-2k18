@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using TP0.Helpers;
-using Windows.Devices.Geolocation;
+//using Windows.Devices.Geolocation;
 
 namespace TP0.Helpers
 {
@@ -25,6 +25,8 @@ namespace TP0.Helpers
         public List<DispositivoInteligente> dispositivosInteligentes;
         [JsonProperty]
         public int puntos;
+        [JsonProperty]
+        public Recomendacion recomendacion;
 
         public Cliente(string nombre, string apellido, string domicilio, string usuario, string contrasenia, string doc, string tipo, string tel) 
         {
@@ -38,6 +40,7 @@ namespace TP0.Helpers
             this.telefono = tel;
             this.dispositivosInteligentes = new List<DispositivoInteligente>();
             this.dispositivosEstandares = new List<DispositivoEstandar>();
+            this.recomendacion = new Recomendacion();
         }
          
         public bool AlgunDispositivoEncendido()
@@ -80,11 +83,16 @@ namespace TP0.Helpers
 
         }
 
+        public void generarRecomendacion()
+        {
+            recomendacion.generarRecomendacion(this);
+        }
+
         public void ActualizarCategoria()
         {
             
         }
-        public double[] UbicacionDomicilio()
+        /*public double[] UbicacionDomicilio()
         {
             Geolocator geolocator = new Geolocator();
             geolocator.DesiredAccuracy.InMeters = 10;
@@ -93,6 +101,6 @@ namespace TP0.Helpers
             double longitud = ubicacion.Coordinate.Point.Position.Longitude;
             double[] CoordUbicacion = new double[] { latitud, longitud };
             return CoordUbicacion;
-        }
+        }*/
     }
 }
