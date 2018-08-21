@@ -8,7 +8,7 @@ namespace TP0.Helpers
     public class Condicion
     {
 #pragma warning disable CS0649 // Field 'Condicion.actuador' is never assigned to, and will always have its default value null
-        Regla actuador;
+        Actuador actuador;
 #pragma warning restore CS0649 // Field 'Condicion.actuador' is never assigned to, and will always have its default value null
 
         public bool seCumple;

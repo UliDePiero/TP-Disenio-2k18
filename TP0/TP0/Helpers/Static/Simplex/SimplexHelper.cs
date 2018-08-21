@@ -67,15 +67,9 @@ namespace TP0.Helpers.Static.Simplex
                 contador++;
             }
             string jsondata = JsonConvert.SerializeObject(obj);
-            string fileName = @"c:\temp\test.json";
 
-            File.WriteAllText(fileName, jsondata);
-            //File.WriteAllText(fileName, File.ReadAllText(fileName).Replace("0.0", "0"));
-            //File.WriteAllText(fileName, File.ReadAllText(fileName).Replace("1.0", "1"));
-            File.WriteAllText(fileName, File.ReadAllText(fileName).Replace("operador", "operator"));
+            return jsondata.Replace("operador", "operator");
 
-            return fileName;
-       
         }
     }
 }

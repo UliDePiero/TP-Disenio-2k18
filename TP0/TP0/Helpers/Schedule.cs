@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Timers;
 
 namespace TP0.Helpers
 {
@@ -13,6 +14,8 @@ namespace TP0.Helpers
         {
             rec = c;
         }
+
+        //public void ejecutar()
 
     }
 }

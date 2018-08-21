@@ -16,22 +16,24 @@ namespace TP0.Helpers
         //public double horasTotalesXMes;
 
         public WebClient myWebClient = new WebClient(); //uno por cliente o por consulta?
-        public Schedule planEjeucion;
+        public Schedule planEjecucion;
         public bool accionAutomatica;
+        public Cliente cliente;
 
-        public Recomendacion()
+        public Recomendacion(Cliente c)
         {
+            cliente = c;
             //generarRecomendacion(cliente);
-            this.planEjeucion = new Schedule(this);
+            this.planEjecucion = new Schedule(this);
         }
 
-        public string generarRecomendacion(Cliente cliente)
+        public string generarRecomendacion()
         //public double[] generarRecomendacion(Cliente cliente)
         {
-            string fileName = SimplexHelper.generarJson(cliente.dispositivosEstandares, cliente.dispositivosInteligentes);
+            string json = SimplexHelper.generarJson(cliente.dispositivosEstandares, cliente.dispositivosInteligentes);
             myWebClient.Headers.Add("Content-Type", "application/json");
             var sURI = "https://dds-simplexapi.herokuapp.com/consultar";
-            var json = System.IO.File.ReadAllText(fileName);
+            //var json = System.IO.File.ReadAllText(fileName);
             var respuesta = myWebClient.UploadString(sURI, json);
             /*
             string[] respuestaArrayString = respuesta.Split(',');

@@ -55,11 +55,11 @@ namespace UnitTestProject1
             //Arrenge
             var lamparaHalogena40W = new DispositivoInteligente("lampara halogena de 40 W", "0011", 0.04, 360, 90);
             lamparaHalogena40W.estadosAnteriores = new List<State> { new Apagado(lamparaHalogena40W ) { FechaInicial = DateTime.Now.AddHours(-20), FechaFinal = DateTime.Now.AddHours(-15) } , new Encendido(lamparaHalogena40W) { FechaInicial = DateTime.Now.AddHours(-15), FechaFinal = DateTime.Now.AddHours(-7) }, new Apagado(lamparaHalogena40W) { FechaInicial = DateTime.Now.AddHours(-7), FechaFinal = DateTime.Now.AddHours(-2) }, new Encendido(lamparaHalogena40W) { FechaInicial = DateTime.Now.AddHours(-2)} };
-
-
+            
             //Act
             var result = lamparaHalogena40W.consumoEnHoras(10);
             var comp = lamparaHalogena40W.kWxHora * 5; //5 horas
+
             //Assert
             Assert.AreEqual(comp, result);
         }

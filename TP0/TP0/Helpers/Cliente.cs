@@ -40,7 +40,7 @@ namespace TP0.Helpers
             this.telefono = tel;
             this.dispositivosInteligentes = new List<DispositivoInteligente>();
             this.dispositivosEstandares = new List<DispositivoEstandar>();
-            this.recomendacion = new Recomendacion();
+            this.recomendacion = new Recomendacion(this);
         }
          
         public bool AlgunDispositivoEncendido()
@@ -82,9 +82,9 @@ namespace TP0.Helpers
 
         }
 
-        public void generarRecomendacion()
+        public void solicitarRecomendacion()
         {
-            recomendacion.generarRecomendacion(this);
+            recomendacion.generarRecomendacion();
         }
 
         public void ActualizarCategoria()
