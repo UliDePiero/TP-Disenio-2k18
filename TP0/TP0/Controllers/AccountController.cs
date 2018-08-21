@@ -11,6 +11,8 @@ using Microsoft.Owin.Security;
 using TP0.Models;
 using TP0.Helpers;
 using System.Web.UI;
+using Newtonsoft.Json;
+using System.Collections.Generic;
 
 namespace TP0.Controllers
 {
@@ -156,8 +158,19 @@ namespace TP0.Controllers
                 var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
                 Cliente cliente = new Cliente(model.nombre,model.apellido,model.domicilio,model.usuario,model.contrasenia, model.documento, model.tipo, model.telefono);
                 var result = await UserManager.CreateAsync(user, model.Password);
-            
-               
+
+                var jsonSerializerSettings = new JsonSerializerSettings();
+                jsonSerializerSettings.MissingMemberHandling = MissingMemberHandling.Ignore;
+                jsonSerializerSettings.NullValueHandling = NullValueHandling.Ignore;
+                jsonSerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
+                jsonSerializerSettings.Formatting = Formatting.Indented;
+                jsonSerializerSettings.TypeNameHandling = TypeNameHandling.Auto;
+                jsonSerializerSettings.Converters.Add(new Newtonsoft.Json.Converters.JavaScriptDateTimeConverter());
+
+                List<Cliente> clientes = JsonConvert.DeserializeObject<List<Cliente>>(System.IO.File.ReadAllText(System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory.ToString(), "test.json.txt")), jsonSerializerSettings);
+                clientes.Add(cliente);
+                var json = JsonConvert.SerializeObject(clientes, jsonSerializerSettings);
+                System.IO.File.WriteAllText(System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory.ToString(), "test.json.txt"), json.ToString());
 
                 if (result.Succeeded)
                 {

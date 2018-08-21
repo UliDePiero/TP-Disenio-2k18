@@ -26,6 +26,7 @@ namespace TP0.Helpers
         [JsonProperty]
         public int puntos;
         [JsonProperty]
+        [JsonIgnore]
         public Recomendacion recomendacion;
 
         public Cliente(string nombre, string apellido, string domicilio, string usuario, string contrasenia, string doc, string tipo, string tel) 

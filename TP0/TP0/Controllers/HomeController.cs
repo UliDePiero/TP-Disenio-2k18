@@ -44,10 +44,29 @@ namespace TP0.Controllers
         public ActionResult DetallesDeUsuario(SubmitViewModel model)
         {
             string id = model.DispositivoSeleccionado;
-            List<Cliente> clientes = JsonConvert.DeserializeObject<List<Cliente>>(System.IO.File.ReadAllText(System.IO.Path.Combine(System.AppDomain.CurrentDomain.BaseDirectory.ToString(), "test.json.txt")));
+            var jsonSerializerSettings = new JsonSerializerSettings();
+            jsonSerializerSettings.MissingMemberHandling = MissingMemberHandling.Ignore;
+            jsonSerializerSettings.NullValueHandling = NullValueHandling.Ignore;
+            jsonSerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
+            jsonSerializerSettings.Formatting = Formatting.Indented;
+            jsonSerializerSettings.TypeNameHandling = TypeNameHandling.Auto;
+            jsonSerializerSettings.Converters.Add(new Newtonsoft.Json.Converters.JavaScriptDateTimeConverter());
+
+            List<Cliente> clientes = JsonConvert.DeserializeObject<List<Cliente>>(System.IO.File.ReadAllText(Path.Combine(AppDomain.CurrentDomain.BaseDirectory.ToString(), "test.json.txt")), jsonSerializerSettings);
             AgregarDispositivo(clientes, id);
-            var json = JsonConvert.SerializeObject(clientes);
+            foreach(Cliente cli in clientes)
+            {
+                foreach(DispositivoInteligente di in cli.dispositivosInteligentes)
+                {
+                    di.Estado = null;
+                    di.estadosAnteriores = null;
+                }
+            }
+
+
+            var json = JsonConvert.SerializeObject(clientes, jsonSerializerSettings);
             System.IO.File.WriteAllText(System.IO.Path.Combine(System.AppDomain.CurrentDomain.BaseDirectory.ToString(), "test.json.txt"), json.ToString());
+
             return RedirectToAction("Index", "Home");
         }
         private bool EsInteligente(string id)
@@ -85,7 +104,7 @@ namespace TP0.Controllers
                 }
             }
             //Si el cliente no esta en el json, lo agrega
-            Cliente c = new Cliente(User.Identity.Name, "", "", "", "", "", "", "");
+            Cliente c = new Cliente(User.Identity.Name, "", "", User.Identity.Name, "", "", "", "");
             if (EsInteligente(Disp))
             {
                 c.dispositivosInteligentes.Add(EncontrarDispositivoInteligente(Disp));
