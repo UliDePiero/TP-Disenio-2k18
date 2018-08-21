@@ -59,7 +59,6 @@ namespace TP0.Helpers
         {
             return dispositivosEstandares.Count()+ dispositivosInteligentes.Count();
         }
-        //falta esto
         public double EstimarFacturacion(DateTime fInicial, DateTime fFinal)
         {
             return categoria.CalcularTarifa(KwTotales(fInicial, fFinal));
