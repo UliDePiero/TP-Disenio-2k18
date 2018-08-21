@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace TP0.Models
@@ -96,7 +96,7 @@ namespace TP0.Models
         [Display(Name = "Usuario")]
         public string usuario { get; set; }
 
-        [Required]
+        
         [Display(Name = "Contrasenia")]
         public string contrasenia { get; set; }
 
