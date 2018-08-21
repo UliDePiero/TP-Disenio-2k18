@@ -222,7 +222,7 @@
     <Compile Include="Helpers\Adaptadores y Marcas\Marca_Hp.cs" />
     <Compile Include="Helpers\Adaptadores y Marcas\Marca_Samsung.cs" />
     <Compile Include="Helpers\Recomendacion.cs" />
-    <Compile Include="Helpers\Regla.cs" />
+    <Compile Include="Helpers\Actuador.cs" />
     <Compile Include="Helpers\Resultado.cs" />
     <Compile Include="Helpers\Sensor.cs" />
     <Compile Include="Helpers\Static\DispositivosTotales.cs" />
