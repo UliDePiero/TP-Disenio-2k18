@@ -207,7 +207,6 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Helpers\Adaptadores y Marcas\AdaptadorApple.cs" />
     <Compile Include="Helpers\Adaptadores y Marcas\AdaptadorHp.cs" />
     <Compile Include="Helpers\Adaptadores y Marcas\AdaptadorSamsung.cs" />
@@ -216,11 +215,8 @@
     <Compile Include="Helpers\Cliente.cs" />
     <Compile Include="Helpers\Condicion.cs" />
     <Compile Include="Helpers\DispositivoInteligente.cs" />
-
     <Compile Include="Helpers\Schedule.cs" />
-
     <Compile Include="Helpers\JsonTrafos.cs" />
-
     <Compile Include="Helpers\State.cs" />
     <Compile Include="Helpers\Adaptadores y Marcas\Marca_Apple.cs" />
     <Compile Include="Helpers\Adaptadores y Marcas\Marca_Hp.cs" />
