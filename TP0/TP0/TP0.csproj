@@ -216,11 +216,11 @@
     <Compile Include="Helpers\Cliente.cs" />
     <Compile Include="Helpers\Condicion.cs" />
     <Compile Include="Helpers\DispositivoInteligente.cs" />
-<<<<<<< HEAD
+
     <Compile Include="Helpers\Schedule.cs" />
-=======
+
     <Compile Include="Helpers\JsonTrafos.cs" />
->>>>>>> 4f0932009249332e02d87335a08d47bbca6684a7
+
     <Compile Include="Helpers\State.cs" />
     <Compile Include="Helpers\Adaptadores y Marcas\Marca_Apple.cs" />
     <Compile Include="Helpers\Adaptadores y Marcas\Marca_Hp.cs" />
