@@ -24,6 +24,10 @@ namespace TP0.Helpers
             aTimer.Elapsed += HandleTimerElapsed;
             aTimer.Start();
         }
+        public void CambiarPeriodo(double hs)
+        {
+            aTimer.Interval = hs * 60 * 60 * 1000;
+        }
         public void HandleTimerElapsed(object sender, ElapsedEventArgs e)
         {
             rec.ejecutarRecomendacion();
