@@ -23,6 +23,13 @@
         "kWxHora": 1.013,
         "min": 90.0,
         "max": 360.0
+      },
+      {
+        "id": "0012",
+        "nombre": "aire acondicionado de 2200 frigorias",
+        "kWxHora": 1.013,
+        "min": 90.0,
+        "max": 150.0
       }
     ],
     "puntos": 0,
