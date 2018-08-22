@@ -40,7 +40,7 @@ namespace TP0.Controllers
                         string Json = System.IO.File.ReadAllText(path);
                         switch (Path.GetFileName(file.FileName))
                         {
-                            case "usuarios.json":
+                            case "test.json.txt":
                                 List<Cliente> userList = JsonConvert.DeserializeObject<List<Cliente>>(Json);
                                 Helpers.Static.ClientesImportados.clientes = userList;
                                 break;
