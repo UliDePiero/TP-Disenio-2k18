@@ -20,6 +20,7 @@
     <script>
         function alertBox() {
             alert("Ejecutado");
+            
         }
     </script>
     <div class="jumbotron">
@@ -27,19 +28,14 @@
     </div>
 
     <section id="acciones_dispositivos_botones">
-        <button class="boton_acciones_dispositivos"> Colocar la cantidad total de dispositivos </button>
-        <p id="colocar_cantidad_total_de_dispositivos"></p>
-        <button onclick=""> Consultar por dispositivos inteligentes encendidos</button>
-        <button onclick="alertBox();location.href='@Url.Action("Simplex", "Home")'">Ejecutar Simplex</button>
+        <p><button onclick="alertBox();location.href='@Url.Action("Simplex", "Home")'">Conocer recomendación de uso</button></p>
 
-        <!-- <button class="boton_acciones_dispositivos"> Consultar por dispositivos inteligentes encendidos</button> -->
-        <p id="hay_di_encendidos"></p>
-        <button class="boton_acciones_dispositivos"> Consultar por cantidad de dispositivos inteligentes encendidos</button>
-        <p id="cuantos_di_encendidos_hay"></p>
-        <button class="boton_acciones_dispositivos"> Consultar por dispositivos inteligentes apagados</button>
-        <p id="hay_di_apagados"></p>
-        <button class="boton_acciones_dispositivos"> Consultar por cantidad de dispositivos inteligentes apagados </button>
-        <p id="cuantos_di_apagados_hay"></p>
+        <button onclick="location.href='@Url.Action("mostrarDispositivosTotales", "Home")'"> Cantidad total de dispositivos </button>
+       
+        <button onclick="location.href='@Url.Action("mostrarDispositivosEncendidos", "Home")'"> Consultar por dispositivos inteligentes encendidos</button>
+      
+        <button onclick=";location.href='@Url.Action("mostrarDispositivosApagados", "Home")'"> Consultar por dispositivos inteligentes apagados</button>
+       
         
     </section>
 

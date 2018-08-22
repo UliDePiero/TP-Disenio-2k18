@@ -13,6 +13,7 @@ namespace TP0.Controllers
 {
     public class HomeController : Controller
     {
+        Cliente clienteActual;
         public ActionResult Index()
         {
             return View();
@@ -122,7 +123,7 @@ namespace TP0.Controllers
 
             return View();
         }
-
+        [HttpGet]
         public ActionResult Simplex()
         {
             if (User.Identity.IsAuthenticated || Helpers.Static.ClientesImportados.GetClientes() != null)
@@ -142,13 +143,58 @@ namespace TP0.Controllers
                     d.max = 150;
                 }
                 string idUsuario = User.Identity.GetUserName();
+<<<<<<< HEAD
+                clienteActual = Helpers.Static.ClientesImportados.filtrarCliente(idUsuario);
+=======
                 Cliente clienteActual = Helpers.Static.ClientesImportados.filtrarCliente(idUsuario);
-                string resu = clienteActual.solicitarRecomendacion().ToString();
+>>>>>>> 98d5ab2be9e9c25d256be34e7eda3fc781ecd991
+                string resu = clienteActual.solicitarRecomendacion();
                 //string json = Helpers.Static.Simplex.SimplexHelper.generarJson(clienteActual.dispositivosEstandares, clienteActual.dispositivosInteligentes);
                 ViewBag.estadoSimplex = resu;
+
+                return RedirectToAction("Simplex2", "Home", new { mensaje = "Recomendación: " + resu });
+                //return View("~/Views/Home/Simplex2.cshtml");
+
             }
             else ViewBag.estadoSimplex = "nop";
-            return RedirectToAction("AdministrarDispositivos", "Home");
+             return RedirectToAction("AdministrarDispositivos", "Home");
+           
         }
+        [HttpGet]
+        public ActionResult Simplex2(string mensaje)
+        {
+            ViewBag.Message = mensaje;
+            
+            return View();
+        }
+
+        public ActionResult mostrarDispositivosTotales(string mensaje)
+        {
+            string idUsuario = User.Identity.GetUserName();
+            clienteActual = Helpers.Static.ClientesImportados.filtrarCliente(idUsuario);
+            int resu = clienteActual.DispositivosTotales();
+            //string json = Helpers.Static.Simplex.SimplexHelper.generarJson(clienteActual.dispositivosEstandares, clienteActual.dispositivosInteligentes);
+            ViewBag.estadoSimplex = resu;
+
+            return RedirectToAction("Simplex2", "Home", new { mensaje = "Dispositivos en total: " + resu });
+            
+        }
+        public ActionResult mostrarDispositivosEncendidos(string mensaje)
+        {
+            string idUsuario = User.Identity.GetUserName();
+            clienteActual = Helpers.Static.ClientesImportados.filtrarCliente(idUsuario);
+            int resu = clienteActual.DispositivosEncendidos();
+
+            return RedirectToAction("Simplex2", "Home", new { mensaje = "Dispositivos Inteligentes encendidos: " + resu });
+        }
+        public ActionResult mostrarDispositivosApagados(string mensaje)
+        {
+            string idUsuario = User.Identity.GetUserName();
+            clienteActual = Helpers.Static.ClientesImportados.filtrarCliente(idUsuario);
+            int resu = clienteActual.DispositivosApagados(); ;
+
+            return RedirectToAction("Simplex2", "Home", new { mensaje = "Dispositivos Inteligentes apagados: " + resu });
+        }
+
     }
 }

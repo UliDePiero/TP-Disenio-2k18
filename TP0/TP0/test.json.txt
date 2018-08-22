@@ -10,7 +10,8 @@
     "apellido": "sarasibar",
     "domicilio": "asd",
     "usuario": "asd@asd.com"
-  }, {
+  },
+  {
     "documento": "",
     "tipoDocumento": "",
     "telefono": "",
@@ -22,13 +23,41 @@
         "kWxHora": 1.013,
         "min": 90.0,
         "max": 360.0
-      } ]  ,
+      },
+      {
+        "id": "0012",
+        "nombre": "aire acondicionado de 2200 frigorias",
+        "kWxHora": 1.013,
+        "min": 90.0,
+        "max": 150.0
+      }
+    ],
     "puntos": 0,
     "nombre": "6@s.com",
     "apellido": "",
     "domicilio": "",
     "usuario": "6@s.com",
     "contrasenia": ""
+  },
+  {
+    "documento": "",
+    "tipoDocumento": "",
+    "telefono": "",
+    "dispositivosEstandares": [],
+    "dispositivosInteligentes": [
+      {
+        "id": "0024",
+        "nombre": "ventilador de techo",
+        "kWxHora": 0.06,
+        "min": 120.0,
+        "max": 360.0
+      }
+    ],
+    "puntos": 0,
+    "nombre": "a@a.com",
+    "apellido": "",
+    "domicilio": "",
+    "usuario": "a@a.com",
+    "contrasenia": ""
   }
- 
 ]
