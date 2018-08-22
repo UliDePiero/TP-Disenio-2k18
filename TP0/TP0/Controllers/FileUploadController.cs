@@ -46,6 +46,7 @@ namespace TP0.Controllers
                                 break;
                             case "transformadores.json":
                                 List<Transformador> transformadoresActivos = JsonConvert.DeserializeObject<List<Transformador>>(Json);
+                                Helpers.Static.TransformadoresImp.transformadores = transformadoresActivos;
                                 break;
                             case "dispositivosEstandares.json":
                                 List<DispositivoEstandar> dispositivosEstandares = JsonConvert.DeserializeObject<List<DispositivoEstandar>>(Json);
