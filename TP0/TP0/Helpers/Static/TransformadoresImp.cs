@@ -8,7 +8,7 @@ namespace TP0.Helpers.Static
     public static class TransformadoresImp
     {
         public static List<Transformador> transformadores;
-        public static List<Transformador> GetClientes()
+        public static List<Transformador> GetTransformadores()
         {
             if (transformadores.Count > 0)
             {
