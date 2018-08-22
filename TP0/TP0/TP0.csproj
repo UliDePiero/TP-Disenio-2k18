@@ -224,6 +224,7 @@
     <Compile Include="Helpers\Actuador.cs" />
     <Compile Include="Helpers\Resultado.cs" />
     <Compile Include="Helpers\Sensor.cs" />
+    <Compile Include="Helpers\Static\ClientesImportados.cs" />
     <Compile Include="Helpers\Static\DispositivosTotales.cs" />
     <Compile Include="Helpers\Static\FechasAdmin.cs" />
     <Compile Include="Helpers\Static\Simplex\restriction.cs" />
