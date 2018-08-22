@@ -47,7 +47,7 @@ namespace TP0.Helpers
             var result = generarRecomendacion();
 
 
-            List<Double> doubleV = parsearString(result);
+            double[] doubleV = parsearString(result);
             int i=0;
             doubleV.Reverse();
 
@@ -72,13 +72,13 @@ namespace TP0.Helpers
             }
         }
 
-        public List<Double> parsearString(string str)
+        public double[] parsearString(string str)
         {
             str = str.Replace("[", "");
             str = str.Replace("]", "");
             str = str.Replace(".0", "");
             string[] respuestaArrayString = str.Split(',');
-            List<Double> respuestaArrayDouble = new List<Double>(respuestaArrayString.Length);
+            double[] respuestaArrayDouble = new double[respuestaArrayString.Length];
             for (int i = 0; i < respuestaArrayString.Length; i++)
             {
                 respuestaArrayDouble[i] = Convert.ToDouble(respuestaArrayString[i]);
