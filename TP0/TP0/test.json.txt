@@ -10,8 +10,7 @@
     "apellido": "sarasibar",
     "domicilio": "asd",
     "usuario": "asd@asd.com"
-  },
-  {
+  }, {
     "documento": "",
     "tipoDocumento": "",
     "telefono": "",
@@ -23,13 +22,13 @@
         "kWxHora": 1.013,
         "min": 90.0,
         "max": 360.0
-      }
-    ],
+      } ]  ,
     "puntos": 0,
-    "nombre": "a@a.com",
+    "nombre": "6@s.com",
     "apellido": "",
     "domicilio": "",
-    "usuario": "a@a.com",
+    "usuario": "6@s.com",
     "contrasenia": ""
   }
+ 
 ]
