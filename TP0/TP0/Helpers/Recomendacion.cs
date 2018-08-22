@@ -41,7 +41,20 @@ namespace TP0.Helpers
 
         public void ejecutarRecomendacion()
         {
+            var result = generarRecomendacion();
+            //el primer valor de result es las horas totales
+            //luego con un reverse
+            if (accionAutomatica)
+            {
+                foreach (DispositivoEstandar de in cliente.dispositivosEstandares)
+                {
 
+                }
+                foreach (DispositivoInteligente di in cliente.dispositivosInteligentes)
+                {
+
+                }
+            }
         }
     }
 }
