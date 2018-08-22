@@ -42,6 +42,7 @@ namespace TP0.Controllers
                         {
                             case "usuarios.json":
                                 List<Cliente> userList = JsonConvert.DeserializeObject<List<Cliente>>(Json);
+                                Helpers.Static.ClientesImportados.clientes = userList;
                                 break;
                             case "transformadores.json":
                                 List<Transformador> transformadoresActivos = JsonConvert.DeserializeObject<List<Transformador>>(Json);
