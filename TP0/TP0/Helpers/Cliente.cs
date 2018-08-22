@@ -83,9 +83,9 @@ namespace TP0.Helpers
 
         }
 
-        public void solicitarRecomendacion()
+        public string solicitarRecomendacion()
         {
-            recomendacion.generarRecomendacion();
+            return recomendacion.generarRecomendacion();
         }
 
         public void ActualizarCategoria()

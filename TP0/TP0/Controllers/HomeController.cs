@@ -122,7 +122,7 @@ namespace TP0.Controllers
 
             return View();
         }
-
+        [HttpGet]
         public ActionResult Simplex()
         {
             if (User.Identity.IsAuthenticated || Helpers.Static.ClientesImportados.GetClientes() != null)
@@ -146,9 +146,17 @@ namespace TP0.Controllers
                 string resu = clienteActual.solicitarRecomendacion().ToString();
                 //string json = Helpers.Static.Simplex.SimplexHelper.generarJson(clienteActual.dispositivosEstandares, clienteActual.dispositivosInteligentes);
                 ViewBag.estadoSimplex = resu;
+                return RedirectToAction("Simplex2", "Home", new { mensaje = resu });
             }
             else ViewBag.estadoSimplex = "nop";
             return RedirectToAction("AdministrarDispositivos", "Home");
         }
+        [HttpGet]
+        public ActionResult Simplex2(string mensaje)
+        {
+            ViewBag.Message = mensaje;
+            return View();
+        }
+
     }
 }
