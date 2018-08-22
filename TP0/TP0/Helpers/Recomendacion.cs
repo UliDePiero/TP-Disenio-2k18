@@ -29,26 +29,12 @@ namespace TP0.Helpers
         public string generarRecomendacion()
         //public double[] generarRecomendacion(Cliente cliente)
         {
-            string jsonData = SimplexHelper.generarJson(cliente.dispositivosEstandares, cliente.dispositivosInteligentes);
+            string json = SimplexHelper.generarJson(cliente.dispositivosEstandares, cliente.dispositivosInteligentes);
             myWebClient.Headers.Add("Content-Type", "application/json");
             var sURI = "https://dds-simplexapi.herokuapp.com/consultar";
-<<<<<<< HEAD
 
             var respuesta = myWebClient.UploadString(sURI, json);
 
-=======
-            //var json = System.IO.File.ReadAllText(fileName);
-            var respuesta = myWebClient.UploadString(sURI, jsonData);
-            /*
-            string[] respuestaArrayString = respuesta.Split(',');
-            double[] respuestaArrayDouble = new double[respuestaArrayString.Length];
-            for (int i = 0; i < respuestaArrayString.Length; i++)
-            {
-                respuestaArrayDouble[i] = Convert.ToDouble(respuestaArrayString[i]);
-            }
-            return respuestaArrayDouble;
-            */
->>>>>>> 33d37dfbe4e9e023fdff11aedecbacd41c306c73
             return respuesta;
             
         }

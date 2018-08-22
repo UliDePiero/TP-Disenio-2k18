@@ -24,7 +24,7 @@ namespace TP0.Controllers
             //se llenan las listas de todas las opciones de dispositivos para poder agregarlos a los propios del usuario
             List<DispositivoEstandar> opcionesDeDispositivosEstandares = Helpers.Static.DispositivosTotales.GetDispositivoEstandars();
             List<DispositivoInteligente> opcionesDeDispositivosInteligentes = Helpers.Static.DispositivosTotales.GetDispositivoInteligentes();
-            
+
             List<SelectListItem> selectListItems = new List<SelectListItem>();
             foreach (DispositivoInteligente disp in opcionesDeDispositivosInteligentes)
             {
@@ -54,9 +54,9 @@ namespace TP0.Controllers
 
             List<Cliente> clientes = JsonConvert.DeserializeObject<List<Cliente>>(System.IO.File.ReadAllText(Path.Combine(AppDomain.CurrentDomain.BaseDirectory.ToString(), "test.json.txt")), jsonSerializerSettings);
             AgregarDispositivo(clientes, id);
-            foreach(Cliente cli in clientes)
+            foreach (Cliente cli in clientes)
             {
-                foreach(DispositivoInteligente di in cli.dispositivosInteligentes)
+                foreach (DispositivoInteligente di in cli.dispositivosInteligentes)
                 {
                     di.Estado = null;
                     di.estadosAnteriores = null;
@@ -119,7 +119,7 @@ namespace TP0.Controllers
         public ActionResult AdministrarDispositivos()
         {
             ViewBag.Message = "Your AdministrarDispositivos page.";
-            
+
             return View();
         }
 
@@ -148,5 +148,6 @@ namespace TP0.Controllers
             }
             else ViewBag.estadoSimplex = "nop";
             return RedirectToAction("AdministrarDispositivos", "Home");
+        }
     }
 }
