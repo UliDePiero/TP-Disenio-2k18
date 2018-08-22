@@ -125,23 +125,28 @@ namespace TP0.Controllers
 
         public ActionResult Simplex()
         {
-            //puse estas listas con todos los dispositivos existentes para probar si funciona. ahora tiene q hacerlo con los dispositivos del cleinte
-            List<DispositivoEstandar> de = Helpers.Static.DispositivosTotales.GetDispositivoEstandars();
-            List<DispositivoInteligente> di = Helpers.Static.DispositivosTotales.GetDispositivoInteligentes();
-            //maximos y minimos predeterminados para poder probar la funcionalidad
-            foreach (DispositivoEstandar d in de)
+            if (User.Identity.IsAuthenticated || Helpers.Static.ClientesImportados.GetClientes() != null)
             {
-                d.max = 100;
-                d.min = 50;
+                //puse estas listas con todos los dispositivos existentes para probar si funciona. ahora tiene q hacerlo con los dispositivos del cleinte
+                List<DispositivoEstandar> de = Helpers.Static.DispositivosTotales.GetDispositivoEstandars();
+                List<DispositivoInteligente> di = Helpers.Static.DispositivosTotales.GetDispositivoInteligentes();
+                //maximos y minimos predeterminados para poder probar la funcionalidad
+                foreach (DispositivoEstandar d in de)
+                {
+                    d.max = 100;
+                    d.min = 50;
+                }
+                foreach (DispositivoInteligente d in di)
+                {
+                    d.max = 200;
+                    d.max = 150;
+                }
+                string idUsuario = User.Identity.GetUserName();
+                Cliente clienteActual = Helpers.Static.ClientesImportados.filtrarCliente(idUsuario);
+                string json = Helpers.Static.Simplex.SimplexHelper.generarJson(clienteActual.dispositivosEstandares, clienteActual.dispositivosInteligentes);
+                ViewBag.estadoSimplex = "funca";
             }
-            foreach (DispositivoInteligente d in di)
-            {
-                d.max = 200;
-                d.max = 150;
-            }
-
-            string json = Helpers.Static.Simplex.SimplexHelper.generarJson(de, di);
+            else ViewBag.estadoSimplex = "nop";
             return RedirectToAction("AdministrarDispositivos", "Home");
-        }
     }
 }
