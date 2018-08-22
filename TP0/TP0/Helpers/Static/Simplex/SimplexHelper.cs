@@ -66,9 +66,9 @@ namespace TP0.Helpers.Static.Simplex
                 }
                 contador++;
             }
-            string jsondata = JsonConvert.SerializeObject(obj);
+            string jsonData = JsonConvert.SerializeObject(obj);
 
-            return jsondata.Replace("operador", "operator");
+            return jsonData.Replace("operador", "operator");
 
         }
     }
