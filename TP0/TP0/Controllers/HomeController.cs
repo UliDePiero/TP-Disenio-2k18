@@ -143,7 +143,7 @@ namespace TP0.Controllers
                 }
                 string idUsuario = User.Identity.GetUserName();
                 Cliente clienteActual = Helpers.Static.ClientesImportados.filtrarCliente(idUsuario);
-                string resu = clienteActual.solicitarRecomendacion().ToString();
+                string resu = clienteActual.solicitarRecomendacion();
                 //string json = Helpers.Static.Simplex.SimplexHelper.generarJson(clienteActual.dispositivosEstandares, clienteActual.dispositivosInteligentes);
                 ViewBag.estadoSimplex = resu;
                 return RedirectToAction("Simplex2", "Home", new { mensaje = resu });
