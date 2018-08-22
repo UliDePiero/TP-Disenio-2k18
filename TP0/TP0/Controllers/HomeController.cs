@@ -143,7 +143,11 @@ namespace TP0.Controllers
                     d.max = 150;
                 }
                 string idUsuario = User.Identity.GetUserName();
+<<<<<<< HEAD
                 clienteActual = Helpers.Static.ClientesImportados.filtrarCliente(idUsuario);
+=======
+                Cliente clienteActual = Helpers.Static.ClientesImportados.filtrarCliente(idUsuario);
+>>>>>>> 98d5ab2be9e9c25d256be34e7eda3fc781ecd991
                 string resu = clienteActual.solicitarRecomendacion();
                 //string json = Helpers.Static.Simplex.SimplexHelper.generarJson(clienteActual.dispositivosEstandares, clienteActual.dispositivosInteligentes);
                 ViewBag.estadoSimplex = resu;
