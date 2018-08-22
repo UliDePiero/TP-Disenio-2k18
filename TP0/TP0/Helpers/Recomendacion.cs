@@ -33,9 +33,11 @@ namespace TP0.Helpers
             myWebClient.Headers.Add("Content-Type", "application/json");
             var sURI = "https://dds-simplexapi.herokuapp.com/consultar";
 
-            var respuesta = myWebClient.UploadString(sURI, json);
-           
-          
+            string respuesta = myWebClient.UploadString(sURI, json);
+            //List<Double> lista = parsearString(respuesta);
+            //lista.Remove(lista.First());
+            //Lista.Reverse();
+            //respuesta = lista.ToString();
             return respuesta;
             
         }
@@ -45,7 +47,7 @@ namespace TP0.Helpers
             var result = generarRecomendacion();
 
 
-            double[] doubleV = parsearString(result);
+            List<Double> doubleV = parsearString(result);
             int i=0;
             doubleV.Reverse();
 
@@ -70,13 +72,13 @@ namespace TP0.Helpers
             }
         }
 
-        public double[] parsearString(string str)
+        public List<Double> parsearString(string str)
         {
             str = str.Replace("[", "");
             str = str.Replace("]", "");
             str = str.Replace(".0", "");
             string[] respuestaArrayString = str.Split(',');
-            double[] respuestaArrayDouble = new double[respuestaArrayString.Length];
+            List<Double> respuestaArrayDouble = new List<Double>(respuestaArrayString.Length);
             for (int i = 0; i < respuestaArrayString.Length; i++)
             {
                 respuestaArrayDouble[i] = Convert.ToDouble(respuestaArrayString[i]);

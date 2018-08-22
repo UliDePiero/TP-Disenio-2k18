@@ -64,11 +64,12 @@ namespace TP0.Controllers
                 }
             }
 
+            Helpers.Static.ClientesImportados.clientes = clientes;
 
             var json = JsonConvert.SerializeObject(clientes, jsonSerializerSettings);
             System.IO.File.WriteAllText(System.IO.Path.Combine(System.AppDomain.CurrentDomain.BaseDirectory.ToString(), "test.json.txt"), json.ToString());
 
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("DetallesDeUsuario", "Home");
         }
         private bool EsInteligente(string id)
         {
@@ -106,6 +107,7 @@ namespace TP0.Controllers
             }
             //Si el cliente no esta en el json, lo agrega
             Cliente c = new Cliente(User.Identity.Name, "", "", User.Identity.Name, "", "", "", "");
+
             if (EsInteligente(Disp))
             {
                 c.dispositivosInteligentes.Add(EncontrarDispositivoInteligente(Disp));
@@ -115,6 +117,7 @@ namespace TP0.Controllers
                 c.dispositivosEstandares.Add(EncontrarDispositivoEstandard(Disp));
             }
             clientes.Add(c);
+
         }
 
         public ActionResult AdministrarDispositivos()
