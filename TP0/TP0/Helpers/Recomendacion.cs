@@ -34,15 +34,8 @@ namespace TP0.Helpers
             var sURI = "https://dds-simplexapi.herokuapp.com/consultar";
 
             var respuesta = myWebClient.UploadString(sURI, json);
-            /*
-           string[] respuestaArrayString = respuesta.Split(',');
-           double[] respuestaArrayDouble = new double[respuestaArrayString.Length];
-           for (int i = 0; i < respuestaArrayString.Length; i++)
-           {
-               respuestaArrayDouble[i] = Convert.ToDouble(respuestaArrayString[i]);
-           }
-           return respuestaArrayDouble;
-           */
+           
+          
             return respuesta;
             
         }
@@ -50,19 +43,45 @@ namespace TP0.Helpers
         public void ejecutarRecomendacion()
         {
             var result = generarRecomendacion();
-            //el primer valor de result es las horas totales
-            //luego con un reverse
-            if (accionAutomatica)
+
+
+            double[] doubleV = parsearString(result);
+            int i=0;
+            doubleV.Reverse();
+
+            if (accionAutomatica==true)
             {
                 foreach (DispositivoEstandar de in cliente.dispositivosEstandares)
                 {
-
+                    if (doubleV[i] <= de.consumoEnPeriodo(DateTime.Now.AddHours(-720), DateTime.Now))
+                    {
+                        
+                    }
+                    i--;
                 }
                 foreach (DispositivoInteligente di in cliente.dispositivosInteligentes)
                 {
-
+                    if (doubleV[i] < di.consumoEnHoras(720))
+                    {
+                        di.apagar();
+                    }
+                    i--;
                 }
             }
+        }
+
+        public double[] parsearString(string str)
+        {
+            str = str.Replace("[", "");
+            str = str.Replace("]", "");
+            str = str.Replace(".0", "");
+            string[] respuestaArrayString = str.Split(',');
+            double[] respuestaArrayDouble = new double[respuestaArrayString.Length];
+            for (int i = 0; i < respuestaArrayString.Length; i++)
+            {
+                respuestaArrayDouble[i] = Convert.ToDouble(respuestaArrayString[i]);
+            }
+            return respuestaArrayDouble;
         }
     }
 }

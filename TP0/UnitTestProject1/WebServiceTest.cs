@@ -20,10 +20,12 @@ namespace UnitTestProject1
             cliente.dispositivosEstandares.Add(new DispositivoEstandar("lavarropas automatico de 5kg con calentamiento", "0021", 0.875, 0, 30, 6));
             
             //Act
+
             var resultado = recomendacion.generarRecomendacion();
+            double[] doubleV = recomendacion.parsearString(resultado);
 
             //Assert
-            Assert.AreEqual("[750.0, 360.0, 30.0, 360.0]", resultado);
+            Assert.AreEqual(750.0, doubleV[0]);
         }
 
         [TestMethod]
@@ -51,7 +53,6 @@ namespace UnitTestProject1
             //Assert
             Assert.AreEqual("[1875.0, 30.0, 15.0, 30.0, 360.0, 360.0, 360.0, 360.0, 360.0]", resultado);
         }
-
-
+        
     }
 }
