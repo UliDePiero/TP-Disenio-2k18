@@ -23,7 +23,6 @@ namespace TP0.Helpers
         public Recomendacion(Cliente c)
         {
             cliente = c;
-            //generarRecomendacion(cliente);
             this.planEjecucion = new Schedule(this);
         }
 
@@ -33,19 +32,16 @@ namespace TP0.Helpers
             string json = SimplexHelper.generarJson(cliente.dispositivosEstandares, cliente.dispositivosInteligentes);
             myWebClient.Headers.Add("Content-Type", "application/json");
             var sURI = "https://dds-simplexapi.herokuapp.com/consultar";
-            //var json = System.IO.File.ReadAllText(fileName);
+
             var respuesta = myWebClient.UploadString(sURI, json);
-            /*
-            string[] respuestaArrayString = respuesta.Split(',');
-            double[] respuestaArrayDouble = new double[respuestaArrayString.Length];
-            for (int i = 0; i < respuestaArrayString.Length; i++)
-            {
-                respuestaArrayDouble[i] = Convert.ToDouble(respuestaArrayString[i]);
-            }
-            return respuestaArrayDouble;
-            */
+
             return respuesta;
             
+        }
+
+        public void ejecutarRecomendacion()
+        {
+
         }
     }
 }
