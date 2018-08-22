@@ -34,7 +34,15 @@ namespace TP0.Helpers
             var sURI = "https://dds-simplexapi.herokuapp.com/consultar";
 
             var respuesta = myWebClient.UploadString(sURI, json);
-
+            /*
+           string[] respuestaArrayString = respuesta.Split(',');
+           double[] respuestaArrayDouble = new double[respuestaArrayString.Length];
+           for (int i = 0; i < respuestaArrayString.Length; i++)
+           {
+               respuestaArrayDouble[i] = Convert.ToDouble(respuestaArrayString[i]);
+           }
+           return respuestaArrayDouble;
+           */
             return respuesta;
             
         }
