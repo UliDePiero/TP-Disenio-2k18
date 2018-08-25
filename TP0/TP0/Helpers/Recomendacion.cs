@@ -34,10 +34,7 @@ namespace TP0.Helpers
             var sURI = "https://dds-simplexapi.herokuapp.com/consultar";
 
             string respuesta = myWebClient.UploadString(sURI, json);
-            //List<Double> lista = parsearString(respuesta);
-            //lista.Remove(lista.First());
-            //Lista.Reverse();
-            //respuesta = lista.ToString();
+
             return respuesta;
             
         }
@@ -48,18 +45,13 @@ namespace TP0.Helpers
 
 
             double[] doubleV = parsearString(result);
-            int i=0;
-            doubleV.Reverse();
+            int i = 1;
 
             if (accionAutomatica==true)
             {
                 foreach (DispositivoEstandar de in cliente.dispositivosEstandares)
                 {
-                    if (doubleV[i] <= de.consumoEnPeriodo(DateTime.Now.AddHours(-720), DateTime.Now))
-                    {
-                        
-                    }
-                    i--;
+                    i++;
                 }
                 foreach (DispositivoInteligente di in cliente.dispositivosInteligentes)
                 {
@@ -67,7 +59,7 @@ namespace TP0.Helpers
                     {
                         di.apagar();
                     }
-                    i--;
+                    i++;
                 }
             }
         }
