@@ -25,9 +25,10 @@ namespace TP0.Helpers
         public List<DispositivoInteligente> dispositivosInteligentes;
         [JsonProperty]
         public int puntos;
-        [JsonProperty]
         [JsonIgnore]
-        public Recomendacion recomendacion;
+        public Recomendacion recomendacion = Recomendacion.Instancia();
+        [JsonIgnore]
+        public bool accionAutomatica;
 
         public Cliente(string nombre, string apellido, string domicilio, string usuario, string contrasenia, string doc, string tipo, string tel) 
         {
@@ -41,7 +42,8 @@ namespace TP0.Helpers
             this.telefono = tel;
             this.dispositivosInteligentes = new List<DispositivoInteligente>();
             this.dispositivosEstandares = new List<DispositivoEstandar>();
-            this.recomendacion = new Recomendacion(this);
+            recomendacion.nuevoCliente(this);
+            accionAutomatica = false;
         }
          
         public bool AlgunDispositivoEncendido()
@@ -85,7 +87,7 @@ namespace TP0.Helpers
 
         public string solicitarRecomendacion()
         {
-            return recomendacion.generarRecomendacion();
+            return recomendacion.generarRecomendacion(this);
         }
 
         public void ActualizarCategoria()

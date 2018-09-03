@@ -7,6 +7,8 @@ using System.Threading.Tasks;
 using System.Net;
 using System.Net.Http;
 using System.Text;
+using System.Timers;
+using TP0.Helpers.Simplex;
 
 namespace TP0.Helpers
 {
@@ -14,22 +16,30 @@ namespace TP0.Helpers
     {
         //public List<Resultado> horasXDisp = new List<Resultado>();
         //public double horasTotalesXMes;
+        private static Recomendacion _instancia;
+        public WebClient myWebClient = new WebClient(); //uno por consulta? o una sola?
+        public List<Cliente> clientes;
+        Timer aTimer;
+        public SimplexHelper simplex = SimplexHelper.Instancia();
 
-        public WebClient myWebClient = new WebClient(); //uno por cliente o por consulta?
-        public Schedule planEjecucion;
-        public bool accionAutomatica;
-        public Cliente cliente;
-
-        public Recomendacion(Cliente c)
+        protected Recomendacion()
         {
-            cliente = c;
-            this.planEjecucion = new Schedule(this);
+            this.CrearTimer();
+            clientes = new List<Cliente>();
         }
 
-        public string generarRecomendacion()
-        //public double[] generarRecomendacion(Cliente cliente)
+        public static Recomendacion Instancia()
         {
-            string json = SimplexHelper.generarJson(cliente.dispositivosEstandares, cliente.dispositivosInteligentes);
+            if (_instancia == null)
+            {
+                _instancia = new Recomendacion();
+            }
+            return _instancia;
+        }
+
+        public string generarRecomendacion(Cliente cliente)
+        {
+            string json = simplex.generarJson(cliente.dispositivosEstandares, cliente.dispositivosInteligentes);
             myWebClient.Headers.Add("Content-Type", "application/json");
             var sURI = "https://dds-simplexapi.herokuapp.com/consultar";
 
@@ -41,25 +51,28 @@ namespace TP0.Helpers
 
         public void ejecutarRecomendacion()
         {
-            var result = generarRecomendacion();
+            foreach (Cliente c in clientes)
+            { 
+                var result = generarRecomendacion(c);
 
 
-            double[] doubleV = parsearString(result);
-            int i = 1;
-
-            if (accionAutomatica==true)
-            {
-                foreach (DispositivoEstandar de in cliente.dispositivosEstandares)
+                double[] doubleV = parsearString(result);
+                int i = 1;
+                
+                if (c.accionAutomatica==true)
                 {
-                    i++;
-                }
-                foreach (DispositivoInteligente di in cliente.dispositivosInteligentes)
-                {
-                    if (doubleV[i] < di.consumoEnHoras(720))
+                    foreach (DispositivoEstandar de in c.dispositivosEstandares)
                     {
-                        di.apagar();
+                        i++;
                     }
-                    i++;
+                    foreach (DispositivoInteligente di in c.dispositivosInteligentes)
+                    {
+                        if (doubleV[i] < di.consumoEnHoras(720))
+                        {
+                            di.apagar();
+                        }
+                        i++;
+                    }
                 }
             }
         }
@@ -76,6 +89,23 @@ namespace TP0.Helpers
                 respuestaArrayDouble[i] = Convert.ToDouble(respuestaArrayString[i]);
             }
             return respuestaArrayDouble;
+        }
+
+        public void CrearTimer()
+        {
+            aTimer = new Timer();
+            aTimer.Interval = 24 * 60 * 60 * 1000;
+            aTimer.Elapsed += HandleTimerElapsed;
+            aTimer.Start();
+        }
+        public void HandleTimerElapsed(object sender, ElapsedEventArgs e)
+        {   
+            this.ejecutarRecomendacion();
+        }
+
+        public void nuevoCliente(Cliente cliente)
+        {
+            clientes.Add(cliente);
         }
     }
 }

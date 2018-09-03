@@ -13,8 +13,9 @@ namespace UnitTestProject1
         public void WebService_Test()
         {
             //Arrenge
+            var recomendacion = Recomendacion.Instancia();
             var cliente = new Cliente("Luciano", "Panizza", "Medrano951", "paniaton", "asdqwe123", "12345678", "dni", "12345678");
-            var recomendacion = new Recomendacion(cliente);
+            
 
 
             cliente.dispositivosInteligentes.Add(new DispositivoInteligente("lampara halogena de 60 W", "0011", 0.06, 360, 90));
@@ -28,7 +29,7 @@ namespace UnitTestProject1
             //Act
 
             //var linea = SimplexHelper.generarJson(cliente.dispositivosEstandares, cliente.dispositivosInteligentes);
-            var resultado = recomendacion.generarRecomendacion();
+            var resultado = recomendacion.generarRecomendacion(cliente);
 
             //Assert
             Assert.AreEqual("[765.0, 15.0, 360.0, 30.0, 360.0]", resultado);
@@ -38,8 +39,9 @@ namespace UnitTestProject1
         public void WebService_Test1()
         {
             //Arrenge
+            var recomendacion = Recomendacion.Instancia();
             var cliente = new Cliente("Ariel", "Ejemplo", "Medrano951", "ariel", "aaaaa", "12345678", "dni", "12345678");
-            var recomendacion = new Recomendacion(cliente);
+            
             /*1 TV LED 40”   2. 1 lámpara de 11 W    3. 1 lavarropas Semi-automático de 5 kg  4. 1 PC de escritorio    5. 1 aire Acondicionado de 2200    frigorías
               6. 1 microondas convencional             7. 1 plancha a vapor            8. 1 ventilador de techo*/
 
@@ -54,7 +56,7 @@ namespace UnitTestProject1
             cliente.dispositivosInteligentes.Add(new DispositivoInteligente("ventilador de techo", "0024", 0.06, 360, 120));
 
             //Act
-            var resultado = recomendacion.generarRecomendacion();
+            var resultado = recomendacion.generarRecomendacion(cliente);
 
             //Assert
             Assert.AreEqual("[1875.0, 30.0, 15.0, 30.0, 360.0, 360.0, 360.0, 360.0, 360.0]", resultado);
