@@ -215,7 +215,8 @@
     <Compile Include="Helpers\Cliente.cs" />
     <Compile Include="Helpers\Condicion.cs" />
     <Compile Include="Helpers\DispositivoInteligente.cs" />
-    <Compile Include="Helpers\Schedule.cs" />
+    <Compile Include="Helpers\Simplex\restriction.cs" />
+    <Compile Include="Helpers\Simplex\SimplexHelper.cs" />
     <Compile Include="Helpers\State.cs" />
     <Compile Include="Helpers\Adaptadores y Marcas\Marca_Apple.cs" />
     <Compile Include="Helpers\Adaptadores y Marcas\Marca_Hp.cs" />
@@ -228,9 +229,6 @@
     <Compile Include="Helpers\Static\ClientesImportados.cs" />
     <Compile Include="Helpers\Static\DispositivosTotales.cs" />
     <Compile Include="Helpers\Static\FechasAdmin.cs" />
-    <Compile Include="Helpers\Static\Simplex\restriction.cs" />
-    <Compile Include="Helpers\Static\Simplex\Simplex.cs" />
-    <Compile Include="Helpers\Static\Simplex\SimplexHelper.cs" />
     <Compile Include="Helpers\Transformador.cs" />
     <Compile Include="Helpers\Usuario.cs" />
     <Compile Include="Helpers\DispositivoEstandar.cs" />
