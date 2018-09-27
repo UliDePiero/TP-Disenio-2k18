@@ -18,7 +18,7 @@ namespace TP0.Helpers
         [ForeignKey("DispositivoID")]
         public DispositivoInteligente Dispositivo { get; set; }
 
-        public string Desc;
+        public string Desc { get; set; }
 
 
         public abstract void Encender();

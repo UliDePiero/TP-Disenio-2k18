@@ -44,6 +44,7 @@ namespace TP0.Helpers
             Dispositivos = new List<Dispositivo>();
             recomendacion.NuevoCliente(this);
             accionAutomatica = false;
+            FechaDeAlta = DateTime.Now.ToShortDateString();
         }
 
         public Cliente()

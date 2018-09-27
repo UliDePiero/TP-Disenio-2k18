@@ -17,7 +17,6 @@ namespace TP0.Helpers
         public float ValorMax { get; set; }
         public float ValorMin { get; set; }
         public int ActuadorID { get; set; }
-
         [ForeignKey("ActuadorID")]
         public Actuador Actuador { get; set; }
 

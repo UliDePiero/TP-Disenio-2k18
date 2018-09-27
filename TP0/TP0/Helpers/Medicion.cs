@@ -11,11 +11,11 @@ namespace TP0.Helpers
     {
         [Key]
         public int MedicionID { get; set; }
-        public DateTime DateTime { get; set; }
+        public DateTime Fecha { get; set; }
         public float Medida { get; set; }
 
         public int SensorID { get; set; }
         [ForeignKey("SensorID")]
-        public int Sensor { get; set; }
+        public Sensor Sensor { get; set; }
     }
 }

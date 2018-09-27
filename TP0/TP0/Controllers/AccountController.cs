@@ -163,11 +163,13 @@ namespace TP0.Controllers
                 if (result.Succeeded)
                 {
                     //Agrega el nuevo usuario a la base de datos
+
                     using (var db = new DBContext())
                     {
-                        Cliente cliente = new Cliente(model.nombre, model.apellido, model.domicilio, model.Email, model.contrasenia, model.documento, model.tipo, model.telefono);
-                        cliente.TransformadorID = 1; //Transformador default
-                        cliente.FechaDeAlta = DateTime.Now.ToShortDateString();
+                        Cliente cliente = new Cliente(model.nombre, model.apellido, model.domicilio, model.Email, model.contrasenia, model.documento, model.tipo, model.telefono)
+                        {
+                            TransformadorID = 1, //Transformador default
+                        };
                         db.Usuarios.Add(cliente);
                         db.SaveChanges();
                     }

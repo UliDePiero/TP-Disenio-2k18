@@ -12,16 +12,14 @@ namespace TP0.Helpers
     {
         [Key]
         public int ActuadorID { get; set; }
-
         public int DispositivoID { get; set; }
         [ForeignKey("DispositivoID")]
         public Dispositivo Dispositivo { get; set; }
-
         public List<Condicion> Condiciones { get; set; }
 
         public void VerificarRegla()
         {
-            if (Condiciones.All(c=>c.seCumple))
+            if (Condiciones.All(c => c.seCumple))
             {
                 EjecutarRegla();
             }
@@ -29,6 +27,10 @@ namespace TP0.Helpers
         public void EjecutarRegla()
         {
             //Metodo para ejecutar la regla
+        }
+        public void Notificar(float valor)
+        {
+            Condiciones.ForEach(o => o.Notificar(valor));
         }
     }
 }

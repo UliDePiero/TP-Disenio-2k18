@@ -11,19 +11,26 @@ namespace TP0.Helpers
     {
         [Key]
         public int SensorID { get; set; }
-
-        public int CondicionID { get; set; }
-        [ForeignKey("CondicionID")]
-        public List<Condicion> Observers { get; set; }
-
+        public string Desc { get; set; }
+        
+        [NotMapped]
+        public List<Actuador> Observers { get; set; }
         [NotMapped]
         public float Medicion;
 
-        public void AgregarObservador(Condicion c)
+        public Sensor(string descripcion)
+        {
+            Desc = descripcion;
+        }
+        public Sensor()
+        {
+        }
+
+        public void AgregarObservador(Actuador c)
         {
             Observers.Add(c);
         }
-        public void QuitarObservador(Condicion c)
+        public void QuitarObservador(Actuador c)
         {
             Observers.Remove(c);
         }
