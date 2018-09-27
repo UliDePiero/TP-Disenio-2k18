@@ -42,12 +42,12 @@ namespace TP0.Helpers.Static
             List<State> EstadosPartePeriodo = estadosAntes.Where(x => parteDelPeriodo(fInicialPer, fFinalPer, x)).ToList();
             
             if (EstadosPartePeriodo.Count() == 1) //igual de tamaño , o mayor de tamaño
-                return EstadosPartePeriodo.ElementAt(0).consumoEnIntervalor(fInicialPer, fFinalPer);
+                return EstadosPartePeriodo.ElementAt(0).ConsumoEnIntervalor(fInicialPer, fFinalPer);
 
             foreach (State e in EstadosPartePeriodo)
             {
                 if (dentroDelPeriodo(fInicialPer, fFinalPer, e))
-                    consumo += e.consumoEnIntervalor(fInicialPer, fFinalPer);
+                    consumo += e.ConsumoEnIntervalor(fInicialPer, fFinalPer);
 
                 else
                     consumo += consumoExtremoPeriodo(fInicialPer, fFinalPer, e);
@@ -60,9 +60,9 @@ namespace TP0.Helpers.Static
         public static double consumoExtremoPeriodo(DateTime fInicial, DateTime fFinal, State Estado)
         {
             if (Estado.FechaInicial <= fFinal && fFinal <= Estado.FechaFinal )
-                return Estado.consumoEnIntervalor(Estado.FechaInicial, fFinal);
+                return Estado.ConsumoEnIntervalor(Estado.FechaInicial, fFinal);
             else
-                return Estado.consumoEnIntervalor(fInicial, Estado.FechaFinal);
+                return Estado.ConsumoEnIntervalor(fInicial, Estado.FechaFinal);
         }
 
         public static bool dentroDelPeriodo(DateTime fInicial, DateTime fFinal, State Estado)

@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 using Newtonsoft.Json;
@@ -9,39 +11,42 @@ namespace TP0.Helpers
     public class Transformador
     {
         [JsonProperty("id")]
-        public int id { get; set; }
+        [Key]
+        public int TransformadorID { get; set; }
 
+        public int ZonaID { get; set; }
         [JsonProperty("zonaGeografica")]
-        public Zona zonaGeografica { get; set; }
+        [ForeignKey("ZonaID")]
+        public Zona ZonaGeografica { get; set; }
 
         [JsonProperty("latitude")]
-        public double latitud { get; set; }
-
+        public double Latitud { get; set; }
         [JsonProperty("longitude")]
-        public double longitud { get; set; }
-
+        public double Longitud { get; set; }
         [JsonProperty("energiaTotal")]
-        public double energiaTotal { get; set; }
+        public double EnergiaTotal { get; set; }
 
+        //No se persiste en la db
+        [NotMapped]
         [JsonProperty("clientes")]
-        public List<Cliente> clientes { get; set; }
+        public List<Cliente> Clientes { get; set; }
         //public List<Cliente> clientes;
 
         public Transformador(int id, double latitud, double longitud, double energiaTotal)
         {
-            this.id = id;
-            this.latitud = latitud;
-            this.longitud = longitud;
-            this.energiaTotal = energiaTotal;
+            TransformadorID = id;
+            Latitud = latitud;
+            Longitud = longitud;
+            EnergiaTotal = energiaTotal;
         }
 
-            public double energiaQueEstaSuministrando(DateTime fInicial, DateTime fFinal)
+        public double EnergiaQueEstaSuministrando(DateTime fInicial, DateTime fFinal)
         {
-            foreach (Cliente cli in clientes)
+            foreach (Cliente cli in Clientes)
 		    {
-		    energiaTotal += cli.KwTotales(fInicial, fFinal);
+		        EnergiaTotal += cli.KwTotales(fInicial, fFinal);
 		    }
-	        return energiaTotal;
+	        return EnergiaTotal;
 	    }
     }
 }

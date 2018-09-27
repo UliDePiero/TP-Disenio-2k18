@@ -6,18 +6,12 @@ using System.Web;
 
 namespace TP0.Helpers
 {
-    public class DispositivoEstandar
+    public class DispositivoEstandar : Dispositivo
     {
         [JsonProperty]
-        public string id;
-        [JsonProperty]
-        public string nombre;
-        [JsonProperty]
-        public double kWxHora;
-        [JsonProperty]
-        public double horasXDia;
-        public double min;
-        public double max;
+        public double HorasXDia;
+        public double Min;
+        public double Max;
 
         /*public DispositivoEstandar(string nom, string idnuevo, double kWxH, double hxdia)
         {
@@ -29,16 +23,17 @@ namespace TP0.Helpers
 
         public DispositivoEstandar(string nom, string idnuevo, double kWxH, double hxdia, double mx, double mn)
         {
-            id = idnuevo;
-            nombre = nom;
-            kWxHora = kWxH;
-            horasXDia = hxdia;
-            max = mx;
-            min = mn;
+            Codigo = idnuevo;
+            Nombre = nom;
+            KWxHora = kWxH;
+            HorasXDia = hxdia;
+            Max = mx;
+            Min = mn;
+            EsInteligente = false;
         }
 
 
-        public DispositivoInteligente convertirEnInteligente(string marca)
+        public DispositivoInteligente ConvertirEnInteligente(string marca)
         {
             DispositivoInteligente convertido = null;
             switch (marca)
@@ -46,26 +41,26 @@ namespace TP0.Helpers
                 
                 case "Samsung":
                     //AdaptadorSamsug convertido = new AdaptadorSamsung(...)
-                    convertido = new AdaptadorSamsung(nombre, id, kWxHora,max,min);
+                    convertido = new AdaptadorSamsung(Nombre, Codigo, KWxHora,Max,Min);
                     break;
                 case "HP":
-                    convertido = new AdaptadorHp(nombre, id, kWxHora,max,min);
+                    convertido = new AdaptadorHp(Nombre, Codigo, KWxHora,Max,Min);
                     break;
                 case "Apple":
-                    convertido = new AdaptadorApple(nombre, id, kWxHora,max,min);
+                    convertido = new AdaptadorApple(Nombre, Codigo, KWxHora,Max,Min);
                     break;
             }
 
             return convertido;
         }
 
-        public double consumo()
+        public double Consumo()
         {
-            return horasXDia * kWxHora;
+            return HorasXDia * KWxHora;
         }
-        public double consumoEnPeriodo(DateTime fInicial, DateTime fFinal)
+        public double ConsumoEnPeriodo(DateTime fInicial, DateTime fFinal)
         {
-            return fFinal.Subtract(fInicial).Days*consumo();
+            return fFinal.Subtract(fInicial).Days*Consumo();
         }
     }
 }

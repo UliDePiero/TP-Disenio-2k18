@@ -35,11 +35,11 @@ namespace TP0.Helpers.Simplex
             values1.Add(612); //consumo total = 620 // Lo subi a 620000 porque sino no anda por la cantidad de dispositivos
             foreach (DispositivoEstandar de in estandars)
             {
-                values1.Add(de.kWxHora); //se llena la lista con los kwxh de los dispositivos estandars
+                values1.Add(de.KWxHora); //se llena la lista con los kwxh de los dispositivos estandars
             }
             foreach(DispositivoInteligente di in inteligentes)
             {
-                values1.Add(di.kWxHora);//se llena la lista con los kwxh de los dispositivos inteligentes
+                values1.Add(di.KWxHora);//se llena la lista con los kwxh de los dispositivos inteligentes
             }
             
             restriction restriccion1 = new restriction(values1,"<="); //primera restriccion
@@ -49,16 +49,16 @@ namespace TP0.Helpers.Simplex
             int contador = 1;
             foreach (DispositivoEstandar de in estandars)
             {
-                if (de.max > 0)
+                if (de.Max > 0)
                 {
-                    List<double> vv = generarValues(dispTotales, contador, 1, de.max); //hay que agregarle a cada dispositivo max y min y numeros de referencia
+                    List<double> vv = generarValues(dispTotales, contador, 1, de.Max); //hay que agregarle a cada dispositivo max y min y numeros de referencia
                     restriction r = new restriction(vv);
                     restrictions.Add(r);
                     //se crea nueva restriccion para el maximo
                 }
-                if (de.min > 0)
+                if (de.Min > 0)
                 {
-                    List<double> vv = generarValues(dispTotales, contador, 0, de.min); //hay que agregarle a cada dispositivo max y min y numeros de referencia
+                    List<double> vv = generarValues(dispTotales, contador, 0, de.Min); //hay que agregarle a cada dispositivo max y min y numeros de referencia
                     restriction r = new restriction(vv);
                     restrictions.Add(r);
                     //se crea nueva restriccion para el minimo
@@ -67,15 +67,15 @@ namespace TP0.Helpers.Simplex
             }
             foreach (DispositivoInteligente di in inteligentes) //lo mismo q la anterior pero para inteligentes
             {
-                if (di.max > 0)
+                if (di.Max > 0)
                 {
-                    List<double> vv = generarValues(dispTotales, contador, 1, di.max);
+                    List<double> vv = generarValues(dispTotales, contador, 1, di.Max);
                     restriction r = new restriction(vv);
                     restrictions.Add(r);
                 }
-                if (di.min > 0)
+                if (di.Min > 0)
                 {
-                    List<double> vv = generarValues(dispTotales, contador, 0, di.min);
+                    List<double> vv = generarValues(dispTotales, contador, 0, di.Min);
                     restriction r = new restriction(vv);
                     restrictions.Add(r);
                 }

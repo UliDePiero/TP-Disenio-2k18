@@ -37,39 +37,39 @@ namespace TP0.Helpers
             return _instancia;
         }
 
-        public string generarRecomendacion(Cliente cliente)
+        public string GenerarRecomendacion(Cliente cliente)//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         {
-            string json = simplex.generarJson(cliente.dispositivosEstandares, cliente.dispositivosInteligentes);
+            /*string json = simplex.generarJson(cliente.DispositivosEstandares, cliente.DispositivosInteligentes);
             myWebClient.Headers.Add("Content-Type", "application/json");
             var sURI = "https://dds-simplexapi.herokuapp.com/consultar";
 
-            string respuesta = myWebClient.UploadString(sURI, json);
+            string respuesta = myWebClient.UploadString(sURI, json);*/
 
-            return respuesta;
+            return "respuesta";
             
         }
 
-        public void ejecutarRecomendacion()
+        public void EjecutarRecomendacion()
         {
             foreach (Cliente c in clientes)
             { 
-                var result = generarRecomendacion(c);
+                var result = GenerarRecomendacion(c);
 
 
-                double[] doubleV = parsearString(result);
+                double[] doubleV = ParsearString(result);
                 int i = 1;
                 
                 if (c.accionAutomatica==true)
                 {
-                    foreach (DispositivoEstandar de in c.dispositivosEstandares)
+                    foreach (DispositivoEstandar de in c.Dispositivos)
                     {
                         i++;
                     }
-                    foreach (DispositivoInteligente di in c.dispositivosInteligentes)
+                    foreach (DispositivoInteligente di in c.Dispositivos)
                     {
-                        if (doubleV[i] < di.consumoEnHoras(720))
+                        if (doubleV[i] < di.ConsumoEnHoras(720))
                         {
-                            di.apagar();
+                            di.Apagar();
                         }
                         i++;
                     }
@@ -77,7 +77,7 @@ namespace TP0.Helpers
             }
         }
 
-        public double[] parsearString(string str)
+        public double[] ParsearString(string str)
         {
             str = str.Replace("[", "");
             str = str.Replace("]", "");
@@ -100,10 +100,10 @@ namespace TP0.Helpers
         }
         public void HandleTimerElapsed(object sender, ElapsedEventArgs e)
         {   
-            this.ejecutarRecomendacion();
+            this.EjecutarRecomendacion();
         }
 
-        public void nuevoCliente(Cliente cliente)
+        public void NuevoCliente(Cliente cliente)
         {
             clientes.Add(cliente);
         }

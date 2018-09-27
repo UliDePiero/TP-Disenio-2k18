@@ -214,7 +214,10 @@
     <Compile Include="Helpers\Categoria.cs" />
     <Compile Include="Helpers\Cliente.cs" />
     <Compile Include="Helpers\Condicion.cs" />
+    <Compile Include="Helpers\Dispositivo.cs" />
     <Compile Include="Helpers\DispositivoInteligente.cs" />
+    <Compile Include="Helpers\Medicion.cs" />
+    <Compile Include="Helpers\ORM\DBContext.cs" />
     <Compile Include="Helpers\Simplex\restriction.cs" />
     <Compile Include="Helpers\Simplex\SimplexHelper.cs" />
     <Compile Include="Helpers\State.cs" />

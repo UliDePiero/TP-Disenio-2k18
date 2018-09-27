@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 
@@ -7,9 +9,17 @@ namespace TP0.Helpers
 {
     public abstract class State
     {
-        public DateTime FechaInicial;
-        public DateTime FechaFinal;
-        public DispositivoInteligente DI;
+        [Key]
+        public int StateID { get; set; }
+        public DateTime FechaInicial { get; set; }
+        public DateTime FechaFinal { get; set; }
+
+        public int DispositivoID { get; set; }
+        [ForeignKey("DispositivoID")]
+        public DispositivoInteligente Dispositivo { get; set; }
+
+        public string Desc;
+
 
         public abstract void Encender();
 
@@ -17,7 +27,7 @@ namespace TP0.Helpers
 
         public abstract void AhorrarEnergia();
 
-        public abstract double consumoEnIntervalor(DateTime fInicial, DateTime fFinal);
+        public abstract double ConsumoEnIntervalor(DateTime fInicial, DateTime fFinal);
 
     }
 
@@ -27,7 +37,7 @@ namespace TP0.Helpers
         public Encendido(DispositivoInteligente dispint)
         {
             FechaInicial = DateTime.Now;
-            DI = dispint;
+            Dispositivo = dispint;
             FechaFinal = new DateTime(3000, 1, 1, 0, 0, 0);
         }
         public override void Encender() { }
@@ -35,16 +45,16 @@ namespace TP0.Helpers
         public override void Apagar()
         {
             FechaFinal = DateTime.Now;
-            DI.agregarEstado(new Apagado(DI));
+            Dispositivo.AgregarEstado(new Apagado(Dispositivo));
         }
 
         public override void AhorrarEnergia()
         {
             FechaFinal = DateTime.Now;
-            DI.agregarEstado(new Ahorro(DI));
+            Dispositivo.AgregarEstado(new Ahorro(Dispositivo));
         }
 
-        public override double consumoEnIntervalor(DateTime fInicial, DateTime fFinal)
+        public override double ConsumoEnIntervalor(DateTime fInicial, DateTime fFinal)
         {
             double diff = (fFinal - fInicial).TotalHours;
             return diff;
@@ -59,14 +69,14 @@ namespace TP0.Helpers
         public Apagado(DispositivoInteligente dispint)
         {
             FechaInicial = DateTime.Now;
-            DI = dispint;
+            Dispositivo = dispint;
             FechaFinal = new DateTime(3000, 1, 1, 0, 0, 0);
         }
 
         public override void Encender()
         {
             FechaFinal = DateTime.Now;
-            DI.agregarEstado(new Encendido(DI));
+            Dispositivo.AgregarEstado(new Encendido(Dispositivo));
         }
 
         public override void Apagar() { }
@@ -74,10 +84,10 @@ namespace TP0.Helpers
         public override void AhorrarEnergia()
         {
             FechaFinal = DateTime.Now;
-            DI.agregarEstado(new Ahorro(DI));
+            Dispositivo.AgregarEstado(new Ahorro(Dispositivo));
         }
 
-        public override double consumoEnIntervalor(DateTime fInicial, DateTime fFinal)
+        public override double ConsumoEnIntervalor(DateTime fInicial, DateTime fFinal)
         {
            return 0;
         }
@@ -90,25 +100,25 @@ namespace TP0.Helpers
         public Ahorro(DispositivoInteligente dispint)
         {
             FechaInicial = DateTime.Now;
-            DI = dispint;
+            Dispositivo = dispint;
             FechaFinal = new DateTime(3000, 1, 1, 0, 0, 0);
         }
 
         public override void Encender()
         {
             FechaFinal = DateTime.Now;
-            DI.agregarEstado(new Encendido(DI));
+            Dispositivo.AgregarEstado(new Encendido(Dispositivo));
         }
 
         public override void Apagar()
         {
             FechaFinal = DateTime.Now;
-            DI.agregarEstado(new Apagado(DI));
+            Dispositivo.AgregarEstado(new Apagado(Dispositivo));
         }
 
         public override void AhorrarEnergia() { }
 
-        public override double consumoEnIntervalor(DateTime fInicial, DateTime fFinal)
+        public override double ConsumoEnIntervalor(DateTime fInicial, DateTime fFinal)
         {
             double diff = (fFinal - fInicial).TotalHours*1/3;
             return diff;

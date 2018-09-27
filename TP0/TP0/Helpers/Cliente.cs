@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 using TP0.Helpers;
@@ -10,57 +11,73 @@ namespace TP0.Helpers
 {
     public class Cliente : Usuario
     {
+        public string Documento { get; set; }
+        public string TipoDocumento { get; set; }
+        public string Telefono { get; set; }
+        public ICollection<Dispositivo> Dispositivos { get; set; }
 
-        [JsonProperty]
-        public string documento;
-        [JsonProperty]
-        public string tipoDocumento;
-        [JsonProperty]
-        public string telefono;
-        [JsonProperty]
+        public int TransformadorID { get; set; }
+        [ForeignKey("TransformadorID")]
+        public Transformador Transformador { get; set; }
+
+        //Datos que no se persisten en la base de datos
+        [NotMapped]
         public Categoria categoria;
-        [JsonProperty]
-        public List<DispositivoEstandar> dispositivosEstandares;
-        [JsonProperty]
-        public List<DispositivoInteligente> dispositivosInteligentes;
-        [JsonProperty]
+        [NotMapped]
         public int puntos;
-        [JsonIgnore]
+        [NotMapped]
         public Recomendacion recomendacion = Recomendacion.Instancia();
-        [JsonIgnore]
+        [NotMapped]
         public bool accionAutomatica;
 
         public Cliente(string nombre, string apellido, string domicilio, string usuario, string contrasenia, string doc, string tipo, string tel) 
         {
-            this.nombre = nombre;
-            this.apellido = apellido;
-            this.domicilio = domicilio;
-            this.usuario = usuario;
-            this.contrasenia = contrasenia;
-            this.documento = doc;
-            this.tipoDocumento = tipo;
-            this.telefono = tel;
-            this.dispositivosInteligentes = new List<DispositivoInteligente>();
-            this.dispositivosEstandares = new List<DispositivoEstandar>();
-            recomendacion.nuevoCliente(this);
+            Nombre = nombre;
+            Apellido = apellido;
+            Domicilio = domicilio;
+            Username = usuario;
+            Contrasenia = contrasenia;
+            EsAdmin = false;
+            Documento = doc;
+            TipoDocumento = tipo;
+            Telefono = tel;
+            Dispositivos = new List<Dispositivo>();
+            recomendacion.NuevoCliente(this);
             accionAutomatica = false;
         }
          
         public bool AlgunDispositivoEncendido()
         {
-            return dispositivosInteligentes.Any(d => d.estaEncendido());
+            foreach (DispositivoInteligente disp in Dispositivos)
+            {
+                if (disp.EstaEncendido())
+                    return true;
+            }
+            return false;
         }
         public int DispositivosEncendidos()
         {
-            return dispositivosInteligentes.Count(d => d.estaEncendido());
+            int encendidos = 0;
+            foreach (DispositivoInteligente disp in Dispositivos)
+            {
+                if (disp.EstaEncendido())
+                    encendidos++;
+            }
+            return encendidos;
         }
         public int DispositivosApagados()
         {
-            return dispositivosInteligentes.Count(d => !d.estaEncendido());
+            int apagados = 0;
+            foreach (DispositivoInteligente disp in Dispositivos)
+            {
+                if (!disp.EstaEncendido())
+                    apagados++;
+            }
+            return apagados;
         }
         public int DispositivosTotales()
         {
-            return dispositivosEstandares.Count()+ dispositivosInteligentes.Count();
+            return Dispositivos.Count();
         }
         public double EstimarFacturacion(DateTime fInicial, DateTime fFinal)
         {
@@ -68,26 +85,29 @@ namespace TP0.Helpers
         }
         public double KwTotales(DateTime fInicial, DateTime fFinal)
         {
-            return dispositivosEstandares.Sum(d => d.consumoEnPeriodo(fInicial, fFinal))+dispositivosInteligentes.Sum(d=>d.consumoEnPeriodo(fInicial, fFinal));
+            double Consumo = 0;
+            foreach (DispositivoEstandar d in Dispositivos)
+                Consumo += d.ConsumoEnPeriodo(fInicial, fFinal);
+            foreach (DispositivoInteligente d in Dispositivos)
+                Consumo += d.ConsumoEnPeriodo(fInicial, fFinal);
+            return Consumo;
         }
-        public void agregarDispInteligente(DispositivoInteligente DI)
+        public void AgregarDispInteligente(DispositivoInteligente DI)
         {
-            dispositivosInteligentes.Add(DI);
+            Dispositivos.Add(DI);
             puntos += 15;
-
         }
-        public void adaptarDispositivo(DispositivoEstandar D, string marca)
+        public void AdaptarDispositivo(DispositivoEstandar D, string marca)
         {
             DispositivoInteligente DI;
-            DI=D.convertirEnInteligente(marca);
-            dispositivosInteligentes.Add(DI);
+            DI=D.ConvertirEnInteligente(marca);
+            Dispositivos.Add(DI);
             puntos += 10;
-
         }
 
-        public string solicitarRecomendacion()
+        public string SolicitarRecomendacion()
         {
-            return recomendacion.generarRecomendacion(this);
+            return recomendacion.GenerarRecomendacion(this);
         }
 
         public void ActualizarCategoria()

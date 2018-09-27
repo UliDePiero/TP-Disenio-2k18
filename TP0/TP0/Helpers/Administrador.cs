@@ -8,17 +8,15 @@ namespace TP0.Helpers
 {
     public class Administrador : Usuario
     {
-        [JsonProperty]
-        public int id;
 
-        public Administrador (Usuario u, int id)
+        public Administrador (Usuario u)
         {
-            this.id = id;
+            this.EsAdmin = true;
         }
 
         public int MesesQueLleva()
         {
-            return Static.FechasAdmin.diferenciaDeMeses(DateTime.Parse(fechaDeAlta), DateTime.Now);
+            return Static.FechasAdmin.diferenciaDeMeses(DateTime.Parse(FechaDeAlta), DateTime.Now);
         }
     }
 }

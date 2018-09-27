@@ -20,7 +20,7 @@ namespace TP0.Helpers.Static
         {
             if (transformadores.Count > 0)
             {
-                return transformadores.Find(x => x.id == idFiltro);
+                return transformadores.Find(x => x.TransformadorID == idFiltro);
             }
             else return null;
         }

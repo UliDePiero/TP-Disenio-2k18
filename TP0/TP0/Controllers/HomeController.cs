@@ -29,12 +29,12 @@ namespace TP0.Controllers
             List<SelectListItem> selectListItems = new List<SelectListItem>();
             foreach (DispositivoInteligente disp in opcionesDeDispositivosInteligentes)
             {
-                selectListItems.Add(new SelectListItem() { Value = disp.id, Text = disp.nombre });
+                selectListItems.Add(new SelectListItem() { Value = disp.Codigo, Text = disp.Nombre });
             }
 
             foreach (DispositivoEstandar disp in opcionesDeDispositivosEstandares)
             {
-                selectListItems.Add(new SelectListItem() { Value = disp.id, Text = disp.nombre });
+                selectListItems.Add(new SelectListItem() { Value = disp.Codigo, Text = disp.Nombre });
             }
 
             ViewBag.selectListItems = selectListItems;
@@ -45,6 +45,8 @@ namespace TP0.Controllers
         public ActionResult DetallesDeUsuario(SubmitViewModel model)
         {
             string id = model.DispositivoSeleccionado;
+
+            // Vieja forma con persistencia en json
             var jsonSerializerSettings = new JsonSerializerSettings();
             jsonSerializerSettings.MissingMemberHandling = MissingMemberHandling.Ignore;
             jsonSerializerSettings.NullValueHandling = NullValueHandling.Ignore;
@@ -54,10 +56,12 @@ namespace TP0.Controllers
             jsonSerializerSettings.Converters.Add(new Newtonsoft.Json.Converters.JavaScriptDateTimeConverter());
 
             List<Cliente> clientes = JsonConvert.DeserializeObject<List<Cliente>>(System.IO.File.ReadAllText(Path.Combine(AppDomain.CurrentDomain.BaseDirectory.ToString(), "test.json.txt")), jsonSerializerSettings);
+
+
             AgregarDispositivo(clientes, id);
             foreach (Cliente cli in clientes)
             {
-                foreach (DispositivoInteligente di in cli.dispositivosInteligentes)
+                foreach (DispositivoInteligente di in cli.Dispositivos)
                 {
                     di.Estado = null;
                     di.estadosAnteriores = null;
@@ -74,33 +78,33 @@ namespace TP0.Controllers
         private bool EsInteligente(string id)
         {
             List<DispositivoInteligente> opcionesDeDispositivosInteligentes = Helpers.Static.DispositivosTotales.GetDispositivoInteligentes();
-            return opcionesDeDispositivosInteligentes.Any(disp => disp.id == id);
+            return opcionesDeDispositivosInteligentes.Any(disp => disp.Codigo == id);
         }
         private DispositivoInteligente EncontrarDispositivoInteligente(string id)
         {
             List<DispositivoInteligente> opcionesDeDispositivosInteligentes = Helpers.Static.DispositivosTotales.GetDispositivoInteligentes();
-            return opcionesDeDispositivosInteligentes.Find(disp => disp.id == id);
+            return opcionesDeDispositivosInteligentes.Find(disp => disp.Codigo == id);
         }
         private DispositivoEstandar EncontrarDispositivoEstandard(string id)
         {
             List<DispositivoEstandar> opcionesDeDispositivosEstandares = Helpers.Static.DispositivosTotales.GetDispositivoEstandars();
-            return opcionesDeDispositivosEstandares.Find(disp => disp.id == id);
+            return opcionesDeDispositivosEstandares.Find(disp => disp.Codigo == id);
         }
         private void AgregarDispositivo(List<Cliente> clientes, string Disp)
         {
             string user = User.Identity.GetUserName();
             foreach (Cliente clie in clientes)
             {
-                if (clie.usuario == user)
+                if (clie.Username == user)
                 {
                     if (EsInteligente(Disp))
                     {
-                        clie.dispositivosInteligentes.Add(EncontrarDispositivoInteligente(Disp));
+                        clie.Dispositivos.Add(EncontrarDispositivoInteligente(Disp));
                         return;
                     }
                     else
                     {
-                        clie.dispositivosEstandares.Add(EncontrarDispositivoEstandard(Disp));
+                        clie.Dispositivos.Add(EncontrarDispositivoEstandard(Disp));
                         return;
                     }
                 }
@@ -110,11 +114,11 @@ namespace TP0.Controllers
 
             if (EsInteligente(Disp))
             {
-                c.dispositivosInteligentes.Add(EncontrarDispositivoInteligente(Disp));
+                c.Dispositivos.Add(EncontrarDispositivoInteligente(Disp));
             }
             else
             {
-                c.dispositivosEstandares.Add(EncontrarDispositivoEstandard(Disp));
+                c.Dispositivos.Add(EncontrarDispositivoEstandard(Disp));
             }
             clientes.Add(c);
 
@@ -137,13 +141,13 @@ namespace TP0.Controllers
                 //maximos y minimos predeterminados para poder probar la funcionalidad
                 foreach (DispositivoEstandar d in de)
                 {
-                    d.max = 100;
-                    d.min = 50;
+                    d.Max = 100;
+                    d.Min = 50;
                 }
                 foreach (DispositivoInteligente d in di)
                 {
-                    d.max = 200;
-                    d.max = 150;
+                    d.Max = 200;
+                    d.Max = 150;
                 }
                string idUsuario = User.Identity.GetUserName();
 
@@ -151,7 +155,7 @@ namespace TP0.Controllers
 
                 Cliente clienteActual = Helpers.Static.ClientesImportados.filtrarCliente(idUsuario);
 
-                string resu = clienteActual.solicitarRecomendacion();
+                string resu = clienteActual.SolicitarRecomendacion();
                 //string json = Helpers.Static.Simplex.SimplexHelper.generarJson(clienteActual.dispositivosEstandares, clienteActual.dispositivosInteligentes);
                 ViewBag.estadoSimplex = resu;
 

@@ -1,25 +1,24 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 
 
 namespace TP0.Helpers
 {
-    public class DispositivoInteligente
+    public class DispositivoInteligente : Dispositivo
     {
-        [JsonProperty]
-        public string id;
-        [JsonProperty]
-        public string nombre;
+        [NotMapped]
         public State Estado;
-        [JsonProperty]
-        public double kWxHora;
+        [NotMapped]
         [JsonProperty]
         public List<State> estadosAnteriores;
-        public double min;
-        public double max;
+        [NotMapped]
+        public double Min;
+        [NotMapped]
+        public double Max;
 
 
         /*public DispositivoInteligente(string nom, string idnuevo, double kWxHoraNuevo)
@@ -31,51 +30,52 @@ namespace TP0.Helpers
         
         public DispositivoInteligente(string nom, string idnuevo, double kWxHoraNuevo, double mx, double mn)
         {
-            kWxHora = kWxHoraNuevo;
-            nombre = nom;
-            id = idnuevo;
-            max = mx;
-            min = mn;
+            KWxHora = kWxHoraNuevo;
+            Nombre = nom;
+            Codigo = idnuevo;
+            Max = mx;
+            Min = mn;
             estadosAnteriores = new List<State>();
-            agregarEstado(new Apagado(this));
-    }
+            AgregarEstado(new Apagado(this));
+            EsInteligente = true;
+        }
 
 
-        public bool estaEncendido()
+        public bool EstaEncendido()
         {
             return Estado is Encendido;
         }
-        public bool estaApagado()
+        public bool EstaApagado()
         {
             return Estado is Apagado ;
         }
-        public void encender()
+        public void Encender()
         {
             Estado.Encender();
         }
-        public void apagar()
+        public void Apagar()
         {
             Estado.Apagar();
         }
-        public void ahorrarEnergia()
+        public void AhorrarEnergia()
         {
             Estado.AhorrarEnergia();
         }
-        public double consumoEnHoras(double horas)
+        public double ConsumoEnHoras(double horas)
         {
             DateTime fFinal = DateTime.Now;
             DateTime fInicial = fFinal.AddHours(-horas);
             double hs = Static.FechasAdmin.ConsumoHsTotalPeriodo(fInicial, fFinal, estadosAnteriores);
-            return hs * kWxHora;
+            return hs * KWxHora;
         }
 
-       public double consumoEnPeriodo(DateTime fInicial, DateTime fFinal)
+       public double ConsumoEnPeriodo(DateTime fInicial, DateTime fFinal)
        { 
            double hs = Static.FechasAdmin.ConsumoHsTotalPeriodo(fInicial, fFinal, estadosAnteriores);
-           return hs * kWxHora;
+           return hs * KWxHora;
        }
 
-       public void agregarEstado(State est)
+       public void AgregarEstado(State est)
        {
            Estado = est;
            estadosAnteriores.Add(est);

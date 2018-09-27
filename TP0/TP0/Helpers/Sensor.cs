@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 
@@ -7,19 +9,27 @@ namespace TP0.Helpers
 {
     public class Sensor
     {
-        public float medicion;
-        public List<Condicion> observers;
-        public void agregarObservador(Condicion c)
+        [Key]
+        public int SensorID { get; set; }
+
+        public int CondicionID { get; set; }
+        [ForeignKey("CondicionID")]
+        public List<Condicion> Observers { get; set; }
+
+        [NotMapped]
+        public float Medicion;
+
+        public void AgregarObservador(Condicion c)
         {
-            observers.Add(c);
+            Observers.Add(c);
         }
-        public void quitarObservador(Condicion c)
+        public void QuitarObservador(Condicion c)
         {
-            observers.Remove(c);
+            Observers.Remove(c);
         }
-        public void notificar()
+        public void Notificar()
         {
-            observers.ForEach(o => o.Notificar(medicion));
+            Observers.ForEach(o => o.Notificar(Medicion));
         }
     }
 }

@@ -20,7 +20,7 @@ namespace TP0.Helpers.Static
         {
             if (clientes.Count > 0)
             {
-                return clientes.Find(x => x.usuario == id);
+                return clientes.Find(x => x.Username == id);
             }
             else return null;
         }

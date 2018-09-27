@@ -9,9 +9,9 @@ namespace TP0.Helpers
     {
         public AdaptadorHp(string nom, string idnuevo, double kWxHoraNuevo, double mx, double mn) : base(nom, idnuevo, kWxHoraNuevo, mx,mn)
         {
-            kWxHora = kWxHoraNuevo;
-            nombre = nom;
-            id = idnuevo;
+            KWxHora = kWxHoraNuevo;
+            Nombre = nom;
+            Codigo = idnuevo;
         }
     }
 }
