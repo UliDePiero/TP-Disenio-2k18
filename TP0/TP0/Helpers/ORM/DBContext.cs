@@ -17,7 +17,7 @@ namespace TP0.Helpers.ORM
         public DbSet<Sensor> Sensores { get; set; }
         public DbSet<Condicion> Condiciones { get; set; }
 
-        public DBContext() : base(@"Data Source=(localdb)\v11.0;Initial Catalog=TPdb;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False")
+        public DBContext() : base(@"Data Source=(localdb)\v11.0;Initial Catalog=TPIdb;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False")
         {
         }
     }

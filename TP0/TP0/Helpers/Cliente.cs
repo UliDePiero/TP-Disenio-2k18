@@ -45,6 +45,10 @@ namespace TP0.Helpers
             recomendacion.NuevoCliente(this);
             accionAutomatica = false;
         }
+
+        public Cliente()
+        {
+        }
          
         public bool AlgunDispositivoEncendido()
         {

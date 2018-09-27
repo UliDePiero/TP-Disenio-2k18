@@ -13,5 +13,7 @@ namespace TP0.Helpers
             Nombre = nom;
             Codigo = idnuevo;
         }
+        public AdaptadorHp()
+        { }
     }
 }

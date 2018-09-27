@@ -39,6 +39,10 @@ namespace TP0.Helpers
             AgregarEstado(new Apagado(this));
             EsInteligente = true;
         }
+        public DispositivoInteligente()
+        {
+
+        }
 
 
         public bool EstaEncendido()

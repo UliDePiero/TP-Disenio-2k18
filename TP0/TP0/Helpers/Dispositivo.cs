@@ -15,5 +15,9 @@ namespace TP0.Helpers
         public string Nombre { get; set; }
         public double KWxHora { get; set; }
         public bool EsInteligente { get; set; }
+        public int UsuarioID { get; set; }
+
+        [ForeignKey("UsuarioID")]
+        public Usuario Usuario { get; set; }
     }
 }

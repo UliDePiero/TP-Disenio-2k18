@@ -17,8 +17,6 @@ namespace TP0.Helpers
         [ForeignKey("DispositivoID")]
         public Dispositivo Dispositivo { get; set; }
 
-        public int CondicionID { get; set; }
-        [ForeignKey("CondicionID")]
         public List<Condicion> Condiciones { get; set; }
 
         public void VerificarRegla()

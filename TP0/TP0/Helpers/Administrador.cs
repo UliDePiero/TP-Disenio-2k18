@@ -18,5 +18,10 @@ namespace TP0.Helpers
         {
             return Static.FechasAdmin.diferenciaDeMeses(DateTime.Parse(FechaDeAlta), DateTime.Now);
         }
+
+        public Administrador()
+        {
+
+        }
     }
 }

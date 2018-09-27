@@ -9,9 +9,9 @@ namespace TP0.Helpers
     public class DispositivoEstandar : Dispositivo
     {
         [JsonProperty]
-        public double HorasXDia;
-        public double Min;
-        public double Max;
+        public double HorasXDia { get; set; }
+        public double Min { get; set; }
+        public double Max { get; set; }
 
         /*public DispositivoEstandar(string nom, string idnuevo, double kWxH, double hxdia)
         {
@@ -31,7 +31,10 @@ namespace TP0.Helpers
             Min = mn;
             EsInteligente = false;
         }
+        public DispositivoEstandar()
+        {
 
+        }
 
         public DispositivoInteligente ConvertirEnInteligente(string marca)
         {
@@ -41,13 +44,13 @@ namespace TP0.Helpers
                 
                 case "Samsung":
                     //AdaptadorSamsug convertido = new AdaptadorSamsung(...)
-                    convertido = new AdaptadorSamsung(Nombre, Codigo, KWxHora,Max,Min);
+                    convertido = new AdaptadorSamsung(Nombre, Codigo, KWxHora, Max, Min);
                     break;
                 case "HP":
-                    convertido = new AdaptadorHp(Nombre, Codigo, KWxHora,Max,Min);
+                    convertido = new AdaptadorHp(Nombre, Codigo, KWxHora, Max, Min);
                     break;
                 case "Apple":
-                    convertido = new AdaptadorApple(Nombre, Codigo, KWxHora,Max,Min);
+                    convertido = new AdaptadorApple(Nombre, Codigo, KWxHora, Max, Min);
                     break;
             }
 

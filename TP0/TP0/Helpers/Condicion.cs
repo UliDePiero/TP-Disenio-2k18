@@ -9,10 +9,6 @@ namespace TP0.Helpers
 {
     public class Condicion
     {
-#pragma warning disable CS0649 // Field 'Condicion.actuador' is never assigned to, and will always have its default value null
-        [NotMapped]
-        Actuador actuador;
-#pragma warning restore CS0649 // Field 'Condicion.actuador' is never assigned to, and will always have its default value null
         [NotMapped]
         public bool seCumple;
 
@@ -20,6 +16,11 @@ namespace TP0.Helpers
         public int CondicionID { get; set; }
         public float ValorMax { get; set; }
         public float ValorMin { get; set; }
+        public int ActuadorID { get; set; }
+
+        [ForeignKey("ActuadorID")]
+        public Actuador Actuador { get; set; }
+
 
         public void Notificar(float valor)
         {
@@ -28,7 +29,7 @@ namespace TP0.Helpers
             {
                 seCumple = true;
             }
-            actuador.VerificarRegla();
+            Actuador.VerificarRegla();
         }
         public bool ChequearComportamiento()
         {

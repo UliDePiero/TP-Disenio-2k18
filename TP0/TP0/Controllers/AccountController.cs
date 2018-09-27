@@ -157,21 +157,21 @@ namespace TP0.Controllers
         {
             if (ModelState.IsValid)
             {
-                using (var db = new DBContext())
-                {
-                    //Agrega el nuevo usuario a la base de datos
-                    Cliente cliente = new Cliente(model.nombre, model.apellido, model.domicilio, model.usuario, model.contrasenia, model.documento, model.tipo, model.telefono);
-                    cliente.TransformadorID = 1; //Transformador default
-                    cliente.FechaDeAlta = DateTime.Now.ToShortDateString();
-                    db.Usuarios.Add(cliente);
-                    db.SaveChanges();
-                }
-
                 var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
                 var result = await UserManager.CreateAsync(user, model.Password);
 
                 if (result.Succeeded)
                 {
+                    //Agrega el nuevo usuario a la base de datos
+                    using (var db = new DBContext())
+                    {
+                        Cliente cliente = new Cliente(model.nombre, model.apellido, model.domicilio, model.Email, model.contrasenia, model.documento, model.tipo, model.telefono);
+                        cliente.TransformadorID = 1; //Transformador default
+                        cliente.FechaDeAlta = DateTime.Now.ToShortDateString();
+                        db.Usuarios.Add(cliente);
+                        db.SaveChanges();
+                    }
+
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
                     
                     // Para obtener más información sobre cómo habilitar la confirmación de cuentas y el restablecimiento de contraseña, visite https://go.microsoft.com/fwlink/?LinkID=320771
@@ -274,6 +274,19 @@ namespace TP0.Controllers
             var result = await UserManager.ResetPasswordAsync(user.Id, model.Code, model.Password);
             if (result.Succeeded)
             {
+                //Cambia la contraseña del usuario
+                using (var db = new DBContext())
+                {
+                    foreach (Usuario u in db.Usuarios)
+                    {
+                        if(u.Username == model.Email)
+                        {
+                            u.Contrasenia = model.Password;
+                            break;
+                        }
+                    }
+                    db.SaveChanges();
+                }
                 return RedirectToAction("ResetPasswordConfirmation", "Account");
             }
             AddErrors(result);

@@ -8,6 +8,7 @@ using Newtonsoft.Json;
 using TP0.Helpers;
 using TP0.Models;
 using Microsoft.AspNet.Identity;
+using TP0.Helpers.ORM;
 
 namespace TP0.Controllers
 {
@@ -44,34 +45,33 @@ namespace TP0.Controllers
         [HttpPost]
         public ActionResult DetallesDeUsuario(SubmitViewModel model)
         {
-            string id = model.DispositivoSeleccionado;
+            string codigo = model.DispositivoSeleccionado;
 
-            // Vieja forma con persistencia en json
-            var jsonSerializerSettings = new JsonSerializerSettings();
-            jsonSerializerSettings.MissingMemberHandling = MissingMemberHandling.Ignore;
-            jsonSerializerSettings.NullValueHandling = NullValueHandling.Ignore;
-            jsonSerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
-            jsonSerializerSettings.Formatting = Formatting.Indented;
-            jsonSerializerSettings.TypeNameHandling = TypeNameHandling.Auto;
-            jsonSerializerSettings.Converters.Add(new Newtonsoft.Json.Converters.JavaScriptDateTimeConverter());
-
-            List<Cliente> clientes = JsonConvert.DeserializeObject<List<Cliente>>(System.IO.File.ReadAllText(Path.Combine(AppDomain.CurrentDomain.BaseDirectory.ToString(), "test.json.txt")), jsonSerializerSettings);
-
-
-            AgregarDispositivo(clientes, id);
-            foreach (Cliente cli in clientes)
+            //Agrega el nuevo dispositivo al usuario
+            using (var db = new DBContext())
             {
-                foreach (DispositivoInteligente di in cli.Dispositivos)
+                foreach (Usuario user in db.Usuarios)
                 {
-                    di.Estado = null;
-                    di.estadosAnteriores = null;
+                    if (user.Username == User.Identity.GetUserName())
+                    {
+                        if (EsInteligente(codigo))
+                        {
+                            DispositivoInteligente disp = EncontrarDispositivoInteligente(codigo);
+                            disp.UsuarioID = user.UsuarioID;
+                            db.Dispositivos.Add(disp);
+                            break;
+                        }
+                        else
+                        {
+                            DispositivoEstandar disp = EncontrarDispositivoEstandard(codigo);
+                            disp.UsuarioID = user.UsuarioID;
+                            db.Dispositivos.Add(disp);
+                            break;
+                        }
+                    }
                 }
+                db.SaveChanges();
             }
-
-            Helpers.Static.ClientesImportados.clientes = clientes;
-
-            var json = JsonConvert.SerializeObject(clientes, jsonSerializerSettings);
-            System.IO.File.WriteAllText(System.IO.Path.Combine(System.AppDomain.CurrentDomain.BaseDirectory.ToString(), "test.json.txt"), json.ToString());
 
             return RedirectToAction("DetallesDeUsuario", "Home");
         }
@@ -90,44 +90,10 @@ namespace TP0.Controllers
             List<DispositivoEstandar> opcionesDeDispositivosEstandares = Helpers.Static.DispositivosTotales.GetDispositivoEstandars();
             return opcionesDeDispositivosEstandares.Find(disp => disp.Codigo == id);
         }
-        private void AgregarDispositivo(List<Cliente> clientes, string Disp)
-        {
-            string user = User.Identity.GetUserName();
-            foreach (Cliente clie in clientes)
-            {
-                if (clie.Username == user)
-                {
-                    if (EsInteligente(Disp))
-                    {
-                        clie.Dispositivos.Add(EncontrarDispositivoInteligente(Disp));
-                        return;
-                    }
-                    else
-                    {
-                        clie.Dispositivos.Add(EncontrarDispositivoEstandard(Disp));
-                        return;
-                    }
-                }
-            }
-            //Si el cliente no esta en el json, lo agrega
-            Cliente c = new Cliente(User.Identity.Name, "", "", User.Identity.Name, "", "", "", "");
-
-            if (EsInteligente(Disp))
-            {
-                c.Dispositivos.Add(EncontrarDispositivoInteligente(Disp));
-            }
-            else
-            {
-                c.Dispositivos.Add(EncontrarDispositivoEstandard(Disp));
-            }
-            clientes.Add(c);
-
-        }
 
         public ActionResult AdministrarDispositivos()
         {
             ViewBag.Message = "Your AdministrarDispositivos page.";
-
             return View();
         }
         [HttpGet]
@@ -135,16 +101,22 @@ namespace TP0.Controllers
         {
             if (User.Identity.IsAuthenticated || Helpers.Static.ClientesImportados.GetClientes() != null)
             {
-                //puse estas listas con todos los dispositivos existentes para probar si funciona. ahora tiene q hacerlo con los dispositivos del cleinte
-                List<DispositivoEstandar> de = Helpers.Static.DispositivosTotales.GetDispositivoEstandars();
-                List<DispositivoInteligente> di = Helpers.Static.DispositivosTotales.GetDispositivoInteligentes();
+                List<Dispositivo> disp = new List<Dispositivo>();
+
+                //Trae de la db todos los dispositivos del usuario para ejecutar el simplex
+                using (var db = new DBContext())
+                {
+                    Usuario user = db.Usuarios.FirstOrDefault(u => u.Username == User.Identity.GetUserName());
+                    disp = db.Dispositivos.Where(d => d.UsuarioID == user.UsuarioID).ToList();
+                }
+
                 //maximos y minimos predeterminados para poder probar la funcionalidad
-                foreach (DispositivoEstandar d in de)
+                foreach (DispositivoEstandar d in disp)
                 {
                     d.Max = 100;
                     d.Min = 50;
                 }
-                foreach (DispositivoInteligente d in di)
+                foreach (DispositivoInteligente d in disp)
                 {
                     d.Max = 200;
                     d.Max = 150;
@@ -164,22 +136,28 @@ namespace TP0.Controllers
 
             }
             else ViewBag.estadoSimplex = "nop";
-             return RedirectToAction("AdministrarDispositivos", "Home");
+            return RedirectToAction("AdministrarDispositivos", "Home");
            
         }
         [HttpGet]
         public ActionResult Simplex2(string mensaje)
         {
             ViewBag.Message = mensaje;
-            
             return View();
         }
 
         public ActionResult mostrarDispositivosTotales(string mensaje)
         {
-            string idUsuario = User.Identity.GetUserName();
-            clienteActual = Helpers.Static.ClientesImportados.filtrarCliente(idUsuario);
-            int resu = clienteActual.DispositivosTotales();
+            string username = User.Identity.GetUserName();
+            int resu = 0;
+
+            //Trae los dispositivos del cliente y los cuenta
+            using (var db = new DBContext())
+            {
+                Usuario user = db.Usuarios.FirstOrDefault(u => u.Username == username);
+                resu = db.Dispositivos.Where(d => d.UsuarioID == user.UsuarioID).ToList().Count();
+            }
+            //clienteActual = Helpers.Static.ClientesImportados.filtrarCliente(idUsuario);
             //string json = Helpers.Static.Simplex.SimplexHelper.generarJson(clienteActual.dispositivosEstandares, clienteActual.dispositivosInteligentes);
             ViewBag.estadoSimplex = resu;
 
