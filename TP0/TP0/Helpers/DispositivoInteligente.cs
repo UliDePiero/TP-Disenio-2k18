@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
-
+using TP0.Helpers.ORM;
 
 namespace TP0.Helpers
 {
@@ -81,9 +81,14 @@ namespace TP0.Helpers
 
        public void AgregarEstado(State est)
        {
-           Estado = est;
-           estadosAnteriores.Add(est);
-       }
+            Estado = est;
+            estadosAnteriores.Add(est);
 
+            using (var db = new DBContext())
+            {
+                db.Estados.Add(est); //Agrega el nuevo estado a la db
+                db.SaveChanges();
+            }
+       }
     }
 }

@@ -5,6 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 using TP0.Helpers;
+using TP0.Helpers.ORM;
 //using Windows.Devices.Geolocation;
 
 namespace TP0.Helpers
@@ -46,7 +47,6 @@ namespace TP0.Helpers
             accionAutomatica = false;
             FechaDeAlta = DateTime.Now.ToShortDateString();
         }
-
         public Cliente()
         {
         }
@@ -101,6 +101,12 @@ namespace TP0.Helpers
         {
             Dispositivos.Add(DI);
             puntos += 15;
+            using (var db = new DBContext())
+            {
+                db.Dispositivos.Add(DI);
+                db.Estados.Add(new Apagado(DI));
+                db.SaveChanges();
+            }
         }
         public void AdaptarDispositivo(DispositivoEstandar D, string marca)
         {
@@ -108,6 +114,18 @@ namespace TP0.Helpers
             DI=D.ConvertirEnInteligente(marca);
             Dispositivos.Add(DI);
             puntos += 10;
+            using (var db = new DBContext())
+            {
+                //Transforma el dispositivo en inteligente en la db
+                foreach(Dispositivo d in db.Dispositivos)
+                {
+                    if(d.UsuarioID == UsuarioID && d.Codigo == D.Codigo)
+                    {
+                        d.EsInteligente = true;
+                    }
+                }
+                db.SaveChanges();
+            }
         }
 
         public string SolicitarRecomendacion()

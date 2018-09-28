@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
+using TP0.Helpers.ORM;
 
 namespace TP0.Helpers
 {
@@ -29,6 +30,22 @@ namespace TP0.Helpers
 
         public abstract double ConsumoEnIntervalor(DateTime fInicial, DateTime fFinal);
 
+        public void FinalizarEstado()
+        {
+            //Agrega la fecha final del ultimo estado del dispositivo
+            using (var db = new DBContext())
+            {
+                foreach (State s in db.Estados)  
+                {
+                    if (s.DispositivoID == DispositivoID && s.FechaFinal == null)
+                    {
+                        s.FechaFinal = DateTime.Now;
+                        break;
+                    }
+                }
+                db.SaveChanges();
+            }
+        }
     }
 
     public class Encendido : State
@@ -38,19 +55,20 @@ namespace TP0.Helpers
         {
             FechaInicial = DateTime.Now;
             Dispositivo = dispint;
-            FechaFinal = new DateTime(3000, 1, 1, 0, 0, 0);
         }
         public override void Encender() { }
 
         public override void Apagar()
         {
             FechaFinal = DateTime.Now;
+            FinalizarEstado();
             Dispositivo.AgregarEstado(new Apagado(Dispositivo));
         }
 
         public override void AhorrarEnergia()
         {
             FechaFinal = DateTime.Now;
+            FinalizarEstado();
             Dispositivo.AgregarEstado(new Ahorro(Dispositivo));
         }
 
@@ -59,8 +77,6 @@ namespace TP0.Helpers
             double diff = (fFinal - fInicial).TotalHours;
             return diff;
         }
-
-    
     }
 
     public class Apagado : State
@@ -70,12 +86,12 @@ namespace TP0.Helpers
         {
             FechaInicial = DateTime.Now;
             Dispositivo = dispint;
-            FechaFinal = new DateTime(3000, 1, 1, 0, 0, 0);
         }
 
         public override void Encender()
         {
             FechaFinal = DateTime.Now;
+            FinalizarEstado();
             Dispositivo.AgregarEstado(new Encendido(Dispositivo));
         }
 
@@ -84,6 +100,7 @@ namespace TP0.Helpers
         public override void AhorrarEnergia()
         {
             FechaFinal = DateTime.Now;
+            FinalizarEstado();
             Dispositivo.AgregarEstado(new Ahorro(Dispositivo));
         }
 
@@ -101,18 +118,19 @@ namespace TP0.Helpers
         {
             FechaInicial = DateTime.Now;
             Dispositivo = dispint;
-            FechaFinal = new DateTime(3000, 1, 1, 0, 0, 0);
         }
 
         public override void Encender()
         {
             FechaFinal = DateTime.Now;
+            FinalizarEstado();
             Dispositivo.AgregarEstado(new Encendido(Dispositivo));
         }
 
         public override void Apagar()
         {
             FechaFinal = DateTime.Now;
+            FinalizarEstado();
             Dispositivo.AgregarEstado(new Apagado(Dispositivo));
         }
 
@@ -123,7 +141,5 @@ namespace TP0.Helpers
             double diff = (fFinal - fInicial).TotalHours*1/3;
             return diff;
         }
-
-
     }
 }

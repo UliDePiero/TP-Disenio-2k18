@@ -157,8 +157,6 @@ namespace TP0.Controllers
                 Usuario user = db.Usuarios.FirstOrDefault(u => u.Username == username);
                 resu = db.Dispositivos.Where(d => d.UsuarioID == user.UsuarioID).ToList().Count();
             }
-            //clienteActual = Helpers.Static.ClientesImportados.filtrarCliente(idUsuario);
-            //string json = Helpers.Static.Simplex.SimplexHelper.generarJson(clienteActual.dispositivosEstandares, clienteActual.dispositivosInteligentes);
             ViewBag.estadoSimplex = resu;
 
             return RedirectToAction("Simplex2", "Home", new { mensaje = "Dispositivos en total: " + resu });
@@ -166,20 +164,43 @@ namespace TP0.Controllers
         }
         public ActionResult mostrarDispositivosEncendidos(string mensaje)
         {
-            string idUsuario = User.Identity.GetUserName();
-            clienteActual = Helpers.Static.ClientesImportados.filtrarCliente(idUsuario);
-            int resu = clienteActual.DispositivosEncendidos();
+            string username = User.Identity.GetUserName();
+            int resu = 0;
+
+            //Se fija el ultimo estado de cada dispositivo del usuario si estan encendidos y los cuenta
+            using (var db = new DBContext())
+            {
+                Usuario user = db.Usuarios.FirstOrDefault(u => u.Username == username);
+                List<Dispositivo> dispositivos = db.Dispositivos.Where(d => d.UsuarioID == user.UsuarioID).ToList();
+                foreach (DispositivoInteligente d in dispositivos)
+                {
+                    State ultimoEstado = db.Estados.FirstOrDefault(e => e.DispositivoID == d.DispositivoID && e.FechaFinal == null);
+                    if (ultimoEstado.GetType() == typeof(Encendido))
+                        resu++;  //Si esta encendido suma
+                }
+            }
 
             return RedirectToAction("Simplex2", "Home", new { mensaje = "Dispositivos Inteligentes encendidos: " + resu });
         }
         public ActionResult mostrarDispositivosApagados(string mensaje)
         {
-            string idUsuario = User.Identity.GetUserName();
-            clienteActual = Helpers.Static.ClientesImportados.filtrarCliente(idUsuario);
-            int resu = clienteActual.DispositivosApagados(); ;
+            string username = User.Identity.GetUserName();
+            int resu = 0;
+
+            //Se fija el ultimo estado de cada dispositivo del usuario si estan encendidos y los cuenta
+            using (var db = new DBContext())
+            {
+                Usuario user = db.Usuarios.FirstOrDefault(u => u.Username == username);
+                List<Dispositivo> dispositivos = db.Dispositivos.Where(d => d.UsuarioID == user.UsuarioID).ToList();
+                foreach (DispositivoInteligente d in dispositivos)
+                {
+                    State ultimoEstado = db.Estados.FirstOrDefault(e => e.DispositivoID == d.DispositivoID && e.FechaFinal == null);
+                    if (ultimoEstado.GetType() == typeof(Apagado))
+                        resu++;  //Si esta apagado suma
+                }
+            }
 
             return RedirectToAction("Simplex2", "Home", new { mensaje = "Dispositivos Inteligentes apagados: " + resu });
         }
-
     }
 }

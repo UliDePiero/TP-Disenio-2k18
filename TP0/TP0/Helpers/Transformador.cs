@@ -5,6 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 using Newtonsoft.Json;
+using TP0.Helpers.ORM;
 
 namespace TP0.Helpers
 {
@@ -42,11 +43,18 @@ namespace TP0.Helpers
 
         public double EnergiaQueEstaSuministrando(DateTime fInicial, DateTime fFinal)
         {
-            foreach (Cliente cli in Clientes)
+            /*foreach (Cliente cli in Clientes)
 		    {
 		        EnergiaTotal += cli.KwTotales(fInicial, fFinal);
-		    }
-	        return EnergiaTotal;
+		    }*/
+            using (var db = new DBContext())
+            {
+                foreach (Cliente cli in db.Usuarios)
+                {
+                    EnergiaTotal += cli.KwTotales(fInicial, fFinal);
+                }
+            }
+            return EnergiaTotal;
 	    }
     }
 }

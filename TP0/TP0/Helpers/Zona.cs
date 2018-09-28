@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
+using TP0.Helpers.ORM;
 
 namespace TP0.Helpers
 {
@@ -30,11 +31,18 @@ namespace TP0.Helpers
 
         public double ConsumoTotal(DateTime fInicial, DateTime fFinal)
         {
-		    foreach (Transformador trafo in transformadores)
+		    /*foreach (Transformador trafo in transformadores)
 		    {
 		        Energia += trafo.EnergiaQueEstaSuministrando(fInicial, fFinal);
-		    }
-	        return Energia;
+		    }*/
+            using (var db = new DBContext())
+            {
+                foreach (Transformador trafo in transformadores)
+                {
+                    Energia += trafo.EnergiaQueEstaSuministrando(fInicial, fFinal);
+                }
+            }
+            return Energia;
 	    }
     }
 }
