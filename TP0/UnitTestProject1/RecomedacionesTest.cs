@@ -30,7 +30,7 @@ namespace UnitTestProject1
 
             //Act
 
-            recomendacion.ejecutarRecomendacion();
+            recomendacion.EjecutarRecomendacion();
 
 
             //Assert
@@ -49,7 +49,7 @@ namespace UnitTestProject1
             var cliente = new Cliente("Luciano", "Panizza", "Medrano951", "paniaton", "asdqwe123", "12345678", "dni", "12345678");
             var disp = new DispositivoInteligente("televisor LED de 24 pulgadas", "0015", 0.04, 360, 90);
             disp.estadosAnteriores = new List<State> { new Apagado(disp) { FechaInicial = DateTime.Now.AddHours(-500), FechaFinal = DateTime.Now.AddHours(-361) } };
-            disp.agregarEstado(new Encendido(disp) { FechaInicial = DateTime.Now.AddHours(-361) });
+            disp.AgregarEstado(new Encendido(disp) { FechaInicial = DateTime.Now.AddHours(-361) });
 
             cliente.dispositivosEstandares.Add(new DispositivoEstandar("lavarropas automatico de 5kg con calentamiento", "0021", 0.875, 0, 30, 6)) ;
             cliente.dispositivosEstandares.Add(new DispositivoEstandar("lavarropas semi-automatico de 5kg", "0022", 0.1275, 0, 30, 6)) ;
@@ -60,7 +60,7 @@ namespace UnitTestProject1
 
             //Act
 
-            recomendacion.ejecutarRecomendacion();
+            recomendacion.EjecutarRecomendacion();
 
 
             //Assert

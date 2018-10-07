@@ -37,10 +37,12 @@ namespace TP0.Helpers
 		    }*/
             using (var db = new DBContext())
             {
-                foreach (Transformador trafo in transformadores)
-                {
-                    Energia += trafo.EnergiaQueEstaSuministrando(fInicial, fFinal);
-                }
+                var trafosEnEstaZona = db.Transformadores.Where(t => t.ZonaID == ZonaID).ToList();
+
+               foreach (var t in trafosEnEstaZona)
+               {
+                  Energia += t.EnergiaQueEstaSuministrando(fInicial, fFinal);
+               }
             }
             return Energia;
 	    }

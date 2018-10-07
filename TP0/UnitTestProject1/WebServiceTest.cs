@@ -29,7 +29,7 @@ namespace UnitTestProject1
             //Act
 
             //var linea = SimplexHelper.generarJson(cliente.dispositivosEstandares, cliente.dispositivosInteligentes);
-            var resultado = recomendacion.generarRecomendacion(cliente);
+            var resultado = recomendacion.GenerarRecomendacion(cliente);
 
             //Assert
             Assert.AreEqual("[765.0, 15.0, 360.0, 30.0, 360.0]", resultado);
@@ -56,7 +56,7 @@ namespace UnitTestProject1
             cliente.dispositivosInteligentes.Add(new DispositivoInteligente("ventilador de techo", "0024", 0.06, 360, 120));
 
             //Act
-            var resultado = recomendacion.generarRecomendacion(cliente);
+            var resultado = recomendacion.GenerarRecomendacion(cliente);
 
             //Assert
             Assert.AreEqual("[1875.0, 30.0, 15.0, 30.0, 360.0, 360.0, 360.0, 360.0, 360.0]", resultado);

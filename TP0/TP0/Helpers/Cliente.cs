@@ -156,7 +156,6 @@ namespace TP0.Helpers
             return CoordUbicacion;
         }
 
-        
         public static double CalcDistancia(double[] point1, double[] point2)
         {
             double radioTierra = 6371;
@@ -168,5 +167,6 @@ namespace TP0.Helpers
             distance = radioTierra * c;
             return distance;
         }
+
     }
 }

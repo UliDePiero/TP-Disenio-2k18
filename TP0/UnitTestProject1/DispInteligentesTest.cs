@@ -15,7 +15,7 @@ namespace UnitTestProject1
             var lamparaHalogena40W = new DispositivoInteligente("lampara halogena de 40 W", "0011", 0.04, 360, 90);
 
             //Act
-            var result = lamparaHalogena40W.estaApagado();
+            var result = lamparaHalogena40W.EstaApagado();
 
             //Assert
             Assert.IsTrue(result);
@@ -26,10 +26,10 @@ namespace UnitTestProject1
         {
             //Arrenge
             var lamparaHalogena40W = new DispositivoInteligente("lampara halogena de 40 W", "0011", 0.04, 360, 90);
-            lamparaHalogena40W.encender();
+            lamparaHalogena40W.Encender();
 
             //Act
-            var result = lamparaHalogena40W.estaEncendido();
+            var result = lamparaHalogena40W.EstaEncendido();
 
             //Assert
             Assert.IsTrue(result); 
@@ -40,10 +40,10 @@ namespace UnitTestProject1
         {
             //Arrenge
             var lamparaHalogena40W = new DispositivoInteligente("lampara halogena de 40 W", "0011", 0.04, 360, 90);
-            lamparaHalogena40W.ahorrarEnergia();
+            lamparaHalogena40W.AhorrarEnergia();
 
             //Act
-            lamparaHalogena40W.encender();
+            lamparaHalogena40W.Encender();
 
             //Assert
             Assert.IsInstanceOfType(lamparaHalogena40W.Estado, typeof(Encendido));
@@ -57,8 +57,8 @@ namespace UnitTestProject1
             lamparaHalogena40W.estadosAnteriores = new List<State> { new Apagado(lamparaHalogena40W ) { FechaInicial = DateTime.Now.AddHours(-20), FechaFinal = DateTime.Now.AddHours(-15) } , new Encendido(lamparaHalogena40W) { FechaInicial = DateTime.Now.AddHours(-15), FechaFinal = DateTime.Now.AddHours(-7) }, new Apagado(lamparaHalogena40W) { FechaInicial = DateTime.Now.AddHours(-7), FechaFinal = DateTime.Now.AddHours(-2) }, new Encendido(lamparaHalogena40W) { FechaInicial = DateTime.Now.AddHours(-2)} };
             
             //Act
-            var result = lamparaHalogena40W.consumoEnHoras(10);
-            var comp = lamparaHalogena40W.kWxHora * 5; //5 horas
+            var result = lamparaHalogena40W.ConsumoEnHoras(10);
+            var comp = lamparaHalogena40W.KWxHora * 5; //5 horas
 
             //Assert
             Assert.AreEqual(comp, result);
@@ -73,8 +73,8 @@ namespace UnitTestProject1
 
 
             //Act
-            var result = lamparaHalogena40W.consumoEnPeriodo(DateTime.Now.AddHours(-20),DateTime.Now.AddHours(-7));
-            var comp = lamparaHalogena40W.kWxHora * 8; //8 horas
+            var result = lamparaHalogena40W.ConsumoEnPeriodo(DateTime.Now.AddHours(-20),DateTime.Now.AddHours(-7));
+            var comp = lamparaHalogena40W.KWxHora * 8; //8 horas
             //Assert
             Assert.AreEqual(comp, result);
         }
@@ -88,7 +88,7 @@ namespace UnitTestProject1
             lamparaHalogena40W.Estado.FechaInicial = fecha;
 
             //Act
-            lamparaHalogena40W.apagar();
+            lamparaHalogena40W.Apagar();
 
             //Assert
             Assert.AreEqual(fecha, lamparaHalogena40W.Estado.FechaInicial);

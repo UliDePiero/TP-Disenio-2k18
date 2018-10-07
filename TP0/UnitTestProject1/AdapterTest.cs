@@ -16,8 +16,8 @@ namespace UnitTestProject1
 
 
             //Act
-            var tvSamIntelingente = tvsamsung.convertirEnInteligente("Samsung");
-            tvSamIntelingente.encender();
+            var tvSamIntelingente = tvsamsung.ConvertirEnInteligente("Samsung");
+            tvSamIntelingente.Encender();
 
             //Assert
             Assert.IsInstanceOfType(tvSamIntelingente, typeof(DispositivoInteligente));

@@ -17,7 +17,7 @@ namespace UnitTestProject1
             cliente.puntos = 0;
 
             //Act
-            cliente.agregarDispInteligente(lamparaHalogena40W);
+            cliente.AgregarDispInteligente(lamparaHalogena40W);
 
             //Assert
             Assert.AreEqual(15, cliente.puntos);
