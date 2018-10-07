@@ -123,9 +123,9 @@ namespace TP0.Helpers
                 //Transforma el dispositivo en inteligente en la db
                 var diDB = db.Dispositivos.First(d => d.UsuarioID == UsuarioID && d.Codigo == D.Codigo);
                 diDB.EsInteligente = true;
-                
-                /*foreach(Dispositivo d in db.Dispositivos)
-                {
+
+                //de hacerse asi y hubiera mas de un disp normal igual los haria a todos inteligentes
+                /*foreach(Dispositivo d in db.Dispositivos) {
                     if(d.UsuarioID == UsuarioID && d.Codigo == D.Codigo)
                     {
                         d.EsInteligente = true;
@@ -152,17 +152,17 @@ namespace TP0.Helpers
             var point = locationService.GetLatLongFromAddress(address);
             var latitude = point.Latitude;
             var longitude = point.Longitude;
-            double[] CoordUbicacion = new double[] { latitude, longitude };
-            return CoordUbicacion;
+            double[] punto = new double[] { latitude, longitude };
+            return punto;
         }
 
-        public static double CalcDistancia(double[] point1, double[] point2)
+        public static double CalcDistancia(double[] punto1, double[] punto2)
         {
             double radioTierra = 6371;
             double distance = 0;
-            double Lat = Math.Abs(point2[0] - point1[0]) * (Math.PI / 180);
-            double Lon = Math.Abs(point2[1] - point1[1]) * (Math.PI / 180);
-            double a = Math.Sin(Lat / 2) * Math.Sin(Lat / 2) + Math.Cos(point1[0] * (Math.PI / 180)) * Math.Cos(point2[0] * (Math.PI / 180)) * Math.Sin(Lon / 2) * Math.Sin(Lon / 2);
+            double Lat = Math.Abs(punto2[0] - punto1[0]) * (Math.PI / 180);
+            double Lon = Math.Abs(punto2[1] - punto1[1]) * (Math.PI / 180);
+            double a = Math.Sin(Lat / 2) * Math.Sin(Lat / 2) + Math.Cos(punto1[0] * (Math.PI / 180)) * Math.Cos(punto2[0] * (Math.PI / 180)) * Math.Sin(Lon / 2) * Math.Sin(Lon / 2);
             double c = 2 * Math.Atan2(Math.Sqrt(a), Math.Sqrt(1 - a));
             distance = radioTierra * c;
             return distance;
