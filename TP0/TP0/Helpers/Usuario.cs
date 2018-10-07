@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
+using GoogleMaps.LocationServices;
 
 namespace TP0.Helpers
 {
@@ -18,5 +19,6 @@ namespace TP0.Helpers
         public string Username { get; set; }
         public string Contrasenia { get; set; }
         public bool EsAdmin { get; set; }
+
     }
 }

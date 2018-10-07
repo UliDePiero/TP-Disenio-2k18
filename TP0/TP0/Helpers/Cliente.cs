@@ -6,7 +6,7 @@ using System.Linq;
 using System.Web;
 using TP0.Helpers;
 using TP0.Helpers.ORM;
-//using Windows.Devices.Geolocation;
+using GoogleMaps.LocationServices;
 
 namespace TP0.Helpers
 {
@@ -29,7 +29,7 @@ namespace TP0.Helpers
         [NotMapped]
         public Recomendacion recomendacion = Recomendacion.Instancia();
         [NotMapped]
-        public bool accionAutomatica;
+        public bool accionAutomatica; //porque no persiste?
 
         public Cliente(string nombre, string apellido, string domicilio, string usuario, string contrasenia, string doc, string tipo, string tel) 
         {
@@ -91,10 +91,14 @@ namespace TP0.Helpers
         public double KwTotales(DateTime fInicial, DateTime fFinal)
         {
             double Consumo = 0;
-            foreach (DispositivoEstandar d in Dispositivos)
-                Consumo += d.ConsumoEnPeriodo(fInicial, fFinal);
-            foreach (DispositivoInteligente d in Dispositivos)
-                Consumo += d.ConsumoEnPeriodo(fInicial, fFinal);
+
+            using (var db = new DBContext())
+            {
+                foreach (DispositivoEstandar d in db.Dispositivos)
+                    Consumo += d.ConsumoEnPeriodo(fInicial, fFinal);
+                foreach (DispositivoInteligente d in db.Dispositivos)
+                    Consumo += d.ConsumoEnPeriodo(fInicial, fFinal);
+            }
             return Consumo;
         }
         public void AgregarDispInteligente(DispositivoInteligente DI)
@@ -117,13 +121,16 @@ namespace TP0.Helpers
             using (var db = new DBContext())
             {
                 //Transforma el dispositivo en inteligente en la db
-                foreach(Dispositivo d in db.Dispositivos)
+                var diDB = db.Dispositivos.First(d => d.UsuarioID == UsuarioID && d.Codigo == D.Codigo);
+                diDB.EsInteligente = true;
+                
+                /*foreach(Dispositivo d in db.Dispositivos)
                 {
                     if(d.UsuarioID == UsuarioID && d.Codigo == D.Codigo)
                     {
                         d.EsInteligente = true;
                     }
-                }
+                }*/
                 db.SaveChanges();
             }
         }
@@ -137,15 +144,29 @@ namespace TP0.Helpers
         {
             
         }
-        /*public double[] UbicacionDomicilio()
+
+        public double[] UbicacionDomicilio()
         {
-            Geolocator geolocator = new Geolocator();
-            geolocator.DesiredAccuracy.InMeters = 10;
-            Geoposition ubicacion = await geolocator.GetGeopositionAsync();
-            double latitud = ubicacion.Coordinate.Point.Position.Latitude;
-            double longitud = ubicacion.Coordinate.Point.Position.Longitude;
-            double[] CoordUbicacion = new double[] { latitud, longitud };
+            var address = new AddressData { Address = Domicilio, City = "Buenos Aires", State = "Buenos Aires", Country = "Argentina" };
+            var locationService = new GoogleLocationService();
+            var point = locationService.GetLatLongFromAddress(address);
+            var latitude = point.Latitude;
+            var longitude = point.Longitude;
+            double[] CoordUbicacion = new double[] { latitude, longitude };
             return CoordUbicacion;
-        }*/
+        }
+
+        
+        public static double CalcDistancia(double[] point1, double[] point2)
+        {
+            double radioTierra = 6371;
+            double distance = 0;
+            double Lat = Math.Abs(point2[0] - point1[0]) * (Math.PI / 180);
+            double Lon = Math.Abs(point2[1] - point1[1]) * (Math.PI / 180);
+            double a = Math.Sin(Lat / 2) * Math.Sin(Lat / 2) + Math.Cos(point1[0] * (Math.PI / 180)) * Math.Cos(point2[0] * (Math.PI / 180)) * Math.Sin(Lon / 2) * Math.Sin(Lon / 2);
+            double c = 2 * Math.Atan2(Math.Sqrt(a), Math.Sqrt(1 - a));
+            distance = radioTierra * c;
+            return distance;
+        }
     }
 }
