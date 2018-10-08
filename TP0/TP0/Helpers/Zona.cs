@@ -31,14 +31,12 @@ namespace TP0.Helpers
 
         public double ConsumoTotal(DateTime fInicial, DateTime fFinal)
         {
-		   
+		    /*foreach (Transformador trafo in transformadores)
+		    {
+		        Energia += trafo.EnergiaQueEstaSuministrando(fInicial, fFinal);
+		    }*/
             using (var db = new DBContext())
             {
-                /*foreach (Transformador trafo in transformadores)
-                  {
-                      Energia += trafo.EnergiaQueEstaSuministrando(fInicial, fFinal);
-                  }*/ //de esta manera para cualquier zona iba a tomar la energia de TODOS los trafos del sistema
-
                 var trafosEnEstaZona = db.Transformadores.Where(t => t.ZonaID == ZonaID).ToList();
 
                foreach (var t in trafosEnEstaZona)
