@@ -194,9 +194,9 @@ namespace TP0.Helpers.ORM
         public DbSet<Zona> Zonas { get; set; }
         public DbSet<Dispositivo> Dispositivos { get; set; }
         public DbSet<State> Estados { get; set; }
-        public DbSet<Actuador> Reglas { get; set; }
+        public DbSet<Regla> Reglas { get; set; }
         public DbSet<Sensor> Sensores { get; set; }
-        public DbSet<Regla> Condiciones { get; set; }
+        public DbSet<Condicion> Condiciones { get; set; }
         public DbSet<Medicion> Mediciones { get; set; }
 
         public DBContext() : base(@"Data Source=(localdb)\v11.0;Initial Catalog=DBdiseño;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False")

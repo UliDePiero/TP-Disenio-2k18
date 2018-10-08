@@ -7,32 +7,30 @@ using System.Web;
 
 namespace TP0.Helpers
 {
+    // UNA REGLA ES UN CONJUNTO DE CONDICIONES SIMPLES
     public class Regla
     {
-        [NotMapped]
-        public bool seCumple;
-
         [Key]
-        public int CondicionID { get; set; }
-        public float ValorMax { get; set; }
-        public float ValorMin { get; set; }
         public int ActuadorID { get; set; }
-        [ForeignKey("ActuadorID")]
-        public Actuador Actuador { get; set; }
+        public int DispositivoID { get; set; }
+        [ForeignKey("DispositivoID")]
+        public Dispositivo Dispositivo { get; set; }
+        public List<Condicion> Condiciones { get; set; }
 
-
+        public void VerificarRegla()
+        {
+            if (Condiciones.All(c => c.seCumple))
+            {
+                EjecutarRegla();
+            }
+        }
+        public void EjecutarRegla()
+        {
+            //Metodo para ejecutar la regla
+        }
         public void Notificar(float valor)
         {
-            seCumple = false;
-            if (valor >= ValorMin && valor <= ValorMax)
-            {
-                seCumple = true;
-            }
-            Actuador.VerificarRegla();
-        }
-        public bool ChequearComportamiento()
-        {
-            return seCumple;
+            Condiciones.ForEach(o => o.Notificar(valor));
         }
     }
 }
