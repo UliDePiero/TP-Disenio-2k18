@@ -111,28 +111,54 @@ namespace TP0.Controllers
             ViewBag.Message = "Tus dispositivos:";
             List<Dispositivo> dispositivosPropios = new List<Dispositivo>();
             Usuario user;
+            double acumulado = 0;
+            double acumuladoKw = 0;
+          
+            int cont=0;
+            
             using (var db = new DBContext())
             {
                 user = db.Usuarios.FirstOrDefault(u => u.Username == User.Identity.Name);
                 dispositivosPropios = db.Dispositivos.Where(d => d.UsuarioID == user.UsuarioID).ToList();
+
                 foreach (Dispositivo disp in dispositivosPropios)
                 {
+                    disp.ConsumoAcumulado = 0;
+                    acumulado = 0;
                     //Si es inteligente le asigna su estado actual
-                    try
-                    {
+                  if(disp is DispositivoInteligente)
+                    { 
                         string ultimoEstado = db.Estados.FirstOrDefault(e => e.DispositivoID == disp.DispositivoID && e.FechaFinal == new DateTime(1, 1, 1)).Desc;
                         disp.Desc = ultimoEstado;
+
+                        //recorrer los estados
+
+                        List<State> listaDeEstados = db.Estados.Where(e => e.DispositivoID == disp.DispositivoID).ToList();
+
+                        foreach (State s in listaDeEstados)
+                        {
+                            if (s.FechaFinal != new DateTime(1, 1, 1))
+                            {
+                                double c = (s.FechaFinal - s.FechaInicial).Seconds;
+                                acumulado += c;
+                                acumuladoKw += c * disp.KWxHora / 60;
+
+                            }
+                           
+                        }
+                        disp.ConsumoAcumulado = acumulado;
+                        
+                        cont++;
                     }
                     //Si es estandar no se le asigna estado
-                    catch (NullReferenceException)
-                    {
-                        disp.Desc = "";
-                    }
+                    
                 }
+                ViewBag.total = acumuladoKw / cont;
+
             }
             return View(dispositivosPropios);
         }
-        
+
         //Metodos para cambiar el estado del dispositivo
         public ActionResult Encender(int id, string estadoActual)
         {

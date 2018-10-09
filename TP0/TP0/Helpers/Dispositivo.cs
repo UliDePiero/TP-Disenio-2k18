@@ -18,6 +18,10 @@ namespace TP0.Helpers
         public int UsuarioID { get; set; }
         [NotMapped]
         public string Desc { get; set; }
+        [NotMapped]
+        public double ConsumoAcumulado { get; set; }
+        [NotMapped]
+        public double ConsumoPromedio { get; set; }
 
         [ForeignKey("UsuarioID")]
         public Usuario Usuario { get; set; }

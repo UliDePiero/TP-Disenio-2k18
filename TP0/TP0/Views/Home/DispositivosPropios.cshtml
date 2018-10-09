@@ -12,6 +12,10 @@
         <th>
             @Html.DisplayNameFor(model => model.EsInteligente)
         </th>
+
+        <th>
+            @Html.DisplayName("Consumo Acumulado en minutos")
+        </th>
         <th>
             @Html.DisplayName("Estado")
         </th>
@@ -30,6 +34,9 @@
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.EsInteligente)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ConsumoAcumulado)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Desc)
@@ -53,6 +60,9 @@
         <td>
             @Html.DisplayFor(modelItem => item.EsInteligente)
         </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ConsumoAcumulado)
+        </td>
         <td></td>
         <td></td>
     </tr>
@@ -60,3 +70,7 @@
 }
 
 </table>
+
+    <h1>Consumo promedio de dispositivos inteligentes</h1>
+    <h2>@ViewBag.total</h2>
+
