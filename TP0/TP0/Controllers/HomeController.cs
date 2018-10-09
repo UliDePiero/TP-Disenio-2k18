@@ -14,7 +14,7 @@ namespace TP0.Controllers
 {
     public class HomeController : Controller
     {
-        Cliente clienteActual;
+        //Cliente clienteActual;
         public ActionResult Index()
         {
             return View();
@@ -50,6 +50,7 @@ namespace TP0.Controllers
             //Agrega el nuevo dispositivo al usuario
             using (var db = new DBContext())
             {
+                DispositivoInteligente disp2 = null;
                 foreach (Usuario user in db.Usuarios)
                 {
                     if (user.Username == User.Identity.GetUserName())
@@ -57,6 +58,7 @@ namespace TP0.Controllers
                         if (EsInteligente(codigo))
                         {
                             DispositivoInteligente disp = EncontrarDispositivoInteligente(codigo);
+                            disp2 = disp;
                             disp.UsuarioID = user.UsuarioID;
                             db.Dispositivos.Add(disp);
                             break;
@@ -71,9 +73,14 @@ namespace TP0.Controllers
                     }
                 }
                 db.SaveChanges();
+                if(disp2 != null)
+                {
+                    db.Estados.Add(new Apagado(disp2));
+                    db.SaveChanges();
+                }
             }
 
-            return RedirectToAction("DetallesDeUsuario", "Home");
+            return RedirectToAction("Index", "Home");
         }
         private bool EsInteligente(string id)
         {
@@ -174,8 +181,8 @@ namespace TP0.Controllers
                 List<Dispositivo> dispositivos = db.Dispositivos.Where(d => d.UsuarioID == user.UsuarioID).ToList();
                 foreach (DispositivoInteligente d in dispositivos)
                 {
-                    State ultimoEstado = db.Estados.FirstOrDefault(e => e.DispositivoID == d.DispositivoID && e.FechaFinal == null);
-                    if (ultimoEstado.GetType() == typeof(Encendido))
+                    State ultimoEstado = db.Estados.FirstOrDefault(e => e.DispositivoID == d.DispositivoID && e.FechaFinal == new DateTime(1, 1, 1)); //Fecha final default de los estados no terminados
+                    if (ultimoEstado != null && ultimoEstado.Desc == "Encendido")
                         resu++;  //Si esta encendido suma
                 }
             }
@@ -194,8 +201,8 @@ namespace TP0.Controllers
                 List<Dispositivo> dispositivos = db.Dispositivos.Where(d => d.UsuarioID == user.UsuarioID).ToList();
                 foreach (DispositivoInteligente d in dispositivos)
                 {
-                    State ultimoEstado = db.Estados.FirstOrDefault(e => e.DispositivoID == d.DispositivoID && e.FechaFinal == null);
-                    if (ultimoEstado.GetType() == typeof(Apagado))
+                    State ultimoEstado = db.Estados.FirstOrDefault(e => e.DispositivoID == d.DispositivoID && e.FechaFinal == new DateTime(1, 1, 1)); //Fecha final default de los estados no terminados
+                    if (ultimoEstado != null && ultimoEstado.Desc.ToString() == "Apagado")
                         resu++;  //Si esta apagado suma
                 }
             }

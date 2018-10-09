@@ -11,35 +11,20 @@ namespace TP0.Helpers
     {
         [NotMapped]
         public bool seCumple;
-
         [Key]
-<<<<<<< HEAD
-<<<<<<< HEAD
         public int ReglaID { get; set; }
-=======
-        public int ActuadorID { get; set; }
->>>>>>> parent of 693d574... Cambio de lugar base
-        public int DispositivoID { get; set; }
-        [ForeignKey("DispositivoID")]
-        public Dispositivo Dispositivo { get; set; }
-        public List<Condicion> Condiciones { get; set; }
-=======
-        public int CondicionID { get; set; }
         public float ValorMax { get; set; }
         public float ValorMin { get; set; }
         public int ActuadorID { get; set; }
         [ForeignKey("ActuadorID")]
         public Actuador Actuador { get; set; }
-
->>>>>>> parent of 3d157fb... Revert "Cambios Regla Actuador Sensor"
+        
 
         public void Notificar(float valor)
         {
             seCumple = false;
             if (valor >= ValorMin && valor <= ValorMax)
-            {
-                seCumple = true;
-            }
+                    seCumple = true;
             Actuador.VerificarRegla();
         }
         public bool ChequearComportamiento()

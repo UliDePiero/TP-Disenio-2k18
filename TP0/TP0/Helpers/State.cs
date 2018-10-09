@@ -48,8 +48,12 @@ namespace TP0.Helpers
         public Encendido(DispositivoInteligente dispint)
         {
             FechaInicial = DateTime.Now;
+            FechaFinal = new DateTime(1, 1, 1);
             Dispositivo = dispint;
+            Desc = "Encendido";
         }
+        public Encendido() { }
+
         public override void Encender() { }
 
         public override void Apagar()
@@ -79,8 +83,11 @@ namespace TP0.Helpers
         public Apagado(DispositivoInteligente dispint)
         {
             FechaInicial = DateTime.Now;
+            FechaFinal = new DateTime(1, 1, 1);
             Dispositivo = dispint;
+            Desc = "Apagado";
         }
+        public Apagado() { }
 
         public override void Encender()
         {
@@ -111,8 +118,11 @@ namespace TP0.Helpers
         public Ahorro(DispositivoInteligente dispint)
         {
             FechaInicial = DateTime.Now;
+            FechaFinal = new DateTime(1, 1, 1);
             Dispositivo = dispint;
+            Desc = "Ahorro";
         }
+        public Ahorro() { }
 
         public override void Encender()
         {

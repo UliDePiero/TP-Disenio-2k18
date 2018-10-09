@@ -16,6 +16,7 @@ namespace TP0.Helpers
         [ForeignKey("DispositivoID")]
         public Dispositivo Dispositivo { get; set; }
         //public List<Regla> Reglas { get; set; }
+        [NotMapped]
         public Regla Regla { get; set; }
 
         public void VerificarRegla()

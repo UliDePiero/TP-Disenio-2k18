@@ -36,7 +36,7 @@ namespace TP0.Helpers
             Max = mx;
             Min = mn;
             estadosAnteriores = new List<State>();
-            AgregarEstado(new Apagado(this));
+            //AgregarEstado(new Apagado(this));
             EsInteligente = true;
         }
         public DispositivoInteligente()
