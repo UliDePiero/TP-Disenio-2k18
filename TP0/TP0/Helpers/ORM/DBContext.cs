@@ -199,7 +199,7 @@ namespace TP0.Helpers.ORM
         public DbSet<Condicion> Condiciones { get; set; }
         public DbSet<Medicion> Mediciones { get; set; }
 
-        public DBContext() : base(@"Data Source=(localdb)\v11.0;Initial Catalog=DBdiseño;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False")
+        public DBContext() : base(@"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=DBdiseño;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False")
         {
         }
     }

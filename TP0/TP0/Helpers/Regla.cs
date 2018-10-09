@@ -11,7 +11,7 @@ namespace TP0.Helpers
     public class Regla
     {
         [Key]
-        public int ActuadorID { get; set; }
+        public int ReglaID { get; set; }
         public int DispositivoID { get; set; }
         [ForeignKey("DispositivoID")]
         public Dispositivo Dispositivo { get; set; }
