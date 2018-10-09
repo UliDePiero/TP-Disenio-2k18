@@ -38,6 +38,14 @@ namespace TP0.Helpers
             Latitud = latitud;
             Longitud = longitud; 
         }
+        public Transformador(int id, int Zonaid, double latitud, double longitud, int Energia)
+        {
+            TransformadorID = id;
+            ZonaID = Zonaid;
+            EnergiaTotal = Energia;
+            Latitud = latitud;
+            Longitud = longitud;
+        }
 
         public double EnergiaQueEstaSuministrando(DateTime fInicial, DateTime fFinal)
         {

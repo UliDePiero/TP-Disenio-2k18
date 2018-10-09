@@ -28,6 +28,12 @@ namespace TP0.Helpers
             Longitud = Long;
             Radio = Rad;
         }
+        public Zona(double Lat, double Long, double Rad)
+        {
+            Latitud = Lat;
+            Longitud = Long;
+            Radio = Rad;
+        }
 
         public double ConsumoTotal(DateTime fInicial, DateTime fFinal)
         {

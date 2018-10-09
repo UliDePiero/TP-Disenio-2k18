@@ -171,6 +171,14 @@ namespace TP0.Controllers
                             TransformadorID = 3, //Transformador default
                         };
                         db.Usuarios.Add(cliente);
+
+                        if(db.Zonas.Count() == 0)
+                        {
+                            //Agrega el transformador default si no existe
+                            db.Zonas.Add(new Zona(1, 1, 1, 1));
+                            db.Transformadores.Add(new Transformador(1, 1, 1, 1, 1));
+                        }
+
                         db.SaveChanges();
                     }
 
