@@ -82,11 +82,12 @@ namespace TP0.Helpers
        public void AgregarEstado(State est)
        {
             Estado = est;
-            estadosAnteriores.Add(est);
+            Estado.FechaFinal = new DateTime(3000, 1, 1); 
+            estadosAnteriores.Add(Estado);
 
             using (var db = new DBContext())
             {
-                db.Estados.Add(est); //Agrega el nuevo estado a la db
+                db.Estados.Add(Estado); //Agrega el nuevo estado a la db
                 db.SaveChanges();
             }
        }

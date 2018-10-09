@@ -40,10 +40,12 @@ namespace TP0.Helpers.Static
         {
             double consumo = 0;
             List<State> EstadosPartePeriodo = estadosAntes.Where(x => parteDelPeriodo(fInicialPer, fFinalPer, x)).ToList();
-            
-            if (EstadosPartePeriodo.Count() == 1) //igual de tamaño , o mayor de tamaño
-                return EstadosPartePeriodo.ElementAt(0).ConsumoEnIntervalor(fInicialPer, fFinalPer);
 
+            if (EstadosPartePeriodo.Count() == 0)
+                estadosAntes.ElementAt(0).ConsumoEnIntervalor(fInicialPer, fFinalPer);
+            /*if (EstadosPartePeriodo.Count() == 1) //igual de tamaño , o mayor de tamaño
+                return EstadosPartePeriodo.ElementAt(0).ConsumoEnIntervalor(fInicialPer, fFinalPer);
+            */
             foreach (State e in EstadosPartePeriodo)
             {
                 if (dentroDelPeriodo(fInicialPer, fFinalPer, e))
