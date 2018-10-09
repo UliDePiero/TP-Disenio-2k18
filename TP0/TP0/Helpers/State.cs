@@ -53,6 +53,13 @@ namespace TP0.Helpers
             Desc = "Encendido";
         }
         public Encendido() { }
+        public Encendido(Dispositivo d)
+        {
+            FechaInicial = DateTime.Now;
+            FechaFinal = new DateTime(1, 1, 1);
+            DispositivoID = d.DispositivoID;
+            Desc = "Encendido";
+        }
 
         public override void Encender() { }
 
@@ -88,6 +95,13 @@ namespace TP0.Helpers
             Desc = "Apagado";
         }
         public Apagado() { }
+        public Apagado(Dispositivo d)
+        {
+            FechaInicial = DateTime.Now;
+            FechaFinal = new DateTime(1, 1, 1);
+            DispositivoID = d.DispositivoID;
+            Desc = "Apagado";
+        }
 
         public override void Encender()
         {
@@ -123,6 +137,13 @@ namespace TP0.Helpers
             Desc = "Ahorro";
         }
         public Ahorro() { }
+        public Ahorro(Dispositivo d)
+        {
+            FechaInicial = DateTime.Now;
+            FechaFinal = new DateTime(1, 1, 1);
+            DispositivoID = d.DispositivoID;
+            Desc = "Ahorro";
+        }
 
         public override void Encender()
         {

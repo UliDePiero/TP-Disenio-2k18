@@ -1,25 +1,62 @@
-﻿<!DOCTYPE html>
+﻿@model IEnumerable<TP0.Helpers.Dispositivo>
 
-<html>
-<head>
+<h2>@ViewBag.Message</h2>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Nombre)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.KWxHora)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.EsInteligente)
+        </th>
+        <th>
+            @Html.DisplayName("Estado")
+        </th>
+        <th> </th>
+    </tr>
 
-</head>
-@{
-    ViewBag.Title = "DispositivosPropios";
+@foreach (var item in Model) {
+    if (item.EsInteligente)
+    {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Nombre)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.KWxHora)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.EsInteligente)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Desc)
+        </td>
+        <td>
+            @Html.ActionLink("Encender", "Encender", new { id = item.DispositivoID, estadoActual = item.Desc }) |
+            @Html.ActionLink("Apagar", "Apagar", new { id = item.DispositivoID, estadoActual = item.Desc }) |
+            @Html.ActionLink("Ahorro", "Ahorro", new { id = item.DispositivoID, estadoActual = item.Desc })
+        </td>
+    </tr>
+    }
+    else
+    {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Nombre)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.KWxHora)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.EsInteligente)
+        </td>
+        <td></td>
+        <td></td>
+    </tr>
+    }
 }
-<body>
-<h2>DispositivosPropios</h2>
 
-
-<section id="dispositivos_del_usuario">
-    @using (Html.BeginForm("DispositivosPropios", "Home", FormMethod.Post))
-    {@*lista con todos los dispositivos para agregar uno a los propios*@
-    <h4>
-        @Html.DropDownList("selectListItems", (IEnumerable<SelectListItem>)ViewBag.selectListItems)
-    </h4>
-}
-</section>
-
-</body>
-
-</html>
+</table>

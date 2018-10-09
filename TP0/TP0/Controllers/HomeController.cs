@@ -108,28 +108,89 @@ namespace TP0.Controllers
         [HttpGet]
         public ActionResult DispositivosPropios()
         {
-
-            List<SelectListItem> selectListItems = new List<SelectListItem>();
+            ViewBag.Message = "Tus dispositivos:";
             List<Dispositivo> dispositivosPropios = new List<Dispositivo>();
             Usuario user;
             using (var db = new DBContext())
-                {
+            {
                 user = db.Usuarios.FirstOrDefault(u => u.Username == User.Identity.Name);
                 dispositivosPropios = db.Dispositivos.Where(d => d.UsuarioID == user.UsuarioID).ToList();
-                foreach (Dispositivo d in dispositivosPropios)
+                foreach (Dispositivo disp in dispositivosPropios)
                 {
-                    selectListItems.Add(new SelectListItem() { Value = d.Codigo, Text = d.Nombre });
+                    //Si es inteligente le asigna su estado actual
+                    try
+                    {
+                        string ultimoEstado = db.Estados.FirstOrDefault(e => e.DispositivoID == disp.DispositivoID && e.FechaFinal == new DateTime(1, 1, 1)).Desc;
+                        disp.Desc = ultimoEstado;
+                    }
+                    //Si es estandar no se le asigna estado
+                    catch (NullReferenceException)
+                    {
+                        disp.Desc = "";
+                    }
                 }
-
-             
             }
-
-            ViewBag.selectListItems = selectListItems;
-
-            return View();
+            return View(dispositivosPropios);
         }
-          
         
+        //Metodos para cambiar el estado del dispositivo
+        public ActionResult Encender(int id, string estadoActual)
+        {
+            if (estadoActual != "Encendido")
+            {
+                using (var db = new DBContext())
+                {
+                    Dispositivo disp = db.Dispositivos.FirstOrDefault(d => d.DispositivoID == id);
+                    foreach (State s in db.Estados)
+                    {
+                        if (s.DispositivoID == id && s.FechaFinal == new DateTime(1, 1, 1))
+                            s.FechaFinal = DateTime.Now;
+                    }
+                    db.Estados.Add(new Encendido(disp));
+
+                    db.SaveChanges();
+                }
+            }
+            return RedirectToAction("DispositivosPropios", "Home");
+        }
+        public ActionResult Apagar(int id, string estadoActual)
+        {
+            if (estadoActual != "Apagado")
+            {
+                using (var db = new DBContext())
+                {
+                    Dispositivo disp = db.Dispositivos.FirstOrDefault(d => d.DispositivoID == id);
+                    foreach (State s in db.Estados)
+                    {
+                        if (s.DispositivoID == id && s.FechaFinal == new DateTime(1, 1, 1))
+                            s.FechaFinal = DateTime.Now;
+                    }
+                    db.Estados.Add(new Apagado(disp));
+
+                    db.SaveChanges();
+                }
+            }
+            return RedirectToAction("DispositivosPropios", "Home");
+        }
+        public ActionResult Ahorro(int id, string estadoActual)
+        {
+            if (estadoActual != "Ahorro")
+            {
+                using (var db = new DBContext())
+                {
+                    Dispositivo disp = db.Dispositivos.FirstOrDefault(d => d.DispositivoID == id);
+                    foreach (State s in db.Estados)
+                    {
+                        if (s.DispositivoID == id && s.FechaFinal == new DateTime(1, 1, 1))
+                            s.FechaFinal = DateTime.Now;
+                    }
+                    db.Estados.Add(new Ahorro(disp));
+
+                    db.SaveChanges();
+                }
+            }
+            return RedirectToAction("DispositivosPropios", "Home");
+        }
 
         [HttpGet]
         public ActionResult Simplex()
