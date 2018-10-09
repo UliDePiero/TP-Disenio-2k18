@@ -14,7 +14,11 @@ namespace TP0.Helpers
 
         [Key]
 <<<<<<< HEAD
+<<<<<<< HEAD
         public int ReglaID { get; set; }
+=======
+        public int ActuadorID { get; set; }
+>>>>>>> parent of 693d574... Cambio de lugar base
         public int DispositivoID { get; set; }
         [ForeignKey("DispositivoID")]
         public Dispositivo Dispositivo { get; set; }
