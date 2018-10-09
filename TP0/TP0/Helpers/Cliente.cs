@@ -6,7 +6,7 @@ using System.Linq;
 using System.Web;
 using TP0.Helpers;
 using TP0.Helpers.ORM;
-using GoogleMaps.LocationServices;
+//using Windows.Devices.Geolocation;
 
 namespace TP0.Helpers
 {
@@ -29,7 +29,7 @@ namespace TP0.Helpers
         [NotMapped]
         public Recomendacion recomendacion = Recomendacion.Instancia();
         [NotMapped]
-        public bool accionAutomatica; //porque no persiste?
+        public bool accionAutomatica;
 
         public Cliente(string nombre, string apellido, string domicilio, string usuario, string contrasenia, string doc, string tipo, string tel) 
         {
@@ -91,14 +91,10 @@ namespace TP0.Helpers
         public double KwTotales(DateTime fInicial, DateTime fFinal)
         {
             double Consumo = 0;
-
-            using (var db = new DBContext())
-            {
-                foreach (DispositivoEstandar d in db.Dispositivos)
-                    Consumo += d.ConsumoEnPeriodo(fInicial, fFinal);
-                foreach (DispositivoInteligente d in db.Dispositivos)
-                    Consumo += d.ConsumoEnPeriodo(fInicial, fFinal);
-            }
+            foreach (DispositivoEstandar d in Dispositivos)
+                Consumo += d.ConsumoEnPeriodo(fInicial, fFinal);
+            foreach (DispositivoInteligente d in Dispositivos)
+                Consumo += d.ConsumoEnPeriodo(fInicial, fFinal);
             return Consumo;
         }
         public void AgregarDispInteligente(DispositivoInteligente DI)
@@ -121,16 +117,21 @@ namespace TP0.Helpers
             using (var db = new DBContext())
             {
                 //Transforma el dispositivo en inteligente en la db
+<<<<<<< HEAD
                 var diDB = db.Dispositivos.First(d => d.UsuarioID == UsuarioID && d.Codigo == D.Codigo);
                 diDB.EsInteligente = true;
 
                 //de hacerse asi y hubiera mas de un disp normal igual los haria a todos inteligentes
                 /*foreach(Dispositivo d in db.Dispositivos) {
+=======
+                foreach(Dispositivo d in db.Dispositivos)
+                {
+>>>>>>> parent of b66b79d... popurri de cosas
                     if(d.UsuarioID == UsuarioID && d.Codigo == D.Codigo)
                     {
                         d.EsInteligente = true;
                     }
-                }*/
+                }
                 db.SaveChanges();
             }
         }
@@ -144,9 +145,9 @@ namespace TP0.Helpers
         {
             
         }
-
-        public double[] UbicacionDomicilio()
+        /*public double[] UbicacionDomicilio()
         {
+<<<<<<< HEAD
             var address = new AddressData { Address = Domicilio, City = "Buenos Aires", State = "Buenos Aires", Country = "Argentina" };
             var locationService = new GoogleLocationService();
             var point = locationService.GetLatLongFromAddress(address);
@@ -168,5 +169,15 @@ namespace TP0.Helpers
             return distance;
         }
 
+=======
+            Geolocator geolocator = new Geolocator();
+            geolocator.DesiredAccuracy.InMeters = 10;
+            Geoposition ubicacion = await geolocator.GetGeopositionAsync();
+            double latitud = ubicacion.Coordinate.Point.Position.Latitude;
+            double longitud = ubicacion.Coordinate.Point.Position.Longitude;
+            double[] CoordUbicacion = new double[] { latitud, longitud };
+            return CoordUbicacion;
+        }*/
+>>>>>>> parent of b66b79d... popurri de cosas
     }
 }

@@ -35,9 +35,15 @@ namespace TP0.Helpers
             //Agrega la fecha final del ultimo estado del dispositivo
             using (var db = new DBContext())
             {
-               var est = db.Estados.First(s => s.DispositivoID == DispositivoID && s.FechaFinal == new DateTime(3000, 1, 1));
-               est.FechaFinal = DateTime.Now;
-               db.SaveChanges();
+                foreach (State s in db.Estados)  
+                {
+                    if (s.DispositivoID == DispositivoID && s.FechaFinal == null)
+                    {
+                        s.FechaFinal = DateTime.Now;
+                        break;
+                    }
+                }
+                db.SaveChanges();
             }
         }
     }

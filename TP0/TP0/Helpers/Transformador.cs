@@ -33,15 +33,16 @@ namespace TP0.Helpers
         public List<Cliente> Clientes { get; set; }
         //public List<Cliente> clientes;
 
-        public Transformador(double latitud, double longitud)
+        public Transformador(int id, double latitud, double longitud, double energiaTotal)
         {
+            TransformadorID = id;
             Latitud = latitud;
-            Longitud = longitud; 
+            Longitud = longitud;
+            EnergiaTotal = energiaTotal;
         }
 
         public double EnergiaQueEstaSuministrando(DateTime fInicial, DateTime fFinal)
         {
-            double[] CoordUbicacion = new double[] { Latitud, Longitud };
             /*foreach (Cliente cli in Clientes)
 		    {
 		        EnergiaTotal += cli.KwTotales(fInicial, fFinal);
@@ -50,10 +51,7 @@ namespace TP0.Helpers
             {
                 foreach (Cliente cli in db.Usuarios)
                 {
-                    if(cli.TransformadorID==TransformadorID)
-                    {
-                        EnergiaTotal += cli.KwTotales(fInicial, fFinal);
-                    }
+                    EnergiaTotal += cli.KwTotales(fInicial, fFinal);
                 }
             }
             return EnergiaTotal;

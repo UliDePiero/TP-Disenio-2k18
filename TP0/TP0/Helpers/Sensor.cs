@@ -15,7 +15,7 @@ namespace TP0.Helpers
         public string Desc { get; set; }
         
         [NotMapped]
-        public List<Regla> Observers { get; set; }
+        public List<Actuador> Observers { get; set; }
         [NotMapped]
         public float Medicion;
 
@@ -27,21 +27,21 @@ namespace TP0.Helpers
         {
         }
 
-        public void AgregarObservador(Regla c)
+        public void AgregarObservador(Actuador c)
         {
             Observers.Add(c);
             using (var db = new DBContext())
             {
-                db.Reglas.Add(c);
+                db.Actuadores.Add(c);
                 db.SaveChanges();
             }
         }
-        public void QuitarObservador(Regla c)
+        public void QuitarObservador(Actuador c)
         {
             Observers.Remove(c);
             using (var db = new DBContext())
             {
-                db.Reglas.Remove(c);
+                db.Actuadores.Remove(c);
                 db.SaveChanges();
             }
         }
