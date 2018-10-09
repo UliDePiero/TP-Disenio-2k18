@@ -168,7 +168,7 @@ namespace TP0.Controllers
                     {
                         Cliente cliente = new Cliente(model.nombre, model.apellido, model.domicilio, model.Email, model.contrasenia, model.documento, model.tipo, model.telefono)
                         {
-                            TransformadorID = 1, //Transformador default
+                            TransformadorID = 3, //Transformador default
                         };
                         db.Usuarios.Add(cliente);
                         db.SaveChanges();

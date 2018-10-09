@@ -1,0 +1,25 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+
+</head>
+@{
+    ViewBag.Title = "DispositivosPropios";
+}
+<body>
+<h2>DispositivosPropios</h2>
+
+
+<section id="dispositivos_del_usuario">
+    @using (Html.BeginForm("DispositivosPropios", "Home", FormMethod.Post))
+    {@*lista con todos los dispositivos para agregar uno a los propios*@
+    <h4>
+        @Html.DropDownList("selectListItems", (IEnumerable<SelectListItem>)ViewBag.selectListItems)
+    </h4>
+}
+</section>
+
+</body>
+
+</html>

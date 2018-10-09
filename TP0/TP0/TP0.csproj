@@ -400,6 +400,7 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\FileUpload\Index.cshtml" />
     <Content Include="Views\Home\Simplex2.cshtml" />
+    <Content Include="Views\Home\DispositivosPropios.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\uploads\" />

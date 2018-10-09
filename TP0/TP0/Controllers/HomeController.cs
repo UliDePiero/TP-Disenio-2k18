@@ -10,6 +10,7 @@ using TP0.Models;
 using Microsoft.AspNet.Identity;
 using TP0.Helpers.ORM;
 
+
 namespace TP0.Controllers
 {
     public class HomeController : Controller
@@ -103,12 +104,40 @@ namespace TP0.Controllers
             ViewBag.Message = "Your AdministrarDispositivos page.";
             return View();
         }
+
+        [HttpGet]
+        public ActionResult DispositivosPropios()
+        {
+
+            List<SelectListItem> selectListItems = new List<SelectListItem>();
+            List<Dispositivo> dispositivosPropios = new List<Dispositivo>();
+            Usuario user;
+            using (var db = new DBContext())
+                {
+                user = db.Usuarios.FirstOrDefault(u => u.Username == User.Identity.Name);
+                dispositivosPropios = db.Dispositivos.Where(d => d.UsuarioID == user.UsuarioID).ToList();
+                foreach (Dispositivo d in dispositivosPropios)
+                {
+                    selectListItems.Add(new SelectListItem() { Value = d.Codigo, Text = d.Nombre });
+                }
+
+             
+            }
+
+            ViewBag.selectListItems = selectListItems;
+
+            return View();
+        }
+          
+        
+
         [HttpGet]
         public ActionResult Simplex()
         {
             if (User.Identity.IsAuthenticated || Helpers.Static.ClientesImportados.GetClientes() != null)
             {
                 List<Dispositivo> disp = new List<Dispositivo>();
+
 
                 //Trae de la db todos los dispositivos del usuario para ejecutar el simplex
                 using (var db = new DBContext())
@@ -162,7 +191,12 @@ namespace TP0.Controllers
             using (var db = new DBContext())
             {
                 Usuario user = db.Usuarios.FirstOrDefault(u => u.Username == username);
-                resu = db.Dispositivos.Where(d => d.UsuarioID == user.UsuarioID).ToList().Count();
+                if (db.Dispositivos.Where(d => d.UsuarioID == user.UsuarioID).ToList() != null)
+                    resu = db.Dispositivos.Where(d => d.UsuarioID == user.UsuarioID).ToList().Count();
+                else
+                    resu = 0;
+                
+
             }
             ViewBag.estadoSimplex = resu;
 
@@ -179,11 +213,13 @@ namespace TP0.Controllers
             {
                 Usuario user = db.Usuarios.FirstOrDefault(u => u.Username == username);
                 List<Dispositivo> dispositivos = db.Dispositivos.Where(d => d.UsuarioID == user.UsuarioID).ToList();
-                foreach (DispositivoInteligente d in dispositivos)
+                foreach (Dispositivo d in dispositivos)
                 {
-                    State ultimoEstado = db.Estados.FirstOrDefault(e => e.DispositivoID == d.DispositivoID && e.FechaFinal == new DateTime(1, 1, 1)); //Fecha final default de los estados no terminados
-                    if (ultimoEstado != null && ultimoEstado.Desc == "Encendido")
-                        resu++;  //Si esta encendido suma
+                    if (d is DispositivoInteligente) {
+                        State ultimoEstado = db.Estados.FirstOrDefault(e => e.DispositivoID == d.DispositivoID && e.FechaFinal == new DateTime(1, 1, 1)); //Fecha final default de los estados no terminados
+                        if (ultimoEstado != null && ultimoEstado.Desc == "Encendido")
+                            resu++;  //Si esta encendido suma
+                                                        }
                 }
             }
 
@@ -199,11 +235,14 @@ namespace TP0.Controllers
             {
                 Usuario user = db.Usuarios.FirstOrDefault(u => u.Username == username);
                 List<Dispositivo> dispositivos = db.Dispositivos.Where(d => d.UsuarioID == user.UsuarioID).ToList();
-                foreach (DispositivoInteligente d in dispositivos)
+                foreach (Dispositivo d in dispositivos)
                 {
-                    State ultimoEstado = db.Estados.FirstOrDefault(e => e.DispositivoID == d.DispositivoID && e.FechaFinal == new DateTime(1, 1, 1)); //Fecha final default de los estados no terminados
-                    if (ultimoEstado != null && ultimoEstado.Desc.ToString() == "Apagado")
-                        resu++;  //Si esta apagado suma
+                    if (d is DispositivoInteligente)
+                    {
+                        State ultimoEstado = db.Estados.FirstOrDefault(e => e.DispositivoID == d.DispositivoID && e.FechaFinal == new DateTime(1, 1, 1)); //Fecha final default de los estados no terminados
+                        if (ultimoEstado != null && ultimoEstado.Desc.ToString() == "Apagado")
+                            resu++;  //Si esta apagado suma
+                    }
                 }
             }
 
