@@ -19,6 +19,8 @@ namespace TP0.Helpers
         public double Min;
         [NotMapped]
         public double Max;
+        [NotMapped]
+        public Actuador act;
 
 
         /*public DispositivoInteligente(string nom, string idnuevo, double kWxHoraNuevo)
@@ -27,7 +29,7 @@ namespace TP0.Helpers
             nombre = nom;
             id = idnuevo;
         }*/
-        
+
         public DispositivoInteligente(string nom, string idnuevo, double kWxHoraNuevo, double mx, double mn)
         {
             KWxHora = kWxHoraNuevo;
@@ -38,6 +40,7 @@ namespace TP0.Helpers
             estadosAnteriores = new List<State>();
             ConsumoAcumulado = 0;
             EsInteligente = true;
+            act = new Actuador(Int32.Parse(idnuevo));
         }
         public DispositivoInteligente()
         {

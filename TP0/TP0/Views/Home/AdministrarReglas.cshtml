@@ -1,0 +1,35 @@
+﻿
+<div class="jumbotron">
+    <h1>Crea tus propias reglas</h1>
+
+</div>
+
+
+<div>
+    <tr>
+        
+            @Html.DropDownList("Tus dispositivos", new SelectList(ViewBag.dispositivosDelusuario))
+        </tr>
+        <tr>
+
+            @using (Html.BeginForm("AdministrarReglas", "Home", FormMethod.Post))
+            {
+
+
+            <th>
+                @Html.Label("Max")
+                @Html.TextBox("Max")
+            </th>
+            <th>
+                @Html.Label("Min")
+                @Html.TextBox("Min")
+            </th>
+        }
+            </tr>
+            <tr>
+                <button type="submit">
+                    Crear regla
+                </button>
+            </tr>
+     
+    </div>

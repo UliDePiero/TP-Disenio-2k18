@@ -10,14 +10,29 @@ namespace TP0.Helpers
     // UNA REGLA ES UN CONJUNTO DE CONDICIONES SIMPLES
     public class Actuador
     {
+        
         [Key]
         public int ActuadorID { get; set; }
         public int DispositivoID { get; set; }
         [ForeignKey("DispositivoID")]
         public Dispositivo Dispositivo { get; set; }
-        //public List<Regla> Reglas { get; set; }
         [NotMapped]
-        public Regla Regla { get; set; }
+        public List<Regla> Reglas { get; set; }
+
+        //public Regla Regla { get; set; }
+
+        public Actuador(int dispositivoID)
+        {
+            DispositivoID = dispositivoID;
+            Reglas = new List<Regla>();
+        }
+
+
+
+        public void AgregarRegla(Regla r)
+        {
+            Reglas.Add(r);
+        }
 
         public void VerificarRegla()
         {
@@ -33,7 +48,7 @@ namespace TP0.Helpers
         public void Notificar(float valor)
         {
             //Reglas.ForEach(o => o.Notificar(valor));
-            Regla.Notificar(valor);
+          //  Regla.Notificar(valor);
         }
     }
 }
