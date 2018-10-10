@@ -81,13 +81,13 @@ namespace TP0.Helpers
 
        public void AgregarEstado(State est)
        {
+            est.FechaFinal = new DateTime(3000, 1, 1);
             Estado = est;
-            Estado.FechaFinal = new DateTime(3000, 1, 1); 
-            estadosAnteriores.Add(Estado);
+            estadosAnteriores.Add(est);
 
-            using (var db = new DBContext())
+            using (var db = DBContext.Instancia())
             {
-                db.Estados.Add(Estado); //Agrega el nuevo estado a la db
+                db.Estados.Add(est); //Agrega el nuevo estado a la db
                 db.SaveChanges();
             }
        }

@@ -46,6 +46,7 @@ namespace TP0.Helpers
             recomendacion.NuevoCliente(this);
             accionAutomatica = false;
             FechaDeAlta = DateTime.Now.ToShortDateString();
+            var db = DBContext.Instancia();      
         }
         public Cliente()
         {
@@ -118,19 +119,12 @@ namespace TP0.Helpers
             DI=D.ConvertirEnInteligente(marca);
             Dispositivos.Add(DI);
             puntos += 10;
-            using (var db = new DBContext())
+            using (var db = DBContext.Instancia())
             {
                 //Transforma el dispositivo en inteligente en la db
-                var diDB = db.Dispositivos.First(d => d.UsuarioID == UsuarioID && d.Codigo == D.Codigo);
+                var diDB = db.Dispositivos.First(d => d.UsuarioID == UsuarioID && d.DispositivoID == D.DispositivoID);
                 diDB.EsInteligente = true;
 
-                //de hacerse asi y hubiera mas de un disp normal igual los haria a todos inteligentes
-                /*foreach(Dispositivo d in db.Dispositivos) {
-                    if(d.UsuarioID == UsuarioID && d.Codigo == D.Codigo)
-                    {
-                        d.EsInteligente = true;
-                    }
-                }*/
                 db.SaveChanges();
             }
         }

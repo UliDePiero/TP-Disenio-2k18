@@ -21,7 +21,6 @@ namespace TP0.Helpers
 
         public string Desc { get; set; }
 
-
         public abstract void Encender();
 
         public abstract void Apagar();
@@ -33,7 +32,7 @@ namespace TP0.Helpers
         public void FinalizarEstado()
         {
             //Agrega la fecha final del ultimo estado del dispositivo
-            using (var db = new DBContext())
+            using (var db = DBContext.Instancia()) //instancia del singleton
             {
                var est = db.Estados.First(s => s.DispositivoID == DispositivoID && s.FechaFinal == new DateTime(3000, 1, 1));
                est.FechaFinal = DateTime.Now;
@@ -48,20 +47,22 @@ namespace TP0.Helpers
         public Encendido(DispositivoInteligente dispint)
         {
             FechaInicial = DateTime.Now;
-            FechaFinal = new DateTime(1, 1, 1);
             Dispositivo = dispint;
             Desc = "Encendido";
         }
         public Encendido() { }
+
         public Encendido(Dispositivo d)
         {
             FechaInicial = DateTime.Now;
-            FechaFinal = new DateTime(1, 1, 1);
             DispositivoID = d.DispositivoID;
             Desc = "Encendido";
         }
 
-        public override void Encender() { }
+        public override void Encender()
+        {
+            //catchear error
+        }
 
         public override void Apagar()
         {
@@ -90,7 +91,6 @@ namespace TP0.Helpers
         public Apagado(DispositivoInteligente dispint)
         {
             FechaInicial = DateTime.Now;
-            FechaFinal = new DateTime(1, 1, 1);
             Dispositivo = dispint;
             Desc = "Apagado";
         }
@@ -98,7 +98,6 @@ namespace TP0.Helpers
         public Apagado(Dispositivo d)
         {
             FechaInicial = DateTime.Now;
-            FechaFinal = new DateTime(1, 1, 1);
             DispositivoID = d.DispositivoID;
             Desc = "Apagado";
         }
@@ -110,7 +109,10 @@ namespace TP0.Helpers
             Dispositivo.AgregarEstado(new Encendido(Dispositivo));
         }
 
-        public override void Apagar() { }
+        public override void Apagar()
+        {
+            //catchear error
+        }
 
         public override void AhorrarEnergia()
         {
@@ -132,7 +134,6 @@ namespace TP0.Helpers
         public Ahorro(DispositivoInteligente dispint)
         {
             FechaInicial = DateTime.Now;
-            FechaFinal = new DateTime(1, 1, 1);
             Dispositivo = dispint;
             Desc = "Ahorro";
         }
@@ -140,7 +141,6 @@ namespace TP0.Helpers
         public Ahorro(Dispositivo d)
         {
             FechaInicial = DateTime.Now;
-            FechaFinal = new DateTime(1, 1, 1);
             DispositivoID = d.DispositivoID;
             Desc = "Ahorro";
         }
@@ -159,11 +159,14 @@ namespace TP0.Helpers
             Dispositivo.AgregarEstado(new Apagado(Dispositivo));
         }
 
-        public override void AhorrarEnergia() { }
+        public override void AhorrarEnergia()
+        {
+            //catchear error
+        }
 
         public override double ConsumoEnIntervalor(DateTime fInicial, DateTime fFinal)
         {
-            double diff = (fFinal - fInicial).TotalHours*1/3;
+            double diff = (fFinal - fInicial).TotalHours*1/2;
             return diff;
         }
     }

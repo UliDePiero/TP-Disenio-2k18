@@ -38,7 +38,7 @@ namespace TP0.Helpers
         public double ConsumoTotal(DateTime fInicial, DateTime fFinal)
         {
 		   
-            using (var db = new DBContext())
+            using (var db = DBContext.Instancia())
             {
                 /*foreach (Transformador trafo in transformadores)
                   {

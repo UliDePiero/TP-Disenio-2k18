@@ -15,7 +15,7 @@
     <div class="jumbotron">
         <h1> Agregar dispositivo: </h1>
     </div>
-    @using (Html.BeginForm("DetallesDeUsuario", "Home", FormMethod.Post))
+    @using (Html.BeginForm("AgregarDispositivos", "Home", FormMethod.Post))
     {@*lista con todos los dispositivos para agregar uno a los propios*@
         <h4>
             @Html.DropDownList("DispositivoSeleccionado", (IEnumerable<SelectListItem>)ViewBag.selectListItems)

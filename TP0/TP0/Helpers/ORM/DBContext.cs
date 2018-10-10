@@ -7,13 +7,17 @@ using System.Data.Entity;
 using System.Threading.Tasks;
 using GoogleMaps.LocationServices;
 
+
+//es un singleton
+
 namespace TP0.Helpers.ORM
 {
+
     class Program
     {
         static void Main()
         {
-            using (var db = new DBContext())
+            using (var db = DBContext.Instancia())
             {
                 Console.Write("Caso de prueba:");
                 var flag = Convert.ToInt32(Console.ReadLine());
@@ -198,6 +202,17 @@ namespace TP0.Helpers.ORM
         public DbSet<Sensor> Sensores { get; set; }
         public DbSet<Regla> Reglas { get; set; }
         public DbSet<Medicion> Mediciones { get; set; }
+
+        private static DBContext _instancia;
+
+        public static DBContext Instancia()
+        {
+            if (_instancia == null)
+            {
+                _instancia = new DBContext();
+            }
+            return _instancia;
+        }
 
         public DBContext() : base(@"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=DBDisenio;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False")
         {
