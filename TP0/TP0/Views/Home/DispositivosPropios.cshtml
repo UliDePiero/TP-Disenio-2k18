@@ -1,6 +1,13 @@
 ﻿@model IEnumerable<TP0.Helpers.Dispositivo>
 
-<h2>@ViewBag.Message</h2>
+<div class="jumbotron">
+    <h3>Consumo promedio de dispositivos inteligentes: @ViewBag.total KwH</h3>
+    <h3>Dispositivos: @ViewBag.dispositivos</h3>
+    <h5>Dispositivos encendidos: @ViewBag.dispE</h5>
+    <h5>Dispositivos apagados: @ViewBag.dispA</h5>
+    <h5>Dispositivos en ahorro: @ViewBag.dispAh</h5>
+</div>
+
 <table class="table">
     <tr>
         <th>
@@ -22,54 +29,52 @@
         <th> </th>
     </tr>
 
-@foreach (var item in Model) {
-    if (item.EsInteligente)
+    @foreach (var item in Model)
     {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Nombre)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.KWxHora)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.EsInteligente)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ConsumoAcumulado)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Desc)
-        </td>
-        <td>
-            @Html.ActionLink("Encender", "Encender", new { id = item.DispositivoID, estadoActual = item.Desc }) |
-            @Html.ActionLink("Apagar", "Apagar", new { id = item.DispositivoID, estadoActual = item.Desc }) |
-            @Html.ActionLink("Ahorro", "Ahorro", new { id = item.DispositivoID, estadoActual = item.Desc })
-        </td>
-    </tr>
+        if (item.EsInteligente)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Nombre)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.KWxHora)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EsInteligente)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ConsumoAcumulado)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Desc)
+                </td>
+                <td>
+                    @Html.ActionLink("Encender", "Encender", new { id = item.DispositivoID, estadoActual = item.Desc }) |
+                    @Html.ActionLink("Apagar", "Apagar", new { id = item.DispositivoID, estadoActual = item.Desc }) |
+                    @Html.ActionLink("Ahorro", "Ahorro", new { id = item.DispositivoID, estadoActual = item.Desc })
+                </td>
+            </tr>
+        }
+        else
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Nombre)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.KWxHora)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EsInteligente)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ConsumoAcumulado)
+                </td>
+                <td></td>
+                <td></td>
+            </tr>
+        }
     }
-    else
-    {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Nombre)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.KWxHora)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.EsInteligente)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ConsumoAcumulado)
-        </td>
-        <td></td>
-        <td></td>
-    </tr>
-    }
-}
 
 </table>
-
-<h3>  Consumo promedio de dispositivos inteligentes: @ViewBag.total KwH</h3>
-

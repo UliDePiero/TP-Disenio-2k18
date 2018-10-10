@@ -375,8 +375,8 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\DetallesDeUsuario.cshtml" />
-    <Content Include="Views\Home\AdministrarDispositivos.cshtml" />
+    <Content Include="Views\Home\AgregarDispositivos.cshtml" />
+    <Content Include="Views\Home\SimplexView.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
     <Content Include="Views\Account\ConfirmEmail.cshtml" />

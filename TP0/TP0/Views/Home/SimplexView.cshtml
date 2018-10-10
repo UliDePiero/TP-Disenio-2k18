@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+
+</head>
+<style type="text/css">
+    #acciones_dispositivos_botones {
+        display: block;
+        padding: 15px;
+    }
+
+    .boton_acciones_dispositivos {
+        display: block;
+    }
+</style>
+
+
+<body>
+    <script>
+        function alertBox() {
+            alert("Ejecutado");
+            
+        }
+    </script>
+    <section id="acciones_dispositivos_botones">
+        <p><button onclick="alertBox();location.href='@Url.Action("Simplex", "Home")'">Conocer recomendación de uso</button></p>  
+    </section>
+
+</body>
+
+</html>

@@ -21,7 +21,7 @@ namespace TP0.Controllers
             return View();
         }
         [HttpGet]
-        public ActionResult DetallesDeUsuario()
+        public ActionResult AgregarDispositivos()
         {
             ViewBag.Message = "Your application description page.";
             //se llenan las listas de todas las opciones de dispositivos para poder agregarlos a los propios del usuario
@@ -44,7 +44,7 @@ namespace TP0.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult DetallesDeUsuario(SubmitViewModel model)
+        public ActionResult AgregarDispositivos(SubmitViewModel model)
         {
             string codigo = model.DispositivoSeleccionado;
 
@@ -99,7 +99,7 @@ namespace TP0.Controllers
             return opcionesDeDispositivosEstandares.Find(disp => disp.Codigo == id);
         }
 
-        public ActionResult AdministrarDispositivos()
+        public ActionResult SimplexView()
         {
             ViewBag.Message = "Your AdministrarDispositivos page.";
             return View();
@@ -112,9 +112,8 @@ namespace TP0.Controllers
             List<Dispositivo> dispositivosPropios = new List<Dispositivo>();
             Usuario user;
             double acumulado = 0;
-            double acumuladoKw = 0;
-          
-            int cont=0;
+            double acumuladoKw = 0;        
+            int DispInt=0;
             
             using (var db = new DBContext())
             {
@@ -126,15 +125,12 @@ namespace TP0.Controllers
                     disp.ConsumoAcumulado = 0;
                     acumulado = 0;
                     //Si es inteligente le asigna su estado actual
-                  if (disp is DispositivoInteligente)
-                  {
+                    if (disp is DispositivoInteligente)
+                    {
                         string ultimoEstado = db.Estados.FirstOrDefault(e => e.DispositivoID == disp.DispositivoID && e.FechaFinal == new DateTime(1, 1, 1)).Desc;
                         disp.Desc = ultimoEstado;
 
-                        //recorrer los estados
-
                         List<State> listaDeEstados = db.Estados.Where(e => e.DispositivoID == disp.DispositivoID).ToList();
-
                         foreach (State s in listaDeEstados)
                         {
                             double c;
@@ -159,11 +155,15 @@ namespace TP0.Controllers
                             }                           
                         }
                         disp.ConsumoAcumulado = acumulado;
-                        cont++;
-                  }
-                  //Si es estandar no se le asigna estado
+                        DispInt++;
+                    }
+                    //Si es estandar no se le asigna estado
                 }
-                ViewBag.total = acumuladoKw / cont;
+                ViewBag.total = acumuladoKw / DispInt;
+                ViewBag.dispositivos = dispositivosPropios.Count();
+                ViewBag.dispE = DispositivosEncendidos();
+                ViewBag.dispA = DispositivosApagados();
+                ViewBag.dispAh = DispositivosEnAhorro();
             }
             return View(dispositivosPropios);
         }
@@ -278,12 +278,12 @@ namespace TP0.Controllers
             return View();
         }
 
-        public ActionResult mostrarDispositivosTotales(string mensaje)
+        public int DispositivosTotales(string mensaje)
         {
+            //Trae los dispositivos del cliente y los cuenta
             string username = User.Identity.GetUserName();
             int resu = 0;
-
-            //Trae los dispositivos del cliente y los cuenta
+            
             using (var db = new DBContext())
             {
                 Usuario user = db.Usuarios.FirstOrDefault(u => u.Username == username);
@@ -291,15 +291,10 @@ namespace TP0.Controllers
                     resu = db.Dispositivos.Where(d => d.UsuarioID == user.UsuarioID).ToList().Count();
                 else
                     resu = 0;
-                
-
             }
-            ViewBag.estadoSimplex = resu;
-
-            return RedirectToAction("Simplex2", "Home", new { mensaje = "Dispositivos en total: " + resu });
-            
+            return resu;
         }
-        public ActionResult mostrarDispositivosEncendidos(string mensaje)
+        public int DispositivosEncendidos()
         {
             string username = User.Identity.GetUserName();
             int resu = 0;
@@ -311,17 +306,18 @@ namespace TP0.Controllers
                 List<Dispositivo> dispositivos = db.Dispositivos.Where(d => d.UsuarioID == user.UsuarioID).ToList();
                 foreach (Dispositivo d in dispositivos)
                 {
-                    if (d is DispositivoInteligente) {
+                    if (d is DispositivoInteligente)
+                    {
                         State ultimoEstado = db.Estados.FirstOrDefault(e => e.DispositivoID == d.DispositivoID && e.FechaFinal == new DateTime(1, 1, 1)); //Fecha final default de los estados no terminados
                         if (ultimoEstado != null && ultimoEstado.Desc == "Encendido")
                             resu++;  //Si esta encendido suma
-                                                        }
+
+                    }
                 }
             }
-
-            return RedirectToAction("Simplex2", "Home", new { mensaje = "Dispositivos Inteligentes encendidos: " + resu });
+            return resu;
         }
-        public ActionResult mostrarDispositivosApagados(string mensaje)
+        public int DispositivosApagados()
         {
             string username = User.Identity.GetUserName();
             int resu = 0;
@@ -341,8 +337,29 @@ namespace TP0.Controllers
                     }
                 }
             }
+            return resu;
+        }
+        public int DispositivosEnAhorro()
+        {
+            string username = User.Identity.GetUserName();
+            int resu = 0;
 
-            return RedirectToAction("Simplex2", "Home", new { mensaje = "Dispositivos Inteligentes apagados: " + resu });
+            //Se fija el ultimo estado de cada dispositivo del usuario si estan encendidos y los cuenta
+            using (var db = new DBContext())
+            {
+                Usuario user = db.Usuarios.FirstOrDefault(u => u.Username == username);
+                List<Dispositivo> dispositivos = db.Dispositivos.Where(d => d.UsuarioID == user.UsuarioID).ToList();
+                foreach (Dispositivo d in dispositivos)
+                {
+                    if (d is DispositivoInteligente)
+                    {
+                        State ultimoEstado = db.Estados.FirstOrDefault(e => e.DispositivoID == d.DispositivoID && e.FechaFinal == new DateTime(1, 1, 1)); //Fecha final default de los estados no terminados
+                        if (ultimoEstado != null && ultimoEstado.Desc.ToString() == "Ahorro")
+                            resu++;  //Si esta en ahorro suma
+                    }
+                }
+            }
+            return resu;
         }
     }
 }
