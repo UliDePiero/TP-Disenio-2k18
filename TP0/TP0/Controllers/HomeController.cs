@@ -126,8 +126,8 @@ namespace TP0.Controllers
                     disp.ConsumoAcumulado = 0;
                     acumulado = 0;
                     //Si es inteligente le asigna su estado actual
-                  if(disp is DispositivoInteligente)
-                    { 
+                  if (disp is DispositivoInteligente)
+                  {
                         string ultimoEstado = db.Estados.FirstOrDefault(e => e.DispositivoID == disp.DispositivoID && e.FechaFinal == new DateTime(1, 1, 1)).Desc;
                         disp.Desc = ultimoEstado;
 
@@ -137,24 +137,33 @@ namespace TP0.Controllers
 
                         foreach (State s in listaDeEstados)
                         {
-                            if (s.FechaFinal != new DateTime(1, 1, 1))
+                            double c;
+                            switch (s.Desc)
                             {
-                                double c = (s.FechaFinal - s.FechaInicial).Seconds;
-                                acumulado += c;
-                                acumuladoKw += c * disp.KWxHora / 60;
-
-                            }
-                           
+                                case "Encendido":
+                                    if (s.FechaFinal != new DateTime(1, 1, 1))         //Si es el ultimo estado, se le pone como fecha final ahora
+                                        c = (s.FechaFinal - s.FechaInicial).Minutes;
+                                    else
+                                        c = (DateTime.Now - s.FechaInicial).Minutes;
+                                    acumulado += c;
+                                    acumuladoKw += c * disp.KWxHora / 60;
+                                    break;
+                                case "Ahorro":
+                                    if (s.FechaFinal != new DateTime(1, 1, 1))
+                                        c = (s.FechaFinal - s.FechaInicial).Minutes / 2; //En modo ahorro se consume la mitad de la energia
+                                    else
+                                        c = (DateTime.Now - s.FechaInicial).Minutes / 2;
+                                    acumulado += c;
+                                    acumuladoKw += c * disp.KWxHora / 60;
+                                    break;
+                            }                           
                         }
                         disp.ConsumoAcumulado = acumulado;
-                        
                         cont++;
-                    }
-                    //Si es estandar no se le asigna estado
-                    
+                  }
+                  //Si es estandar no se le asigna estado
                 }
                 ViewBag.total = acumuladoKw / cont;
-
             }
             return View(dispositivosPropios);
         }
