@@ -11,6 +11,14 @@ namespace TP0.Helpers
     {
         [NotMapped]
         public bool seCumple;
+
+        public Regla(float valorMax, float valorMin, int actuadorID)
+        {
+            ValorMax = valorMax;
+            ValorMin = valorMin;
+            ActuadorID = actuadorID;
+        }
+
         [Key]
         public int ReglaID { get; set; }
         public float ValorMax { get; set; }
