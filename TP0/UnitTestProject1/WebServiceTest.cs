@@ -19,7 +19,7 @@ namespace UnitTestProject1
 
 
             cliente.dispositivosInteligentes.Add(new DispositivoInteligente("lampara halogena de 60 W", "0011", 0.06, 360, 90));
-            cliente.dispositivosEstandares.Add(new DispositivoEstandar("microondas convencional", "0011", 0.64, 0, 15, 3));
+            cliente.dbdispositivosEstandares.Add(new DispositivoEstandar("microondas convencional", "0011", 0.64, 0, 15, 3));
             cliente.dispositivosEstandares.Add(new DispositivoEstandar("televisor LCD de 40 pulgadas", "0014", 0.18, 0, 360, 90));
             cliente.dispositivosEstandares.Add(new DispositivoEstandar("lavarropas automatico de 5kg con calentamiento", "0021", 0.875, 0, 30, 6));
             

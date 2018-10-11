@@ -61,7 +61,7 @@ namespace TP0.Helpers
 
         public override void Encender()
         {
-            //catchear error
+            throw new Exception("El dispositivo ya esta encendido!");
         }
 
         public override void Apagar()
@@ -111,7 +111,7 @@ namespace TP0.Helpers
 
         public override void Apagar()
         {
-            //catchear error
+            throw new Exception("El dispositivo ya esta apagado!");
         }
 
         public override void AhorrarEnergia()
@@ -161,7 +161,7 @@ namespace TP0.Helpers
 
         public override void AhorrarEnergia()
         {
-            //catchear error
+            throw new Exception("El dispositivo ya esta ahorrando!");
         }
 
         public override double ConsumoEnIntervalor(DateTime fInicial, DateTime fFinal)

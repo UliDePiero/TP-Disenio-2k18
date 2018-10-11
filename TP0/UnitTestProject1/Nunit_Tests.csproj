@@ -61,8 +61,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AdapterTest.cs" />
-    <Compile Include="ORM\DBContext.cs" />
     <Compile Include="RecomedacionesTest.cs" />
+    <Compile Include="TestsDB.cs" />
     <Compile Include="WebServiceTest.cs" />
     <Compile Include="ClienteTest.cs" />
     <Compile Include="DispInteligentesTest.cs" />

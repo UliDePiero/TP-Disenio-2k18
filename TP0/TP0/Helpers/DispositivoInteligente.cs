@@ -22,14 +22,6 @@ namespace TP0.Helpers
         [NotMapped]
         public Actuador act;
 
-
-        /*public DispositivoInteligente(string nom, string idnuevo, double kWxHoraNuevo)
-        {
-            kWxHora = kWxHoraNuevo;
-            nombre = nom;
-            id = idnuevo;
-        }*/
-
         public DispositivoInteligente(string nom, string idnuevo, double kWxHoraNuevo, double mx, double mn)
         {
             KWxHora = kWxHoraNuevo;
@@ -48,27 +40,27 @@ namespace TP0.Helpers
         }
 
 
-        public bool EstaEncendido()
+        public override bool EstaEncendido()
         {
             return Estado is Encendido;
         }
-        public bool EstaApagado()
+        public override bool EstaApagado()
         {
             return Estado is Apagado ;
         }
-        public void Encender()
+        public override void Encender()
         {
             Estado.Encender();
         }
-        public void Apagar()
+        public override void Apagar()
         {
             Estado.Apagar();
         }
-        public void AhorrarEnergia()
+        public override void AhorrarEnergia()
         {
             Estado.AhorrarEnergia();
         }
-        public double ConsumoEnHoras(double horas)
+        public override double ConsumoEnHoras(double horas)
         {
             DateTime fFinal = DateTime.Now;
             DateTime fInicial = fFinal.AddHours(-horas);
@@ -76,13 +68,13 @@ namespace TP0.Helpers
             return hs * KWxHora;
         }
 
-       public double ConsumoEnPeriodo(DateTime fInicial, DateTime fFinal)
+       public override double ConsumoEnPeriodo(DateTime fInicial, DateTime fFinal)
        { 
            double hs = Static.FechasAdmin.ConsumoHsTotalPeriodo(fInicial, fFinal, estadosAnteriores);
            return hs * KWxHora;
        }
 
-       public void AgregarEstado(State est)
+       public override void AgregarEstado(State est)
        {
             est.FechaFinal = new DateTime(3000, 1, 1);
             Estado = est;
@@ -94,5 +86,10 @@ namespace TP0.Helpers
                 db.SaveChanges();
             }
        }
+
+        public override double Consumo()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

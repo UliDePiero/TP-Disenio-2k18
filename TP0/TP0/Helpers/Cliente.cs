@@ -52,7 +52,7 @@ namespace TP0.Helpers
         {
         }
          
-        public bool AlgunDispositivoEncendido()
+        public override bool AlgunDispositivoEncendido()
         {
             foreach (DispositivoInteligente disp in Dispositivos)
             {
@@ -61,7 +61,7 @@ namespace TP0.Helpers
             }
             return false;
         }
-        public int DispositivosEncendidos()
+        public override int DispositivosEncendidos()
         {
             int encendidos = 0;
             foreach (DispositivoInteligente disp in Dispositivos)
@@ -71,7 +71,7 @@ namespace TP0.Helpers
             }
             return encendidos;
         }
-        public int DispositivosApagados()
+        public override int DispositivosApagados()
         {
             int apagados = 0;
             foreach (DispositivoInteligente disp in Dispositivos)
@@ -81,15 +81,15 @@ namespace TP0.Helpers
             }
             return apagados;
         }
-        public int DispositivosTotales()
+        public override int DispositivosTotales()
         {
             return Dispositivos.Count();
         }
-        public double EstimarFacturacion(DateTime fInicial, DateTime fFinal)
+        public override double EstimarFacturacion(DateTime fInicial, DateTime fFinal)
         {
             return categoria.CalcularTarifa(KwTotales(fInicial, fFinal));
         }
-        public double KwTotales(DateTime fInicial, DateTime fFinal)
+        public override double KwTotales(DateTime fInicial, DateTime fFinal)
         {
             double Consumo = 0;
 
@@ -102,7 +102,7 @@ namespace TP0.Helpers
             }
             return Consumo;
         }
-        public void AgregarDispInteligente(DispositivoInteligente DI)
+        public override void AgregarDispInteligente(DispositivoInteligente DI)
         {
             Dispositivos.Add(DI);
             puntos += 15;
@@ -113,7 +113,7 @@ namespace TP0.Helpers
                 db.SaveChanges();
             }
         }
-        public void AdaptarDispositivo(DispositivoEstandar D, string marca)
+        public override void AdaptarDispositivo(DispositivoEstandar D, string marca)
         {
             DispositivoInteligente DI;
             DI=D.ConvertirEnInteligente(marca);
@@ -129,17 +129,17 @@ namespace TP0.Helpers
             }
         }
 
-        public string SolicitarRecomendacion()
+        public override string SolicitarRecomendacion()
         {
             return recomendacion.GenerarRecomendacion(this);
         }
 
-        public void ActualizarCategoria()
+        public override void ActualizarCategoria()
         {
             
         }
 
-        public double[] UbicacionDomicilio()
+        public override double[] UbicacionDomicilio()
         {
             var address = new AddressData { Address = Domicilio, City = "Buenos Aires", State = "Buenos Aires", Country = "Argentina" };
             var locationService = new GoogleLocationService();
@@ -150,7 +150,7 @@ namespace TP0.Helpers
             return punto;
         }
 
-        public static double CalcDistancia(double[] punto1, double[] punto2)
+        public override double CalcDistancia(double[] punto1, double[] punto2)
         {
             double radioTierra = 6371;
             double distance = 0;
@@ -162,5 +162,9 @@ namespace TP0.Helpers
             return distance;
         }
 
+        public override int MesesQueLleva()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

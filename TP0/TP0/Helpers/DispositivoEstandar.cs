@@ -57,13 +57,48 @@ namespace TP0.Helpers
             return convertido;
         }
 
-        public double Consumo()
+        public override double Consumo()
         {
             return HorasXDia * KWxHora;
         }
-        public double ConsumoEnPeriodo(DateTime fInicial, DateTime fFinal)
+        public override double ConsumoEnPeriodo(DateTime fInicial, DateTime fFinal)
         {
             return fFinal.Subtract(fInicial).Days*Consumo();
+        }
+
+        public override bool EstaEncendido()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override bool EstaApagado()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void Encender()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void Apagar()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void AhorrarEnergia()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override double ConsumoEnHoras(double horas)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void AgregarEstado(State est)
+        {
+            throw new NotImplementedException();
         }
     }
 }

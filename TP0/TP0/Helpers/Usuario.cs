@@ -8,7 +8,7 @@ using GoogleMaps.LocationServices;
 
 namespace TP0.Helpers
 {
-    public class Usuario
+    public abstract class Usuario
     {
         [Key]
         public int UsuarioID { get; set; }
@@ -19,6 +19,20 @@ namespace TP0.Helpers
         public string Username { get; set; }
         public string Contrasenia { get; set; }
         public bool EsAdmin { get; set; }
+
+        public abstract int MesesQueLleva();
+        public abstract bool AlgunDispositivoEncendido();
+        public abstract int DispositivosEncendidos();
+        public abstract int DispositivosApagados();
+        public abstract int DispositivosTotales();
+        public abstract double EstimarFacturacion(DateTime fInicial, DateTime fFinal);
+        public abstract double KwTotales(DateTime fInicial, DateTime fFinal);
+        public abstract void AgregarDispInteligente(DispositivoInteligente DI);
+        public abstract void AdaptarDispositivo(DispositivoEstandar D, string marca);
+        public abstract string SolicitarRecomendacion();
+        public abstract void ActualizarCategoria();
+        public abstract double[] UbicacionDomicilio();
+        public abstract double CalcDistancia(double[] punto1, double[] punto2);
 
     }
 }

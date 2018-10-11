@@ -7,7 +7,7 @@ using System.Web;
 
 namespace TP0.Helpers
 {
-    public class Dispositivo
+    public abstract class Dispositivo
     {
         [Key]
         public int DispositivoID { get; set; }
@@ -25,5 +25,15 @@ namespace TP0.Helpers
 
         [ForeignKey("UsuarioID")]
         public Usuario Usuario { get; set; }
+
+        public abstract bool EstaEncendido();
+        public abstract bool EstaApagado();
+        public abstract void Encender();
+        public abstract void Apagar();
+        public abstract void AhorrarEnergia();
+        public abstract double Consumo();
+        public abstract double ConsumoEnHoras(double horas);
+        public abstract double ConsumoEnPeriodo(DateTime fInicial, DateTime fFinal);
+        public abstract void AgregarEstado(State est);
     }
 }
