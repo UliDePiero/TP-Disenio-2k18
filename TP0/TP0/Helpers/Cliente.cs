@@ -104,7 +104,7 @@ namespace TP0.Helpers
         }
         public override void AgregarDispInteligente(Dispositivo DI)
         {
-            Dispositivos.Add(DI);
+            //Dispositivos.Add(DI);
             puntos += 15;
             using (var db = DBContext.Instancia())
             {
