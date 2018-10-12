@@ -39,7 +39,10 @@ namespace TP0.Helpers
 
         }
 
-
+        public override State GetEstado()
+        {
+            return Estado;
+        }
         public override bool EstaEncendido()
         {
             return Estado is Encendido;
@@ -54,7 +57,12 @@ namespace TP0.Helpers
         }
         public override void Apagar()
         {
-            Estado.Apagar();
+            using (var db = DBContext.Instancia())
+            {
+                Estado = db.Estados.First(e => e.StateID == IDUltimoEstado);
+                Estado.Apagar();
+            }
+                
         }
         public override void AhorrarEnergia()
         {
@@ -77,17 +85,26 @@ namespace TP0.Helpers
        public override void AgregarEstado(State est)
        {
             est.FechaFinal = new DateTime(3000, 1, 1);
-            Estado = est;
+
             estadosAnteriores.Add(est);
 
             using (var db = DBContext.Instancia())
             {
                 db.Estados.Add(est); //Agrega el nuevo estado a la db
                 db.SaveChanges();
+                var ultimoEstado = db.Estados.First(e => DispositivoID == e.DispositivoID && e.FechaFinal == new DateTime(3000, 1, 1));
+                var d = db.Dispositivos.First(di => di.DispositivoID == DispositivoID);
+                d.IDUltimoEstado = ultimoEstado.StateID;
+                db.SaveChanges();
             }
        }
 
         public override double Consumo()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override DispositivoInteligente ConvertirEnInteligente(string marca)
         {
             throw new NotImplementedException();
         }

@@ -17,7 +17,7 @@ namespace TP0.Helpers
 
         public int DispositivoID { get; set; }
         [ForeignKey("DispositivoID")]
-        public DispositivoInteligente Dispositivo { get; set; }
+        public Dispositivo Dispositivo { get; set; }
 
         public string Desc { get; set; }
 
@@ -32,9 +32,9 @@ namespace TP0.Helpers
         public void FinalizarEstado()
         {
             //Agrega la fecha final del ultimo estado del dispositivo
-            using (var db = DBContext.Instancia()) //instancia del singleton
+           using (var db = DBContext.Instancia()) //instancia del singleton
             {
-               var est = db.Estados.First(s => s.DispositivoID == DispositivoID && s.FechaFinal == new DateTime(3000, 1, 1));
+               var est = db.Estados.First(s => s.StateID == StateID);
                est.FechaFinal = DateTime.Now;
                db.SaveChanges();
             }
@@ -44,16 +44,12 @@ namespace TP0.Helpers
     public class Encendido : State
     {
         // Constructor
-        public Encendido(DispositivoInteligente dispint)
-        {
-            FechaInicial = DateTime.Now;
-            Dispositivo = dispint;
-            Desc = "Encendido";
-        }
+ 
         public Encendido() { }
 
         public Encendido(Dispositivo d)
         {
+            Dispositivo = d;
             FechaInicial = DateTime.Now;
             DispositivoID = d.DispositivoID;
             Desc = "Encendido";
@@ -88,15 +84,11 @@ namespace TP0.Helpers
     public class Apagado : State
     {
         // Constructor
-        public Apagado(DispositivoInteligente dispint)
-        {
-            FechaInicial = DateTime.Now;
-            Dispositivo = dispint;
-            Desc = "Apagado";
-        }
+
         public Apagado() { }
         public Apagado(Dispositivo d)
         {
+            Dispositivo = d;
             FechaInicial = DateTime.Now;
             DispositivoID = d.DispositivoID;
             Desc = "Apagado";
@@ -131,15 +123,16 @@ namespace TP0.Helpers
     public class Ahorro : State
     {
         // Constructor
-        public Ahorro(DispositivoInteligente dispint)
+       /* public Ahorro(DispositivoInteligente dispint)
         {
             FechaInicial = DateTime.Now;
             Dispositivo = dispint;
             Desc = "Ahorro";
-        }
+        }*/
         public Ahorro() { }
         public Ahorro(Dispositivo d)
         {
+            Dispositivo = d;
             FechaInicial = DateTime.Now;
             DispositivoID = d.DispositivoID;
             Desc = "Ahorro";

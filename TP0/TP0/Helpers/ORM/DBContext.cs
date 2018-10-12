@@ -214,8 +214,9 @@ namespace TP0.Helpers.ORM
             return _instancia;
         }
 
-        public DBContext() : base(@"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=DBDisenio;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False")
+        public DBContext() : base(@"Data Source = (localdb)\MSSQLLocalDB; Initial Catalog = DBDisenio; Integrated Security = True; Connect Timeout = 30; Encrypt = False; TrustServerCertificate = False; ApplicationIntent = ReadWrite; MultiSubnetFailover = False")
         {
+            
         }
     }
 }

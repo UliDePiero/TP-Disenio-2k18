@@ -19,6 +19,7 @@ namespace TP0.Helpers
 
         public int TransformadorID { get; set; }
         [ForeignKey("TransformadorID")]
+
         public Transformador Transformador { get; set; }
 
         //Datos que no se persisten en la base de datos
@@ -30,7 +31,7 @@ namespace TP0.Helpers
         public Recomendacion recomendacion = Recomendacion.Instancia();
         [NotMapped]
         public bool accionAutomatica; //porque no persiste?
-
+        
         public Cliente(string nombre, string apellido, string domicilio, string usuario, string contrasenia, string doc, string tipo, string tel) 
         {
             Nombre = nombre;
@@ -46,7 +47,6 @@ namespace TP0.Helpers
             recomendacion.NuevoCliente(this);
             accionAutomatica = false;
             FechaDeAlta = DateTime.Now.ToShortDateString();
-            var db = DBContext.Instancia();      
         }
         public Cliente()
         {
@@ -102,30 +102,33 @@ namespace TP0.Helpers
             }
             return Consumo;
         }
-        public override void AgregarDispInteligente(DispositivoInteligente DI)
+        public override void AgregarDispInteligente(Dispositivo DI)
         {
             Dispositivos.Add(DI);
             puntos += 15;
-            using (var db = new DBContext())
+            using (var db = DBContext.Instancia())
             {
+                DI.UsuarioID = UsuarioID;
                 db.Dispositivos.Add(DI);
                 db.Estados.Add(new Apagado(DI));
                 db.SaveChanges();
             }
         }
-        public override void AdaptarDispositivo(DispositivoEstandar D, string marca)
+        public override void AdaptarDispositivo(Dispositivo D, string marca)
         {
-            DispositivoInteligente DI;
-            DI=D.ConvertirEnInteligente(marca);
+            var DI=D.ConvertirEnInteligente(marca);
             Dispositivos.Add(DI);
             puntos += 10;
+
             using (var db = DBContext.Instancia())
             {
                 //Transforma el dispositivo en inteligente en la db
-                var diDB = db.Dispositivos.First(d => d.UsuarioID == UsuarioID && d.DispositivoID == D.DispositivoID);
-                diDB.EsInteligente = true;
-
+                db.Dispositivos.Add(DI);
+                var dDB = db.Dispositivos.First(x => x.DispositivoID == D.DispositivoID);
+                db.Dispositivos.Remove(dDB);
+                
                 db.SaveChanges();
+
             }
         }
 

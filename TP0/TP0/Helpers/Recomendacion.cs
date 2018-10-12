@@ -9,6 +9,7 @@ using System.Net.Http;
 using System.Text;
 using System.Timers;
 using TP0.Helpers.Simplex;
+using TP0.Helpers.ORM;
 
 namespace TP0.Helpers
 {
@@ -21,6 +22,7 @@ namespace TP0.Helpers
         public List<Cliente> clientes;
         Timer aTimer;
         public SimplexHelper simplex = SimplexHelper.Instancia();
+        public DBContext db = DBContext.Instancia(); 
 
         protected Recomendacion()
         {
@@ -105,7 +107,7 @@ namespace TP0.Helpers
 
         public void NuevoCliente(Cliente cliente)
         {
-            clientes.Add(cliente);
+            clientes.Add(cliente); //donde se guarda esto?
         }
     }
 }

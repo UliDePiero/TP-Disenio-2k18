@@ -27,8 +27,8 @@ namespace TP0.Helpers
         public abstract int DispositivosTotales();
         public abstract double EstimarFacturacion(DateTime fInicial, DateTime fFinal);
         public abstract double KwTotales(DateTime fInicial, DateTime fFinal);
-        public abstract void AgregarDispInteligente(DispositivoInteligente DI);
-        public abstract void AdaptarDispositivo(DispositivoEstandar D, string marca);
+        public abstract void AgregarDispInteligente(Dispositivo DI);
+        public abstract void AdaptarDispositivo(Dispositivo D, string marca);
         public abstract string SolicitarRecomendacion();
         public abstract void ActualizarCategoria();
         public abstract double[] UbicacionDomicilio();

@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using TP0.Helpers.ORM;
 
 namespace TP0.Helpers
 {
@@ -12,7 +13,7 @@ namespace TP0.Helpers
         public double HorasXDia { get; set; }
         public double Min { get; set; }
         public double Max { get; set; }
-
+        
         /*public DispositivoEstandar(string nom, string idnuevo, double kWxH, double hxdia)
         {
             id = idnuevo;
@@ -36,7 +37,7 @@ namespace TP0.Helpers
 
         }
 
-        public DispositivoInteligente ConvertirEnInteligente(string marca)
+        public override DispositivoInteligente ConvertirEnInteligente(string marca)
         {
             DispositivoInteligente convertido = null;
             switch (marca)
@@ -53,7 +54,6 @@ namespace TP0.Helpers
                     convertido = new AdaptadorApple(Nombre, Codigo, KWxHora, Max, Min);
                     break;
             }
-
             return convertido;
         }
 
@@ -97,6 +97,11 @@ namespace TP0.Helpers
         }
 
         public override void AgregarEstado(State est)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override State GetEstado()
         {
             throw new NotImplementedException();
         }

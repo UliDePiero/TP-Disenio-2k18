@@ -53,12 +53,12 @@ namespace TP0.Helpers
             throw new NotImplementedException();
         }
 
-        public override void AgregarDispInteligente(DispositivoInteligente DI)
+        public override void AgregarDispInteligente(Dispositivo DI)
         {
             throw new NotImplementedException();
         }
 
-        public override void AdaptarDispositivo(DispositivoEstandar D, string marca)
+        public override void AdaptarDispositivo(Dispositivo D, string marca)
         {
             throw new NotImplementedException();
         }

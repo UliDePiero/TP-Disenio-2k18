@@ -16,12 +16,14 @@ namespace TP0.Helpers
         public double KWxHora { get; set; }
         public bool EsInteligente { get; set; }
         public int UsuarioID { get; set; }
+        public int IDUltimoEstado { get; set; } //es el equivalente a ESTADO
         [NotMapped]
         public string Desc { get; set; }
         [NotMapped]
         public double ConsumoAcumulado { get; set; }
         [NotMapped]
         public double ConsumoPromedio { get; set; }
+
 
         [ForeignKey("UsuarioID")]
         public Usuario Usuario { get; set; }
@@ -35,5 +37,7 @@ namespace TP0.Helpers
         public abstract double ConsumoEnHoras(double horas);
         public abstract double ConsumoEnPeriodo(DateTime fInicial, DateTime fFinal);
         public abstract void AgregarEstado(State est);
+        public abstract DispositivoInteligente ConvertirEnInteligente(string marca);
+        public abstract State GetEstado();
     }
 }
