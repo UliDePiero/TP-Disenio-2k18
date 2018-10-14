@@ -14,9 +14,12 @@ namespace TP0.Helpers
         public string Codigo { get; set; }
         public string Nombre { get; set; }
         public double KWxHora { get; set; }
+        public double Min { get; set; }
+        public double Max { get; set; }
         public bool EsInteligente { get; set; }
         public int UsuarioID { get; set; }
         public int IDUltimoEstado { get; set; } //es el equivalente a ESTADO
+        public double HorasXDia { get; set; }
         [NotMapped]
         public string Desc { get; set; }
         [NotMapped]

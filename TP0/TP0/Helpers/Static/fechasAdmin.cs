@@ -36,7 +36,7 @@ namespace TP0.Helpers.Static
             return mesesTotales;
         }
 
-        public static double ConsumoHsTotalPeriodo(DateTime fInicialPer, DateTime fFinalPer, List<State> estadosAntes)
+        public static double ConsumoHsTotalPeriodo(DateTime fInicialPer, DateTime fFinalPer, ICollection<State> estadosAntes)
         {
             double consumo = 0;
             List<State> EstadosPartePeriodo = estadosAntes.Where(x => parteDelPeriodo(fInicialPer, fFinalPer, x)).ToList();
