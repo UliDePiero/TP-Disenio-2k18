@@ -18,6 +18,10 @@ namespace TP0.Helpers
         [NotMapped]
         public Actuador act;
 
+        public DispositivoInteligente()
+        {
+
+        }
         public DispositivoInteligente(string nom, string idnuevo, double kWxHoraNuevo, double mx, double mn)
         {
             KWxHora = kWxHoraNuevo;
@@ -28,16 +32,29 @@ namespace TP0.Helpers
             estadosAnteriores = new List<State>();
             ConsumoAcumulado = 0;
             EsInteligente = true;
-<<<<<<< HEAD
-            act = new Actuador(Int32.Parse(idnuevo));//ver
-=======
             Estado = null;
-            act = new Actuador(Int32.Parse(idnuevo));
->>>>>>> c0d46ef4cded863257b671ba06e025e1a57514da
+            //act = new Actuador(DispositivoID);
         }
-        public DispositivoInteligente()
-        {
 
+        public DispositivoInteligente(int DIID)
+        {
+            using (var context = new DBContext())
+            {
+                var Disp = context.Dispositivos.Find(DIID);
+                KWxHora = Disp.KWxHora;
+                Nombre = Disp.Nombre;
+                Codigo = Disp.Codigo;
+                Max = Disp.Max;
+                Min = Disp.Min;
+                estadosAnteriores = new List<State>();
+                ConsumoAcumulado = 0;
+                EsInteligente = true;
+                Estado = null;
+                //act = new Actuador(DispositivoID);
+
+
+
+            }
         }
 
         public override State GetEstado()

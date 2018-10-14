@@ -19,7 +19,7 @@ namespace UnitTestProject1
             using (var db = new DBContext())
             { 
                 var cliente = new Cliente("Luciano", "Panizza", "Medrano951", "paniaton", "asdqwe123", "12345678", "dni", "12345678");
-            cliente.TransformadorID = 2; //necesita un id si o si
+            cliente.TransformadorID = 1; //necesita un id si o si
             db.Usuarios.Add(cliente);
             db.SaveChanges();
 

@@ -29,7 +29,11 @@ namespace TP0.Helpers
         public Recomendacion recomendacion = Recomendacion.Instancia();
         [NotMapped]
         public bool accionAutomatica; //porque no persiste?
-        
+
+        public Cliente()
+        {
+        }
+
         public Cliente(string nombre, string apellido, string domicilio, string usuario, string contrasenia, string doc, string tipo, string tel) 
         {
             Nombre = nombre;
@@ -46,10 +50,27 @@ namespace TP0.Helpers
             accionAutomatica = false;
             FechaDeAlta = DateTime.Now.ToShortDateString();
         }
-        public Cliente()
+
+        public Cliente(string username)
         {
+            using (var contexto = new DBContext())
+            {
+                var c = contexto.Usuarios.First(x => x.Username == username);
+            Nombre = c.Nombre;
+            Apellido = c.Apellido;
+            Domicilio = c.Domicilio;
+            Username = c.Username;
+            Contrasenia = c.Contrasenia;
+            EsAdmin = false;
+            Documento = c.Documento;
+            TipoDocumento = c.TipoDocumento;
+            Telefono = c.Telefono;
+            Dispositivos = new List<Dispositivo>();
+            accionAutomatica = false;
+            FechaDeAlta = c.FechaDeAlta;
+            }
         }
-         
+
         public override bool AlgunDispositivoEncendido()
         {
             foreach (DispositivoInteligente disp in Dispositivos)

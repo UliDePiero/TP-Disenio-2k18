@@ -10,13 +10,10 @@ namespace TP0.Helpers
     public class DispositivoEstandar : Dispositivo
     {
         
-        /*public DispositivoEstandar(string nom, string idnuevo, double kWxH, double hxdia)
+        public DispositivoEstandar()
         {
-            id = idnuevo;
-            nombre = nom;
-            kWxHora = kWxH;
-            horasXDia = hxdia;
-        }*/
+
+        }
 
         public DispositivoEstandar(string nom, string idnuevo, double kWxH, double hxdia, double mx, double mn)
         {
@@ -28,10 +25,21 @@ namespace TP0.Helpers
             Min = mn;
             EsInteligente = false;
         }
-        public DispositivoEstandar()
+        public DispositivoEstandar(int DEID)
         {
-
-        }
+                using (var context = new DBContext())
+                {
+                    var Disp = context.Dispositivos.Find(DEID);
+                    KWxHora = Disp.KWxHora;
+                    Nombre = Disp.Nombre;
+                    Codigo = Disp.Codigo;
+                    Max = Disp.Max;
+                    Min = Disp.Min;
+                    ConsumoAcumulado = 0;
+                    EsInteligente = false;
+                    //act = new Actuador(DispositivoID);
+                }
+            }
 
         public override DispositivoInteligente ConvertirEnInteligente(string marca)
         {
