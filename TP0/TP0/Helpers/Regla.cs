@@ -9,8 +9,8 @@ namespace TP0.Helpers
 {
     public class Regla
     {
-        [NotMapped]
-        public bool seCumple;
+        /*[NotMapped]
+        public bool seCumple;*/
 
         public Regla(float valorMax, float valorMin, int actuadorID)
         {
@@ -26,18 +26,19 @@ namespace TP0.Helpers
         public int ActuadorID { get; set; }
         [ForeignKey("ActuadorID")]
         public Actuador Actuador { get; set; }
-        
 
-        public void Notificar(float valor)
+
+        public void Notificar(Medicion m)
         {
-            seCumple = false;
-            if (valor >= ValorMin && valor <= ValorMax)
-                    seCumple = true;
-            Actuador.VerificarRegla();
+            //seCumple = false;
+            if (m.Medida >= ValorMin && m.Medida <= ValorMax)
+                //seCumple = true;
+                //Actuador.VerificarRegla();
+                Actuador.EjecutarRegla(this);
         }
-        public bool ChequearComportamiento()
+        /*public bool ChequearComportamiento()
         {
             return seCumple;
-        }
+        }*/
     }
 }

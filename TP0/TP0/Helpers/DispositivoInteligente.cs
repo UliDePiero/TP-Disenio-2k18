@@ -32,7 +32,7 @@ namespace TP0.Helpers
             estadosAnteriores = new List<State>();
             ConsumoAcumulado = 0;
             EsInteligente = true;
-            act = new Actuador(Int32.Parse(idnuevo));
+            act = new Actuador(Int32.Parse(idnuevo));//ver
         }
         public DispositivoInteligente()
         {

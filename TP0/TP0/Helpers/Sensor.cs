@@ -17,7 +17,7 @@ namespace TP0.Helpers
         [NotMapped]
         public List<Regla> Observers { get; set; }
         [NotMapped]
-        public float Medicion;
+        public Medicion Medicion;
 
         public Sensor(string descripcion)
         {
@@ -32,7 +32,7 @@ namespace TP0.Helpers
             Observers.Add(c);
             using (var db = new DBContext())
             {
-                db.Reglas.Add(c); //Cambiar Relgas por Actuadores?
+                db.Reglas.Add(c);
                 db.SaveChanges();
             }
         }
@@ -41,7 +41,7 @@ namespace TP0.Helpers
             Observers.Remove(c);
             using (var db = new DBContext())
             {
-                db.Reglas.Remove(c); //Cambiar Relgas por Actuadores?
+                db.Reglas.Remove(c);
                 db.SaveChanges();
             }
         }

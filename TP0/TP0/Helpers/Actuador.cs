@@ -7,8 +7,7 @@ using System.Web;
 
 namespace TP0.Helpers
 {
-    // UNA REGLA ES UN CONJUNTO DE CONDICIONES SIMPLES
-    public class Actuador
+    public abstract class Actuador
     {
         
         [Key]
@@ -19,36 +18,33 @@ namespace TP0.Helpers
         [NotMapped]
         public List<Regla> Reglas { get; set; }
 
-        //public Regla Regla { get; set; }
-
-        public Actuador(int dispositivoID)
+        /*public Actuador(int dispositivoID)
         {
             DispositivoID = dispositivoID;
             Reglas = new List<Regla>();
-        }
-
-
+        }*/
 
         public void AgregarRegla(Regla r)
         {
             Reglas.Add(r);
         }
 
-        public void VerificarRegla()
+        /*public void VerificarRegla()
         {
             //if (Reglas.All(c => c.seCumple))
             //{
                 EjecutarRegla();
             //}
-        }
-        public void EjecutarRegla()
-        {
+        }*/
+        public abstract void EjecutarRegla(Regla regla);
+        /*{
             //Metodo para ejecutar la regla
-        }
-        public void Notificar(float valor)
+            //Metodo Strategy donde hay varias acciones que podria enviar al dispositivo de acuerdo a la regla
+        }*/
+        /*public void Notificar(float valor)
         {
             //Reglas.ForEach(o => o.Notificar(valor));
-          //  Regla.Notificar(valor);
-        }
+            //Regla.Notificar(valor);
+        }*/
     }
 }
