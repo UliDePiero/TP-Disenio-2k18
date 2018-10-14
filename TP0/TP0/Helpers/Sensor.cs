@@ -12,6 +12,7 @@ namespace TP0.Helpers
     {
         [Key]
         public int SensorID { get; set; }
+        public DateTime UltimaMedicion { get; set; }
         public string Desc { get; set; }
         
         [NotMapped]

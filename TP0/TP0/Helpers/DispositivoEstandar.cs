@@ -9,10 +9,6 @@ namespace TP0.Helpers
 {
     public class DispositivoEstandar : Dispositivo
     {
-        [JsonProperty]
-        public double HorasXDia { get; set; }
-        public double Min { get; set; }
-        public double Max { get; set; }
         
         /*public DispositivoEstandar(string nom, string idnuevo, double kWxH, double hxdia)
         {
@@ -54,6 +50,8 @@ namespace TP0.Helpers
                     convertido = new AdaptadorApple(Nombre, Codigo, KWxHora, Max, Min);
                     break;
             }
+            convertido.UsuarioID = UsuarioID;
+
             return convertido;
         }
 

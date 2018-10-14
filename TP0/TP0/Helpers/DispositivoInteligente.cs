@@ -14,11 +14,7 @@ namespace TP0.Helpers
         public State Estado;
         [NotMapped]
         [JsonProperty]
-        public List<State> estadosAnteriores;
-        [NotMapped]
-        public double Min;
-        [NotMapped]
-        public double Max;
+        public ICollection<State> estadosAnteriores;
         [NotMapped]
         public Actuador act;
 
@@ -32,6 +28,7 @@ namespace TP0.Helpers
             estadosAnteriores = new List<State>();
             ConsumoAcumulado = 0;
             EsInteligente = true;
+            Estado = null;
             act = new Actuador(Int32.Parse(idnuevo));
         }
         public DispositivoInteligente()
@@ -53,19 +50,17 @@ namespace TP0.Helpers
         }
         public override void Encender()
         {
-            Estado.Encender();
+            UltimoEstado();
+            Estado.Encender(this);
         }
         public override void Apagar()
         {
-            using (var db = DBContext.Instancia())
-            {
-                Estado = db.Estados.First(e => e.StateID == IDUltimoEstado);
-                Estado.Apagar();
-            }
-                
+            UltimoEstado();
+            Estado.Apagar();
         }
         public override void AhorrarEnergia()
         {
+            UltimoEstado();
             Estado.AhorrarEnergia();
         }
         public override double ConsumoEnHoras(double horas)
@@ -84,17 +79,17 @@ namespace TP0.Helpers
 
        public override void AgregarEstado(State est)
        {
-            est.FechaFinal = new DateTime(3000, 1, 1);
-
-            estadosAnteriores.Add(est);
-
-            using (var db = DBContext.Instancia())
+           
+            Estado = est; //dejar sirve para los cambios de estado cuando el disp esta en memoria , asi evitar recurrir a la base
+            estadosAnteriores.Add(Estado);
+            using (var db = new DBContext())
             {
+
                 db.Estados.Add(est); //Agrega el nuevo estado a la db
                 db.SaveChanges();
-                var ultimoEstado = db.Estados.First(e => DispositivoID == e.DispositivoID && e.FechaFinal == new DateTime(3000, 1, 1));
-                var d = db.Dispositivos.First(di => di.DispositivoID == DispositivoID);
-                d.IDUltimoEstado = ultimoEstado.StateID;
+                IDUltimoEstado = est.StateID;
+                var DIact = db.Dispositivos.Find(DispositivoID);
+                DIact.IDUltimoEstado = est.StateID;
                 db.SaveChanges();
             }
        }
@@ -102,6 +97,34 @@ namespace TP0.Helpers
         public override double Consumo()
         {
             throw new NotImplementedException();
+        }
+
+        private void UltimoEstado()
+        {
+            if (Estado == null)
+            { 
+                using (var db = new DBContext())
+                {
+                    var ultimoEstado = db.Estados.Find(IDUltimoEstado);
+                    switch (ultimoEstado.Desc)
+                    {
+                        case "Apagado":
+                            Estado = new Apagado(this);
+                            Estado.StateID = ultimoEstado.StateID;
+                            break;
+                        case "Encendido":
+                            Estado = new Encendido(this);
+                            Estado.StateID = ultimoEstado.StateID;
+                            break;
+                        case "Ahorro":
+                            Estado = new Ahorro(this);
+                            Estado.StateID = ultimoEstado.StateID;
+                            break;
+                        default:
+                            throw new Exception("Estado no reconocido");
+                    }
+                }
+            }
         }
 
         public override DispositivoInteligente ConvertirEnInteligente(string marca)

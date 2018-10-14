@@ -12,9 +12,7 @@ namespace TP0.Helpers
 {
     public class Cliente : Usuario
     {
-        public string Documento { get; set; }
-        public string TipoDocumento { get; set; }
-        public string Telefono { get; set; }
+
         public ICollection<Dispositivo> Dispositivos { get; set; }
 
         public int TransformadorID { get; set; }
@@ -102,34 +100,36 @@ namespace TP0.Helpers
             }
             return Consumo;
         }
-        public override void AgregarDispInteligente(Dispositivo DI)
+        public override void AgregarDispInteligente(DispositivoInteligente DI)
         {
             //Dispositivos.Add(DI);
             puntos += 15;
-            using (var db = DBContext.Instancia())
+            using (var db = new DBContext())
             {
-                DI.UsuarioID = UsuarioID;
+                
                 db.Dispositivos.Add(DI);
-                db.Estados.Add(new Apagado(DI));
                 db.SaveChanges();
+                DI.AgregarEstado(new Apagado(DI));
+
             }
         }
-        public override void AdaptarDispositivo(Dispositivo D, string marca)
+        public override void AdaptarDispositivo(DispositivoEstandar D, string marca)
         {
             var DI=D.ConvertirEnInteligente(marca);
-            Dispositivos.Add(DI);
+            
             puntos += 10;
 
-            using (var db = DBContext.Instancia())
+            using (var db = new DBContext())
             {
-                //Transforma el dispositivo en inteligente en la db
-                db.Dispositivos.Add(DI);
-                var dDB = db.Dispositivos.First(x => x.DispositivoID == D.DispositivoID);
-                db.Dispositivos.Remove(dDB);
-                
+                var borrarDEst = db.Dispositivos.Find(D.DispositivoID);
+                db.Dispositivos.Remove(borrarDEst);
                 db.SaveChanges();
 
+                db.Dispositivos.Add(DI);
+                db.SaveChanges();
+                DI.AgregarEstado(new Apagado(DI));
             }
+
         }
 
         public override string SolicitarRecomendacion()
