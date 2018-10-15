@@ -62,6 +62,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AdapterTest.cs" />
+    <Compile Include="GeoLocalizacionTest.cs" />
     <Compile Include="RecomedacionesTest.cs" />
     <Compile Include="WebServiceTest.cs" />
     <Compile Include="ClienteTest.cs" />

@@ -209,12 +209,13 @@ namespace TP0.Controllers
                 using (var db = new DBContext())
                 {
                     Dispositivo disp = db.Dispositivos.FirstOrDefault(d => d.DispositivoID == id);
+                    var dispI = new DispositivoInteligente(disp.DispositivoID);
                     foreach (State s in db.Estados)
                     {
                         if (s.DispositivoID == id && s.FechaFinal == new DateTime(1, 1, 1))
                             s.FechaFinal = DateTime.Now;
                     }
-                    db.Estados.Add(new Encendido(disp));
+                    db.Estados.Add(new Encendido(dispI));
 
                     db.SaveChanges();
                 }
@@ -247,12 +248,13 @@ namespace TP0.Controllers
                 using (var db = new DBContext())
                 {
                     Dispositivo disp = db.Dispositivos.FirstOrDefault(d => d.DispositivoID == id);
+                    var dispI = new DispositivoInteligente(disp.DispositivoID);
                     foreach (State s in db.Estados)
                     {
                         if (s.DispositivoID == id && s.FechaFinal == new DateTime(1, 1, 1))
                             s.FechaFinal = DateTime.Now;
                     }
-                    db.Estados.Add(new Ahorro(disp));
+                    db.Estados.Add(new Ahorro(dispI));
 
                     db.SaveChanges();
                 }
