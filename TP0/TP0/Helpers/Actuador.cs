@@ -21,7 +21,7 @@ namespace TP0.Helpers
         /*public Actuador(int dispositivoID)
         {
             DispositivoID = dispositivoID;
-            //Reglas = new List<Regla>();
+            Reglas = new List<Regla>();
         }*/
 
         public void AgregarRegla(Regla r)

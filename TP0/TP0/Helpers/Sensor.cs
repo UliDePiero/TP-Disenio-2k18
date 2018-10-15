@@ -8,18 +8,19 @@ using TP0.Helpers.ORM;
 
 namespace TP0.Helpers
 {
-    public class Sensor
+    public abstract class Sensor
     {
         [Key]
         public int SensorID { get; set; }
         public DateTime UltimaMedicion { get; set; }
         public string Desc { get; set; }
-        
+
         [NotMapped]
         public List<Regla> Observers { get; set; }
         [NotMapped]
         public Medicion Medicion;
 
+        /*
         public Sensor(string descripcion)
         {
             Desc = descripcion;
@@ -27,6 +28,7 @@ namespace TP0.Helpers
         public Sensor()
         {
         }
+        */
 
         public void AgregarObservador(Regla c)
         {
@@ -50,5 +52,7 @@ namespace TP0.Helpers
         {
             Observers.ForEach(o => o.Notificar(Medicion));
         }
+
+        public abstract void Medir(int valorMedicion);
     }
 }

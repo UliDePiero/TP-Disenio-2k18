@@ -57,8 +57,6 @@ namespace TP0.Helpers
                 DispositivoID = Disp.DispositivoID;
                 //act = new Actuador(DispositivoID);
 
-
-
             }
         }
 
@@ -164,6 +162,23 @@ namespace TP0.Helpers
         public override DispositivoInteligente ConvertirEnInteligente(string marca)
         {
             throw new NotImplementedException();
+        }
+
+        public void AsignarActuadorHumedad()
+        {
+            act = new ActuadorHumedad(DispositivoID);
+        }
+        public void AsignarActuadorMovimiento()
+        {
+            act = new ActuadorMovimiento(DispositivoID);
+        }
+        public void AsignarActuadorTemperatura()
+        {
+            act = new ActuadorTemperatura(DispositivoID);
+        }
+        public void AsignarActuadorLuz()
+        {
+            act = new ActuadorLuz(DispositivoID);
         }
     }
 }
