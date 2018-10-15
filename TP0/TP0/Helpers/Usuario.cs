@@ -22,6 +22,8 @@ namespace TP0.Helpers
         public string TipoDocumento { get; set; }
         public string Telefono { get; set; }
         public bool EsAdmin { get; set; }
+        public int PuntosAcum { get; set; }
+        public bool AccionAutomatica { get; set; }
 
         public abstract int MesesQueLleva();
         public abstract bool AlgunDispositivoEncendido();

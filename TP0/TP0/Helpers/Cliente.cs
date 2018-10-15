@@ -24,16 +24,13 @@ namespace TP0.Helpers
         [NotMapped]
         public Categoria categoria;
         [NotMapped]
-        public int puntos;
-        [NotMapped]
         public Recomendacion recomendacion = Recomendacion.Instancia();
-        [NotMapped]
-        public bool accionAutomatica; //porque no persiste?
 
         public Cliente()
         {
         }
 
+        //constructor para crear nuevos
         public Cliente(string nombre, string apellido, string domicilio, string usuario, string contrasenia, string doc, string tipo, string tel) 
         {
             Nombre = nombre;
@@ -43,31 +40,34 @@ namespace TP0.Helpers
             Contrasenia = contrasenia;
             EsAdmin = false;
             Documento = doc;
+            PuntosAcum = 0;
+            AccionAutomatica = false;
             TipoDocumento = tipo;
             Telefono = tel;
             Dispositivos = new List<Dispositivo>();
-            recomendacion.NuevoCliente(this);
-            accionAutomatica = false;
+            AccionAutomatica = false;
             FechaDeAlta = DateTime.Now.ToShortDateString();
         }
 
-        public Cliente(string username)
+        public Cliente(string username) //para buscar en la DB + instanciar
         {
             using (var contexto = new DBContext())
             {
                 var c = contexto.Usuarios.First(x => x.Username == username);
-            Nombre = c.Nombre;
-            Apellido = c.Apellido;
-            Domicilio = c.Domicilio;
-            Username = c.Username;
-            Contrasenia = c.Contrasenia;
-            EsAdmin = false;
-            Documento = c.Documento;
-            TipoDocumento = c.TipoDocumento;
-            Telefono = c.Telefono;
-            Dispositivos = new List<Dispositivo>();
-            accionAutomatica = false;
-            FechaDeAlta = c.FechaDeAlta;
+                Nombre = c.Nombre;
+                Apellido = c.Apellido;
+                Domicilio = c.Domicilio;
+                Username = c.Username;
+                Contrasenia = c.Contrasenia;
+                EsAdmin = false;
+                Documento = c.Documento;
+                TipoDocumento = c.TipoDocumento;
+                Telefono = c.Telefono;
+                PuntosAcum = c.PuntosAcum;
+                Dispositivos = new List<Dispositivo>();
+                AccionAutomatica = c.AccionAutomatica;
+                FechaDeAlta = c.FechaDeAlta;
+                UsuarioID = c.UsuarioID; 
             }
         }
 
@@ -123,25 +123,52 @@ namespace TP0.Helpers
         }
         public override void AgregarDispInteligente(DispositivoInteligente DI)
         {
-            //Dispositivos.Add(DI);
-            puntos += 15;
+            PuntosAcum += 15;
+            using (var acuser = new DBContext())
+            {
+                var cldb = acuser.Usuarios.Find(UsuarioID);
+                cldb.PuntosAcum += 15;
+                acuser.SaveChanges();
+            }//dejarlo cada uno en un bloque separado, si estan en el mismo bloque
+             //por alguna razon mistica ROMPE el find del user.. <misteeeeeriooo>
+             
             using (var db = new DBContext())
             {
-                
                 db.Dispositivos.Add(DI);
                 db.SaveChanges();
                 DI.AgregarEstado(new Apagado(DI));
 
             }
         }
+
+        public void AccionAutomaticaON()
+        {
+            using (var db = new DBContext())
+            {
+                var acc = db.Usuarios.Find(UsuarioID);
+                acc.AccionAutomatica = true;
+                db.SaveChanges();
+            }
+        }
+        public void AccionAutomaticaOFF()
+        {
+            using (var db = new DBContext())
+            {
+                var acc = db.Usuarios.Find(UsuarioID);
+                acc.AccionAutomatica = false;
+                db.SaveChanges();
+            }
+        }
+
         public override void AdaptarDispositivo(DispositivoEstandar D, string marca)
         {
             var DI=D.ConvertirEnInteligente(marca);
-            
-            puntos += 10;
+            PuntosAcum += 10;
 
             using (var db = new DBContext())
             {
+                var cldb = db.Usuarios.Find(UsuarioID);
+                cldb.PuntosAcum += 10;
                 var borrarDEst = db.Dispositivos.Find(D.DispositivoID);
                 db.Dispositivos.Remove(borrarDEst);
                 db.SaveChanges();
@@ -150,7 +177,14 @@ namespace TP0.Helpers
                 db.SaveChanges();
                 DI.AgregarEstado(new Apagado(DI));
             }
+        }
 
+        public List<Dispositivo> GetDisps()
+        {
+            using (var db = new DBContext())
+            {
+                return db.Dispositivos.Where(x => x.UsuarioID == UsuarioID).ToList();
+            }
         }
 
         public override string SolicitarRecomendacion()

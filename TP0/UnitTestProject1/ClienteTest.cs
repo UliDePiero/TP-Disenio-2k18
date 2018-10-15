@@ -18,25 +18,26 @@ namespace UnitTestProject1
             //Arrenge
             using (var db = new DBContext())
             { 
-                var cliente = new Cliente("Luciano", "Panizza", "Medrano951", "paniaton", "asdqwe123", "12345678", "dni", "12345678");
+            var cliente = new Cliente("Luciano", "Panizza", "Medrano951", "CantidadPuntosUsuario15_test", "asdqwe123", "12345678", "dni", "12345678");
             cliente.TransformadorID = 1; //necesita un id si o si
             db.Usuarios.Add(cliente);
             db.SaveChanges();
 
             var lamparaHalogena40W = new DispositivoInteligente("lampara halogena de 40 W", "0011", 0.04, 360, 90);
             lamparaHalogena40W.UsuarioID = cliente.UsuarioID;
+            var lamparaHalogena40W2 = new DispositivoInteligente("lampara halogena de 40 W", "0011", 0.04, 360, 90);
+            lamparaHalogena40W2.UsuarioID = cliente.UsuarioID;
 
-            cliente.AgregarDispInteligente(lamparaHalogena40W);
 
-            db.Dispositivos.First(x => x.UsuarioID == cliente.UsuarioID && x.Codigo == "0011" && x.EsInteligente == true);
+                //Act
+                cliente.AgregarDispInteligente(lamparaHalogena40W);
+                cliente.AgregarDispInteligente(lamparaHalogena40W2);
 
-            cliente.puntos = 0;
-            
-            //Act
-            cliente.AgregarDispInteligente(lamparaHalogena40W);
+                var clDB = new Cliente("CantidadPuntosUsuario15_test");
 
             //Assert
-            Assert.AreEqual(15, cliente.puntos);
+            Assert.AreEqual(30, clDB.PuntosAcum);
+            Assert.AreEqual(30, cliente.PuntosAcum);
             }
         }
     }

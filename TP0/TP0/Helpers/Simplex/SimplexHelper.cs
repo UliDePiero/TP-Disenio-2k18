@@ -14,6 +14,7 @@ namespace TP0.Helpers.Simplex
         public List<double> vars { get; set; }
         public List<restriction> restrictions { get; set; }
         [JsonIgnore]
+
         private static SimplexHelper _instancia;
 
         public static SimplexHelper Instancia()
@@ -25,19 +26,19 @@ namespace TP0.Helpers.Simplex
             return _instancia;
         }
 
-        public string generarJson(List<DispositivoEstandar> estandars, List<DispositivoInteligente> inteligentes)
+        public string generarJson(List<Dispositivo> LDE, List<Dispositivo> LDI)
         {
             vars = new List<double>();//obj es el objeto q se pasa a json
-            int dispTotales = estandars.Count() + inteligentes.Count();
+            int dispTotales = LDE.Count()+LDI.Count();
             List<double> v = getVars(dispTotales); //se hace la primera fila del archivo json
             vars = v;
             List<double> values1 = new List<double>(); //esta es la primera fila de valores de la parte de "restricciones"
             values1.Add(612); //consumo total = 620 // Lo subi a 620000 porque sino no anda por la cantidad de dispositivos
-            foreach (DispositivoEstandar de in estandars)
+            foreach (var de in LDE)
             {
                 values1.Add(de.KWxHora); //se llena la lista con los kwxh de los dispositivos estandars
             }
-            foreach(DispositivoInteligente di in inteligentes)
+            foreach(var di in LDI)
             {
                 values1.Add(di.KWxHora);//se llena la lista con los kwxh de los dispositivos inteligentes
             }
@@ -47,39 +48,42 @@ namespace TP0.Helpers.Simplex
             restrictions.Add(restriccion1);
 
             int contador = 1;
-            foreach (DispositivoEstandar de in estandars)
+            foreach (var de in LDE)
             {
-                if (de.Max > 0)
-                {
-                    List<double> vv = generarValues(dispTotales, contador, 1, de.Max); //hay que agregarle a cada dispositivo max y min y numeros de referencia
-                    restriction r = new restriction(vv);
-                    restrictions.Add(r);
-                    //se crea nueva restriccion para el maximo
-                }
-                if (de.Min > 0)
-                {
-                    List<double> vv = generarValues(dispTotales, contador, 0, de.Min); //hay que agregarle a cada dispositivo max y min y numeros de referencia
-                    restriction r = new restriction(vv);
-                    restrictions.Add(r);
-                    //se crea nueva restriccion para el minimo
-                }
-                contador++;
+                    if (de.Max > 0)
+                    {
+                        List<double> vv = generarValues(dispTotales, contador, 1, de.Max); //hay que agregarle a cada dispositivo max y min y numeros de referencia
+                        restriction r = new restriction(vv);
+                        restrictions.Add(r);
+                        //se crea nueva restriccion para el maximo
+                    }
+                    if (de.Min > 0)
+                    {
+                        List<double> vv = generarValues(dispTotales, contador, 0, de.Min); //hay que agregarle a cada dispositivo max y min y numeros de referencia
+                        restriction r = new restriction(vv);
+                        restrictions.Add(r);
+                        //se crea nueva restriccion para el minimo
+                    }
+                    contador++;
             }
-            foreach (DispositivoInteligente di in inteligentes) //lo mismo q la anterior pero para inteligentes
+
+            foreach (var di in LDI) //lo mismo q la anterior pero para inteligentes
             {
-                if (di.Max > 0)
-                {
-                    List<double> vv = generarValues(dispTotales, contador, 1, di.Max);
-                    restriction r = new restriction(vv);
-                    restrictions.Add(r);
-                }
-                if (di.Min > 0)
-                {
-                    List<double> vv = generarValues(dispTotales, contador, 0, di.Min);
-                    restriction r = new restriction(vv);
-                    restrictions.Add(r);
-                }
-                contador++;
+               
+                    if (di.Max > 0)
+                    {
+                        List<double> vv = generarValues(dispTotales, contador, 1, di.Max);
+                        restriction r = new restriction(vv);
+                        restrictions.Add(r);
+                    }
+                    if (di.Min > 0)
+                    {
+                        List<double> vv = generarValues(dispTotales, contador, 0, di.Min);
+                        restriction r = new restriction(vv);
+                        restrictions.Add(r);
+                    }
+                    contador++;
+               
             }
             string jsonData = JsonConvert.SerializeObject(this);
 

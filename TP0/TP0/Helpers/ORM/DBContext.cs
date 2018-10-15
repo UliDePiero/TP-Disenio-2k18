@@ -220,7 +220,7 @@ namespace TP0.Helpers.ORM
             _instancia = null;
         }
 
-        public DBContext() : base(@"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=DBDDS;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False")
+        public DBContext() : base(@"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=DDSDsenio;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False")
         {
             
         }

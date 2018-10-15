@@ -2,7 +2,10 @@
 using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using TP0.Helpers;
-using TP0.Helpers.Static.Simplex;
+using TP0.Helpers.Simplex;
+using TP0.Helpers.ORM;
+using System.Linq;
+using System.Web;
 
 namespace UnitTestProject1
 {
@@ -12,55 +15,43 @@ namespace UnitTestProject1
         [TestMethod]
         public void WebService_Test()
         {
-            //Arrenge
-            var recomendacion = Recomendacion.Instancia();
-            var cliente = new Cliente("Luciano", "Panizza", "Medrano951", "paniaton", "asdqwe123", "12345678", "dni", "12345678");
-            
+            using (var db = new DBContext())
+            { 
+                //Arrenge
+                var recomendacion = Recomendacion.Instancia();
+                var simplex = SimplexHelper.Instancia();
 
+                var cliente = new Cliente("Luciano", "Panizza", "Medrano951", "WebService_test", "asdqwe123", "12345678", "dni", "12345678");
+                cliente.TransformadorID = 1; //necesita un id si o si
+                db.Usuarios.Add(cliente);
+                db.SaveChanges();
 
-            /*cliente.dispositivosInteligentes.Add(new DispositivoInteligente("lampara halogena de 60 W", "0011", 0.06, 360, 90));
-            cliente.dbdispositivosEstandares.Add(new DispositivoEstandar("microondas convencional", "0011", 0.64, 0, 15, 3));
-            cliente.dispositivosEstandares.Add(new DispositivoEstandar("televisor LCD de 40 pulgadas", "0014", 0.18, 0, 360, 90));
-            cliente.dispositivosEstandares.Add(new DispositivoEstandar("lavarropas automatico de 5kg con calentamiento", "0021", 0.875, 0, 30, 6));
-            */
-            
+                var Lampara60W = new DispositivoInteligente("lampara halogena de 60 W", "0011", 0.06, 360, 90);
+                Lampara60W.UsuarioID = cliente.UsuarioID;
+                db.Dispositivos.Add(Lampara60W);
+                db.SaveChanges();
 
+                var microondas = new DispositivoEstandar("microondas convencional", "0011", 0.64, 0, 15, 3);
+                microondas.UsuarioID = cliente.UsuarioID;
+                db.Dispositivos.Add(microondas);
+                db.SaveChanges();
 
-            //Act
+                var televisor40 = new DispositivoEstandar("televisor LCD de 40 pulgadas", "0014", 0.18, 0, 360, 90);
+                televisor40.UsuarioID = cliente.UsuarioID;
+                db.Dispositivos.Add(televisor40);
+                db.SaveChanges();
 
-            //var linea = SimplexHelper.generarJson(cliente.dispositivosEstandares, cliente.dispositivosInteligentes);
-            var resultado = recomendacion.GenerarRecomendacion(cliente);
+                var lavarropa = new DispositivoEstandar("lavarropas automatico de 5kg con calentamiento", "0021", 0.875, 0, 30, 6);
+                lavarropa.UsuarioID = cliente.UsuarioID;
+                db.Dispositivos.Add(lavarropa);
+                db.SaveChanges();
 
-            //Assert
-            Assert.AreEqual("[765.0, 15.0, 360.0, 30.0, 360.0]", resultado);
+                //Act
+                var resultado = recomendacion.GenerarRecomendacion(cliente);
+
+                //Assert
+                Assert.AreEqual("[765.0, 15.0, 360.0, 30.0, 360.0]", resultado);
+            }
         }
-
-        [TestMethod]
-        public void WebService_Test1()
-        {
-            //Arrenge
-            var recomendacion = Recomendacion.Instancia();
-            var cliente = new Cliente("Ariel", "Ejemplo", "Medrano951", "ariel", "aaaaa", "12345678", "dni", "12345678");
-            
-            /*1 TV LED 40”   2. 1 lámpara de 11 W    3. 1 lavarropas Semi-automático de 5 kg  4. 1 PC de escritorio    5. 1 aire Acondicionado de 2200    frigorías
-              6. 1 microondas convencional             7. 1 plancha a vapor            8. 1 ventilador de techo*/
-
-            /*cliente.dispositivosEstandares.Add(new DispositivoEstandar("lavarropas semi-automatico de 5kg", "0022", 0.1275, 0, 30, 6));
-            cliente.dispositivosEstandares.Add(new DispositivoEstandar("microondas convencional", "0011", 0.64, 0, 15, 3));
-            cliente.dispositivosEstandares.Add(new DispositivoEstandar("plancha a vapor", "0011", 0.75, 0, 30, 3));
-
-            cliente.dispositivosInteligentes.Add(new DispositivoInteligente("televisor LED de 40 pulgadas", "0017", 0.08, 360, 90));
-            cliente.dispositivosInteligentes.Add(new DispositivoInteligente("lampara de 11 W", "0011", 0.011, 360, 90));
-            cliente.dispositivosInteligentes.Add(new DispositivoInteligente("pc de escritorio", "0011", 0.4, 360, 90));
-            cliente.dispositivosInteligentes.Add(new DispositivoInteligente("aire acondicionado de 2200 frigorias", "0012", 1.013, 360, 90));
-            cliente.dispositivosInteligentes.Add(new DispositivoInteligente("ventilador de techo", "0024", 0.06, 360, 120));
-            */
-            //Act
-            var resultado = recomendacion.GenerarRecomendacion(cliente);
-
-            //Assert
-            Assert.AreEqual("[1875.0, 30.0, 15.0, 30.0, 360.0, 360.0, 360.0, 360.0, 360.0]", resultado);
-        }
-        
     }
 }

@@ -23,9 +23,9 @@ namespace TP0.Helpers
 
         public abstract void Encender(DispositivoInteligente d);
 
-        public abstract void Apagar();
+        public abstract void Apagar(DispositivoInteligente d);
 
-        public abstract void AhorrarEnergia();
+        public abstract void AhorrarEnergia(DispositivoInteligente d);
 
         public abstract double ConsumoEnIntervalor(DateTime fInicial, DateTime fFinal);
 
@@ -60,18 +60,18 @@ namespace TP0.Helpers
             throw new Exception("El dispositivo ya esta encendido!");
         }
 
-        public override void Apagar()
+        public override void Apagar(DispositivoInteligente d)
         {
             FechaFinal = DateTime.Now;
             FinalizarEstado();
-            Dispositivo.AgregarEstado(new Apagado(Dispositivo));
+            d.AgregarEstado(new Apagado(d));
         }
 
-        public override void AhorrarEnergia()
+        public override void AhorrarEnergia(DispositivoInteligente d)
         {
             FechaFinal = DateTime.Now;
             FinalizarEstado();
-            Dispositivo.AgregarEstado(new Ahorro(Dispositivo));
+            d.AgregarEstado(new Ahorro(d));
         }
 
         public override double ConsumoEnIntervalor(DateTime fInicial, DateTime fFinal)
@@ -108,16 +108,16 @@ namespace TP0.Helpers
             d.AgregarEstado(new Encendido(d));
         }
 
-        public override void Apagar()
+        public override void Apagar(DispositivoInteligente d)
         {
             throw new Exception("El dispositivo ya esta apagado!");
         }
 
-        public override void AhorrarEnergia()
+        public override void AhorrarEnergia(DispositivoInteligente d)
         {
             FechaFinal = DateTime.Now;
             FinalizarEstado();
-            Dispositivo.AgregarEstado(new Ahorro(Dispositivo));
+            d.AgregarEstado(new Ahorro(d));
         }
 
         public override double ConsumoEnIntervalor(DateTime fInicial, DateTime fFinal)
@@ -146,14 +146,14 @@ namespace TP0.Helpers
             d.AgregarEstado(new Encendido(d));
         }
 
-        public override void Apagar()
+        public override void Apagar(DispositivoInteligente d)
         {
             FechaFinal = DateTime.Now;
             FinalizarEstado();
-            Dispositivo.AgregarEstado(new Apagado(Dispositivo));
+            d.AgregarEstado(new Apagado(d));
         }
 
-        public override void AhorrarEnergia()
+        public override void AhorrarEnergia(DispositivoInteligente d)
         {
             throw new Exception("El dispositivo ya esta ahorrando!");
         }

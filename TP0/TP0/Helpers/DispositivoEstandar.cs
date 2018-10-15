@@ -14,7 +14,7 @@ namespace TP0.Helpers
         {
 
         }
-
+        //cons para crear nuevos
         public DispositivoEstandar(string nom, string idnuevo, double kWxH, double hxdia, double mx, double mn)
         {
             Codigo = idnuevo;
@@ -25,7 +25,7 @@ namespace TP0.Helpers
             Min = mn;
             EsInteligente = false;
         }
-        public DispositivoEstandar(int DEID)
+        public DispositivoEstandar(int DEID)//para buscar en la DB + instanciar
         {
                 using (var context = new DBContext())
                 {
@@ -37,9 +37,11 @@ namespace TP0.Helpers
                     Min = Disp.Min;
                     ConsumoAcumulado = 0;
                     EsInteligente = false;
-                    //act = new Actuador(DispositivoID);
-                }
+                    UsuarioID = Disp.UsuarioID;
+                    DispositivoID = Disp.DispositivoID;
+                //act = new Actuador(DispositivoID);
             }
+        }
 
         public override DispositivoInteligente ConvertirEnInteligente(string marca)
         {

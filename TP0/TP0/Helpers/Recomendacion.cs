@@ -10,6 +10,8 @@ using System.Text;
 using System.Timers;
 using TP0.Helpers.Simplex;
 using TP0.Helpers.ORM;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel.DataAnnotations;
 
 namespace TP0.Helpers
 {
@@ -17,17 +19,23 @@ namespace TP0.Helpers
     {
         //public List<Resultado> horasXDisp = new List<Resultado>();
         //public double horasTotalesXMes;
+        List<Dispositivo> LDI;
+        List<Dispositivo> LDE;
+        [NotMapped]
         private static Recomendacion _instancia;
+        [NotMapped]
         public WebClient myWebClient = new WebClient(); //uno por consulta? o una sola?
-        public List<Cliente> clientes;
+        [NotMapped]
+        public ICollection<Usuario> clientes;
+        [NotMapped]
         Timer aTimer;
+        [NotMapped]
         public SimplexHelper simplex = SimplexHelper.Instancia();
-        public DBContext db = DBContext.Instancia(); 
 
         protected Recomendacion()
         {
             this.CrearTimer();
-            clientes = new List<Cliente>();
+            clientes = new List<Usuario>();
         }
 
         public static Recomendacion Instancia()
@@ -38,46 +46,61 @@ namespace TP0.Helpers
             }
             return _instancia;
         }
-
-        public string GenerarRecomendacion(Cliente cliente)//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        
+        public string GenerarRecomendacion(Cliente cliente)
         {
-            /*string json = simplex.generarJson(cliente.DispositivosEstandares, cliente.DispositivosInteligentes);
+            var disp = cliente.GetDisps();
+            LDI = new List<Dispositivo>();
+            LDE = new List<Dispositivo>();
+
+            foreach (var d in disp)
+            {
+                if (d.EsInteligente)
+                    LDI.Add(d);
+                else
+                    LDE.Add(d);
+            }
+            string json = simplex.generarJson(LDE,LDI);
             myWebClient.Headers.Add("Content-Type", "application/json");
             var sURI = "https://dds-simplexapi.herokuapp.com/consultar";
 
-            string respuesta = myWebClient.UploadString(sURI, json);*/
-
-            return "respuesta";
-            
+                return myWebClient.UploadString(sURI, json);
         }
 
         public void EjecutarRecomendacion()
         {
-            foreach (Cliente c in clientes)
-            { 
-                var result = GenerarRecomendacion(c);
+            using (var db = new DBContext())
+            {
+                clientes = db.Usuarios.Where(x => x.EsAdmin == false).ToList();
+            }
+            foreach (var c in clientes)
+            {
+                var cl = new Cliente(c.Username);
+                    var result = GenerarRecomendacion(cl);
 
+                    double[] doubleV = ParsearString(result);
+                    int i = 1;
 
-                double[] doubleV = ParsearString(result);
-                int i = 1;
-                
-                if (c.accionAutomatica==true)
-                {
-                    foreach (DispositivoEstandar de in c.Dispositivos)
+                    if (cl.AccionAutomatica == true)
                     {
-                        i++;
-                    }
-                    foreach (DispositivoInteligente di in c.Dispositivos)
-                    {
-                        if (doubleV[i] < di.ConsumoEnHoras(720))
+                        foreach (var de in LDE)
                         {
-                            di.Apagar();
+                            i++;
                         }
-                        i++;
+                        foreach (var di in LDI)
+                        {
+                        var disp = new DispositivoInteligente(di.DispositivoID);
+                            if (doubleV[i]* disp.KWxHora < disp.ConsumoEnHoras(720))
+                            {
+                                disp.Apagar();
+                            }
+                            i++;
+                        }
                     }
                 }
-            }
         }
+ 
+
 
         public double[] ParsearString(string str)
         {
@@ -107,7 +130,7 @@ namespace TP0.Helpers
 
         public void NuevoCliente(Cliente cliente)
         {
-            clientes.Add(cliente); //donde se guarda esto?
+            clientes.Add(cliente);
         }
     }
 }
