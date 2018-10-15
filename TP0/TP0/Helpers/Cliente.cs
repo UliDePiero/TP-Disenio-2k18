@@ -7,6 +7,9 @@ using System.Web;
 using TP0.Helpers;
 using TP0.Helpers.ORM;
 using GoogleMaps.LocationServices;
+using Geocoding.Google;
+using Geocoding;
+using System.Threading.Tasks;
 
 namespace TP0.Helpers
 {
@@ -197,15 +200,24 @@ namespace TP0.Helpers
             
         }
 
-        public override double[] UbicacionDomicilio()
+        //public double[] UbicacionDomicilio()
+        public async Task<List<double>> UbicacionDomicilio()
         {
-            var address = new AddressData { Address = Domicilio, City = "Buenos Aires", State = "Buenos Aires", Country = "Argentina" };
+            var LatLong = new List<double>();
+            IGeocoder geocoder = new GoogleGeocoder() { ApiKey = "this-is-my-optional-google-api-key" };
+            IEnumerable<Address> addresses = await geocoder.GeocodeAsync(Domicilio + "Buenos Aires, Argentina");
+            LatLong.Add(addresses.First().Coordinates.Latitude);
+            LatLong.Add(addresses.First().Coordinates.Longitude);
+            return LatLong;
+
+            /*
+            var ubicacion = new AddressData { Address = Domicilio, City = "Buenos Aires", State = "Buenos Aires", Country = "Argentina" };
             var locationService = new GoogleLocationService();
-            var point = locationService.GetLatLongFromAddress(address);
+            var point = locationService.GetLatLongFromAddress(ubicacion);
             var latitude = point.Latitude;
             var longitude = point.Longitude;
             double[] punto = new double[] { latitude, longitude };
-            return punto;
+            return punto;*/
         }
 
         public override double CalcDistancia(double[] punto1, double[] punto2)

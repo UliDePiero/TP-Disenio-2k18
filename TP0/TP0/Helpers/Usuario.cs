@@ -36,7 +36,7 @@ namespace TP0.Helpers
         public abstract void AdaptarDispositivo(DispositivoEstandar D, string marca);
         public abstract string SolicitarRecomendacion();
         public abstract void ActualizarCategoria();
-        public abstract double[] UbicacionDomicilio();
+       //public abstract List<double> UbicacionDomicilio();
         public abstract double CalcDistancia(double[] punto1, double[] punto2);
 
     }

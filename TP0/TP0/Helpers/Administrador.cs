@@ -73,7 +73,7 @@ namespace TP0.Helpers
             throw new NotImplementedException();
         }
 
-        public override double[] UbicacionDomicilio()
+        public override List<double> UbicacionDomicilio()
         {
             throw new NotImplementedException();
         }
