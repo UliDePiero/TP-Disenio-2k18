@@ -5,6 +5,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 using GoogleMaps.LocationServices;
+using TP0.Helpers.ORM;
 
 namespace TP0.Helpers
 {
@@ -29,15 +30,31 @@ namespace TP0.Helpers
         public abstract bool AlgunDispositivoEncendido();
         public abstract int DispositivosEncendidos();
         public abstract int DispositivosApagados();
+        public abstract int DispositivosEnAhorro();
         public abstract int DispositivosTotales();
         public abstract double EstimarFacturacion(DateTime fInicial, DateTime fFinal);
         public abstract double KwTotales(DateTime fInicial, DateTime fFinal);
         public abstract void AgregarDispInteligente(DispositivoInteligente DI);
+        public abstract void AgregarDispEstandar(DispositivoEstandar DE);
         public abstract void AdaptarDispositivo(DispositivoEstandar D, string marca);
         public abstract string SolicitarRecomendacion();
         public abstract void ActualizarCategoria();
        //public abstract List<double> UbicacionDomicilio();
         public abstract double CalcDistancia(double[] punto1, double[] punto2);
-
+        public void CambiarContraseña(string contra)
+        {
+            using (var db = new DBContext())
+            {
+                foreach (Usuario u in db.Usuarios)
+                {
+                    if (u.Username == Username)
+                    {
+                        u.Contrasenia = contra;
+                        break;
+                    }
+                }
+                db.SaveChanges();
+            }
+        }
     }
 }

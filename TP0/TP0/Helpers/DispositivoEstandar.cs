@@ -76,12 +76,17 @@ namespace TP0.Helpers
 
         public override bool EstaEncendido()
         {
-            throw new NotImplementedException();
+            return false;
         }
 
         public override bool EstaApagado()
         {
-            throw new NotImplementedException();
+            return false;
+        }
+
+        public override bool EnAhorro()
+        {
+            return false;
         }
 
         public override void Encender()
@@ -112,6 +117,12 @@ namespace TP0.Helpers
         public override State GetEstado()
         {
             throw new NotImplementedException();
+        }
+
+        public override List<State> GetEstados()
+        {
+            //Retorna una lista vacia porque no tiene estados
+            return new List<State>();
         }
     }
 }

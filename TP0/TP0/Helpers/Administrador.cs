@@ -38,6 +38,11 @@ namespace TP0.Helpers
             throw new NotImplementedException();
         }
 
+        public override int DispositivosEnAhorro()
+        {
+            throw new NotImplementedException();
+        }
+
         public override int DispositivosTotales()
         {
             throw new NotImplementedException();
@@ -58,6 +63,11 @@ namespace TP0.Helpers
             throw new NotImplementedException();
         }
 
+        public override void AgregarDispEstandar(DispositivoEstandar DE)
+        {
+            throw new NotImplementedException();
+        }
+
         public override void AdaptarDispositivo(DispositivoEstandar D, string marca)
         {
             throw new NotImplementedException();
@@ -73,10 +83,11 @@ namespace TP0.Helpers
             throw new NotImplementedException();
         }
 
+        /* No hay metodo para override
         public override List<double> UbicacionDomicilio()
         {
             throw new NotImplementedException();
-        }
+        }*/
 
         public override double CalcDistancia(double[] punto1, double[] punto2)
         {

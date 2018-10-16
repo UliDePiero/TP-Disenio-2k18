@@ -214,7 +214,7 @@ namespace TP0.Helpers.ORM
             return _instancia;
         }
 
-        public void blanquearConexion()
+        public void BlanquearConexion()
         {
             _instancia = null;
         }

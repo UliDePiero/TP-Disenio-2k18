@@ -31,8 +31,10 @@ namespace TP0.Helpers
         [ForeignKey("UsuarioID")]
         public Usuario Usuario { get; set; }
 
+        public abstract List<State> GetEstados();
         public abstract bool EstaEncendido();
         public abstract bool EstaApagado();
+        public abstract bool EnAhorro();
         public abstract void Encender();
         public abstract void Apagar();
         public abstract void AhorrarEnergia();

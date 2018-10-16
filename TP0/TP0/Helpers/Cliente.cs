@@ -51,7 +51,6 @@ namespace TP0.Helpers
             AccionAutomatica = false;
             FechaDeAlta = DateTime.Now.ToShortDateString();
         }
-
         public Cliente(string username) //para buscar en la DB + instanciar
         {
             using (var contexto = new DBContext())
@@ -73,6 +72,25 @@ namespace TP0.Helpers
                 UsuarioID = c.UsuarioID; 
             }
         }
+        public void AgregarALaBase()
+        {
+            //Agrega un usuario a la base
+            //Solo se usa en registar
+            using (var db = new DBContext())
+            {
+                db.Usuarios.Add(this);
+
+                if (db.Zonas.Count() == 0)
+                {
+                    //Agrega el transformador default si no existe
+                    db.Zonas.Add(new Zona(1, 1, 1, 1));
+                    db.Transformadores.Add(new Transformador(1, 1, 1, 1, 1));
+                }
+
+
+                db.SaveChanges();
+            }
+        }
 
         public override bool AlgunDispositivoEncendido()
         {
@@ -86,7 +104,7 @@ namespace TP0.Helpers
         public override int DispositivosEncendidos()
         {
             int encendidos = 0;
-            foreach (DispositivoInteligente disp in Dispositivos)
+            foreach (Dispositivo disp in Dispositivos)
             {
                 if (disp.EstaEncendido())
                     encendidos++;
@@ -96,16 +114,129 @@ namespace TP0.Helpers
         public override int DispositivosApagados()
         {
             int apagados = 0;
-            foreach (DispositivoInteligente disp in Dispositivos)
+            foreach (Dispositivo disp in Dispositivos)
             {
                 if (!disp.EstaEncendido())
                     apagados++;
             }
             return apagados;
         }
+        public override int DispositivosEnAhorro()
+        {
+            int ahorro = 0;
+            foreach (Dispositivo disp in Dispositivos)
+            {
+                if (disp.EnAhorro())
+                    ahorro++;
+            }
+            return ahorro;
+        }
         public override int DispositivosTotales()
         {
             return Dispositivos.Count();
+        }
+
+        public override void AgregarDispInteligente(DispositivoInteligente DI)
+        {
+            PuntosAcum += 15;
+            using (var db = new DBContext())
+            {
+                foreach(Usuario u in db.Usuarios)
+                {
+                    if (u.Username == Username)
+                    {
+                        u.PuntosAcum += 15;
+                        DI.UsuarioID = u.UsuarioID;
+                        break;
+                    }
+                }
+                db.Dispositivos.Add(DI);
+                db.SaveChanges();
+                DI.AgregarEstado(new Apagado(DI));
+            }
+        }
+        public override void AgregarDispEstandar(DispositivoEstandar DE)
+        {
+            PuntosAcum += 15;
+            using (var db = new DBContext())
+            {
+                foreach (Usuario u in db.Usuarios)
+                {
+                    if (u.Username == Username)
+                    {
+                        u.PuntosAcum += 15;
+                        DE.UsuarioID = u.UsuarioID;
+                        break;
+                    }
+                }
+                db.Dispositivos.Add(DE);
+                db.SaveChanges();
+            }
+        }
+
+        public override void AdaptarDispositivo(DispositivoEstandar D, string marca)
+        {
+            var DI = D.ConvertirEnInteligente(marca);
+            PuntosAcum += 10;
+
+            using (var db = new DBContext())
+            {
+                var cldb = db.Usuarios.Find(UsuarioID);
+                cldb.PuntosAcum += 10;
+                var borrarDEst = db.Dispositivos.Find(D.DispositivoID);
+                db.Dispositivos.Remove(borrarDEst);
+                db.SaveChanges();
+
+                db.Dispositivos.Add(DI);
+                db.SaveChanges();
+                DI.AgregarEstado(new Apagado(DI));
+            }
+        }
+
+        public double TotalConsumo()
+        {
+            int DispInt = 0;
+            double acumulado = 0;
+            double acumuladoKw = 0;
+            foreach (Dispositivo disp in Dispositivos)
+            {
+                disp.ConsumoAcumulado = 0;
+                acumulado = 0;
+                //Si es inteligente le asigna su estado actual
+                if (disp is DispositivoInteligente)
+                {
+                    disp.Desc = new DispositivoInteligente(disp.DispositivoID).GetEstado().Desc;
+
+                    List<State> listaDeEstados = disp.GetEstados();
+                    foreach (State s in listaDeEstados)
+                    {
+                        double c;
+                        switch (s.Desc)
+                        {
+                            case "Encendido":
+                                if (s.FechaFinal != new DateTime(1, 1, 1))         //Si es el ultimo estado, se le pone como fecha final ahora
+                                    c = (s.FechaFinal - s.FechaInicial).Minutes;
+                                else
+                                    c = (DateTime.Now - s.FechaInicial).Minutes;
+                                acumulado += c;
+                                acumuladoKw += c * disp.KWxHora / 60;
+                                break;
+                            case "Ahorro":
+                                if (s.FechaFinal != new DateTime(1, 1, 1))
+                                    c = (s.FechaFinal - s.FechaInicial).Minutes / 2; //En modo ahorro se consume la mitad de la energia
+                                else
+                                    c = (DateTime.Now - s.FechaInicial).Minutes / 2;
+                                acumulado += c;
+                                acumuladoKw += c * disp.KWxHora / 60;
+                                break;
+                        }
+                    }
+                    disp.ConsumoAcumulado = acumulado;
+                    DispInt++;
+                }
+                //Si es estandar no se le asigna estado
+            }
+            return acumuladoKw / DispInt;
         }
         public override double EstimarFacturacion(DateTime fInicial, DateTime fFinal)
         {
@@ -123,25 +254,6 @@ namespace TP0.Helpers
                     Consumo += d.ConsumoEnPeriodo(fInicial, fFinal);
             }
             return Consumo;
-        }
-        public override void AgregarDispInteligente(DispositivoInteligente DI)
-        {
-            PuntosAcum += 15;
-            using (var acuser = new DBContext())
-            {
-                var cldb = acuser.Usuarios.Find(UsuarioID);
-                cldb.PuntosAcum += 15;
-                acuser.SaveChanges();
-            }//dejarlo cada uno en un bloque separado, si estan en el mismo bloque
-             //por alguna razon mistica ROMPE el find del user.. <misteeeeeriooo>
-             
-            using (var db = new DBContext())
-            {
-                db.Dispositivos.Add(DI);
-                db.SaveChanges();
-                DI.AgregarEstado(new Apagado(DI));
-
-            }
         }
 
         public void AccionAutomaticaON()
@@ -162,31 +274,20 @@ namespace TP0.Helpers
                 db.SaveChanges();
             }
         }
-
-        public override void AdaptarDispositivo(DispositivoEstandar D, string marca)
-        {
-            var DI=D.ConvertirEnInteligente(marca);
-            PuntosAcum += 10;
-
-            using (var db = new DBContext())
-            {
-                var cldb = db.Usuarios.Find(UsuarioID);
-                cldb.PuntosAcum += 10;
-                var borrarDEst = db.Dispositivos.Find(D.DispositivoID);
-                db.Dispositivos.Remove(borrarDEst);
-                db.SaveChanges();
-
-                db.Dispositivos.Add(DI);
-                db.SaveChanges();
-                DI.AgregarEstado(new Apagado(DI));
-            }
-        }
-
+        
         public List<Dispositivo> GetDisps()
         {
             using (var db = new DBContext())
             {
                 return db.Dispositivos.Where(x => x.UsuarioID == UsuarioID).ToList();
+            }
+        }
+        public void CargarDisps()
+        {
+            Dispositivos.Clear();
+            using (var db = new DBContext())
+            {
+                Dispositivos = db.Dispositivos.Where(x => x.UsuarioID == UsuarioID).ToList();
             }
         }
 

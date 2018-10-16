@@ -163,24 +163,11 @@ namespace TP0.Controllers
                 if (result.Succeeded)
                 {
                     //Agrega el nuevo usuario a la base de datos
-
-                    using (var db = new DBContext())
+                    Cliente cliente = new Cliente(model.nombre, model.apellido, model.domicilio, model.Email, model.Password, model.documento, model.tipo, model.telefono)
                     {
-                        Cliente cliente = new Cliente(model.nombre, model.apellido, model.domicilio, model.Email, model.contrasenia, model.documento, model.tipo, model.telefono)
-                        {
-                            TransformadorID = 1, //Transformador default
-                        };
-                        db.Usuarios.Add(cliente);
-
-                        if(db.Zonas.Count() == 0)
-                        {
-                            //Agrega el transformador default si no existe
-                            db.Zonas.Add(new Zona(1, 1, 1, 1));
-                            db.Transformadores.Add(new Transformador(1, 1, 1, 1, 1));
-                        }
-
-                        db.SaveChanges();
-                    }
+                        TransformadorID = 1, //Transformador default
+                    };
+                    cliente.AgregarALaBase();
 
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
                     
@@ -285,18 +272,9 @@ namespace TP0.Controllers
             if (result.Succeeded)
             {
                 //Cambia la contraseña del usuario
-                using (var db = new DBContext())
-                {
-                    foreach (Usuario u in db.Usuarios)
-                    {
-                        if(u.Username == model.Email)
-                        {
-                            u.Contrasenia = model.Password;
-                            break;
-                        }
-                    }
-                    db.SaveChanges();
-                }
+                Cliente c = new Cliente(User.Identity.GetUserName());
+                c.CambiarContraseña(model.Password);
+
                 return RedirectToAction("ResetPasswordConfirmation", "Account");
             }
             AddErrors(result);

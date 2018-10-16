@@ -51,8 +51,8 @@ namespace TP0.Helpers
                 estadosAnteriores = new List<State>();
                 ConsumoAcumulado = 0;
                 EsInteligente = true;
-                Estado = null;
                 IDUltimoEstado = Disp.IDUltimoEstado;
+                Estado = context.Estados.FirstOrDefault(e => e.StateID == IDUltimoEstado);
                 UsuarioID = Disp.UsuarioID;
                 DispositivoID = Disp.DispositivoID;
                 //act = new Actuador(DispositivoID);
@@ -73,6 +73,11 @@ namespace TP0.Helpers
         {
             UltimoEstado();
             return Estado is Apagado ;
+        }
+        public override bool EnAhorro()
+        {
+            UltimoEstado();
+            return Estado is Ahorro;
         }
         public override void Encender()
         {
@@ -111,7 +116,7 @@ namespace TP0.Helpers
                 return hs * KWxHora;
        }
 
-       public override void AgregarEstado(State est)
+        public override void AgregarEstado(State est)
        {
             Estado = est; //dejar sirve para los cambios de estado cuando el disp esta en memoria
                           //asi evitar recurrir a la base
@@ -156,6 +161,15 @@ namespace TP0.Helpers
                             throw new Exception("Estado no reconocido");
                     }
                 }
+            }
+        }
+
+        public override List<State> GetEstados()
+        {
+            //Retorna los estados del dispositivo
+            using (var db = new DBContext())
+            {
+                return db.Estados.Where(e => e.DispositivoID == DispositivoID).ToList();
             }
         }
 
