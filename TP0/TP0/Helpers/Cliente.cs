@@ -210,26 +210,42 @@ namespace TP0.Helpers
                     List<State> listaDeEstados = disp.GetEstados();
                     foreach (State s in listaDeEstados)
                     {
-                        double c;
-                        switch (s.Desc)
+                        double c =0;
+
+                        if (s.Desc == "Encendido" && s.FechaFinal != new DateTime(1, 1, 1)) //Estado encendido terminado
                         {
-                            case "Encendido":
-                                if (s.FechaFinal != new DateTime(1, 1, 1))         //Si es el ultimo estado, se le pone como fecha final ahora
-                                    c = (s.FechaFinal - s.FechaInicial).Minutes;
-                                else
-                                    c = (DateTime.Now - s.FechaInicial).Minutes;
-                                acumulado += c;
-                                acumuladoKw += c * disp.KWxHora / 60;
-                                break;
-                            case "Ahorro":
-                                if (s.FechaFinal != new DateTime(1, 1, 1))
-                                    c = (s.FechaFinal - s.FechaInicial).Minutes / 2; //En modo ahorro se consume la mitad de la energia
-                                else
-                                    c = (DateTime.Now - s.FechaInicial).Minutes / 2;
-                                acumulado += c;
-                                acumuladoKw += c * disp.KWxHora / 60;
-                                break;
+                            c = (s.FechaFinal - s.FechaInicial).Minutes;
                         }
+                        else
+                        if (s.Desc == "Encendido") //Estado encendido vigente
+                        {
+                            c = (DateTime.Now - s.FechaInicial).Minutes;
+                        }
+                        else
+                        if (s.Desc == "Ahorro" && s.FechaFinal != new DateTime(1, 1, 1))
+                        {
+                            c = (s.FechaFinal - s.FechaInicial).Minutes / 2;
+
+                        }else
+                        if (s.Desc == "Ahorro")
+                        {
+                            c = (DateTime.Now - s.FechaInicial).Minutes/2;
+
+                        }
+                        else
+                        if (s.Desc == "Apagado" && s.FechaFinal != new DateTime(1, 1, 1))
+                        {
+                        c = (s.FechaFinal - s.FechaInicial).Minutes;
+                        }
+                        else
+                        if (s.Desc == "Apagado")
+                        {
+                            c = (DateTime.Now - s.FechaInicial).Minutes;
+                        }
+
+                        acumulado += c;
+                        acumuladoKw += c * disp.KWxHora / 60;
+                       
                     }
                     disp.ConsumoAcumulado = acumulado;
                     DispInt++;

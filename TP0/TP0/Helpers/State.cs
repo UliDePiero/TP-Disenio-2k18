@@ -57,7 +57,7 @@ namespace TP0.Helpers
 
         public override void Encender(DispositivoInteligente d)
         {
-            throw new Exception("El dispositivo ya esta encendido!");
+            //throw new Exception("El dispositivo ya esta encendido!");
         }
 
         public override void Apagar(DispositivoInteligente d)
@@ -110,7 +110,7 @@ namespace TP0.Helpers
 
         public override void Apagar(DispositivoInteligente d)
         {
-            throw new Exception("El dispositivo ya esta apagado!");
+          //  throw new Exception("El dispositivo ya esta apagado!");
         }
 
         public override void AhorrarEnergia(DispositivoInteligente d)
@@ -155,7 +155,7 @@ namespace TP0.Helpers
 
         public override void AhorrarEnergia(DispositivoInteligente d)
         {
-            throw new Exception("El dispositivo ya esta ahorrando!");
+           // throw new Exception("El dispositivo ya esta ahorrando!");
         }
 
         public override double ConsumoEnIntervalor(DateTime fInicial, DateTime fFinal)

@@ -67,9 +67,4 @@ C:\Users\Administrador\Desktop\Github\TP-0\TP0\TP0\bin\roslyn\Microsoft.CodeAnal
 C:\Users\Administrador\Desktop\Github\TP-0\TP0\TP0\bin\roslyn\Microsoft.DiaSymReader.Native.amd64.dll
 C:\Users\Administrador\Desktop\Github\TP-0\TP0\TP0\bin\roslyn\System.IO.Compression.dll
 C:\Users\Administrador\Desktop\Github\TP-0\TP0\TP0\bin\roslyn\VBCSCompiler.exe
-C:\Users\Saku\Documents\GitHub\TP-0\TP0\TP0\bin\roslyn\System.Collections.Immutable.dll
-C:\Users\Saku\Documents\GitHub\TP-0\TP0\TP0\bin\roslyn\System.IO.FileSystem.dll
-C:\Users\Saku\Documents\GitHub\TP-0\TP0\TP0\bin\roslyn\System.IO.FileSystem.Primitives.dll
-C:\Users\Saku\Documents\GitHub\TP-0\TP0\TP0\bin\roslyn\System.Reflection.Metadata.dll
-C:\Users\Saku\Documents\GitHub\TP-0\TP0\TP0\bin\roslyn\System.Security.Cryptography.Primitives.dll
-C:\Users\Saku\Documents\GitHub\TP-0\TP0\TP0\bin\roslyn\System.ValueTuple.dll
+C:\Users\Saku\Documents\GitHub\TP-0\TP0\TP0\bin\roslyn\System.IO.Compression.dll

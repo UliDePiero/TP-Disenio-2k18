@@ -142,12 +142,13 @@ namespace TP0.Controllers
             {
                 using (var db = new DBContext())
                 {
-                    Dispositivo disp = db.Dispositivos.FirstOrDefault(d => d.DispositivoID == id);
-                    var dispI = new DispositivoInteligente(disp.DispositivoID);
+                    Dispositivo disp = db.Dispositivos.FirstOrDefault(d => d.DispositivoID == id); //declaro el dispositivo
+                    var dispI = new DispositivoInteligente(disp.DispositivoID); //lo hago inteligente
                     foreach (State s in db.Estados)
                     {
                         if (s.DispositivoID == id && s.FechaFinal == new DateTime(1, 1, 1))
                             s.FechaFinal = DateTime.Now;
+                            dispI.Encender();
                     }
                     db.Estados.Add(new Encendido(dispI));
 
@@ -163,10 +164,12 @@ namespace TP0.Controllers
                 using (var db = new DBContext())
                 {
                     Dispositivo disp = db.Dispositivos.FirstOrDefault(d => d.DispositivoID == id);
+                    var dispI = new DispositivoInteligente(disp.DispositivoID); //lo hago inteligente
                     foreach (State s in db.Estados)
                     {
                         if (s.DispositivoID == id && s.FechaFinal == new DateTime(1, 1, 1))
                             s.FechaFinal = DateTime.Now;
+                        dispI.Apagar();
                     }
                     db.Estados.Add(new Apagado(disp));
 
@@ -182,11 +185,12 @@ namespace TP0.Controllers
                 using (var db = new DBContext())
                 {
                     Dispositivo disp = db.Dispositivos.FirstOrDefault(d => d.DispositivoID == id);
-                    var dispI = new DispositivoInteligente(disp.DispositivoID);
+                    var dispI = new DispositivoInteligente(disp.DispositivoID); //lo hago inteligente
                     foreach (State s in db.Estados)
                     {
                         if (s.DispositivoID == id && s.FechaFinal == new DateTime(1, 1, 1))
                             s.FechaFinal = DateTime.Now;
+                            dispI.AhorrarEnergia();
                     }
                     db.Estados.Add(new Ahorro(dispI));
 
