@@ -177,41 +177,42 @@ namespace TP0.Controllers
             if (User.Identity.IsAuthenticated || Helpers.Static.ClientesImportados.GetClientes() != null)
             {
                 List<Dispositivo> disp = new List<Dispositivo>();
-
+                Usuario userActual;
 
                 //Trae de la db todos los dispositivos del usuario para ejecutar el simplex
                 using (var db = new DBContext())
                 {
-                    Usuario user = db.Usuarios.FirstOrDefault(u => u.Username == User.Identity.GetUserName());
-                    disp = db.Dispositivos.Where(d => d.UsuarioID == user.UsuarioID).ToList();
+                   userActual = db.Usuarios.FirstOrDefault(u => u.Username == User.Identity.Name);
+                   
+                    disp = db.Dispositivos.Where(d => d.UsuarioID == userActual.UsuarioID).ToList();
                 }
 
+                Cliente clienteActual = new Cliente(userActual.Username);
                 //maximos y minimos predeterminados para poder probar la funcionalidad
-                foreach (DispositivoEstandar d in disp)
-                {
-                    d.Max = 100;
-                    d.Min = 50;
+                foreach (Dispositivo d in disp)
+                { if (d is DispositivoEstandar)
+                    {
+                        d.Max = 100;
+                        d.Min = 50;
+
+                    } else if (d is DispositivoInteligente)
+                    {
+                        d.Max = 200;
+                        d.Max = 150;
+                    }
                 }
-                foreach (DispositivoInteligente d in disp)
-                {
-                    d.Max = 200;
-                    d.Max = 150;
-                }
+                
                string idUsuario = User.Identity.GetUserName();
 
-                //clienteActual = Helpers.Static.ClientesImportados.filtrarCliente(idUsuario);
-
-                Cliente clienteActual = Helpers.Static.ClientesImportados.filtrarCliente(idUsuario);
-
                 string resu = clienteActual.SolicitarRecomendacion();
-                //string json = Helpers.Static.Simplex.SimplexHelper.generarJson(clienteActual.dispositivosEstandares, clienteActual.dispositivosInteligentes);
+              
                 ViewBag.estadoSimplex = resu;
 
                 return RedirectToAction("Simplex2", "Home", new { mensaje = "Recomendación: " + resu });
-                //return View("~/Views/Home/Simplex2.cshtml");
+       
 
             }
-            else ViewBag.estadoSimplex = "nop";
+          
             return RedirectToAction("AdministrarDispositivos", "Home");
            
         }
