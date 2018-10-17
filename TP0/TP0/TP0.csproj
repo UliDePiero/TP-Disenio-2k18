@@ -427,7 +427,6 @@
     <Content Include="Views\FileUpload\Index.cshtml" />
     <Content Include="Views\Home\DispositivosPropios.cshtml" />
     <Content Include="Views\Home\AdministrarReglas.cshtml" />
-    <Content Include="Views\Home\Simplex2.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\uploads\" />

@@ -15,18 +15,11 @@
     }
 </style>
 
-
 <body>
-    <script>
-        function alertBox() {
-            alert("Ejecutado");
-            
-        }
-    </script>
-    <section id="acciones_dispositivos_botones">
-        <p><button onclick="alertBox();location.href='@Url.Action("Simplex", "Home")'">Conocer recomendación de uso</button></p>  
-    </section>
-
+    <div class="jumbotron">
+        <h2>Resultado: </h2>
+        <h2>@ViewBag.simplexResultado</h2>
+    </div>
 </body>
 
 </html>

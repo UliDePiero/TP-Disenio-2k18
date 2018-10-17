@@ -15,11 +15,11 @@ namespace TP0.Controllers
 {
     public class HomeController : Controller
     {
-        //Cliente clienteActual;
         public ActionResult Index()
         {
             return View();
         }
+
         [HttpGet]
         public ActionResult AgregarDispositivos()
         {
@@ -81,7 +81,15 @@ namespace TP0.Controllers
 
         public ActionResult SimplexView()
         {
-            ViewBag.Message = "Your AdministrarDispositivos page.";
+            if (User.Identity.IsAuthenticated || Helpers.Static.ClientesImportados.GetClientes() != null)
+            {
+                Cliente clie = new Cliente(User.Identity.Name);
+                clie.CargarDisps();
+
+                ViewBag.simplexResultado = clie.SolicitarRecomendacion();
+                return View();
+            }
+            ViewBag.simplexResultado = "Hubo un error al ejecutar el simplex";
             return View();
         }
 
@@ -117,7 +125,6 @@ namespace TP0.Controllers
 
         }
 
-
         [HttpGet]
         public ActionResult DispositivosPropios()
         {
@@ -135,7 +142,6 @@ namespace TP0.Controllers
 
             return View(clie.Dispositivos);
         }
-
         //Metodos para cambiar el estado del dispositivo
         public ActionResult Encender(int id, string estadoActual)
         {
@@ -169,58 +175,6 @@ namespace TP0.Controllers
             //No tengo forma de saber la marca
             //DispositivoInteligente DI = new DispositivoEstandar(id).ConvertirEnInteligente();
             return RedirectToAction("DispositivosPropios", "Home");
-        }
-
-        [HttpGet]
-        public ActionResult Simplex()
-        {
-            if (User.Identity.IsAuthenticated || Helpers.Static.ClientesImportados.GetClientes() != null)
-            {
-                List<Dispositivo> disp = new List<Dispositivo>();
-                Usuario userActual;
-
-                //Trae de la db todos los dispositivos del usuario para ejecutar el simplex
-                using (var db = new DBContext())
-                {
-                   userActual = db.Usuarios.FirstOrDefault(u => u.Username == User.Identity.Name);
-                   
-                    disp = db.Dispositivos.Where(d => d.UsuarioID == userActual.UsuarioID).ToList();
-                }
-
-                Cliente clienteActual = new Cliente(userActual.Username);
-                //maximos y minimos predeterminados para poder probar la funcionalidad
-                foreach (Dispositivo d in disp)
-                { if (d is DispositivoEstandar)
-                    {
-                        d.Max = 100;
-                        d.Min = 50;
-
-                    } else if (d is DispositivoInteligente)
-                    {
-                        d.Max = 200;
-                        d.Max = 150;
-                    }
-                }
-                
-               string idUsuario = User.Identity.GetUserName();
-
-                string resu = clienteActual.SolicitarRecomendacion();
-              
-                ViewBag.estadoSimplex = resu;
-
-                return RedirectToAction("Simplex2", "Home", new { mensaje = "Recomendación: " + resu });
-       
-
-            }
-          
-            return RedirectToAction("AdministrarDispositivos", "Home");
-           
-        }
-        [HttpGet]
-        public ActionResult Simplex2(string mensaje)
-        {
-            ViewBag.Message = mensaje;
-            return View();
         }
     }
 }
