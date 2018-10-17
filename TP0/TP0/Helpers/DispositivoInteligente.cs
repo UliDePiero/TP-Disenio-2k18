@@ -60,86 +60,10 @@ namespace TP0.Helpers
             }
         }
 
-        public override State GetEstado()
-        {
-            return Estado;
-        }
-        public override bool EstaEncendido()
-        {
-            UltimoEstado();
-            return Estado is Encendido;
-        }
-        public override bool EstaApagado()
-        {
-            UltimoEstado();
-            return Estado is Apagado ;
-        }
-        public override bool EnAhorro()
-        {
-            UltimoEstado();
-            return Estado is Ahorro;
-        }
-        public override void Encender()
-        {
-            UltimoEstado();
-            Estado.Encender(this);
-        }
-        public override void Apagar()
-        {
-            UltimoEstado();
-            Estado.Apagar(this);
-        }
-        public override void AhorrarEnergia()
-        {
-            UltimoEstado();
-            Estado.AhorrarEnergia(this);
-        }
-        public override double ConsumoEnHoras(double horas)
-        {
-            using (var db = new DBContext())
-            {
-                estadosAnteriores = db.Estados.Where(e => e.DispositivoID == DispositivoID).ToList();
-            }
-            DateTime fFinal = DateTime.Now;
-            DateTime fInicial = fFinal.AddHours(-horas);
-            double hs = Static.FechasAdmin.ConsumoHsTotalPeriodo(fInicial, fFinal, estadosAnteriores);
-            return hs * KWxHora;
-        }
-
-        public override double ConsumoEnPeriodo(DateTime fInicial, DateTime fFinal)
-        {
-            using (var db = new DBContext())
-            {
-                estadosAnteriores = db.Estados.Where(e => e.DispositivoID == DispositivoID).ToList();
-            }
-                double hs = Static.FechasAdmin.ConsumoHsTotalPeriodo(fInicial, fFinal, estadosAnteriores);
-                return hs * KWxHora;
-       }
-
-        public override void AgregarEstado(State est)
-       {
-            Estado = est; //dejar sirve para los cambios de estado cuando el disp esta en memoria
-                          //asi evitar recurrir a la base
-            using (var db = new DBContext())
-            {
-                db.Estados.Add(est); //Agrega el nuevo estado a la db
-                db.SaveChanges();
-                IDUltimoEstado = est.StateID;
-                var DIact = db.Dispositivos.Find(DispositivoID);
-                DIact.IDUltimoEstado = est.StateID;
-                db.SaveChanges();
-            }
-       }
-
-        public override double Consumo()
-        {
-            throw new NotImplementedException();
-        }
-
-        private void UltimoEstado()
+        public override void ActualizarUltimoEstado()
         {
             if (Estado == null)
-            { 
+            {
                 using (var db = new DBContext())
                 {
                     var ultimoEstado = db.Estados.Find(IDUltimoEstado);
@@ -163,13 +87,117 @@ namespace TP0.Helpers
                 }
             }
         }
-
+        public override State GetEstado()
+        {
+            return Estado;
+        }
         public override List<State> GetEstados()
         {
             //Retorna los estados del dispositivo
             using (var db = new DBContext())
             {
                 return db.Estados.Where(e => e.DispositivoID == DispositivoID).ToList();
+            }
+        }
+
+        public override bool EstaEncendido()
+        {
+            ActualizarUltimoEstado();
+            return Estado is Encendido;
+        }
+        public override bool EstaApagado()
+        {
+            ActualizarUltimoEstado();
+            return Estado is Apagado ;
+        }
+        public override bool EnAhorro()
+        {
+            ActualizarUltimoEstado();
+            return Estado is Ahorro;
+        }
+
+        public override void Encender()
+        {
+            ActualizarUltimoEstado();
+            Estado.Encender(this);
+        }
+        public override void Apagar()
+        {
+            ActualizarUltimoEstado();
+            Estado.Apagar(this);
+        }
+        public override void AhorrarEnergia()
+        {
+            ActualizarUltimoEstado();
+            Estado.AhorrarEnergia(this);
+        }
+
+        public override double Consumo()
+        {
+            double acumuladoKw = 0;
+            ConsumoAcumulado = 0;
+            double tiempoTotal = 0;
+
+            estadosAnteriores = GetEstados();
+            foreach (State s in estadosAnteriores)
+            {
+                double c = 0;
+                if (s.FechaFinal == new DateTime(3000, 1, 1)) //Si el estado no termino, se usa la fecha de ahora como la final
+                    s.FechaFinal = DateTime.Now;
+
+                switch (s.Desc)
+                {
+                    case "Encendido":
+                        c = (s.FechaFinal - s.FechaInicial).Minutes;
+                        tiempoTotal += c;
+                        break;
+                    case "Ahorro":
+                        c = (s.FechaFinal - s.FechaInicial).Minutes / 2;
+                        tiempoTotal += c;
+                        break;
+                    case "Apagado":
+                        tiempoTotal = (s.FechaFinal - s.FechaInicial).Minutes;
+                        break;
+                }
+                ConsumoAcumulado += c;
+                acumuladoKw += c * KWxHora / 60;
+            }
+            ConsumoPromedio = acumuladoKw / tiempoTotal;
+            return acumuladoKw;
+        }
+        public override double ConsumoEnHoras(double horas)
+        {
+            using (var db = new DBContext())
+            {
+                estadosAnteriores = db.Estados.Where(e => e.DispositivoID == DispositivoID).ToList();
+            }
+            DateTime fFinal = DateTime.Now;
+            DateTime fInicial = fFinal.AddHours(-horas);
+            double hs = Static.FechasAdmin.ConsumoHsTotalPeriodo(fInicial, fFinal, estadosAnteriores);
+            return hs * KWxHora;
+        }
+        public override double ConsumoEnPeriodo(DateTime fInicial, DateTime fFinal)
+        {
+            using (var db = new DBContext())
+            {
+                estadosAnteriores = db.Estados.Where(e => e.DispositivoID == DispositivoID).ToList();
+            }
+            double hs = Static.FechasAdmin.ConsumoHsTotalPeriodo(fInicial, fFinal, estadosAnteriores);
+            return hs * KWxHora;
+       }
+
+        public override void AgregarEstado(State est)
+        {
+            Estado = est; //dejar sirve para los cambios de estado cuando el disp esta en memoria
+                          //asi evitar recurrir a la base
+            using (var db = new DBContext())
+            {
+                db.Estados.Add(est); //Agrega el nuevo estado a la db
+                db.SaveChanges();
+                IDUltimoEstado = est.StateID;
+                var DIact = db.Dispositivos.Find(DispositivoID);
+                DIact.IDUltimoEstado = est.StateID;
+                db.SaveChanges();
             }
         }
 

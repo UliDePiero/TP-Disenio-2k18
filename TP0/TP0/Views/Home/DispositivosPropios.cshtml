@@ -1,11 +1,12 @@
 ﻿@model IEnumerable<TP0.Helpers.Dispositivo>
 
 <div class="jumbotron">
-    <h3>Consumo promedio de dispositivos inteligentes: @ViewBag.total KwH</h3>
+    <h3>Consumo promedio total: @ViewBag.total KwH</h3>
     <h3>Dispositivos: @ViewBag.dispositivos</h3>
     <h5>Dispositivos encendidos: @ViewBag.dispE</h5>
     <h5>Dispositivos apagados: @ViewBag.dispA</h5>
     <h5>Dispositivos en ahorro: @ViewBag.dispAh</h5>
+    <h5>Dispositivos estandares: @ViewBag.dispEs</h5>
 </div>
 
 <table class="table">
@@ -13,14 +14,14 @@
         <th>
             @Html.DisplayNameFor(model => model.Nombre)
         </th>
-        <th>
+        <th style="text-align: center;">
             @Html.DisplayNameFor(model => model.KWxHora)
         </th>
-        <th>
+        <th style="text-align: center;">
             @Html.DisplayNameFor(model => model.EsInteligente)
         </th>
 
-        <th>
+        <th style="text-align: center;">
             @Html.DisplayName("Consumo Acumulado en minutos")
         </th>
         <th>
@@ -37,13 +38,13 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.Nombre)
                 </td>
-                <td>
+                <td style="text-align: center;">
                     @Html.DisplayFor(modelItem => item.KWxHora)
                 </td>
-                <td>
+                <td style="text-align: center;">
                     @Html.DisplayFor(modelItem => item.EsInteligente)
                 </td>
-                <td>
+                <td style="text-align: center;">
                     @Html.DisplayFor(modelItem => item.ConsumoAcumulado)
                 </td>
                 <td>
@@ -62,17 +63,19 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.Nombre)
                 </td>
-                <td>
+                <td style="text-align: center;">
                     @Html.DisplayFor(modelItem => item.KWxHora)
                 </td>
-                <td>
+                <td style="text-align: center;">
                     @Html.DisplayFor(modelItem => item.EsInteligente)
                 </td>
-                <td>
+                <td style="text-align: center;">
                     @Html.DisplayFor(modelItem => item.ConsumoAcumulado)
                 </td>
                 <td></td>
-                <td></td>
+                <td>
+                    @Html.ActionLink("Convertir en inteligente", "ConvertirEnInteligente", new { id = item.DispositivoID})
+                </td>
             </tr>
         }
     }

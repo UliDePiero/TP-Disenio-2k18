@@ -131,6 +131,7 @@ namespace TP0.Controllers
             ViewBag.dispE = clie.DispositivosEncendidos();
             ViewBag.dispA = clie.DispositivosApagados();
             ViewBag.dispAh = clie.DispositivosEnAhorro();
+            ViewBag.dispEs = clie.DispositivosEstandares();
 
             return View(clie.Dispositivos);
         }
@@ -140,20 +141,8 @@ namespace TP0.Controllers
         {
             if (estadoActual != "Encendido")
             {
-                using (var db = new DBContext())
-                {
-                    Dispositivo disp = db.Dispositivos.FirstOrDefault(d => d.DispositivoID == id); //declaro el dispositivo
-                    var dispI = new DispositivoInteligente(disp.DispositivoID); //lo hago inteligente
-                    foreach (State s in db.Estados)
-                    {
-                        if (s.DispositivoID == id && s.FechaFinal == new DateTime(1, 1, 1))
-                            s.FechaFinal = DateTime.Now;
-                            dispI.Encender();
-                    }
-                    db.Estados.Add(new Encendido(dispI));
-
-                    db.SaveChanges();
-                }
+                DispositivoInteligente DI = new DispositivoInteligente(id);
+                DI.Encender();
             }
             return RedirectToAction("DispositivosPropios", "Home");
         }
@@ -161,20 +150,8 @@ namespace TP0.Controllers
         {
             if (estadoActual != "Apagado")
             {
-                using (var db = new DBContext())
-                {
-                    Dispositivo disp = db.Dispositivos.FirstOrDefault(d => d.DispositivoID == id);
-                    var dispI = new DispositivoInteligente(disp.DispositivoID); //lo hago inteligente
-                    foreach (State s in db.Estados)
-                    {
-                        if (s.DispositivoID == id && s.FechaFinal == new DateTime(1, 1, 1))
-                            s.FechaFinal = DateTime.Now;
-                        dispI.Apagar();
-                    }
-                    db.Estados.Add(new Apagado(disp));
-
-                    db.SaveChanges();
-                }
+                DispositivoInteligente DI = new DispositivoInteligente(id);
+                DI.Apagar();
             }
             return RedirectToAction("DispositivosPropios", "Home");
         }
@@ -182,21 +159,15 @@ namespace TP0.Controllers
         {
             if (estadoActual != "Ahorro")
             {
-                using (var db = new DBContext())
-                {
-                    Dispositivo disp = db.Dispositivos.FirstOrDefault(d => d.DispositivoID == id);
-                    var dispI = new DispositivoInteligente(disp.DispositivoID); //lo hago inteligente
-                    foreach (State s in db.Estados)
-                    {
-                        if (s.DispositivoID == id && s.FechaFinal == new DateTime(1, 1, 1))
-                            s.FechaFinal = DateTime.Now;
-                            dispI.AhorrarEnergia();
-                    }
-                    db.Estados.Add(new Ahorro(dispI));
-
-                    db.SaveChanges();
-                }
+                DispositivoInteligente DI = new DispositivoInteligente(id);
+                DI.AhorrarEnergia();
             }
+            return RedirectToAction("DispositivosPropios", "Home");
+        }
+        public ActionResult ConvertirEnInteligente(int id)
+        {
+            //No tengo forma de saber la marca
+            //DispositivoInteligente DI = new DispositivoEstandar(id).ConvertirEnInteligente();
             return RedirectToAction("DispositivosPropios", "Home");
         }
 

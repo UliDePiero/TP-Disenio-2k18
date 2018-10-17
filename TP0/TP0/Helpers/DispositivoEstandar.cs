@@ -27,18 +27,18 @@ namespace TP0.Helpers
         }
         public DispositivoEstandar(int DEID)//para buscar en la DB + instanciar
         {
-                using (var context = new DBContext())
-                {
-                    var Disp = context.Dispositivos.Find(DEID);
-                    KWxHora = Disp.KWxHora;
-                    Nombre = Disp.Nombre;
-                    Codigo = Disp.Codigo;
-                    Max = Disp.Max;
-                    Min = Disp.Min;
-                    ConsumoAcumulado = 0;
-                    EsInteligente = false;
-                    UsuarioID = Disp.UsuarioID;
-                    DispositivoID = Disp.DispositivoID;
+            using (var context = new DBContext())
+            {
+                var Disp = context.Dispositivos.Find(DEID);
+                KWxHora = Disp.KWxHora;
+                Nombre = Disp.Nombre;
+                Codigo = Disp.Codigo;
+                Max = Disp.Max;
+                Min = Disp.Min;
+                ConsumoAcumulado = 0;
+                EsInteligente = false;
+                UsuarioID = Disp.UsuarioID;
+                DispositivoID = Disp.DispositivoID;
                 //act = new Actuador(DispositivoID);
             }
         }
@@ -48,7 +48,6 @@ namespace TP0.Helpers
             DispositivoInteligente convertido = null;
             switch (marca)
             {
-                
                 case "Samsung":
                     //AdaptadorSamsug convertido = new AdaptadorSamsung(...)
                     convertido = new AdaptadorSamsung(Nombre, Codigo, KWxHora, Max, Min);
@@ -67,23 +66,26 @@ namespace TP0.Helpers
 
         public override double Consumo()
         {
+            ConsumoAcumulado = HorasXDia * KWxHora;
             return HorasXDia * KWxHora;
         }
         public override double ConsumoEnPeriodo(DateTime fInicial, DateTime fFinal)
         {
             return fFinal.Subtract(fInicial).Days*Consumo();
         }
+        public override double ConsumoEnHoras(double horas)
+        {
+            throw new NotImplementedException();
+        }
 
         public override bool EstaEncendido()
         {
             return false;
         }
-
         public override bool EstaApagado()
         {
             return false;
         }
-
         public override bool EnAhorro()
         {
             return false;
@@ -93,32 +95,27 @@ namespace TP0.Helpers
         {
             throw new NotImplementedException();
         }
-
         public override void Apagar()
         {
             throw new NotImplementedException();
         }
-
         public override void AhorrarEnergia()
         {
             throw new NotImplementedException();
         }
 
-        public override double ConsumoEnHoras(double horas)
+        public override void ActualizarUltimoEstado()
         {
-            throw new NotImplementedException();
+            //No hace nada porque no tiene estado
         }
-
         public override void AgregarEstado(State est)
         {
             throw new NotImplementedException();
         }
-
         public override State GetEstado()
         {
             throw new NotImplementedException();
         }
-
         public override List<State> GetEstados()
         {
             //Retorna una lista vacia porque no tiene estados

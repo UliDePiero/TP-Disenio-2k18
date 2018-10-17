@@ -116,7 +116,7 @@ namespace TP0.Helpers
             int apagados = 0;
             foreach (Dispositivo disp in Dispositivos)
             {
-                if (!disp.EstaEncendido())
+                if (disp.EstaApagado())
                     apagados++;
             }
             return apagados;
@@ -135,10 +135,21 @@ namespace TP0.Helpers
         {
             return Dispositivos.Count();
         }
+        public int DispositivosEstandares()
+        {
+            int Estandares = 0;
+            foreach (Dispositivo disp in Dispositivos)
+            {
+                if (!disp.EsInteligente)
+                    Estandares++;
+            }
+            return Estandares;
+        }
 
         public override void AgregarDispInteligente(DispositivoInteligente DI)
         {
             PuntosAcum += 15;
+            Dispositivos.Add(DI);
             using (var db = new DBContext())
             {
                 foreach(Usuario u in db.Usuarios)
@@ -158,6 +169,7 @@ namespace TP0.Helpers
         public override void AgregarDispEstandar(DispositivoEstandar DE)
         {
             PuntosAcum += 15;
+            Dispositivos.Add(DE);
             using (var db = new DBContext())
             {
                 foreach (Usuario u in db.Usuarios)
@@ -195,64 +207,14 @@ namespace TP0.Helpers
 
         public double TotalConsumo()
         {
-            int DispInt = 0;
-            double acumulado = 0;
+            int Disp = 0;
             double acumuladoKw = 0;
             foreach (Dispositivo disp in Dispositivos)
             {
-                disp.ConsumoAcumulado = 0;
-                acumulado = 0;
-                //Si es inteligente le asigna su estado actual
-                if (disp is DispositivoInteligente)
-                {
-                    disp.Desc = new DispositivoInteligente(disp.DispositivoID).GetEstado().Desc;
-
-                    List<State> listaDeEstados = disp.GetEstados();
-                    foreach (State s in listaDeEstados)
-                    {
-                        double c =0;
-
-                        if (s.Desc == "Encendido" && s.FechaFinal != new DateTime(1, 1, 1)) //Estado encendido terminado
-                        {
-                            c = (s.FechaFinal - s.FechaInicial).Minutes;
-                        }
-                        else
-                        if (s.Desc == "Encendido") //Estado encendido vigente
-                        {
-                            c = (DateTime.Now - s.FechaInicial).Minutes;
-                        }
-                        else
-                        if (s.Desc == "Ahorro" && s.FechaFinal != new DateTime(1, 1, 1))
-                        {
-                            c = (s.FechaFinal - s.FechaInicial).Minutes / 2;
-
-                        }else
-                        if (s.Desc == "Ahorro")
-                        {
-                            c = (DateTime.Now - s.FechaInicial).Minutes/2;
-
-                        }
-                        else
-                        if (s.Desc == "Apagado" && s.FechaFinal != new DateTime(1, 1, 1))
-                        {
-                        c = (s.FechaFinal - s.FechaInicial).Minutes;
-                        }
-                        else
-                        if (s.Desc == "Apagado")
-                        {
-                            c = (DateTime.Now - s.FechaInicial).Minutes;
-                        }
-
-                        acumulado += c;
-                        acumuladoKw += c * disp.KWxHora / 60;
-                       
-                    }
-                    disp.ConsumoAcumulado = acumulado;
-                    DispInt++;
-                }
-                //Si es estandar no se le asigna estado
+                acumuladoKw += disp.Consumo();
+                Disp++;
             }
-            return acumuladoKw / DispInt;
+            return acumuladoKw / Disp;
         }
         public override double EstimarFacturacion(DateTime fInicial, DateTime fFinal)
         {
@@ -304,6 +266,19 @@ namespace TP0.Helpers
             using (var db = new DBContext())
             {
                 Dispositivos = db.Dispositivos.Where(x => x.UsuarioID == UsuarioID).ToList();
+            }
+            foreach (Dispositivo d in Dispositivos)
+            {
+                d.ActualizarUltimoEstado();
+                try
+                {
+                    d.Desc = d.GetEstado().Desc;
+                }
+                catch (NotImplementedException e)
+                {
+                    //Reconoce que hay un error pero
+                    //No hace nada porque los standar no tienen estados
+                }
             }
         }
 

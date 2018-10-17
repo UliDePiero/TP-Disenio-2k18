@@ -33,11 +33,11 @@ namespace TP0.Helpers
         {
             //Agrega la fecha final del ultimo estado del dispositivo
            using (var db = new DBContext()) //instancia del singleton
-            {
-               var est = db.Estados.Find(StateID);
-               est.FechaFinal = DateTime.Now;
-               db.SaveChanges();
-            }
+           {
+                var est = db.Estados.Find(StateID);
+                est.FechaFinal = DateTime.Now;
+                db.SaveChanges();
+           }
         }
     }
 
