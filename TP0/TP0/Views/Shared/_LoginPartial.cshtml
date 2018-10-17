@@ -1,30 +1,50 @@
 ﻿@using Microsoft.AspNet.Identity
-@if (Request.IsAuthenticated)
-{
+@if (Request.IsAuthenticated && User.IsInRole("Administrador"))
+       {
     using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-left" }))
     {
-    @Html.AntiForgeryToken()
+        @Html.AntiForgeryToken()
 
-<ul class="nav navbar-nav navbar-left">
-    <li>
-        @Html.ActionLink("Hola " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
-    </li>
+        <ul class="nav navbar-nav navbar-left">
+            <li>
+                @Html.ActionLink("Hola " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
+            </li>
 
-    <li>@Html.ActionLink("Agregar dispositivo", "AgregarDispositivos", "Home")</li> @*about*@
-    <li>@Html.ActionLink("Tus dispositivos", "DispositivosPropios", "Home")</li>
-    @* <li>@Html.ActionLink("Conteo dispositivos", "AdministrarDispositivos", "Home")</li> Pagina para el simplex*@
-    <li>@Html.ActionLink("Administrar Reglas", "AdministrarReglas", "Home")</li>
-    <li>@Html.ActionLink("Cargar info", "Index", "FileUpload")</li>
+            <li>@Html.ActionLink("Agregar dispositivo", "AgregarDispositivos", "Home")</li> @*about*@
+            <li>@Html.ActionLink("Tus dispositivos", "DispositivosPropios", "Home")</li>
+            @* <li>@Html.ActionLink("Conteo dispositivos", "AdministrarDispositivos", "Home")</li> Pagina para el simplex*@
+            <li>@Html.ActionLink("Administrar Reglas", "AdministrarReglas", "Home")</li>
+            <li>@Html.ActionLink("Cargar info", "Index", "FileUpload")</li>
 
-    <li><a href="javascript:document.getElementById('logoutForm').submit()">Cerrar sesión</a></li>
-</ul>
+            <li><a href="javascript:document.getElementById('logoutForm').submit()">Cerrar sesión</a></li>
+        </ul>
     }
-}
-else
-{
+    }
+    else if (Request.IsAuthenticated)
+    {
+      using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-left" }))
+      {
+        @Html.AntiForgeryToken()
+
+        <ul class="nav navbar-nav navbar-left">
+            <li>
+                @Html.ActionLink("Hola " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
+            </li>
+
+            <li>@Html.ActionLink("Agregar dispositivo", "AgregarDispositivos", "Home")</li> @*about*@
+            <li>@Html.ActionLink("Tus dispositivos", "DispositivosPropios", "Home")</li>
+            @* <li>@Html.ActionLink("Conteo dispositivos", "AdministrarDispositivos", "Home")</li> Pagina para el simplex*@
+            <li>@Html.ActionLink("Administrar Reglas", "AdministrarReglas", "Home")</li>
+            
+            <li><a href="javascript:document.getElementById('logoutForm').submit()">Cerrar sesión</a></li>
+        </ul>
+    }
+    }
+    else
+    {
     <ul class="nav navbar-nav navbar-left">
         <li>@Html.ActionLink("Iniciar sesión", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
         <li>@Html.ActionLink("Registrarse", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
 
     </ul>
-}
+    }
