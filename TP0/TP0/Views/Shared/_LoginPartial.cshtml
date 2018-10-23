@@ -15,7 +15,7 @@
 
     <li>@Html.ActionLink("Administrar Reglas", "AdministrarReglas", "Home")</li> @*Pagina de reglas*@
     <li>@Html.ActionLink("Cargar info", "Index", "FileUpload")</li>
-
+    <li>@Html.ActionLink("Mapa", "Map", "Home")</li>
     <li><a href="javascript:document.getElementById('logoutForm').submit()">Cerrar sesión</a></li>
 </ul>
     }
@@ -46,6 +46,6 @@
     <ul class="nav navbar-nav navbar-left">
         <li>@Html.ActionLink("Iniciar sesión", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
         <li>@Html.ActionLink("Registrarse", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
-
+        <li>@Html.ActionLink("Mapa", "Map", "Home")</li>
     </ul>
     }
