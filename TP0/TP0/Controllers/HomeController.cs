@@ -20,6 +20,11 @@ namespace TP0.Controllers
             return View();
         }
 
+        public ActionResult Map()
+        {
+            return View();
+        }
+
         [HttpGet]
         public ActionResult AgregarDispositivos()
         {
