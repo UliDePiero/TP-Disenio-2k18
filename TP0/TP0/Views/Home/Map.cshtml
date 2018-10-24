@@ -1,6 +1,8 @@
 ﻿@{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+@model List<TP0.Helpers.Transformador>
+
 <style type="text/css">
     #mapDiv {
         height: 100%
@@ -15,7 +17,20 @@
             zoom: 5,
         };
         var map = new google.maps.Map(document.getElementById("mapDiv"), mapOptions);
-    }
-</script>
+        drawMarkers(map);
+    }</script>
+@foreach (var item in Model)
+{
+    <script>
+        function drawMarkers(map) {
+            var marcador = new google.maps.Marker({
+                position: new google.maps.LatLng(@item.Latitud, @item.Longitud),
+                map: map,
+                title: @item.TransformadorID
+            });
+        }
+    </script>
+}
 
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBcLWyEOryOmZ9cgjgV54cs0UPG3OXZKqU&callback=myMap"></script>
+

@@ -22,7 +22,13 @@ namespace TP0.Controllers
 
         public ActionResult Map()
         {
-            return View();
+            List<Transformador> transformadores;
+            using (var contexto = new DBContext())
+            {
+                transformadores = contexto.Transformadores.ToList();
+             
+            }
+            return View(transformadores);
         }
 
         [HttpGet]
