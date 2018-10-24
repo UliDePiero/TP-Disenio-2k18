@@ -33,6 +33,7 @@ namespace TP0.Helpers
         public List<Cliente> Clientes { get; set; }
         //public List<Cliente> clientes;
 
+        public Transformador() { }
         public Transformador(double latitud, double longitud)
         {
             Latitud = latitud;
