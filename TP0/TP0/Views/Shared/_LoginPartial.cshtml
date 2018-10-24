@@ -1,6 +1,6 @@
 ﻿@using Microsoft.AspNet.Identity
 @if (Request.IsAuthenticated && User.IsInRole("Administrador"))
-       {
+ {
     using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-left" }))
     {
         @Html.AntiForgeryToken()
@@ -12,14 +12,13 @@
 
     <li>@Html.ActionLink("Agregar dispositivo", "AgregarDispositivos", "Home")</li> @*about*@
     <li>@Html.ActionLink("Tus dispositivos", "DispositivosPropios", "Home")</li> @*Pagina de dispositivos*@
-
     <li>@Html.ActionLink("Administrar Reglas", "AdministrarReglas", "Home")</li> @*Pagina de reglas*@
     <li>@Html.ActionLink("Cargar info", "Index", "FileUpload")</li>
-    <li>@Html.ActionLink("Mapa", "Map", "Home")</li>
+    <li>@Html.ActionLink("Mapa", "Map", "Home")</li> @*Pagina de mapa*@
     <li><a href="javascript:document.getElementById('logoutForm').submit()">Cerrar sesión</a></li>
 </ul>
     }
-    }
+ }
     else if (Request.IsAuthenticated)
     {
       using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-left" }))
@@ -35,7 +34,7 @@
     <li>@Html.ActionLink("Tus dispositivos", "DispositivosPropios", "Home")</li> @*Pagina de dispositivos*@
     <li>@Html.ActionLink("Conocer recomendación", "SimplexView", "Home")</li> @*Pagina para el simplex*@
     <li>@Html.ActionLink("Administrar Reglas", "AdministrarReglas", "Home")</li> @*Pagina de reglas*@
-
+    <li>@Html.ActionLink("Mapa", "Map", "Home")</li> @*Pagina de mapa*@
 
     <li><a href="javascript:document.getElementById('logoutForm').submit()">Cerrar sesión</a></li>
 </ul>

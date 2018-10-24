@@ -1,12 +1,18 @@
 ﻿@model IEnumerable<TP0.Helpers.Dispositivo>
 
 <div class="jumbotron">
-    <h3>Consumo promedio total: @ViewBag.total KwH</h3>
+
+    @using (Html.BeginForm("ConsultarConsumo", "Home", FormMethod.Get))
+    {@*Boton para consultar consumo entre fechas*@
+    <h3>Consumo promedio total: @ViewBag.total KwH &nbsp &nbsp &nbsp<input type="submit" class="btn btn-default" value="Consultar consumo por periodo"></h3>
+    }
     <h3>Dispositivos: @ViewBag.dispositivos</h3>
     <h5>Dispositivos encendidos: @ViewBag.dispE</h5>
     <h5>Dispositivos apagados: @ViewBag.dispA</h5>
     <h5>Dispositivos en ahorro: @ViewBag.dispAh</h5>
     <h5>Dispositivos estandares: @ViewBag.dispEs</h5>
+
+
 </div>
 
 <table class="table">

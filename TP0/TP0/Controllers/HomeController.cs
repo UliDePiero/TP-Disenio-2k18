@@ -187,5 +187,22 @@ namespace TP0.Controllers
             //DispositivoInteligente DI = new DispositivoEstandar(id).ConvertirEnInteligente();
             return RedirectToAction("DispositivosPropios", "Home");
         }
+
+        [HttpGet]
+        public ActionResult ConsultarConsumo()
+        {//Metodo para consultar el consumo en un periodo
+            ViewBag.consumo = "";
+            return View();
+        }
+        [HttpPost]
+        public ActionResult ConsultarConsumo(DateTime FechaInicio, DateTime FechaFin)
+        {
+            Cliente clie = new Cliente(User.Identity.Name);
+            clie.CargarDisps();
+
+            ViewBag.consumo = "Consumo: " + clie.KwTotales(FechaInicio, FechaFin) + " Kw";
+            ViewBag.fechas = FechaInicio.ToShortDateString() + " - " + FechaFin.ToShortDateString();
+            return View();
+        }
     }
 }
