@@ -292,24 +292,24 @@ namespace TP0.Helpers
             
         }
 
-        //public double[] UbicacionDomicilio()
-        public async Task<List<double>> UbicacionDomicilio()
+        public double[] UbicacionDomicilio()
+        //public async Task<List<double>> UbicacionDomicilio()
         {
-            var LatLong = new List<double>();
+            /*var LatLong = new List<double>();
             IGeocoder geocoder = new GoogleGeocoder() { ApiKey = "this-is-my-optional-google-api-key" };
             IEnumerable<Address> addresses = await geocoder.GeocodeAsync(Domicilio + "Buenos Aires, Argentina");
             LatLong.Add(addresses.First().Coordinates.Latitude);
             LatLong.Add(addresses.First().Coordinates.Longitude);
-            return LatLong;
+            return LatLong;*/
 
-            /*
+            
             var ubicacion = new AddressData { Address = Domicilio, City = "Buenos Aires", State = "Buenos Aires", Country = "Argentina" };
             var locationService = new GoogleLocationService();
             var point = locationService.GetLatLongFromAddress(ubicacion);
             var latitude = point.Latitude;
             var longitude = point.Longitude;
             double[] punto = new double[] { latitude, longitude };
-            return punto;*/
+            return punto;
         }
 
         public override double CalcDistancia(double[] punto1, double[] punto2)
