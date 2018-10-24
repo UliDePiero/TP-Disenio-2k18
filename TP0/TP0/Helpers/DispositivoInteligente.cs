@@ -52,7 +52,7 @@ namespace TP0.Helpers
                 ConsumoAcumulado = 0;
                 EsInteligente = true;
                 IDUltimoEstado = Disp.IDUltimoEstado;
-                Estado = context.Estados.FirstOrDefault(e => e.StateID == IDUltimoEstado);
+                this.ActualizarUltimoEstado();
                 UsuarioID = Disp.UsuarioID;
                 DispositivoID = Disp.DispositivoID;
                 //act = new Actuador(DispositivoID);
@@ -62,8 +62,6 @@ namespace TP0.Helpers
 
         public override void ActualizarUltimoEstado()
         {
-            if (Estado == null)
-            {
                 using (var db = new DBContext())
                 {
                     var ultimoEstado = db.Estados.Find(IDUltimoEstado);
@@ -83,10 +81,10 @@ namespace TP0.Helpers
                             break;
                         default:
                             throw new Exception("Estado no reconocido");
-                    }
                 }
             }
         }
+
         public override State GetEstado()
         {
             return Estado;
@@ -102,33 +100,27 @@ namespace TP0.Helpers
 
         public override bool EstaEncendido()
         {
-            ActualizarUltimoEstado();
             return Estado is Encendido;
         }
         public override bool EstaApagado()
         {
-            ActualizarUltimoEstado();
             return Estado is Apagado ;
         }
         public override bool EnAhorro()
         {
-            ActualizarUltimoEstado();
             return Estado is Ahorro;
         }
 
         public override void Encender()
         {
-            ActualizarUltimoEstado();
             Estado.Encender(this);
         }
         public override void Apagar()
         {
-            ActualizarUltimoEstado();
             Estado.Apagar(this);
         }
         public override void AhorrarEnergia()
         {
-            ActualizarUltimoEstado();
             Estado.AhorrarEnergia(this);
         }
 
@@ -165,6 +157,7 @@ namespace TP0.Helpers
             ConsumoPromedio = acumuladoKw / tiempoTotal;
             return acumuladoKw;
         }
+
         public override double ConsumoEnHoras(double horas)
         {
             using (var db = new DBContext())
@@ -176,6 +169,7 @@ namespace TP0.Helpers
             double hs = Static.FechasAdmin.ConsumoHsTotalPeriodo(fInicial, fFinal, estadosAnteriores);
             return hs * KWxHora;
         }
+
         public override double ConsumoEnPeriodo(DateTime fInicial, DateTime fFinal)
         {
             using (var db = new DBContext())
@@ -184,7 +178,7 @@ namespace TP0.Helpers
             }
             double hs = Static.FechasAdmin.ConsumoHsTotalPeriodo(fInicial, fFinal, estadosAnteriores);
             return hs * KWxHora;
-       }
+        }
 
         public override void AgregarEstado(State est)
         {
