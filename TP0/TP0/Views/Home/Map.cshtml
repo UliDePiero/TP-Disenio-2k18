@@ -10,25 +10,41 @@
 
 <div id="mapDiv" style="width:100%; height:400px;"></div>
 <script>
+    var markers = @Html.Raw(ViewBag.Transformadores);
     function myMap() {
         var mapOptions = {
             center: new google.maps.LatLng(0, 0),
             zoom: 2,
         };
         var map = new google.maps.Map(document.getElementById("mapDiv"), mapOptions);
-        var data = [{ "id": 1, "ZonaID": 1, "zonaGeografica": null, "latitude": 1.0, "longitude": 1.0, "energiaTotal": 1.0, "clientes": null },
-        { "id": 2, "ZonaID": 1, "zonaGeografica": null, "latitude": 2.0, "longitude": 2.0, "energiaTotal": 1.0, "clientes": null },
-        { "id": 3, "ZonaID": 1, "zonaGeografica": null, "latitude": 53.0, "longitude": -50.0, "energiaTotal": 1.0, "clientes": null }];
-
-        for (var i = 0; i < data.length; i++) {
-            var obj = data[i];
+        for (var i = 0; i < markers.length; i++) {
+            var marker = markers[i];
             var marcador = new google.maps.Marker({
-                position: new google.maps.LatLng(obj.latitude, obj.longitude),
+                position: new google.maps.LatLng(marker.latitude, marker.longitude),
                 map: map,
-                title: obj.id
+                title: marker.id
             });
+            var contentString = '<div id="content">' +
+                '<div id="siteNotice">' +
+                '</div>' +
+                '<h1 id="firstHeading" class="firstHeading"> Transformador ' + marker.id + '</h1>' +
+                '<div id="bodyContent">' +
+                '<p><b> Energia total: ' + marker.energiaTotal + '</b>';
+            var infowindow = new google.maps.InfoWindow({
+                content: contentString
+            });
+            google.maps.event.addListener(marcador, 'mouseover', (function (marcador, contentString, infowindow) {
+                return function () {
+                    infowindow.setContent(contentString);
+                    infowindow.open(map, marcador);
+                };
+            })(marcador, contentString, infowindow));
+            google.maps.event.addListener(marcador, 'mouseout', (function (marcador, infowindow) {
+                return function () {
+                    infowindow.close();
+                };
+            })(marcador, infowindow));
         }
     }
 </script>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBcLWyEOryOmZ9cgjgV54cs0UPG3OXZKqU&callback=myMap"></script>
-

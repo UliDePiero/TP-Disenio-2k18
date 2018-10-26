@@ -26,9 +26,8 @@ namespace TP0.Controllers
             using (var contexto = new DBContext())
             {
                 transformadores = contexto.Transformadores.ToList();
-             
             }
-            var trafos = Helpers.Static.TransformadoresImp.generarJsonTransformadores(transformadores);
+            ViewBag.Transformadores = JsonConvert.SerializeObject(transformadores, Formatting.Indented);
             return View();
         }
 
