@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -23,6 +24,11 @@ namespace TP0.Helpers.Static
                 return transformadores.Find(x => x.TransformadorID == idFiltro);
             }
             else return null;
+        }
+        public static string generarJsonTransformadores (List<Transformador> transformadores)
+        {
+            string jsonData = JsonConvert.SerializeObject(transformadores);
+            return jsonData;
         }
     }
 }

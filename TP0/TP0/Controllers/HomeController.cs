@@ -28,7 +28,8 @@ namespace TP0.Controllers
                 transformadores = contexto.Transformadores.ToList();
              
             }
-            return View(transformadores);
+            var trafos = Helpers.Static.TransformadoresImp.generarJsonTransformadores(transformadores);
+            return View();
         }
 
         [HttpGet]

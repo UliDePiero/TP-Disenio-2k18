@@ -1,7 +1,6 @@
 ﻿@{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-@model List<TP0.Helpers.Transformador>
 
 <style type="text/css">
     #mapDiv {
@@ -14,23 +13,22 @@
     function myMap() {
         var mapOptions = {
             center: new google.maps.LatLng(0, 0),
-            zoom: 5,
+            zoom: 2,
         };
         var map = new google.maps.Map(document.getElementById("mapDiv"), mapOptions);
-        drawMarkers(map);
-    }</script>
-@foreach (var item in Model)
-{
-    <script>
-        function drawMarkers(map) {
+        var data = [{ "id": 1, "ZonaID": 1, "zonaGeografica": null, "latitude": 1.0, "longitude": 1.0, "energiaTotal": 1.0, "clientes": null },
+        { "id": 2, "ZonaID": 1, "zonaGeografica": null, "latitude": 2.0, "longitude": 2.0, "energiaTotal": 1.0, "clientes": null },
+        { "id": 3, "ZonaID": 1, "zonaGeografica": null, "latitude": 53.0, "longitude": -50.0, "energiaTotal": 1.0, "clientes": null }];
+
+        for (var i = 0; i < data.length; i++) {
+            var obj = data[i];
             var marcador = new google.maps.Marker({
-                position: new google.maps.LatLng(@item.Latitud, @item.Longitud),
+                position: new google.maps.LatLng(obj.latitude, obj.longitude),
                 map: map,
-                title: @item.TransformadorID
+                title: obj.id
             });
         }
-    </script>
-}
-
+    }
+</script>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBcLWyEOryOmZ9cgjgV54cs0UPG3OXZKqU&callback=myMap"></script>
 
