@@ -428,6 +428,7 @@
     <Content Include="Views\Home\DispositivosPropios.cshtml" />
     <Content Include="Views\Home\AdministrarReglas.cshtml" />
     <Content Include="Views\Home\Map.cshtml" />
+    <Content Include="Views\Home\ConsultarConsumo.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\uploads\" />

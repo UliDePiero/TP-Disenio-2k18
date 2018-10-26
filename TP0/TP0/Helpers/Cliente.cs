@@ -227,10 +227,8 @@ namespace TP0.Helpers
 
             using (var db = new DBContext())
             {
-                foreach (DispositivoEstandar d in db.Dispositivos)
-                    Consumo += d.ConsumoEnPeriodo(fInicial, fFinal);
-                foreach (DispositivoInteligente d in db.Dispositivos)
-                    Consumo += d.ConsumoEnPeriodo(fInicial, fFinal);
+                foreach (Dispositivo disp in Dispositivos)
+                    Consumo += disp.ConsumoEnPeriodo(fInicial, fFinal);
             }
             return Consumo;
         }

@@ -29,10 +29,10 @@ namespace TestsNuevos
                 cliente.AgregarDispInteligente(lamparaHalogena40W);
 
                 var DI = new DispositivoInteligente(lamparaHalogena40W.DispositivoID);
-                var ultEst = db.Estados.Find(DI.IDUltimoEstado);
+                //var ultEst = db.Estados.Find(DI.IDUltimoEstado);
 
                 //Assert
-                Assert.AreEqual("Apagado", ultEst.Desc);
+                //Assert.AreEqual("Apagado", ultEst.Desc);
                 Assert.IsTrue(DI.EstaApagado());
 
             }
@@ -57,10 +57,10 @@ namespace TestsNuevos
                 lamparaHalogena40W.Encender();
 
                 var DI = new DispositivoInteligente(lamparaHalogena40W.DispositivoID);
-                var ultEst = db.Estados.Find(DI.IDUltimoEstado);
+                //var ultEst = db.Estados.Find(DI.IDUltimoEstado);
 
                 //Assert
-                Assert.AreEqual("Encendido", ultEst.Desc);
+                //Assert.AreEqual("Encendido", ultEst.Desc);
                 Assert.IsTrue(DI.EstaEncendido());
             }
         }
@@ -86,10 +86,10 @@ namespace TestsNuevos
                 DI.AhorrarEnergia();
                 DI.Encender();
 
-                var ultEst = db.Estados.Find(DI.IDUltimoEstado);
+                //var ultEst = db.Estados.Find(DI.IDUltimoEstado);
 
                 //Assert
-                Assert.AreEqual("Encendido", ultEst.Desc);
+                //Assert.AreEqual("Encendido", ultEst.Desc);
                 Assert.IsInstanceOfType(DI.Estado, typeof(Encendido));
             }
 

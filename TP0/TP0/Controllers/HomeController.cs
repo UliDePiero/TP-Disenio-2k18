@@ -26,9 +26,9 @@ namespace TP0.Controllers
             using (var contexto = new DBContext())
             {
                 transformadores = contexto.Transformadores.ToList();
-             
             }
-            return View(transformadores);
+            ViewBag.Transformadores = JsonConvert.SerializeObject(transformadores, Formatting.Indented);
+            return View();
         }
 
         [HttpGet]
@@ -186,6 +186,23 @@ namespace TP0.Controllers
             //No tengo forma de saber la marca
             //DispositivoInteligente DI = new DispositivoEstandar(id).ConvertirEnInteligente();
             return RedirectToAction("DispositivosPropios", "Home");
+        }
+
+        [HttpGet]
+        public ActionResult ConsultarConsumo()
+        {//Metodo para consultar el consumo en un periodo
+            ViewBag.consumo = "";
+            return View();
+        }
+        [HttpPost]
+        public ActionResult ConsultarConsumo(DateTime FechaInicio, DateTime FechaFin)
+        {
+            Cliente clie = new Cliente(User.Identity.Name);
+            clie.CargarDisps();
+
+            ViewBag.consumo = "Consumo: " + clie.KwTotales(FechaInicio, FechaFin) + " Kw";
+            ViewBag.fechas = FechaInicio.ToShortDateString() + " - " + FechaFin.ToShortDateString();
+            return View();
         }
     }
 }
