@@ -83,15 +83,6 @@ namespace TP0.Helpers
             throw new NotImplementedException();
         }
 
-        /* No hay metodo para override
-        public override List<double> UbicacionDomicilio()
-        {
-            throw new NotImplementedException();
-        }*/
-
-        public override double CalcDistancia(double[] punto1, double[] punto2)
-        {
-            throw new NotImplementedException();
-        }
+      
     }
 }

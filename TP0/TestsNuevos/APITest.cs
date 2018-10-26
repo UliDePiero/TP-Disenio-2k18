@@ -61,7 +61,7 @@ namespace TestsNuevos
             using (var db = new DBContext())
             {
                 //Arrenge
-                var cliente = new Cliente("Luciano", "Panizza", "Av. Medrano 951", "GeoLocalizacionUser_Test", "asdqwe123", "12345678", "dni", "12345678");
+                var cliente = new Cliente("Luciano", "Panizza", "Medrano 951", "GeoLocalizacionUser_Test", "asdqwe123", "12345678", "dni", "12345678");
                 cliente.TransformadorID = 1; //necesita un id si o si
                 db.Usuarios.Add(cliente);
                 db.SaveChanges();
@@ -73,7 +73,8 @@ namespace TestsNuevos
                 //var i = v.Result;
 
                 //Assert
-                Assert.AreEqual(10, punto[0]);
+                Assert.AreEqual(-34.5985998, punto[0]);
+                Assert.AreEqual(-58.4199217, punto[1]);
             }
         }
     }

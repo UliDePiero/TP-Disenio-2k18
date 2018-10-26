@@ -40,7 +40,7 @@ namespace TP0.Helpers
         public abstract string SolicitarRecomendacion();
         public abstract void ActualizarCategoria();
        //public abstract List<double> UbicacionDomicilio();
-        public abstract double CalcDistancia(double[] punto1, double[] punto2);
+       //public abstract double CalcDistancia(double[] punto1, double[] punto2);
         public void CambiarContraseña(string contra)
         {
             using (var db = new DBContext())

@@ -50,6 +50,7 @@ namespace TP0.Helpers
             Dispositivos = new List<Dispositivo>();
             AccionAutomatica = false;
             FechaDeAlta = DateTime.Now.ToShortDateString();
+            ConectarseAlTrafoMasProx();
         }
         public Cliente(string username) //para buscar en la DB + instanciar
         {
@@ -292,35 +293,44 @@ namespace TP0.Helpers
             
         }
 
-        public double[] UbicacionDomicilio()
-        //public async Task<List<double>> UbicacionDomicilio()
+        public void ConectarseAlTrafoMasProx()
         {
-            /*var LatLong = new List<double>();
-            IGeocoder geocoder = new GoogleGeocoder() { ApiKey = "this-is-my-optional-google-api-key" };
-            IEnumerable<Address> addresses = await geocoder.GeocodeAsync(Domicilio + "Buenos Aires, Argentina");
-            LatLong.Add(addresses.First().Coordinates.Latitude);
-            LatLong.Add(addresses.First().Coordinates.Longitude);
-            return LatLong;*/
+            var point = UbicacionDomicilio();
+            using (var context = new DBContext())
+            {
+                double dmin=999999;
+                foreach (Transformador t in context.Transformadores)
+                {
+                    var d = CalcDistancia(point, t.Latitud, t.Longitud);
+                    if(d<dmin)
+                    {
+                        TransformadorID = t.TransformadorID;
+                        dmin = d;
+                    }
+                }
+            }
+        }
 
-            
-            var ubicacion = new AddressData { Address = Domicilio, City = "Buenos Aires", State = "Buenos Aires", Country = "Argentina" };
-            var locationService = new GoogleLocationService();
-            var point = locationService.GetLatLongFromAddress(ubicacion);
+        public double[] UbicacionDomicilio()
+        {
+            var direccion = new AddressData { Address = Domicilio, City = "CABA", State = "Buenos Aires", Country = "Argentina" };
+            var locationService = new GoogleLocationService("AIzaSyAsnYLI5zaV64sqtymtTCb7jSdBC0xK5Kk");
+            var point = locationService.GetLatLongFromAddress(direccion);
             var latitude = point.Latitude;
             var longitude = point.Longitude;
             double[] punto = new double[] { latitude, longitude };
             return punto;
         }
 
-        public override double CalcDistancia(double[] punto1, double[] punto2)
+        public double CalcDistancia(double[] casa, double latTrafo, double longTrafo)
         {
             double radioTierra = 6371;
             double distance = 0;
-            double Lat = Math.Abs(punto2[0] - punto1[0]) * (Math.PI / 180);
-            double Lon = Math.Abs(punto2[1] - punto1[1]) * (Math.PI / 180);
-            double a = Math.Sin(Lat / 2) * Math.Sin(Lat / 2) + Math.Cos(punto1[0] * (Math.PI / 180)) * Math.Cos(punto2[0] * (Math.PI / 180)) * Math.Sin(Lon / 2) * Math.Sin(Lon / 2);
+            double Lat = Math.Abs(latTrafo - casa[0]) * (Math.PI / 180);
+            double Lon = Math.Abs(longTrafo - casa[1]) * (Math.PI / 180);
+            double a = Math.Sin(Lat / 2) * Math.Sin(Lat / 2) + Math.Cos(casa[0] * (Math.PI / 180)) * Math.Cos(latTrafo * (Math.PI / 180)) * Math.Sin(Lon / 2) * Math.Sin(Lon / 2);
             double c = 2 * Math.Atan2(Math.Sqrt(a), Math.Sqrt(1 - a));
-            distance = radioTierra * c;
+            distance = Math.Round(radioTierra * c,3);
             return distance;
         }
 
