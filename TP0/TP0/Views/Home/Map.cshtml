@@ -18,18 +18,18 @@
         };
         var map = new google.maps.Map(document.getElementById("mapDiv"), mapOptions);
         for (var i = 0; i < markers.length; i++) {
-            var marker = markers[i];
+            var obj = markers[i];
             var marcador = new google.maps.Marker({
-                position: new google.maps.LatLng(marker.latitude, marker.longitude),
+                position: new google.maps.LatLng(obj.latitude, obj.longitude),
                 map: map,
-                title: marker.id
+                title: obj.id
             });
             var contentString = '<div id="content">' +
                 '<div id="siteNotice">' +
                 '</div>' +
-                '<h1 id="firstHeading" class="firstHeading"> Transformador ' + marker.id + '</h1>' +
+                '<h1 id="firstHeading" class="firstHeading"> Transformador ' + obj.id + '</h1>' +
                 '<div id="bodyContent">' +
-                '<p><b> Energia total: ' + marker.energiaTotal + '</b>';
+                '<p><b> Energia: ' + obj.energiaTotal + '</b>';
             var infowindow = new google.maps.InfoWindow({
                 content: contentString
             });
