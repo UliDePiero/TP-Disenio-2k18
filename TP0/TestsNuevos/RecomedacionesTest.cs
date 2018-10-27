@@ -22,13 +22,13 @@ namespace TestsNuevos
                 //Arrenge
                 var InstanciaRec = Recomendacion.Instancia();
                 var cliente = new Cliente("Luciano", "Panizza", "Medrano951", "AccionesAutomaticaON_Test", "asdqwe123", "12345678", "dni", "12345678");
-                cliente.TransformadorID = 1; //necesita un id si o si
+                //cliente.TransformadorID = 1; //necesita un id si o si
                 db.Usuarios.Add(cliente);
                 db.SaveChanges();
                 cliente.AccionAutomaticaON();
 
                 var cliente2 = new Cliente("Luciano", "Panizza", "Medrano951", "AccionesAutomaticaOFF_Test", "asdqwe123", "12345678", "dni", "12345678");
-                cliente2.TransformadorID = 1; //necesita un id si o si
+                //cliente2.TransformadorID = 1; //necesita un id si o si
                 db.Usuarios.Add(cliente2);
                 db.SaveChanges();
 

@@ -23,7 +23,7 @@ namespace TestsNuevos
                 var simplex = SimplexHelper.Instancia();
 
                 var cliente = new Cliente("Luciano", "Panizza", "Medrano951", "WebService_test", "asdqwe123", "12345678", "dni", "12345678");
-                cliente.TransformadorID = 1; //necesita un id si o si
+                //cliente.TransformadorID = 1; //necesita un id si o si
                 db.Usuarios.Add(cliente);
                 db.SaveChanges();
 
@@ -62,7 +62,6 @@ namespace TestsNuevos
             {
                 //Arrenge
                 var cliente = new Cliente("Luciano", "Panizza", "Medrano 951", "GeoLocalizacionUser_Test", "asdqwe123", "12345678", "dni", "12345678");
-                cliente.TransformadorID = 1; //necesita un id si o si
                 db.Usuarios.Add(cliente);
                 db.SaveChanges();
 
@@ -70,7 +69,6 @@ namespace TestsNuevos
 
                 //Act
                 var punto = clienteDB.UbicacionDomicilio();
-                //var i = v.Result;
 
                 //Assert
                 Assert.AreEqual(-34.5985998, punto[0]);

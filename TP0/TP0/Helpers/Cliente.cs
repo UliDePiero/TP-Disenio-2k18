@@ -296,7 +296,7 @@ namespace TP0.Helpers
             var point = UbicacionDomicilio();
             using (var context = new DBContext())
             {
-                double dmin=999999;
+                double dmin=999999; //poner un high value
                 foreach (Transformador t in context.Transformadores)
                 {
                     var d = CalcDistancia(point, t.Latitud, t.Longitud);

@@ -19,7 +19,7 @@ namespace TestsNuevos
             using (var db = new DBContext())
             { 
             var cliente = new Cliente("Luciano", "Panizza", "Medrano951", "CantidadPuntosUsuario15_test", "asdqwe123", "12345678", "dni", "12345678");
-            cliente.TransformadorID = 1; //necesita un id si o si
+            //cliente.TransformadorID = 1; //necesita un id si o si
             db.Usuarios.Add(cliente);
             db.SaveChanges();
 
