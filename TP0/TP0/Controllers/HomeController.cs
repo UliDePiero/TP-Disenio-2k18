@@ -154,6 +154,7 @@ namespace TP0.Controllers
             return View(clie.Dispositivos);
         }
         //Metodos para cambiar el estado del dispositivo
+        //Los primeros son para cambiar desde disp propios, los segundos son para cambiar desde la pagina del dispositivo
         public ActionResult Encender(int id, string estadoActual)
         {
             if (estadoActual != "Encendido")
@@ -181,11 +182,48 @@ namespace TP0.Controllers
             }
             return RedirectToAction("DispositivosPropios", "Home");
         }
+        public ActionResult Encender2(int id, string estadoActual)
+        {
+            if (estadoActual != "Encendido")
+            {
+                DispositivoInteligente DI = new DispositivoInteligente(id);
+                DI.Encender();
+            }
+            return RedirectToAction("DetallesInteligente", "Home", new { id });
+        }
+        public ActionResult Apagar2(int id, string estadoActual)
+        {
+            if (estadoActual != "Apagado")
+            {
+                DispositivoInteligente DI = new DispositivoInteligente(id);
+                DI.Apagar();
+            }
+            return RedirectToAction("DetallesInteligente", "Home", new { id });
+        }
+        public ActionResult Ahorro2(int id, string estadoActual)
+        {
+            if (estadoActual != "Ahorro")
+            {
+                DispositivoInteligente DI = new DispositivoInteligente(id);
+                DI.AhorrarEnergia();
+            }
+            return RedirectToAction("DetallesInteligente", "Home", new { id });
+        }
         public ActionResult ConvertirEnInteligente(int id)
         {
             //No tengo forma de saber la marca
             //DispositivoInteligente DI = new DispositivoEstandar(id).ConvertirEnInteligente();
             return RedirectToAction("DispositivosPropios", "Home");
+        }
+        public ActionResult DetallesEstandar(int id)
+        {
+            return View(new DispositivoEstandar(id));
+        }
+        public ActionResult DetallesInteligente(int id)
+        {
+            DispositivoInteligente d = new DispositivoInteligente(id);
+
+            return View(d);
         }
 
         [HttpGet]

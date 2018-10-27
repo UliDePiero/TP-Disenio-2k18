@@ -1,0 +1,16 @@
+﻿@model TP0.Helpers.DispositivoEstandar
+
+
+<div class="jumbotron">
+    @using (Html.BeginForm("DispositivosPropios", "Home", FormMethod.Get))
+    {@*Boton para consultar consumo entre fechas*@
+        <input type="submit" class="btn btn-default" value="Volver">
+    }
+    <h2>@Model.Nombre</h2>
+    <h4>KW por hora: @Model.KWxHora</h4>
+    <h4>Consumo Acumulado en minutos: @Model.ConsumoAcumulado</h4>
+</div>
+<h4>
+    Este dispositivo es estandar, por lo que no se pueden saber sus estados ni hacer mediciones.
+    Para convertirlo en inteligente haga click @Html.ActionLink("aquí.", "ConvertirEnInteligente", new { id = Model.DispositivoID })
+</h4>

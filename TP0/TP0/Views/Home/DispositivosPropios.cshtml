@@ -5,13 +5,12 @@
     <h3>Consumo promedio total: @ViewBag.total KwH</h3>
     @using (Html.BeginForm("ConsultarConsumo", "Home", FormMethod.Get))
     {@*Boton para consultar consumo entre fechas*@
-    <input type="submit" class="btn btn-default" value="Consultar consumo por periodo">
+        <input type="submit" class="btn btn-default" value="Consultar consumo por periodo">
     }
-
     <h3>Dispositivos: @ViewBag.dispositivos </h3>
     @using (Html.BeginForm("SimplexView", "Home", FormMethod.Get))
     {@*Boton para ejecutar el simplex*@
-    <input type="submit" class="btn btn-default" value="Conocer recomendación" onclick="alertBox()">
+        <input type="submit" class="btn btn-default" value="Conocer recomendación" onclick="alertBox()">
     }
     <h5>Dispositivos encendidos: @ViewBag.dispE</h5>
     <h5>Dispositivos apagados: @ViewBag.dispA</h5>
@@ -51,7 +50,7 @@
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Nombre)
+                    @Html.ActionLink(item.Nombre, "DetallesInteligente", new { id = item.DispositivoID})
                 </td>
                 <td style="text-align: center;">
                     @Html.DisplayFor(modelItem => item.KWxHora)
@@ -76,7 +75,7 @@
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Nombre)
+                    @Html.ActionLink(item.Nombre, "DetallesEstandar", new { id = item.DispositivoID})
                 </td>
                 <td style="text-align: center;">
                     @Html.DisplayFor(modelItem => item.KWxHora)
@@ -88,11 +87,8 @@
                     @Html.DisplayFor(modelItem => item.ConsumoAcumulado)
                 </td>
                 <td></td>
-                <td>
-                    @Html.ActionLink("Convertir en inteligente", "ConvertirEnInteligente", new { id = item.DispositivoID})
-                </td>
+                <td></td>
             </tr>
         }
     }
-
 </table>

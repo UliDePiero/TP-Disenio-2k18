@@ -1,0 +1,34 @@
+﻿@model TP0.Helpers.DispositivoInteligente
+
+
+<div class="jumbotron">
+    @using (Html.BeginForm("DispositivosPropios", "Home", FormMethod.Get))
+    {@*Boton para consultar consumo entre fechas*@
+    <input type="submit" class="btn btn-default" value="Volver">
+}
+    <h2>@Model.Nombre</h2>
+    <h4>KW por hora: @Model.KWxHora</h4>
+    <h4>Consumo Acumulado en minutos: @Model.ConsumoAcumulado</h4>
+</div>
+<div class="jumbotron">
+    <h4>Estado actual: @Model.GetEstado().Desc</h4>
+    @Html.ActionLink("Encender", "Encender2", new { id = Model.DispositivoID, estadoActual = Model.Desc }) |
+    @Html.ActionLink("Apagar", "Apagar2", new { id = Model.DispositivoID, estadoActual = Model.Desc }) |
+    @Html.ActionLink("Ahorro", "Ahorro2", new { id = Model.DispositivoID, estadoActual = Model.Desc })
+</div>
+<div class="jumbotron">
+    <table class="table">
+        <tr>
+            <th style="text-align: center;">
+                Actuador
+            </th>
+            <th style="text-align: center;">
+                Regla
+            </th>
+            <th style="text-align: center;">
+                Ultima medición
+            </th>
+        </tr>
+    </table>
+    <h2>ACA ES DONDE PONDRÍA ESTAS COSAS, SI LAS TUVIERA</h2>
+</div>
