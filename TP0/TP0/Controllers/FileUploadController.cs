@@ -45,8 +45,8 @@ namespace TP0.Controllers
                                 Helpers.Static.ClientesImportados.clientes = userList;
                                 break;
                             case "transformadores.json":
-                                List<Transformador> transformadoresActivos = JsonConvert.DeserializeObject<List<Transformador>>(Json);
-                                Helpers.Static.TransformadoresImp.transformadores = transformadoresActivos;
+                                //Agarra el json de transformadores y agrega los que no estan ya en la base
+                                Helpers.Static.TransformadoresImp.CargarNuevosTransformadores(JsonConvert.DeserializeObject<List<Transformador>>(Json));
                                 break;
                             case "dispositivosEstandares.json":
                                 List<DispositivoEstandar> dispositivosEstandares = JsonConvert.DeserializeObject<List<DispositivoEstandar>>(Json);
