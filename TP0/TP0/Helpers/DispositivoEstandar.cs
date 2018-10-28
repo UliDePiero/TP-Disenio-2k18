@@ -66,7 +66,7 @@ namespace TP0.Helpers
 
         public override double Consumo()
         {
-            ConsumoAcumulado = HorasXDia * KWxHora;
+            //ConsumoAcumulado = HorasXDia * KWxHora;
             return HorasXDia * KWxHora;
         }
         public override double ConsumoEnPeriodo(DateTime fInicial, DateTime fFinal)

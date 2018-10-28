@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 namespace TestsNuevos
 {
     [TestClass]
-    public class ConectarTrafoProx
+    public class TrafoTest
     {
 
         [TestMethod]

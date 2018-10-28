@@ -20,7 +20,10 @@ namespace TP0.Helpers
         //No se persiste en la db
         [NotMapped]
         public List<Transformador> transformadores;
+        public Zona()
+        {
 
+        }
         public Zona(int ID, double Lat, double Long, double Rad)
         {
             ZonaID = ID;
@@ -37,20 +40,15 @@ namespace TP0.Helpers
 
         public double ConsumoTotal(DateTime fInicial, DateTime fFinal)
         {
-		   
-            using (var db = DBContext.Instancia())
+            Energia = 0;
+            using (var db = new DBContext())
             {
-                /*foreach (Transformador trafo in transformadores)
-                  {
-                      Energia += trafo.EnergiaQueEstaSuministrando(fInicial, fFinal);
-                  }*/ //de esta manera para cualquier zona iba a tomar la energia de TODOS los trafos del sistema
-
                 var trafosEnEstaZona = db.Transformadores.Where(t => t.ZonaID == ZonaID).ToList();
 
-               foreach (var t in trafosEnEstaZona)
-               {
-                  Energia += t.EnergiaQueEstaSuministrando(fInicial, fFinal);
-               }
+                foreach (var t in trafosEnEstaZona)
+                {
+                   Energia += t.EnergiaQueEstaSuministrando(fInicial, fFinal);
+                }
             }
             return Energia;
 	    }

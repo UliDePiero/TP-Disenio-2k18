@@ -14,7 +14,7 @@ namespace TestsNuevos
     public class APITest
     {
         [TestMethod]
-        public void WebService_Test()
+        public void Simplex_Test()
         {
             using (var db = new DBContext())
             { 

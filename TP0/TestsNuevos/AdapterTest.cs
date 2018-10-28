@@ -21,6 +21,7 @@ namespace TestsNuevos
                 //Arrenge
                 var cliente = new Cliente("Luciano", "Panizza", "Medrano951", "ConvertirDEaDIyCambioState", "asdqwe123", "12345678", "dni", "12345678");
                 //cliente.TransformadorID = 1; //necesita un id si o si
+                cliente.TransformadorID = 4;
                 db.Usuarios.Add(cliente);
                 db.SaveChanges();
 

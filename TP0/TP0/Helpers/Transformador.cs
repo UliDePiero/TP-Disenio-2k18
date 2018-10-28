@@ -50,19 +50,17 @@ namespace TP0.Helpers
 
         public double EnergiaQueEstaSuministrando(DateTime fInicial, DateTime fFinal)
         {
-            double[] CoordUbicacion = new double[] { Latitud, Longitud };
-            /*foreach (Cliente cli in Clientes)
-		    {
-		        EnergiaTotal += cli.KwTotales(fInicial, fFinal);
-		    }*/
+            //double[] CoordUbicacion = new double[] { Latitud, Longitud };
+            EnergiaTotal = 0;
             using (var db = new DBContext())
             {
-                foreach (Cliente cli in db.Usuarios)
+                var clientes = db.Usuarios.Where(c => c.EsAdmin == false).ToList();
+                foreach (Cliente c in clientes)
                 {
-                    if(cli.TransformadorID==TransformadorID)
-                    {
-                        EnergiaTotal += cli.KwTotales(fInicial, fFinal);
-                    }
+                        if(c.TransformadorID==TransformadorID)
+                        {
+                        EnergiaTotal += c.KwTotales(fInicial, fFinal);
+                        }
                 }
             }
             return EnergiaTotal;

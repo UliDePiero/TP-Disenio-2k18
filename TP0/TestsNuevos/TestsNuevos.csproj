@@ -70,7 +70,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AdapterTest.cs" />
-    <Compile Include="ConectarTrafoProx.cs" />
+    <Compile Include="ZonaTest.cs" />
+    <Compile Include="TrafoTest.cs" />
     <Compile Include="APITest.cs" />
     <Compile Include="ClienteTest.cs" />
     <Compile Include="DispInteligentesTest.cs" />
