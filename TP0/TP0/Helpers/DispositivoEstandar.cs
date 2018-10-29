@@ -50,13 +50,13 @@ namespace TP0.Helpers
             {
                 case "Samsung":
                     //AdaptadorSamsug convertido = new AdaptadorSamsung(...)
-                    convertido = new AdaptadorSamsung(Nombre, Codigo, KWxHora, Max, Min);
+                    convertido = new AdaptadorSamsung("Adaptador Samsung para " + Nombre, Codigo, KWxHora, Max, Min);
                     break;
                 case "HP":
-                    convertido = new AdaptadorHp(Nombre, Codigo, KWxHora, Max, Min);
+                    convertido = new AdaptadorHp("Adaptador HP para " + Nombre, Codigo, KWxHora, Max, Min);
                     break;
                 case "Apple":
-                    convertido = new AdaptadorApple(Nombre, Codigo, KWxHora, Max, Min);
+                    convertido = new AdaptadorApple("Adaptador Apple para " + Nombre, Codigo, KWxHora, Max, Min);
                     break;
             }
             convertido.UsuarioID = UsuarioID;

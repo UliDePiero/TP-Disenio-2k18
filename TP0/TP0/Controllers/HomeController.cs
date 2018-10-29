@@ -187,12 +187,7 @@ namespace TP0.Controllers
             }
             return RedirectToAction("DetallesInteligente", "Home", new { id });
         }
-        public ActionResult ConvertirEnInteligente(int id)
-        {
-            //No tengo forma de saber la marca
-            //DispositivoInteligente DI = new DispositivoEstandar(id).ConvertirEnInteligente();
-            return RedirectToAction("DispositivosPropios", "Home");
-        }
+
         public ActionResult DetallesEstandar(int id)
         {
             return View(new DispositivoEstandar(id));
@@ -202,6 +197,29 @@ namespace TP0.Controllers
             DispositivoInteligente d = new DispositivoInteligente(id);
 
             return View(d);
+        }
+
+        [HttpGet]
+        public ActionResult ConvertirEnInteligente(int id)
+        {
+            List<SelectListItem> marcas = new List<SelectListItem>
+            {
+                new SelectListItem() { Text = "Samsung", Value = "Samsung" },
+                new SelectListItem() { Text = "HP", Value = "HP" },
+                new SelectListItem() { Text = "Apple", Value = "Apple" }
+            };
+
+            ViewBag.Id = id;
+            ViewBag.Message = "Seleccione la marca del adaptador";
+            ViewBag.marcas = marcas;
+            return View();
+        }
+        [HttpPost]
+        public ActionResult ConvertirEnInteligente(int id, FormCollection form)
+        {
+            Cliente c = new Cliente(User.Identity.GetUserName());
+            c.AdaptarDispositivo(new DispositivoEstandar(id), form["marcas"].ToString());
+            return RedirectToAction("DispositivosPropios", "Home");
         }
 
         [HttpGet]
