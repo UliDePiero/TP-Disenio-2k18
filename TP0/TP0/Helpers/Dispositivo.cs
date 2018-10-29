@@ -40,6 +40,7 @@ namespace TP0.Helpers
         public abstract void Apagar();
         public abstract void AhorrarEnergia();
         public abstract double Consumo();
+        public abstract double ConsumoActual();
         public abstract double ConsumoEnHoras(double horas);
         public abstract double ConsumoEnPeriodo(DateTime fInicial, DateTime fFinal);
         public abstract void AgregarEstado(State est);

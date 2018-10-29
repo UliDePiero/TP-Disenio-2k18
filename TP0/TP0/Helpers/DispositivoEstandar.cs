@@ -69,6 +69,10 @@ namespace TP0.Helpers
             //ConsumoAcumulado = HorasXDia * KWxHora;
             return HorasXDia * KWxHora;
         }
+        public override double ConsumoActual()
+        {
+            return KWxHora;
+        }
         public override double ConsumoEnPeriodo(DateTime fInicial, DateTime fFinal)
         {
             return fFinal.Subtract(fInicial).Days*Consumo();

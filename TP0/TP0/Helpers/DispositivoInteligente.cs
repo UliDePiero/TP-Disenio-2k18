@@ -157,7 +157,19 @@ namespace TP0.Helpers
             ConsumoPromedio = acumuladoKw / tiempoTotal;
             return acumuladoKw;
         }
-
+        public override double ConsumoActual()
+        {
+            ActualizarUltimoEstado();
+            switch (Estado.Desc)
+            {
+                case "Encendido":
+                    return KWxHora;
+                case "Ahorro":
+                    return KWxHora / 2;
+                default:
+                    return 0;
+            }
+        }
         public override double ConsumoEnHoras(double horas)
         {
             using (var db = new DBContext())
@@ -169,7 +181,6 @@ namespace TP0.Helpers
             double hs = Static.FechasAdmin.ConsumoHsTotalPeriodo(fInicial, fFinal, estadosAnteriores);
             return hs * KWxHora;
         }
-
         public override double ConsumoEnPeriodo(DateTime fInicial, DateTime fFinal)
         {
             using (var db = new DBContext())

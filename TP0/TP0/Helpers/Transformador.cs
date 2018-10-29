@@ -57,13 +57,30 @@ namespace TP0.Helpers
                 var clientes = db.Usuarios.Where(c => c.EsAdmin == false).ToList();
                 foreach (Cliente c in clientes)
                 {
-                        if(c.TransformadorID==TransformadorID)
-                        {
+                    if (c.TransformadorID == TransformadorID)
+                    {
                         EnergiaTotal += c.KwTotales(fInicial, fFinal);
-                        }
+                    }
                 }
             }
             return EnergiaTotal;
 	    }
+
+        public void ActualizarEnergiaQueEstaSuministrando()
+        {
+            EnergiaTotal = 0;
+            using (var db = new DBContext())
+            {
+                var clientes = db.Usuarios.Where(c => c.EsAdmin == false).ToList();
+                foreach (Cliente c in clientes)
+                {
+                    if (c.TransformadorID == TransformadorID)
+                    {
+                        c.CargarDisps();
+                        EnergiaTotal += c.ConsumoActual();
+                    }
+                }
+            }
+        }
     }
 }

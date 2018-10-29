@@ -210,18 +210,23 @@ namespace TP0.Helpers
         {
             int Disp = 0;
             double acumuladoKw = 0;
-            using (var db = new DBContext())
-            {
-                Dispositivos = db.Dispositivos.Where(d => d.UsuarioID == UsuarioID).ToList();
-            }
-                foreach (Dispositivo disp in Dispositivos)
+            foreach (Dispositivo disp in Dispositivos)
             {
                 acumuladoKw += disp.Consumo();
                 Disp++;
             }
             return acumuladoKw / Disp;
         }
-
+        public double ConsumoActual()
+        {
+            //Devuelve el consumo en horas de todos los disp encendidos
+            double consumo = 0;
+            foreach (Dispositivo disp in Dispositivos)
+            {
+                consumo += disp.ConsumoActual();
+            }
+            return consumo;
+        }
         public override double EstimarFacturacion(DateTime fInicial, DateTime fFinal)
         {
             return categoria.CalcularTarifa(KwTotales(fInicial, fFinal));
@@ -232,21 +237,8 @@ namespace TP0.Helpers
 
             using (var db = new DBContext())
             {
-                Dispositivos = db.Dispositivos.Where(d => d.UsuarioID == UsuarioID).ToList();
-
                 foreach (var disp in Dispositivos)
-                {
-                    if (disp.EsInteligente)
-                    {
-                        var di = new DispositivoInteligente(disp.DispositivoID);
-                        Consumo += di.ConsumoEnPeriodo(fInicial, fFinal);
-                    }
-                    else
-                    {
-                        var de = new DispositivoEstandar(disp.DispositivoID);
-                        Consumo += de.ConsumoEnPeriodo(fInicial, fFinal);
-                    }
-                }
+                    Consumo += disp.ConsumoEnPeriodo(fInicial, fFinal);
             }
             return Consumo;
         }
@@ -279,7 +271,6 @@ namespace TP0.Helpers
         }
         public void CargarDisps()
         {
-            Dispositivos.Clear();
             using (var db = new DBContext())
             {
                 Dispositivos = db.Dispositivos.Where(x => x.UsuarioID == UsuarioID).ToList();

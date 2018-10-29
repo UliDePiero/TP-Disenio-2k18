@@ -27,6 +27,9 @@ namespace TP0.Controllers
             {
                 transformadores = contexto.Transformadores.ToList();
             }
+            foreach (Transformador t in transformadores)
+                t.ActualizarEnergiaQueEstaSuministrando();
+
             ViewBag.Transformadores = JsonConvert.SerializeObject(transformadores, Formatting.Indented);
             return View();
         }
