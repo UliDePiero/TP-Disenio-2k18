@@ -10,6 +10,7 @@ using GoogleMaps.LocationServices;
 using Geocoding.Google;
 using Geocoding;
 using System.Threading.Tasks;
+using TP0.Helpers.Static;
 
 namespace TP0.Helpers
 {
@@ -147,6 +148,19 @@ namespace TP0.Helpers
             return Estandares;
         }
 
+        public void AgregarDispJson(List<DispositivoEstatico> disps)
+        {
+            //Metodo para agregar los disp que no estan ya en la base desde el json en FileUploadController
+            List<DispositivoEstatico> agregar = new List<DispositivoEstatico>();
+            foreach (DispositivoEstatico d in disps)
+                if (!Dispositivos.Any(di => di.DispositivoID == d.DispositivoID))
+                    agregar.Add(d);
+            foreach (DispositivoEstatico d in agregar)
+                if (d.EsInteligente)
+                    AgregarDispInteligente(new DispositivoInteligente(d.Nombre, d.Codigo, d.KWxHora, d.Max, d.Min) { DispositivoID = d.DispositivoID });
+                else
+                    AgregarDispEstandar(new DispositivoEstandar(d.Nombre, d.Codigo, d.KWxHora, 0, d.Max, d.Min) { DispositivoID = d.DispositivoID });
+        }
         public override void AgregarDispInteligente(DispositivoInteligente DI)
         {
             PuntosAcum += 15;

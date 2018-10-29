@@ -9,10 +9,7 @@
     <li>
         @Html.ActionLink("Hola " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
     </li>
-
-    <li>@Html.ActionLink("Agregar dispositivo", "AgregarDispositivos", "Home")</li> @*about*@
-    <li>@Html.ActionLink("Tus dispositivos", "DispositivosPropios", "Home")</li> @*Pagina de dispositivos*@
-    <li>@Html.ActionLink("Administrar Reglas", "AdministrarReglas", "Home")</li> @*Pagina de reglas*@
+    @*pestañas de admin*@
     <li>@Html.ActionLink("Cargar info", "Index", "FileUpload")</li>
     <li>@Html.ActionLink("Mapa", "Map", "Home")</li> @*Pagina de mapa*@
     <li><a href="javascript:document.getElementById('logoutForm').submit()">Cerrar sesión</a></li>
@@ -29,12 +26,12 @@
     <li>
         @Html.ActionLink("Hola " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
     </li>
-
-    <li>@Html.ActionLink("Agregar dispositivo", "AgregarDispositivos", "Home")</li> @*about*@
+    @*pestañas de usuario*@
+    <li>@Html.ActionLink("Agregar dispositivo", "AgregarDispositivos", "Home")</li> @*Pagina para agregar disp*@
     <li>@Html.ActionLink("Tus dispositivos", "DispositivosPropios", "Home")</li> @*Pagina de dispositivos*@
     <li>@Html.ActionLink("Administrar Reglas", "AdministrarReglas", "Home")</li> @*Pagina de reglas*@
+    <li>@Html.ActionLink("Cargar info", "IndexClie", "FileUpload")</li>
     <li>@Html.ActionLink("Mapa", "Map", "Home")</li> @*Pagina de mapa*@
-    <li>@Html.ActionLink("Cargar info", "Index", "FileUpload")</li>
 
     <li><a href="javascript:document.getElementById('logoutForm').submit()">Cerrar sesión</a></li>
 </ul>

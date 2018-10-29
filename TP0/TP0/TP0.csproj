@@ -306,6 +306,7 @@
     <Compile Include="Helpers\Actuador.cs" />
     <Compile Include="Helpers\Resultado.cs" />
     <Compile Include="Helpers\Sensor.cs" />
+    <Compile Include="Helpers\Static\DispositivoEstatico.cs" />
     <Compile Include="Helpers\Static\TransformadoresImp.cs" />
     <Compile Include="Helpers\Static\ClientesImportados.cs" />
     <Compile Include="Helpers\Static\DispositivosTotales.cs" />
@@ -431,6 +432,7 @@
     <Content Include="Views\Home\ConsultarConsumo.cshtml" />
     <Content Include="Views\Home\DetallesEstandar.cshtml" />
     <Content Include="Views\Home\DetallesInteligente.cshtml" />
+    <Content Include="Views\FileUpload\IndexClie.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\uploads\" />

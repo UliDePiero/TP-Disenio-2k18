@@ -9,6 +9,7 @@ using TP0.Helpers;
 using TP0.Models;
 using Microsoft.AspNet.Identity;
 using TP0.Helpers.ORM;
+using TP0.Helpers.Static;
 
 
 namespace TP0.Controllers
@@ -29,32 +30,21 @@ namespace TP0.Controllers
             }
             foreach (Transformador t in transformadores)
                 t.ActualizarEnergiaQueEstaSuministrando();
-
+            
             ViewBag.Transformadores = JsonConvert.SerializeObject(transformadores, Formatting.Indented);
             return View();
         }
 
         [HttpGet]
         public ActionResult AgregarDispositivos()
-        {
-            ViewBag.Message = "Your application description page.";
-            //se llenan las listas de todas las opciones de dispositivos para poder agregarlos a los propios del usuario
-            List<DispositivoEstandar> opcionesDeDispositivosEstandares = Helpers.Static.DispositivosTotales.GetDispositivoEstandars();
-            List<DispositivoInteligente> opcionesDeDispositivosInteligentes = Helpers.Static.DispositivosTotales.GetDispositivoInteligentes();
+        {   //se llenan la lista de todas las opciones de dispositivos para poder agregarlos a los propios del usuario
+            List<SelectListItem> disps = DispositivosTotales.GetDispositivos();
+            if(disps.Count == 0)
+                ViewBag.Message = "No hay dispositivos para agregar actualmente.";
+            else
+                ViewBag.Message = "Seleccione un dispositivo de la lista para agregar.";
 
-            List<SelectListItem> selectListItems = new List<SelectListItem>();
-            foreach (DispositivoInteligente disp in opcionesDeDispositivosInteligentes)
-            {
-                selectListItems.Add(new SelectListItem() { Value = disp.Codigo, Text = disp.Nombre });
-            }
-
-            foreach (DispositivoEstandar disp in opcionesDeDispositivosEstandares)
-            {
-                selectListItems.Add(new SelectListItem() { Value = disp.Codigo, Text = disp.Nombre });
-            }
-
-            ViewBag.selectListItems = selectListItems;
-
+            ViewBag.selectListItems = disps;
             return View();
         }
         [HttpPost]
@@ -64,33 +54,18 @@ namespace TP0.Controllers
             string codigo = model.DispositivoSeleccionado;
 
             Cliente c = new Cliente(User.Identity.GetUserName());
-            if (EsInteligente(codigo))
+            if (DispositivosTotales.EsInteligente(codigo))
             {
-                DispositivoInteligente disp = EncontrarDispositivoInteligente(codigo);
+                DispositivoInteligente disp = DispositivosTotales.EncontrarDispositivoInteligente(codigo);
                 c.AgregarDispInteligente(disp);
             }
             else
             {
-                DispositivoEstandar disp = EncontrarDispositivoEstandard(codigo);
+                DispositivoEstandar disp = DispositivosTotales.EncontrarDispositivoEstandard(codigo);
                 c.AgregarDispEstandar(disp);
             }
 
             return RedirectToAction("Index", "Home");
-        }
-        private bool EsInteligente(string id)
-        {
-            List<DispositivoInteligente> opcionesDeDispositivosInteligentes = Helpers.Static.DispositivosTotales.GetDispositivoInteligentes();
-            return opcionesDeDispositivosInteligentes.Any(disp => disp.Codigo == id);
-        }
-        private DispositivoInteligente EncontrarDispositivoInteligente(string id)
-        {
-            List<DispositivoInteligente> opcionesDeDispositivosInteligentes = Helpers.Static.DispositivosTotales.GetDispositivoInteligentes();
-            return opcionesDeDispositivosInteligentes.Find(disp => disp.Codigo == id);
-        }
-        private DispositivoEstandar EncontrarDispositivoEstandard(string id)
-        {
-            List<DispositivoEstandar> opcionesDeDispositivosEstandares = Helpers.Static.DispositivosTotales.GetDispositivoEstandars();
-            return opcionesDeDispositivosEstandares.Find(disp => disp.Codigo == id);
         }
 
         public ActionResult SimplexView()
