@@ -434,6 +434,7 @@
     <Content Include="Views\Home\DetallesInteligente.cshtml" />
     <Content Include="Views\FileUpload\IndexClie.cshtml" />
     <Content Include="Views\Home\ConvertirEnInteligente.cshtml" />
+    <Content Include="Views\Home\AdministrarTodosLosDispositivos.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\uploads\" />

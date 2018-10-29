@@ -67,6 +67,28 @@ namespace TP0.Controllers
 
             return RedirectToAction("Index", "Home");
         }
+        
+
+
+
+
+
+        //SE SUPONE QUE ESTO DEBERIA TOMAR TODOS LOS DISPOSITIVOS DE DISPOSITIVOS TOTALES
+        //ESTA VACIA LA BASE 
+       
+        public ActionResult AdministrarTodosLosDispositivos()
+        {
+           List<DispositivoEstatico> disps = new List<DispositivoEstatico>();
+            DispositivosTotales.LlenarDisps();
+            DispositivosTotales.LlenarListaDeDisposEstaticos(disps);
+
+            
+          
+
+            return View(disps);
+        }
+
+
 
         public ActionResult SimplexView()
         {

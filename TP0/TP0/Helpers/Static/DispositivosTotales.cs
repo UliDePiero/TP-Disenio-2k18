@@ -79,5 +79,18 @@ namespace TP0.Helpers.Static
                 db.SaveChanges();
             }
         }
+
+        public static void LlenarListaDeDisposEstaticos(List<DispositivoEstatico> list)
+        {
+            using (var db = new DBContext())
+            {
+                foreach (DispositivoEstatico d in db.DispEstaticos)
+                    list.Add(d);
+             
+            }
+        }
+
+
+
     }
 }
