@@ -35,48 +35,11 @@ namespace TP0.Controllers
             return View();
         }
 
-        [HttpGet]
-        public ActionResult AgregarDispositivos()
-        {   //se llenan la lista de todas las opciones de dispositivos para poder agregarlos a los propios del usuario
-            List<SelectListItem> disps = DispositivosTotales.GetDispositivos();
-            if(disps.Count == 0)
-                ViewBag.Message = "No hay dispositivos para agregar actualmente.";
-            else
-                ViewBag.Message = "Seleccione un dispositivo de la lista para agregar.";
-
-            ViewBag.selectListItems = disps;
-            return View();
-        }
-        [HttpPost]
-        public ActionResult AgregarDispositivos(SubmitViewModel model)
-        {
-            //Agrega el nuevo dispositivo al usuario
-            string codigo = model.DispositivoSeleccionado;
-
-            Cliente c = new Cliente(User.Identity.GetUserName());
-            if (DispositivosTotales.EsInteligente(codigo))
-            {
-                DispositivoInteligente disp = DispositivosTotales.EncontrarDispositivoInteligente(codigo);
-                c.AgregarDispInteligente(disp);
-            }
-            else
-            {
-                DispositivoEstandar disp = DispositivosTotales.EncontrarDispositivoEstandard(codigo);
-                c.AgregarDispEstandar(disp);
-            }
-
-            return RedirectToAction("Index", "Home");
-        }
-        
-
-
-
-
 
         //SE SUPONE QUE ESTO DEBERIA TOMAR TODOS LOS DISPOSITIVOS DE DISPOSITIVOS TOTALES
         //ESTA VACIA LA BASE 
        
-        public ActionResult AdministrarTodosLosDispositivos()
+        public ActionResult AdministrarDispositivosAdmin()
         {
            List<DispositivoEstatico> disps = new List<DispositivoEstatico>();
             DispositivosTotales.LlenarDisps();
@@ -219,6 +182,39 @@ namespace TP0.Controllers
             DispositivoInteligente d = new DispositivoInteligente(id);
 
             return View(d);
+        }
+
+        [HttpGet]
+        public ActionResult AgregarDispositivoClie()
+        {   //se llenan la lista de todas las opciones de dispositivos para poder agregarlos a los propios del usuario
+            List<SelectListItem> disps = DispositivosTotales.GetDispositivos();
+            if (disps.Count == 0)
+                ViewBag.Message = "No hay dispositivos para agregar actualmente.";
+            else
+                ViewBag.Message = "Seleccione un dispositivo de la lista para agregar.";
+
+            ViewBag.selectListItems = disps;
+            return View();
+        }
+        [HttpPost]
+        public ActionResult AgregarDispositivoClie(SubmitViewModel model)
+        {
+            //Agrega el nuevo dispositivo al usuario
+            string codigo = model.DispositivoSeleccionado;
+
+            Cliente c = new Cliente(User.Identity.GetUserName());
+            if (DispositivosTotales.EsInteligente(codigo))
+            {
+                DispositivoInteligente disp = DispositivosTotales.EncontrarDispositivoInteligente(codigo);
+                c.AgregarDispInteligente(disp);
+            }
+            else
+            {
+                DispositivoEstandar disp = DispositivosTotales.EncontrarDispositivoEstandard(codigo);
+                c.AgregarDispEstandar(disp);
+            }
+
+            return RedirectToAction("DispositivosPropios", "Home");
         }
 
         [HttpGet]

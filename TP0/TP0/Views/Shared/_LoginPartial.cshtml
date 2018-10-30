@@ -10,7 +10,7 @@
         @Html.ActionLink("Hola " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
     </li>
     @*pestañas de admin*@
-    <li>@Html.ActionLink("AdministrarTodosLosDispositivos", "Home", "Home")</li> @*Pagina de mapa*@
+    <li>@Html.ActionLink("Dispositivos del sistema", "AdministrarDispositivosAdmin", "Home")</li> @*Pagina de mapa*@
     <li>@Html.ActionLink("Cargar info", "Index", "FileUpload")</li>
     <li>@Html.ActionLink("Mapa", "Map", "Home")</li> @*Pagina de mapa*@
     <li><a href="javascript:document.getElementById('logoutForm').submit()">Cerrar sesión</a></li>
@@ -29,7 +29,6 @@
         @Html.ActionLink("Hola " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
     </li>
     @*pestañas de usuario*@
-    <li>@Html.ActionLink("Agregar dispositivo", "AgregarDispositivos", "Home")</li> @*Pagina para agregar disp*@
     <li>@Html.ActionLink("Tus dispositivos", "DispositivosPropios", "Home")</li> @*Pagina de dispositivos*@
     <li>@Html.ActionLink("Administrar Reglas", "AdministrarReglas", "Home")</li> @*Pagina de reglas*@
     <li>@Html.ActionLink("Cargar info", "IndexClie", "FileUpload")</li>

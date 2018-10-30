@@ -402,7 +402,7 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\AgregarDispositivos.cshtml" />
+    <Content Include="Views\Home\AgregarDispositivoClie.cshtml" />
     <Content Include="Views\Home\SimplexView.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
@@ -434,7 +434,7 @@
     <Content Include="Views\Home\DetallesInteligente.cshtml" />
     <Content Include="Views\FileUpload\IndexClie.cshtml" />
     <Content Include="Views\Home\ConvertirEnInteligente.cshtml" />
-    <Content Include="Views\Home\AdministrarTodosLosDispositivos.cshtml" />
+    <Content Include="Views\Home\AdministrarDispositivosAdmin.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\uploads\" />
