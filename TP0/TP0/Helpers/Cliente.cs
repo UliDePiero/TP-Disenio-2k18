@@ -48,7 +48,7 @@ namespace TP0.Helpers
             AccionAutomatica = false;
             TipoDocumento = tipo;
             Telefono = tel;
-            Dispositivos = new List<Dispositivo>();
+            Dispositivos = new List<Dispositivo>(); //Creo la lista vacia
             AccionAutomatica = false;
             FechaDeAlta = DateTime.Now.ToShortDateString();
             ConectarseAlTrafoMasProx();
@@ -69,6 +69,7 @@ namespace TP0.Helpers
                 Telefono = c.Telefono;
                 PuntosAcum = c.PuntosAcum;
                 Dispositivos = new List<Dispositivo>();
+                GetDisps(); //levanto todos los dispositivos del cliente de una
                 AccionAutomatica = c.AccionAutomatica;
                 FechaDeAlta = c.FechaDeAlta;
                 UsuarioID = c.UsuarioID; 
