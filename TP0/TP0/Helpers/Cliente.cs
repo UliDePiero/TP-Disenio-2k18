@@ -74,6 +74,27 @@ namespace TP0.Helpers
                 UsuarioID = c.UsuarioID; 
             }
         }
+        public Cliente(int id) //para buscar en la DB + instanciar
+        {
+            using (var contexto = new DBContext())
+            {
+                var c = contexto.Usuarios.First(x => x.UsuarioID == id);
+                Nombre = c.Nombre;
+                Apellido = c.Apellido;
+                Domicilio = c.Domicilio;
+                Username = c.Username;
+                Contrasenia = c.Contrasenia;
+                EsAdmin = false;
+                Documento = c.Documento;
+                TipoDocumento = c.TipoDocumento;
+                Telefono = c.Telefono;
+                PuntosAcum = c.PuntosAcum;
+                Dispositivos = new List<Dispositivo>();
+                AccionAutomatica = c.AccionAutomatica;
+                FechaDeAlta = c.FechaDeAlta;
+                UsuarioID = c.UsuarioID;
+            }
+        }
         public void AgregarALaBase()
         {
             //Agrega un usuario a la base

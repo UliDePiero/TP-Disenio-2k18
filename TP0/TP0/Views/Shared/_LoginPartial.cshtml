@@ -10,7 +10,8 @@
         @Html.ActionLink("Hola " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
     </li>
     @*pestañas de admin*@
-    <li>@Html.ActionLink("Dispositivos del sistema", "AdministrarDispositivosAdmin", "Home")</li> @*Pagina de mapa*@
+    <li>@Html.ActionLink("Dispositivos", "AdministrarDispositivosAdmin", "Home")</li> @*Pagina de dispositivos*@
+    <li>@Html.ActionLink("Casas", "AdministrarCasasAdmin", "Home")</li> @*Pagina de casas (clientes)*@
     <li>@Html.ActionLink("Cargar info", "Index", "FileUpload")</li>
     <li>@Html.ActionLink("Mapa", "Map", "Home")</li> @*Pagina de mapa*@
     <li><a href="javascript:document.getElementById('logoutForm').submit()">Cerrar sesión</a></li>

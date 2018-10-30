@@ -16,6 +16,7 @@ namespace TP0.Controllers
 {
     public class HomeController : Controller
     {
+        //VISTAS PUBLICAS
         public ActionResult Index()
         {
             return View();
@@ -34,11 +35,11 @@ namespace TP0.Controllers
             ViewBag.Transformadores = JsonConvert.SerializeObject(transformadores, Formatting.Indented);
             return View();
         }
-
-
-        //SE SUPONE QUE ESTO DEBERIA TOMAR TODOS LOS DISPOSITIVOS DE DISPOSITIVOS TOTALES
-        //ESTA VACIA LA BASE 
        
+
+
+
+        //VISTAS DE ADMIN
         public ActionResult AdministrarDispositivosAdmin()
         {
            List<DispositivoEstatico> disps = new List<DispositivoEstatico>();
@@ -51,22 +52,24 @@ namespace TP0.Controllers
             return View(disps);
         }
 
-
-
-        public ActionResult SimplexView()
+        public ActionResult AdministrarCasasAdmin()
         {
-            if (User.Identity.IsAuthenticated || Helpers.Static.ClientesImportados.GetClientes() != null)
-            {
-                Cliente clie = new Cliente(User.Identity.Name);
-                clie.CargarDisps();
+            IEnumerable<Cliente> casas = ClientesImportados.GetClientes();
+            foreach (Cliente c in casas)
+                c.CargarDisps();
 
-                ViewBag.simplexResultado = clie.SolicitarRecomendacion();
-                return View();
-            }
-            ViewBag.simplexResultado = "Hubo un error al ejecutar el simplex";
-            return View();
+            return View(casas);
         }
 
+        public ActionResult DetallesCliente(int id)
+        {
+            Cliente c = new Cliente(id);
+            c.CargarDisps();
+            return View(c);
+        }
+
+
+        //VISTAS DE CLIENTE
         public ActionResult AdministrarReglas(SubmitViewModel model)
         {
             ViewBag.Message = "Tus reglas";
@@ -264,6 +267,20 @@ namespace TP0.Controllers
 
             ViewBag.consumo = "Consumo: " + clie.KwTotales(FechaInicio, FechaFin) + " Kw";
             ViewBag.fechas = FechaInicio.ToShortDateString() + " - " + FechaFin.ToShortDateString();
+            return View();
+        }
+
+        public ActionResult SimplexView()
+        {
+            if (User.Identity.IsAuthenticated || ClientesImportados.GetClientes() != null)
+            {
+                Cliente clie = new Cliente(User.Identity.Name);
+                clie.CargarDisps();
+
+                ViewBag.simplexResultado = clie.SolicitarRecomendacion();
+                return View();
+            }
+            ViewBag.simplexResultado = "Hubo un error al ejecutar el simplex";
             return View();
         }
     }

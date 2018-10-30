@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using TP0.Helpers.ORM;
 
 namespace TP0.Helpers.Static
 {
@@ -10,11 +11,15 @@ namespace TP0.Helpers.Static
         public static List<Cliente> clientes;
         public static List<Cliente> GetClientes()
         {
-            if (clientes.Count > 0)
+            List<Cliente> clientes = new List<Cliente>();
+            using (var db = new DBContext())
             {
-                return clientes;
+                foreach (var u in db.Usuarios)
+                    if (!u.EsAdmin)
+                        clientes.Add(new Cliente(u.Nombre, u.Apellido, u.Domicilio, u.Username, u.Contrasenia, u.Documento, u.TipoDocumento, u.Telefono)
+                        { UsuarioID = u.UsuarioID});
             }
-            else return null;
+            return clientes;
         }
         public static Cliente filtrarCliente(string id)
         {

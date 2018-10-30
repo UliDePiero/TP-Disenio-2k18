@@ -1,0 +1,72 @@
+﻿@model IEnumerable<TP0.Helpers.Cliente>
+
+<div class="jumbotron">
+
+    <h3>Consumo promedio total: @ViewBag.total KwH</h3>
+    @using (Html.BeginForm("ConsultarConsumo", "Home", FormMethod.Get))
+    {@*Boton para consultar consumo entre fechas*@
+    <input type="submit" class="btn btn-default" value="Consultar consumo por periodo">
+}
+    <h3>Dispositivos: @ViewBag.dispositivos </h3>
+    @using (Html.BeginForm("SimplexView", "Home", FormMethod.Get))
+    {@*Boton para ejecutar el simplex*@
+    <input type="submit" class="btn btn-default" value="Conocer recomendación" onclick="alertBox()">
+}
+    <h5>Dispositivos encendidos: @ViewBag.dispE</h5>
+    <h5>Dispositivos apagados: @ViewBag.dispA</h5>
+    <h5>Dispositivos en ahorro: @ViewBag.dispAh</h5>
+    <h5>Dispositivos estandares: @ViewBag.dispEs</h5>
+</div>
+<script>
+        function alertBox() {
+            alert("Simplex ejecutado");
+        }
+</script>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Nombre)
+        </th>
+        <th style="text-align: center;">
+            @Html.DisplayNameFor(model => model.Domicilio)
+        </th>
+        <th style="text-align: center;">
+            @Html.DisplayNameFor(model => model.Telefono)
+        </th>
+
+        <th style="text-align: center;">
+            @Html.DisplayName("Dispositivos")
+        </th>
+        <th style="text-align: center;">
+            @Html.DisplayName("Dispositivos encendidos")
+        </th>
+        <th style="text-align: center;">
+            @Html.DisplayName("Consumo actual")
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+    <tr>
+        <td>
+            @Html.ActionLink(item.Nombre, "DetallesCliente", new { id = item.UsuarioID})
+        </td>
+        <td style="text-align: center;">
+            @Html.DisplayFor(modelItem => item.Domicilio)
+        </td>
+        <td style="text-align: center;">
+            @Html.DisplayFor(modelItem => item.Telefono)
+        </td>
+        <td style="text-align: center;">
+            @item.DispositivosTotales()
+        </td>
+        <td style="text-align: center;">
+            @item.DispositivosEncendidos()
+        </td>
+        <td style="text-align: center;">
+            @item.ConsumoActual()
+        </td>
+    </tr>
+    }
+</table>
