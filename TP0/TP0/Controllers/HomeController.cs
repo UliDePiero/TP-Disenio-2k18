@@ -65,8 +65,39 @@ namespace TP0.Controllers
         {
             Cliente c = new Cliente(id);
             c.CargarDisps();
+            ViewBag.Dispositivos = c.Dispositivos;
             return View(c);
         }
+
+        [HttpGet]
+        public ActionResult ConsultarConsumoAdmin(int id)
+        {//Metodo para consultar el consumo en un periodo
+            ViewBag.consumo = "";
+            ViewBag.id = id;
+            return View();
+        }
+        [HttpPost]
+        public ActionResult ConsultarConsumoAdmin(DateTime FechaInicio, DateTime FechaFin, int id)
+        {
+            Cliente clie = new Cliente(id);
+            clie.CargarDisps();
+
+            ViewBag.id = id;
+            ViewBag.consumo = "Consumo: " + clie.KwTotales(FechaInicio, FechaFin) + " Kw";
+            ViewBag.fechas = FechaInicio.ToShortDateString() + " - " + FechaFin.ToShortDateString();
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult SimplexView(int id)
+        {
+            Cliente clie = new Cliente(id);
+            clie.CargarDisps();
+
+            ViewBag.simplexResultado = clie.SolicitarRecomendacion();
+            return View();
+        }
+
 
 
         //VISTAS DE CLIENTE
@@ -270,6 +301,7 @@ namespace TP0.Controllers
             return View();
         }
 
+        [HttpGet]
         public ActionResult SimplexView()
         {
             if (User.Identity.IsAuthenticated || ClientesImportados.GetClientes() != null)

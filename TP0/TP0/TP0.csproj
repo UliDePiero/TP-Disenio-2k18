@@ -437,6 +437,7 @@
     <Content Include="Views\Home\AdministrarDispositivosAdmin.cshtml" />
     <Content Include="Views\Home\AdministrarCasasAdmin.cshtml" />
     <Content Include="Views\Home\DetallesCliente.cshtml" />
+    <Content Include="Views\Home\ConsultarConsumoAdmin.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\uploads\" />

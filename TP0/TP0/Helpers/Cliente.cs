@@ -169,6 +169,16 @@ namespace TP0.Helpers
             }
             return Estandares;
         }
+        public int DispositivosInteligentes()
+        {
+            int Inteligentes = 0;
+            foreach (Dispositivo disp in Dispositivos)
+            {
+                if (disp.EsInteligente)
+                    Inteligentes++;
+            }
+            return Inteligentes;
+        }
 
         public void AgregarDispJson(List<DispositivoEstatico> disps)
         {
