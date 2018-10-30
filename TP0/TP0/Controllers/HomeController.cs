@@ -172,6 +172,16 @@ namespace TP0.Controllers
             }
             return RedirectToAction("DetallesInteligente", "Home", new { id });
         }
+        public ActionResult BorrarDispositivoClie(int id)
+        {
+            using (var db = new DBContext())
+            {
+                var disp = db.Dispositivos.FirstOrDefault(d => d.DispositivoID == id);
+                db.Dispositivos.Remove(disp);
+                db.SaveChanges();
+            }
+            return RedirectToAction("DispositivosPropios", "Home");
+        }
 
         public ActionResult DetallesEstandar(int id)
         {

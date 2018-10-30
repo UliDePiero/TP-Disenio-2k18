@@ -32,3 +32,15 @@
     </table>
     <h2>ACA ES DONDE PONDRÍA ESTAS COSAS, SI LAS TUVIERA</h2>
 </div>
+<div class="jumbotron">
+    @using (Html.BeginForm("BorrarDispositivoClie", "Home", new { id = Model.DispositivoID }))
+    {
+        <input type="submit" class="btn btn-default" value="Eliminar dispositivo" onclick="alertBox()">
+    }
+    <h4><font color="red">ADVERTENCIA: ESTA ACCIÓN NO PUEDE DESHACERSE</font></h4>
+</div>
+<script>
+    function alertBox() {
+        alert("Dispositivo eliminado exitosamente");
+    }
+</script>
