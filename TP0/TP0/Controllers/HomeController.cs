@@ -87,6 +87,33 @@ namespace TP0.Controllers
             ViewBag.Dispositivos = c.Dispositivos;
             return View(c);
         }
+        public ActionResult Encender3(int id, string estadoActual, int Uid)
+        {
+            if (estadoActual != "Encendido")
+            {
+                DispositivoInteligente DI = new DispositivoInteligente(id);
+                DI.Encender();
+            }
+            return RedirectToAction("DetallesCliente", "Home", new { id = Uid });
+        }
+        public ActionResult Apagar3(int id, string estadoActual, int Uid)
+        {
+            if (estadoActual != "Apagado")
+            {
+                DispositivoInteligente DI = new DispositivoInteligente(id);
+                DI.Apagar();
+            }
+            return RedirectToAction("DetallesCliente", "Home", new { id = Uid });
+        }
+        public ActionResult Ahorro3(int id, string estadoActual, int Uid)
+        {
+            if (estadoActual != "Ahorro")
+            {
+                DispositivoInteligente DI = new DispositivoInteligente(id);
+                DI.AhorrarEnergia();
+            }
+            return RedirectToAction("DetallesCliente", "Home", new { id = Uid });
+        }
 
         [HttpGet]
         public ActionResult ConsultarConsumoAdmin(int id)
