@@ -1,11 +1,9 @@
 ﻿@model IEnumerable<TP0.Helpers.Static.DispositivoEstatico>
  
 <div class="jumbotron">
-
+    <h2>Administrar dispositivos</h2>
+    <h4>Cantidad de dispositivos para elegir: @Model.Count()</h4>
 </div>
-<script>
-    
-</script>
 
 <table class="table">
     <tr>
@@ -13,59 +11,54 @@
             @Html.DisplayNameFor(model => model.Nombre)
         </th>
         <th style="text-align: center;">
-      
+
             @Html.DisplayNameFor(model => model.EsInteligente)
         </th>
-
         <th style="text-align: center;">
-       
+            @Html.DisplayNameFor(model => model.Codigo)
         </th>
-        <th>
-        
+        <th style="text-align: center;">
+            @Html.DisplayNameFor(model => model.Min)
         </th>
-        <th> </th>
+        <th style="text-align: center;">
+            @Html.DisplayNameFor(model => model.Max)
+        </th>
+        <th style="text-align: center;">
+            @Html.DisplayNameFor(model => model.KWxHora)
+        </th>
     </tr>
 
     @foreach (var item in Model)
     {
-        if (item.EsInteligente)
-        {
-            <tr>
-                <td>
-                    @Html.ActionLink(item.Nombre, "DetallesInteligente", new { id = item.DispositivoID })
-                </td>
-                <td style="text-align: center;">
-                    @Html.DisplayFor(modelItem => item.KWxHora)
-                </td>
-                <td style="text-align: center;">
-                    @Html.DisplayFor(modelItem => item.EsInteligente)
-                </td>
-                <td style="text-align: center;">
-              
-                </td>
-                <td>
-                 
-                </td>
-                <td>
-                
-                </td>
-            </tr>
-        }
-        else
-        {
-            <tr>
-                <td>
-                    @Html.ActionLink(item.Nombre, "DetallesEstandar", new { id = item.DispositivoID })
-                </td>
-                <td style="text-align: center;">
-                    @Html.DisplayFor(modelItem => item.KWxHora)
-                </td>
-                <td style="text-align: center;">
-
-                </td>
-                <td></td>
-                <td></td>
-            </tr>
-        }
+        <tr>
+            <td>
+                @Html.ActionLink(item.Nombre, "ModificarDispositivoAdmin", new { id = item.DispositivoID }, FormMethod.Get)
+            </td>
+            <td style="text-align: center;">
+                @Html.DisplayFor(modelItem => item.EsInteligente)
+            </td>
+            <td style="text-align: center;">
+                @Html.DisplayFor(modelItem => item.Codigo)
+            </td>
+            <td style="text-align: center;">
+                @Html.DisplayFor(modelItem => item.Min)
+            </td>
+            <td style="text-align: center;">
+                @Html.DisplayFor(modelItem => item.Max)
+            </td>
+            <td style="text-align: center;">
+                @Html.DisplayFor(modelItem => item.KWxHora)
+            </td>
+        </tr>
     }
+        <tr>
+            <td>
+                @Html.ActionLink("+Agregar nuevo", "AgregarDispositivoAdmin", FormMethod.Get)
+            </td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
 </table>

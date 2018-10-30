@@ -36,7 +36,7 @@ namespace TP0.Helpers.Static
         static DispositivoInteligente lampara15W = new DispositivoInteligente("lampara de 15 W", "0033", 0.015, 360, 90);
         static DispositivoInteligente lampara20W = new DispositivoInteligente("lampara de 20 W", "0034", 0.02, 360, 90);*/
 
-        static List<DispositivoEstatico> opcionesDeDispositivos = new List<DispositivoEstatico>();
+        public static List<DispositivoEstatico> opcionesDeDispositivos = new List<DispositivoEstatico>();
 
         public static void LlenarDisps()
         {

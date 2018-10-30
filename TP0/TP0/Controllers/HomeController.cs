@@ -42,14 +42,22 @@ namespace TP0.Controllers
         //VISTAS DE ADMIN
         public ActionResult AdministrarDispositivosAdmin()
         {
-           List<DispositivoEstatico> disps = new List<DispositivoEstatico>();
             DispositivosTotales.LlenarDisps();
-            DispositivosTotales.LlenarListaDeDisposEstaticos(disps);
-
-            
-          
+            IEnumerable<DispositivoEstatico> disps = DispositivosTotales.opcionesDeDispositivos;
 
             return View(disps);
+        }
+
+        [HttpGet]
+        public ActionResult ModificarDispositivoAdmin(int id)
+        {
+            return View();
+        }
+
+        [HttpGet]
+        public ActionResult AgregarDispositivoAdmin()
+        {
+            return View();
         }
 
         public ActionResult AdministrarCasasAdmin()
