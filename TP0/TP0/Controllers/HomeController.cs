@@ -55,6 +55,17 @@ namespace TP0.Controllers
         }
 
         [HttpGet]
+        public ActionResult EliminarDispositivoAdmin(int id)
+        {
+            using (var db = new DBContext())
+            {
+                var disp = db.DispEstaticos.FirstOrDefault(d => d.DispositivoID == id);
+                db.DispEstaticos.Remove(disp);
+                db.SaveChanges();
+            }
+            return RedirectToAction("AdministrarDispositivosAdmin", "Home");
+        }
+        [HttpGet]
         public ActionResult AgregarDispositivoAdmin()
         {
             return View();
