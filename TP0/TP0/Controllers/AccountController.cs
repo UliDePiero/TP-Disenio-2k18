@@ -85,7 +85,14 @@ namespace TP0.Controllers
             switch (result)
             {
                 case SignInStatus.Success:
-                    return RedirectToLocal(returnUrl);
+                    {
+                        Cliente c = new Cliente(model.Email);
+                        if (c.EsAdmin) System.Web.HttpContext.Current.Session["admin"] =  "true";
+                        else System.Web.HttpContext.Current.Session["admin"] = "false";
+                     
+
+                        return RedirectToLocal(returnUrl);
+                    }
                 case SignInStatus.LockedOut:
                     return View("Lockout");
                 case SignInStatus.RequiresVerification:

@@ -98,7 +98,7 @@ namespace TP0.Controllers
                     }
                     try
                     {
-                        //se agarra el texto del archivo y se lo convierte a una lista de Cliente, Transformadores o Dispositivos
+                        //se agarra el texto del archivo y se lo convierte a una lista de dispositivos del cliente
                         string Json = System.IO.File.ReadAllText(path);
                         switch (Path.GetFileName(file.FileName))
                         {

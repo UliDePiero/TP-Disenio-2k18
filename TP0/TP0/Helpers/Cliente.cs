@@ -63,7 +63,7 @@ namespace TP0.Helpers
                 Domicilio = c.Domicilio;
                 Username = c.Username;
                 Contrasenia = c.Contrasenia;
-                EsAdmin = false;
+                EsAdmin = c.EsAdmin; //Esto debe levantarse de la base
                 Documento = c.Documento;
                 TipoDocumento = c.TipoDocumento;
                 Telefono = c.Telefono;
@@ -85,7 +85,7 @@ namespace TP0.Helpers
                 Domicilio = c.Domicilio;
                 Username = c.Username;
                 Contrasenia = c.Contrasenia;
-                EsAdmin = false;
+                EsAdmin = c.EsAdmin; //Esto debe levantarse de la base
                 Documento = c.Documento;
                 TipoDocumento = c.TipoDocumento;
                 Telefono = c.Telefono;
@@ -315,6 +315,7 @@ namespace TP0.Helpers
                 return db.Dispositivos.Where(x => x.UsuarioID == UsuarioID).ToList();
             }
         }
+
         public void CargarDisps()
         {
             using (var db = new DBContext())
