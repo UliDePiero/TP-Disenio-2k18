@@ -21,6 +21,7 @@ namespace TP0.Helpers
         //public double horasTotalesXMes;
         List<Dispositivo> LDI;
         List<Dispositivo> LDE;
+        public String[] NombresDeDisp;
         [NotMapped]
         private static Recomendacion _instancia;
         [NotMapped]
@@ -75,17 +76,22 @@ namespace TP0.Helpers
             }
             foreach (var c in clientes)
             {
+                int i = 0;
+                NombresDeDisp = new String[100];
+                NombresDeDisp[0]="Horas transcurridas del periodo actual";
                 var cl = new Cliente(c.Username);
                     var result = GenerarRecomendacion(cl);
 
                     double[] doubleV = ParsearString(result);
-                    int i = 1;
+                    
+                    i++;
 
                     if (cl.AccionAutomatica == true)
                     {
                         foreach (var de in LDE)
                         {
-                            i++;
+                        NombresDeDisp[i]=de.Nombre;
+                        i++;
                         }
                         foreach (var di in LDI)
                         {
@@ -94,7 +100,8 @@ namespace TP0.Helpers
                             {
                                 disp.Apagar();
                             }
-                            i++;
+                        NombresDeDisp[i] = di.Nombre;
+                        i++;
                         }
                     }
                 }
