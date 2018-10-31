@@ -33,7 +33,7 @@ namespace TP0.Helpers.Simplex
             List<double> v = getVars(dispTotales); //se hace la primera fila del archivo json
             vars = v;
             List<double> values1 = new List<double>(); //esta es la primera fila de valores de la parte de "restricciones"
-            values1.Add(612); //consumo total = 620 // Lo subi a 620000 porque sino no anda por la cantidad de dispositivos
+            values1.Add(620); //consumo total = 620 // Lo subi a 620000 porque sino no anda por la cantidad de dispositivos
             foreach (var de in LDE)
             {
                 values1.Add(de.KWxHora); //se llena la lista con los kwxh de los dispositivos estandars

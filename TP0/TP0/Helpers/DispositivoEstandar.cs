@@ -79,7 +79,7 @@ namespace TP0.Helpers
         }
         public override double ConsumoEnHoras(double horas)
         {
-            throw new NotImplementedException();
+            return ConsumoEnPeriodo(DateTime.Now.AddHours(-horas), DateTime.Now);
         }
 
         public override bool EstaEncendido()

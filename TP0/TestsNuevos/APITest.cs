@@ -51,14 +51,7 @@ namespace TestsNuevos
                 var resultado = recomendacion.GenerarRecomendacion(cliente);
 
                 //Assert
-                Assert.AreEqual("Horas transcurridas del periodo actual", recomendacion.NombresDeDisp[0]);
-                Assert.AreEqual("lampara halogena de 60 W", recomendacion.NombresDeDisp[1]);
-                Assert.AreEqual("microondas convencional", recomendacion.NombresDeDisp[2]);
-                Assert.AreEqual("televisor LCD de 40 pulgadas", recomendacion.NombresDeDisp[3]);
-                Assert.AreEqual("lavarropas automatico de 5kg con calentamiento", recomendacion.NombresDeDisp[4]);
-
-
-
+          
                 Assert.AreEqual("[765.0, 15.0, 360.0, 30.0, 360.0]", resultado);
             }
         }

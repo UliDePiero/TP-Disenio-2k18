@@ -76,21 +76,18 @@ namespace TP0.Helpers
             }
             foreach (var c in clientes)
             {
-                int i = 0;
-                NombresDeDisp = new String[100];
-                NombresDeDisp[0]="Horas transcurridas del periodo actual";
+                
                 var cl = new Cliente(c.Username);
-                    var result = GenerarRecomendacion(cl);
+                var result = GenerarRecomendacion(cl);
 
                     double[] doubleV = ParsearString(result);
                     
-                    i++;
+                    int i=1;
 
                     if (cl.AccionAutomatica == true)
                     {
                         foreach (var de in LDE)
                         {
-                        NombresDeDisp[i]=de.Nombre;
                         i++;
                         }
                         foreach (var di in LDI)
@@ -100,7 +97,6 @@ namespace TP0.Helpers
                             {
                                 disp.Apagar();
                             }
-                        NombresDeDisp[i] = di.Nombre;
                         i++;
                         }
                     }

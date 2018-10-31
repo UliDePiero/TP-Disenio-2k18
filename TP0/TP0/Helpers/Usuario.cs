@@ -37,7 +37,7 @@ namespace TP0.Helpers
         public abstract void AgregarDispInteligente(DispositivoInteligente DI);
         public abstract void AgregarDispEstandar(DispositivoEstandar DE);
         public abstract void AdaptarDispositivo(DispositivoEstandar D, string marca);
-        public abstract string SolicitarRecomendacion();
+        public abstract RecomendacionXDisp[] SolicitarRecomendacion();
         public abstract void ActualizarCategoria();
        //public abstract List<double> UbicacionDomicilio();
        //public abstract double CalcDistancia(double[] punto1, double[] punto2);
@@ -55,6 +55,12 @@ namespace TP0.Helpers
                 }
                 db.SaveChanges();
             }
+        }
+        public struct RecomendacionXDisp
+        {
+            public string NombreDispositivo;
+            public double KWxHoraConsumidos;
+            public double KWxHoraPuedeConsumir;
         }
     }
 }

@@ -73,7 +73,7 @@ namespace TP0.Helpers
             throw new NotImplementedException();
         }
 
-        public override string SolicitarRecomendacion()
+        public override RecomendacionXDisp[] SolicitarRecomendacion()
         {
             throw new NotImplementedException();
         }

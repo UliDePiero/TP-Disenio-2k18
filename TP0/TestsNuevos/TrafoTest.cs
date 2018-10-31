@@ -30,7 +30,7 @@ namespace TestsNuevos
                 var trafoProx = db.Transformadores.Find(cliente.TransformadorID);
 
                 //Assert
-                Assert.AreEqual(2, trafoProx.TransformadorID);
+                Assert.AreEqual(4, trafoProx.TransformadorID);
             }
         }
 

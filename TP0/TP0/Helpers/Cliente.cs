@@ -69,7 +69,7 @@ namespace TP0.Helpers
                 Telefono = c.Telefono;
                 PuntosAcum = c.PuntosAcum;
                 Dispositivos = new List<Dispositivo>();
-                GetDisps(); //levanto todos los dispositivos del cliente de una
+                Dispositivos = GetDisps(); //levanto todos los dispositivos del cliente de una
                 AccionAutomatica = c.AccionAutomatica;
                 FechaDeAlta = c.FechaDeAlta;
                 UsuarioID = c.UsuarioID; 
@@ -91,6 +91,7 @@ namespace TP0.Helpers
                 Telefono = c.Telefono;
                 PuntosAcum = c.PuntosAcum;
                 Dispositivos = new List<Dispositivo>();
+                Dispositivos = GetDisps(); //levanto todos los dispositivos del cliente de una
                 AccionAutomatica = c.AccionAutomatica;
                 FechaDeAlta = c.FechaDeAlta;
                 UsuarioID = c.UsuarioID;
@@ -280,12 +281,19 @@ namespace TP0.Helpers
         public override double KwTotales(DateTime fInicial, DateTime fFinal)
         {
             double Consumo = 0;
-
-            using (var db = new DBContext())
-            {
-                foreach (var disp in Dispositivos)
-                    Consumo += disp.ConsumoEnPeriodo(fInicial, fFinal);
-            }
+            Dispositivos = GetDisps();
+            foreach (var disp in Dispositivos)
+                    if (disp.EsInteligente)
+                    {
+                        var di = new DispositivoInteligente(disp.DispositivoID);
+                        Consumo += di.ConsumoEnPeriodo(fInicial, fFinal);
+                    }
+                    else
+                    {
+                        var de = new DispositivoEstandar(disp.DispositivoID);
+                        Consumo += de.ConsumoEnPeriodo(fInicial, fFinal);
+                    }
+            
             return Consumo;
         }
 
@@ -337,12 +345,59 @@ namespace TP0.Helpers
             }
         }
 
-        public override string SolicitarRecomendacion()
-        {
-            return recomendacion.GenerarRecomendacion(this);
-        }
 
-        public override void ActualizarCategoria()
+        public override RecomendacionXDisp[] SolicitarRecomendacion()
+        {
+
+            int i = 1;
+            var LDI = new List<Dispositivo>();
+            var LDE = new List<Dispositivo>();
+
+            var result = recomendacion.GenerarRecomendacion(this);
+            double[] doubleV = recomendacion.ParsearString(result);
+            foreach (var d in Dispositivos)
+            {
+                if (d.EsInteligente)
+                    LDI.Add(d);
+                else
+                    LDE.Add(d);
+                i++;
+            }
+            var DispsOrdernados = LDE.Concat(LDI);
+            var RecomendacionXDispositivos = new RecomendacionXDisp[i];
+
+            int j=0;
+            var tiempoTotal = new RecomendacionXDisp();
+            tiempoTotal.NombreDispositivo = "Valor independiente";
+            tiempoTotal.KWxHoraPuedeConsumir = doubleV[j];
+            RecomendacionXDispositivos[0]=tiempoTotal;
+            j++;
+
+            double horasDelMes = DateTime.Now.Day*24;
+
+            foreach (var disp in Dispositivos)
+            {
+                var recXdisp = new RecomendacionXDisp();
+                recXdisp.NombreDispositivo = disp.Nombre;
+                recXdisp.KWxHoraPuedeConsumir = doubleV[j];
+                if (disp.EsInteligente)
+                {
+                    var di = new DispositivoInteligente(disp.DispositivoID);
+                    recXdisp.KWxHoraConsumidos = di.ConsumoEnHoras(horasDelMes);
+                }
+                else
+                {
+                    var de = new DispositivoEstandar(disp.DispositivoID);
+                    recXdisp.KWxHoraConsumidos = de.ConsumoEnHoras(horasDelMes);
+                }
+                RecomendacionXDispositivos[j] = recXdisp;
+                j++;
+            }
+
+            return RecomendacionXDispositivos;
+    }
+
+    public override void ActualizarCategoria()
         {
             
         }
@@ -392,5 +447,7 @@ namespace TP0.Helpers
         {
             throw new NotImplementedException();
         }
+
     }
+
 }
