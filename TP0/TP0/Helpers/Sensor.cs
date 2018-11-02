@@ -12,30 +12,36 @@ namespace TP0.Helpers
     {
         [Key]
         public int SensorID { get; set; }
-        public DateTime UltimaMedicion { get; set; }
         public string Desc { get; set; }
-
+        public bool Midiendo { get; set; }
+        public float ValorMedicion { get; set; }
+        public DateTime FechaUltimaMedicion { get; private set; }
         [NotMapped]
         public List<Regla> Observers { get; set; }
         [NotMapped]
-        public Medicion Medicion;
+        public List<Medicion> Mediciones;   //(Como seria guardar N mediciones??? Con un metodo???)
+        public Medicion UltimaMedicion;
 
-        /*
-        public Sensor(string descripcion)
+        public Sensor(string descripcion) //Hay que generar el ID del sensor?
         {
             Desc = descripcion;
+            using (var db = new DBContext())
+            {
+                db.Sensores.Add(this);
+                db.SaveChanges();
+            }
         }
         public Sensor()
         {
         }
-        */
-
+        
         public void AgregarObservador(Regla c)
         {
             Observers.Add(c);
             using (var db = new DBContext())
             {
                 db.Reglas.Add(c);
+                db.Actuadores.Add(c.Actuador);
                 db.SaveChanges();
             }
         }
@@ -45,14 +51,82 @@ namespace TP0.Helpers
             using (var db = new DBContext())
             {
                 db.Reglas.Remove(c);
+                db.Actuadores.Remove(c.Actuador);
                 db.SaveChanges();
             }
         }
         public void Notificar()
         {
-            Observers.ForEach(o => o.Notificar(Medicion));
+            //Observers.ForEach(o => o.Notificar(UltimaMedicion));
+            Observers.ForEach(o => o.Notificar( ObtenerMedicion() ));
         }
 
-        public abstract void Medir(int valorMedicion);
+        public void Medir(float valorMedicion, DateTime tFinal)
+        {
+            if(DateTime.Compare(DateTime.Now, tFinal) < 0)
+            {
+                ValorMedicion = valorMedicion;
+                FechaUltimaMedicion = DateTime.Now;
+                Midiendo = true;
+                Medir(valorMedicion, tFinal);
+            }                
+            Midiendo = false;
+        }
+
+        public Medicion ObtenerMedicion() //Hay que generar el ID de la medicion?
+        {
+            UltimaMedicion.Medida = ValorMedicion;
+            UltimaMedicion.Fecha = FechaUltimaMedicion;
+            UltimaMedicion.SensorID = SensorID;
+            Mediciones.Add(UltimaMedicion);
+            using (var db = new DBContext())
+            {
+                db.Mediciones.Add(UltimaMedicion);
+                db.SaveChanges();
+            }
+            return UltimaMedicion;
+        }
     }
+    /*
+    public class SensorHumedad : Sensor
+    {
+        public SensorHumedad(string descripcion)
+        {
+            Desc = descripcion;
+        }
+        public SensorHumedad()
+        {
+        }
+    }
+    public class SensorMovimiento : Sensor
+    {
+        public SensorMovimiento(string descripcion)
+        {
+            Desc = descripcion;
+        }
+        public SensorMovimiento()
+        {
+        }
+    }
+    public class SensorTemperatura : Sensor
+    {
+        public SensorTemperatura(string descripcion)
+        {
+            Desc = descripcion;
+        }
+        public SensorTemperatura()
+        {
+        }
+    }
+    public class SensorLuz : Sensor
+    {
+        public SensorLuz(string descripcion)
+        {
+            Desc = descripcion;
+        }
+        public SensorLuz()
+        {
+        }
+    }
+    */
 }

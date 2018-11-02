@@ -211,7 +211,8 @@ namespace TP0.Controllers
 
                 if (ModelState.IsValid)
                 {
-                    Regla r = new Regla(model.ValorMax, model.ValorMin, model.disSelec.act.ActuadorID);
+                    //Regla r = new Regla(model.ValorMax, model.ValorMin, model.disSelec.act.ActuadorID);
+                    Regla r = new Regla(model.ValorMax, model.ValorMin, model.disSelec.act);
                 }
 
 

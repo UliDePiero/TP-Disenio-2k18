@@ -12,11 +12,12 @@ namespace TP0.Helpers
         /*[NotMapped]
         public bool seCumple;*/
 
-        public Regla(float valorMax, float valorMin, int actuadorID)
+        public Regla(float valorMax, float valorMin, Actuador actuador)
         {
             ValorMax = valorMax;
             ValorMin = valorMin;
-            ActuadorID = actuadorID;
+            ActuadorID = actuador.ActuadorID;
+            actuador.AgregarRegla(this);
         }
 
         [Key]
