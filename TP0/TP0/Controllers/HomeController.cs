@@ -91,18 +91,26 @@ namespace TP0.Controllers
             return RedirectToAction("AdministrarDispositivosAdmin", "Home");
         }
 
-        public ActionResult AñadirDispositivo()
-        {
-            using (var db = new DBContext())
-            {
-                
-            }
-            return RedirectToAction("AdministrarDispositivosAdmin", "Home");
-        }
         [HttpGet]
         public ActionResult AgregarDispositivoAdmin()
         {
             return View();
+        }
+        [HttpPost]
+        public ActionResult AgregarDispositivoAdmin([Bind(Include = "Codigo,Nombre,kWxHora,Min,Max,EsInteligente")] DispositivoEstatico nuevo)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    nuevo.AgregarALaBase();
+                }
+            }
+            catch (RetryLimitExceededException)
+            {
+                ModelState.AddModelError("", "No se pudo Crear");
+            }
+            return RedirectToAction("AdministrarDispositivosAdmin", "Home");
         }
 
         public ActionResult AdministrarCasasAdmin()

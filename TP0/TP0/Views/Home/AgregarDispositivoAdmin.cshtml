@@ -1,1 +1,66 @@
-﻿
+﻿@model TP0.Helpers.Static.DispositivoEstatico
+<div class="jumbotron">
+    <h2>Crear Dispositivo</h2>
+</div>
+
+<table class="table">
+    @using (Html.BeginForm("AgregarDispositivoAdmin", "Home", FormMethod.Post))
+    {
+        <tr>
+            <td>
+                @Html.Label("Codigo")
+            </td>
+            <td style="text-align: center;">
+                @Html.EditorFor(model => model.Codigo)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.Label("Nombre")
+            </td>
+            <td style="text-align: center;">
+                @Html.EditorFor(model => model.Nombre)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.Label("kWxHora")
+            </td>
+            <td style="text-align: center;">
+                @Html.EditorFor(model => model.kWxHora)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.Label("Min")
+            </td>
+            <td style="text-align: center;">
+                @Html.EditorFor(model => model.Min)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.Label("Max")
+            </td>
+            <td style="text-align: center;">
+                @Html.EditorFor(model => model.Max)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.Label("EsInteligente")
+            </td>
+            <td style="text-align: center;">
+                @Html.CheckBoxFor(model => model.EsInteligente)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <button type="submit">
+                    Crear
+                </button>
+            </td>
+        </tr>
+    }
+</table>
+<div>@Html.ActionLink("Volver", "AdministrarDispositivosAdmin")</div>
