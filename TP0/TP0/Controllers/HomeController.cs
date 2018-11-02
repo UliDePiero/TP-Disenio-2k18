@@ -10,7 +10,7 @@ using TP0.Models;
 using Microsoft.AspNet.Identity;
 using TP0.Helpers.ORM;
 using TP0.Helpers.Static;
-
+using System.Data.Entity.Infrastructure;
 
 namespace TP0.Controllers
 {
@@ -31,11 +31,11 @@ namespace TP0.Controllers
             }
             foreach (Transformador t in transformadores)
                 t.ActualizarEnergiaQueEstaSuministrando();
-            
+
             ViewBag.Transformadores = JsonConvert.SerializeObject(transformadores, Formatting.Indented);
             return View();
         }
-       
+
 
 
 
@@ -51,7 +51,32 @@ namespace TP0.Controllers
         [HttpGet]
         public ActionResult ModificarDispositivoAdmin(int id)
         {
-            return View();
+            DispositivoEstatico dispositivoEditado;
+            using (var db = new DBContext()) {
+                dispositivoEditado = db.DispEstaticos.Find(id);
+            }
+            return View(dispositivoEditado);
+        }
+        [HttpPost]
+        public ActionResult GuardarCambioDispositivoAdmin(int id)
+        {
+            using (var db = new DBContext())
+            {
+                var dispositivoEditado = db.DispEstaticos.Find(id);
+                if(TryUpdateModel(dispositivoEditado, "",new string[] { "Nombre","EsInteligente","Codigo","Min","Max","kWxHora"}))
+                {
+                    try
+                    {
+                        db.SaveChanges();
+                        return RedirectToAction("AdministrarDispositivosAdmin", "Home");
+                    }
+                    catch (RetryLimitExceededException)
+                    {
+                        ModelState.AddModelError("", "No se pudieron guardar los cambios");
+                    }
+                }
+            }
+            return RedirectToAction("AdministrarDispositivosAdmin", "Home");
         }
 
         [HttpGet]
@@ -62,6 +87,15 @@ namespace TP0.Controllers
                 var disp = db.DispEstaticos.FirstOrDefault(d => d.DispositivoID == id);
                 db.DispEstaticos.Remove(disp);
                 db.SaveChanges();
+            }
+            return RedirectToAction("AdministrarDispositivosAdmin", "Home");
+        }
+
+        public ActionResult AñadirDispositivo()
+        {
+            using (var db = new DBContext())
+            {
+                
             }
             return RedirectToAction("AdministrarDispositivosAdmin", "Home");
         }
@@ -354,8 +388,7 @@ namespace TP0.Controllers
             {
                 Cliente clie = new Cliente(User.Identity.Name);
                 clie.CargarDisps();
-
-                ViewBag.simplexResultado = clie.SolicitarRecomendacion();
+                ViewBag.recomendaciones = clie.SolicitarRecomendacion().ToList();
                 return View();
             }
             ViewBag.simplexResultado = "Hubo un error al ejecutar el simplex";

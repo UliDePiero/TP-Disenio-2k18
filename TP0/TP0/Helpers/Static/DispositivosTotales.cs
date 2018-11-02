@@ -61,12 +61,12 @@ namespace TP0.Helpers.Static
         public static DispositivoInteligente EncontrarDispositivoInteligente(string id)
         {
             DispositivoEstatico Disp = opcionesDeDispositivos.Find(d => d.EsInteligente && d.Codigo == id);
-            return new DispositivoInteligente(Disp.Nombre, Disp.Codigo, Disp.KWxHora, Disp.Max, Disp.Min);
+            return new DispositivoInteligente(Disp.Nombre, Disp.Codigo, Disp.kWxHora, Disp.Max, Disp.Min);
         }
         public static DispositivoEstandar EncontrarDispositivoEstandard(string id)
         {
             DispositivoEstatico Disp = opcionesDeDispositivos.Find(d => !d.EsInteligente && d.Codigo == id);
-            return new DispositivoEstandar(Disp.Nombre, Disp.Codigo, Disp.KWxHora, 0, Disp.Max, Disp.Min);
+            return new DispositivoEstandar(Disp.Nombre, Disp.Codigo, Disp.kWxHora, 0, Disp.Max, Disp.Min);
         }
         public static void AgregarDispEstaticos(List<DispositivoEstatico> list)
         {

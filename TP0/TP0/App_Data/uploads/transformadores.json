@@ -1,0 +1,30 @@
+[
+  {
+    "id" : 1,
+    "zonaId" : 1,
+    "latitude": 0,
+    "longitude": 0,
+    "energiaTotal":1
+  },
+  {
+    "id" : 2,
+    "zonaId" : 1,
+    "latitude": 2,
+    "longitude": 2,
+    "energiaTotal":1
+  },
+  {
+    "id" : 3,
+    "zonaId" : 3,
+    "latitude": 50,
+    "longitude": 50,
+    "energiaTotal":1
+  },
+  {
+"id" : 4,
+    "zonaId" : 4,
+    "latitude": -80,
+    "longitude": -80,
+    "energiaTotal":1
+  }
+]

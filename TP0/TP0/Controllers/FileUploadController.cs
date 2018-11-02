@@ -54,7 +54,7 @@ namespace TP0.Controllers
                                 List<DispositivoEstatico> disps = JsonConvert.DeserializeObject<List<DispositivoEstatico>>(Json);
                                 List<DispositivoEstatico> agregar = new List<DispositivoEstatico>();
                                 foreach (DispositivoEstatico d in disps)
-                                    agregar.Add(new DispositivoEstatico(d.Codigo, d.Nombre, d.KWxHora, d.Min, d.Max, d.EsInteligente));
+                                    agregar.Add(new DispositivoEstatico(d.Codigo, d.Nombre, d.kWxHora, d.Min, d.Max, d.EsInteligente));
                                 DispositivosTotales.AgregarDispEstaticos(disps);
                                 break;
                             default:

@@ -16,7 +16,7 @@ namespace TP0.Helpers.Static
         public int DispositivoID { get; set; }
         public string Codigo { get; set; }
         public string Nombre { get; set; }
-        public double KWxHora { get; set; }
+        public double kWxHora { get; set; }
         public double Min { get; set; }
         public double Max { get; set; }
         public bool EsInteligente { get; set; }
@@ -26,7 +26,7 @@ namespace TP0.Helpers.Static
         {
             Codigo = cod;
             Nombre = nom;
-            KWxHora = kw;
+            kWxHora = kw;
             Min = min;
             Max = max;
             EsInteligente = inteligente;

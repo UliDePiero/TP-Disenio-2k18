@@ -190,9 +190,9 @@ namespace TP0.Helpers
                     agregar.Add(d);
             foreach (DispositivoEstatico d in agregar)
                 if (d.EsInteligente)
-                    AgregarDispInteligente(new DispositivoInteligente(d.Nombre, d.Codigo, d.KWxHora, d.Max, d.Min) { DispositivoID = d.DispositivoID });
+                    AgregarDispInteligente(new DispositivoInteligente(d.Nombre, d.Codigo, d.kWxHora, d.Max, d.Min) { DispositivoID = d.DispositivoID });
                 else
-                    AgregarDispEstandar(new DispositivoEstandar(d.Nombre, d.Codigo, d.KWxHora, 0, d.Max, d.Min) { DispositivoID = d.DispositivoID });
+                    AgregarDispEstandar(new DispositivoEstandar(d.Nombre, d.Codigo, d.kWxHora, 0, d.Max, d.Min) { DispositivoID = d.DispositivoID });
         }
         public override void AgregarDispInteligente(DispositivoInteligente DI)
         {
@@ -346,7 +346,7 @@ namespace TP0.Helpers
         }
 
 
-        public override RecomendacionXDisp[] SolicitarRecomendacion()
+        public override RecomendacionXDisp[] SolicitarRecomendacion() //Convierte el string en una lista de doubles
         {
 
             int i = 1;
@@ -363,12 +363,12 @@ namespace TP0.Helpers
                     LDE.Add(d);
                 i++;
             }
-            var DispsOrdernados = LDE.Concat(LDI);
+            var DispsOrdernados = LDE.Concat(LDI); //Ordenar dispositivos: Primero LDI y despues los LDE
             var RecomendacionXDispositivos = new RecomendacionXDisp[i];
 
             int j=0;
-            var tiempoTotal = new RecomendacionXDisp();
-            tiempoTotal.NombreDispositivo = "Valor independiente";
+            var tiempoTotal = new RecomendacionXDisp(); //Estructura
+            tiempoTotal.NombreDispositivo = "Total acumulado";
             tiempoTotal.KWxHoraPuedeConsumir = doubleV[j];
             RecomendacionXDispositivos[0]=tiempoTotal;
             j++;
