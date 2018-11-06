@@ -299,6 +299,7 @@
     <Compile Include="Helpers\Resultado.cs" />
     <Compile Include="Helpers\Sensor.cs" />
     <Compile Include="Helpers\Static\DispositivoEstatico.cs" />
+    <Compile Include="Helpers\Static\SensorEstatico.cs" />
     <Compile Include="Helpers\Static\TransformadoresImp.cs" />
     <Compile Include="Helpers\Static\ClientesImportados.cs" />
     <Compile Include="Helpers\Static\DispositivosTotales.cs" />

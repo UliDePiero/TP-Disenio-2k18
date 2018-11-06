@@ -204,6 +204,7 @@ namespace TP0.Helpers.ORM
         public DbSet<Regla> Reglas { get; set; }
         public DbSet<Medicion> Mediciones { get; set; }
         public DbSet<DispositivoEstatico> DispEstaticos { get; set; }
+        public DbSet<SensorEstatico> SensoresEstaticos { get; set; }
 
         private static DBContext _instancia;
 
