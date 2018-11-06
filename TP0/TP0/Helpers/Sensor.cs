@@ -12,7 +12,9 @@ namespace TP0.Helpers
     {
         [Key]
         public int SensorID { get; set; }
-        [NotMapped]
+        public int UsuarioID { get; set; }
+        [ForeignKey("UsuarioID")]
+        public Usuario Usuario { get; set; }
         public string Desc { get; set; }
         [NotMapped]
         public List<Regla> Observers { get; set; }
@@ -27,14 +29,14 @@ namespace TP0.Helpers
         [NotMapped]
         public Medicion UltimaMedicion;
 
-        public Sensor(string descripcion) //Hay que generar el ID del sensor?
+        public Sensor(string descripcion, int usuarioID)
         {
             Desc = descripcion;
-            using (var db = new DBContext())
-            {
-                db.Sensores.Add(this);
-                db.SaveChanges();
-            }
+            UsuarioID = usuarioID;
+        }
+        public Sensor(string descripcion) 
+        {
+            Desc = descripcion;
         }
         public Sensor()
         {
@@ -74,12 +76,12 @@ namespace TP0.Helpers
                 FechaUltimaMedicion = DateTime.Now;
                 Notificar();
                 Midiendo = true;
-                Medir(valorMedicion, tFinal);
+               //Medir(valorMedicion, tFinal);
             }                
             Midiendo = false;
         }
 
-        public Medicion ObtenerMedicion() //Hay que generar el ID de la medicion?
+        public Medicion ObtenerMedicion()
         {
             UltimaMedicion.Medida = ValorMedicion;
             UltimaMedicion.Fecha = FechaUltimaMedicion;
