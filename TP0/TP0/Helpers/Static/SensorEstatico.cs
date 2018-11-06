@@ -19,7 +19,11 @@ namespace TP0.Helpers.Static
         public String Descripcion { get; set; }
 
         public SensorEstatico() { }
-
+        public SensorEstatico(string descripcion, int dispositivoID)
+        {
+            Descripcion = descripcion;
+            DispositivoID = dispositivoID;
+        }
         public SensorEstatico(string descripcion, DispositivoEstatico dispositivo)
         {
             Descripcion = descripcion;

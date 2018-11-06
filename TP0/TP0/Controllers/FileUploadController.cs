@@ -6,6 +6,7 @@ using System.Web;
 using System.Web.Mvc;
 using Newtonsoft.Json;
 using TP0.Helpers;
+using TP0.Helpers.ORM;
 using TP0.Helpers.Static;
 using TP0.Models;
 
@@ -57,6 +58,20 @@ namespace TP0.Controllers
                                     agregar.Add(new DispositivoEstatico(d.Codigo, d.Nombre, d.kWxHora, d.Min, d.Max, d.EsInteligente));
                                 DispositivosTotales.AgregarDispEstaticos(disps);
                                 break;
+                            case "sensores.json":
+                                //Agarra el json y agrega los que no estan ya en la base
+                                List<SensorEstatico> sens = JsonConvert.DeserializeObject<List<SensorEstatico>>(Json);                                
+                                using (var db = new DBContext())
+                                {
+                                    foreach (SensorEstatico s in sens)
+                                    {
+                                        if (!db.SensoresEstaticos.Any(sen => sen.Descripcion == s.Descripcion && s.DispositivoID == sen.DispositivoID))
+                                            db.SensoresEstaticos.Add(s);                               
+                                    }
+                                    db.SaveChanges();
+                                }
+                                break;
+
                             default:
                                 break;
                         }
