@@ -67,6 +67,7 @@ namespace TP0.Helpers
             {
                 ValorMedicion = valorMedicion;
                 FechaUltimaMedicion = DateTime.Now;
+                Notificar();
                 Midiendo = true;
                 Medir(valorMedicion, tFinal);
             }                
