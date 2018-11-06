@@ -8,18 +8,23 @@ using TP0.Helpers.ORM;
 
 namespace TP0.Helpers
 {
-    public abstract class Sensor
+    public class Sensor
     {
         [Key]
         public int SensorID { get; set; }
+        [NotMapped]
         public string Desc { get; set; }
-        public bool Midiendo { get; set; }
-        public float ValorMedicion { get; set; }
-        public DateTime FechaUltimaMedicion { get; private set; }
         [NotMapped]
         public List<Regla> Observers { get; set; }
         [NotMapped]
+        public bool Midiendo { get; set; }
+        [NotMapped]
+        public float ValorMedicion { get; set; }
+        [NotMapped]
+        public DateTime FechaUltimaMedicion { get; private set; }
+        [NotMapped]
         public List<Medicion> Mediciones;   //(Como seria guardar N mediciones??? Con un metodo???)
+        [NotMapped]
         public Medicion UltimaMedicion;
 
         public Sensor(string descripcion) //Hay que generar el ID del sensor?

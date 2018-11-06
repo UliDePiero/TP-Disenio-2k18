@@ -11,7 +11,7 @@ namespace TP0.Helpers
     {
         
         [Key]
-        public int ActuadorID { get; set; } //Hay que generar el ID del actuador?
+        public int ActuadorID { get; set; }
         public int DispositivoID { get; set; }
         [ForeignKey("DispositivoID")]
         public Dispositivo Dispositivo { get; set; }
