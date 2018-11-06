@@ -74,3 +74,10 @@ C:\Users\pow20\Desktop\Nico\UTN\Diseño\TP\TP-0\TP-0\TP0\TP0\bin\roslyn\Microsof
 C:\Users\pow20\Desktop\Nico\UTN\Diseño\TP\TP-0\TP-0\TP0\TP0\bin\roslyn\Microsoft.DiaSymReader.Native.amd64.dll
 C:\Users\pow20\Desktop\Nico\UTN\Diseño\TP\TP-0\TP-0\TP0\TP0\bin\roslyn\System.IO.Compression.dll
 C:\Users\pow20\Desktop\Nico\UTN\Diseño\TP\TP-0\TP-0\TP0\TP0\bin\roslyn\VBCSCompiler.exe
+C:\Users\Uli\TP-0\TP0\TP0\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+C:\Users\Uli\TP-0\TP0\TP0\bin\roslyn\Microsoft.CodeAnalysis.dll
+C:\Users\Uli\TP-0\TP0\TP0\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+C:\Users\Uli\TP-0\TP0\TP0\bin\roslyn\Microsoft.DiaSymReader.Native.amd64.dll
+C:\Users\Uli\TP-0\TP0\TP0\bin\roslyn\System.Collections.Immutable.dll
+C:\Users\Uli\TP-0\TP0\TP0\bin\roslyn\System.Reflection.Metadata.dll
+C:\Users\Uli\TP-0\TP0\TP0\bin\roslyn\VBCSCompiler.exe
