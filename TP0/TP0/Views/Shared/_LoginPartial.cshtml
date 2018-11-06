@@ -31,8 +31,7 @@
         @Html.ActionLink("Hola " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
     </li>
     @*pestañas de usuario*@
-    <li>@Html.ActionLink("Tus dispositivos", "DispositivosPropios", "Home")</li> @*Pagina de dispositivos*@
-    <li>@Html.ActionLink("Administrar Reglas", "AdministrarReglas", "Home")</li> @*Pagina de reglas*@
+    <li>@Html.ActionLink("Tu casa", "DispositivosPropios", "Home")</li> @*Pagina de dispositivos*@
     <li>@Html.ActionLink("Cargar info", "IndexClie", "FileUpload")</li>
     <li>@Html.ActionLink("Mapa", "Map", "Home")</li> @*Pagina de mapa*@
 

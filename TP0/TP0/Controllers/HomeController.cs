@@ -229,15 +229,7 @@ namespace TP0.Controllers
 
             Cliente clie = new Cliente(User.Identity.Name);
             clie.CargarDisps();
-
-            ViewBag.total = clie.TotalConsumo();
-            ViewBag.dispositivos = clie.Dispositivos.Count();
-            ViewBag.dispE = clie.DispositivosEncendidos();
-            ViewBag.dispA = clie.DispositivosApagados();
-            ViewBag.dispAh = clie.DispositivosEnAhorro();
-            ViewBag.dispEs = clie.DispositivosEstandares();
-
-            return View(clie.Dispositivos);
+            return View(clie);
         }
         //Metodos para cambiar el estado del dispositivo
         //Los primeros son para cambiar desde disp propios, los segundos son para cambiar desde la pagina del dispositivo

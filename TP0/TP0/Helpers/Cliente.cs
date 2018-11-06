@@ -111,7 +111,12 @@ namespace TP0.Helpers
                     db.Zonas.Add(new Zona(1, 1, 1, 1));
                     db.Transformadores.Add(new Transformador(1, 1, 1, 1, 1));
                 }
-
+                //Se agregan los sensores al cliente (Cada cliente tiene un sensor de cada tipo en su casa)
+                foreach(Sensor s in SensoresEstaticos.GetSensores())
+                {
+                    s.UsuarioID = this.UsuarioID;
+                    db.Sensores.Add(s);
+                }
 
                 db.SaveChanges();
             }
@@ -448,6 +453,16 @@ namespace TP0.Helpers
             throw new NotImplementedException();
         }
 
+        public List<Sensor> GetSensores()
+        {
+            List<Sensor> sens = new List<Sensor>();
+            using (var db = new DBContext())
+                foreach (Sensor s in db.Sensores)
+                    if (s.UsuarioID == UsuarioID)
+                        sens.Add(s);
+
+            return sens;
+        }
     }
 
 }

@@ -1,21 +1,21 @@
-﻿@model IEnumerable<TP0.Helpers.Dispositivo>
+﻿@model TP0.Helpers.Cliente
 
 <div class="jumbotron">
 
-    <h3>Consumo promedio total: @ViewBag.total KwH</h3>
+    <h3>Consumo promedio total: @Model.TotalConsumo() KwH</h3>
     @using (Html.BeginForm("ConsultarConsumo", "Home", FormMethod.Get))
     {@*Boton para consultar consumo entre fechas*@
         <input type="submit" class="btn btn-default" value="Consultar consumo por periodo">
     }
-    <h3>Dispositivos: @ViewBag.dispositivos </h3>
+    <h3>Dispositivos: @Model.Dispositivos.Count() </h3>
     @using (Html.BeginForm("SimplexView", "Home", FormMethod.Get))
     {@*Boton para ejecutar el simplex*@
         <input type="submit" class="btn btn-default" value="Conocer recomendación" onclick="alertBox()">
     }
-    <h5>Dispositivos encendidos: @ViewBag.dispE</h5>
-    <h5>Dispositivos apagados: @ViewBag.dispA</h5>
-    <h5>Dispositivos en ahorro: @ViewBag.dispAh</h5>
-    <h5>Dispositivos estandares: @ViewBag.dispEs</h5>
+    <h5>Dispositivos encendidos: @Model.DispositivosEncendidos()</h5>
+    <h5>Dispositivos apagados: @Model.DispositivosApagados()</h5>
+    <h5>Dispositivos en ahorro: @Model.DispositivosEnAhorro()</h5>
+    <h5>Dispositivos estandares: @Model.DispositivosEstandares()</h5>
 </div>
 <script>
         function alertBox() {
@@ -26,13 +26,13 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Nombre)
+            @Html.DisplayName("Nombre")
         </th>
         <th style="text-align: center;">
-            @Html.DisplayNameFor(model => model.KWxHora)
+            @Html.DisplayName("KWxHora")
         </th>
         <th style="text-align: center;">
-            @Html.DisplayNameFor(model => model.EsInteligente)
+            @Html.DisplayName("Inteligente")
         </th>
 
         <th style="text-align: center;">
@@ -44,7 +44,7 @@
         <th> </th>
     </tr>
 
-    @foreach (var item in Model)
+    @foreach (var item in Model.GetDisps())
     {
         if (item.EsInteligente)
         {
@@ -101,4 +101,20 @@
                 <td></td>
                 <td></td>
             </tr>
+</table>
+
+<table class="table" style="border-collapse">
+    <tr>
+        <th>
+            @Html.DisplayName("Sensor")
+        </th>
+    </tr>
+    @foreach (TP0.Helpers.Sensor s in Model.GetSensores())
+    {
+        <tr>
+            <td>
+                @Html.DisplayName(s.Desc)
+            </td>
+        </tr>
+    }
 </table>
