@@ -13,8 +13,8 @@
     var markers = @Html.Raw(ViewBag.Transformadores);
     function myMap() {
         var mapOptions = {
-            center: new google.maps.LatLng(0, 0),
-            zoom: 2,
+            center: new google.maps.LatLng(-34.629166,-58.458118), 
+            zoom: 12,
         };
         var map = new google.maps.Map(document.getElementById("mapDiv"), mapOptions);
         for (var i = 0; i < markers.length; i++) {
