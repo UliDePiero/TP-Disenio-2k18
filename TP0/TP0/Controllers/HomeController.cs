@@ -303,6 +303,16 @@ namespace TP0.Controllers
             }
             return RedirectToAction("DispositivosPropios", "Home");
         }
+        public ActionResult BorrarRegla(int rID, int dID)
+        {
+            using (var db = new DBContext())
+            {
+                var r = db.Reglas.FirstOrDefault(re => re.ReglaID == rID);
+                db.Reglas.Remove(r);
+                db.SaveChanges();
+            }
+            return RedirectToAction("DetallesInteligente", "Home", new { id = dID });
+        }
 
         [HttpGet]
         public ActionResult AgregarDispositivoClie()

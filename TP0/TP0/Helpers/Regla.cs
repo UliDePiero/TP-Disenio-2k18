@@ -23,9 +23,24 @@ namespace TP0.Helpers
         public int SensorID { get; set; }
         [ForeignKey("SensorID")]
         public Sensor Sensor { get; set; }
-        public String Tipo { get; set; }
+        public String Tipo { get; set; }  //(Humedad, luz, movimiento, temperatura)
         public String Descripcion { get; set; } //Que accion le indica al actuador que realice (apagar,encender,ahorro)
 
+
+        public Regla(int id)
+        {
+            using (var db = new DBContext())
+            {
+                var r = db.Reglas.FirstOrDefault(re => re.ReglaID == id);
+                ReglaID = r.ReglaID;
+                ValorMax = r.ValorMax;
+                ValorMin = r.ValorMin;
+                ActuadorID = r.ActuadorID;
+                SensorID = r.SensorID;
+                Tipo = r.Tipo;
+                Descripcion = r.Descripcion;
+            }
+        }
         public Regla(float valorMax, float valorMin, int actuadorID, int sensorID, String tipo, String descripcion)
         {
             ValorMax = valorMax;
