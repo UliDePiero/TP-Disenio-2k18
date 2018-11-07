@@ -17,9 +17,6 @@ namespace TP0.Helpers
         public Dispositivo Dispositivo { get; set; }
         [NotMapped]
         public List<Regla> Reglas { get; set; }
-        /*public int ReglaID { get; set; }
-        [ForeignKey("ReglaID")]
-        public Regla Regla { get; set; }*/
 
         public void AgregarRegla(Regla r)
         {
@@ -35,12 +32,11 @@ namespace TP0.Helpers
     public class ActuadorLuz : Actuador
     {
         public ActuadorLuz() { }
-        public ActuadorLuz(int dispositivoID/*, Regla regla*/)
+        public ActuadorLuz(int dispositivoID)
         {          
             DispositivoID = dispositivoID;
             Reglas = new List<Regla>();
-         //   Regla = regla;
-           // ReglaID = regla.ReglaID;
+
         }
 
         public override void EjecutarRegla(Regla regla)
@@ -65,9 +61,8 @@ namespace TP0.Helpers
     public class ActuadorHumedad : Actuador
     {
         public ActuadorHumedad() { }
-        public ActuadorHumedad(int dispositivoID/*, int actuadorIDFAB*/)
+        public ActuadorHumedad(int dispositivoID)
         {
-            //ActuadorID = actuadorIDFAB;
             DispositivoID = dispositivoID;
             Reglas = new List<Regla>();
         }
@@ -94,9 +89,8 @@ namespace TP0.Helpers
     public class ActuadorMovimiento : Actuador
     {
         public ActuadorMovimiento() { }
-        public ActuadorMovimiento(int dispositivoID/*, int actuadorIDFAB*/)
+        public ActuadorMovimiento(int dispositivoID)
         {
-            //ActuadorID = actuadorIDFAB;
             DispositivoID = dispositivoID;
             Reglas = new List<Regla>();
         }
@@ -123,9 +117,8 @@ namespace TP0.Helpers
      public class ActuadorTemperatura : Actuador
     {
         public ActuadorTemperatura() { }
-        public ActuadorTemperatura(int dispositivoID/*, int actuadorIDFAB*/)
+        public ActuadorTemperatura(int dispositivoID)
         {
-            //ActuadorID = actuadorIDFAB;
             DispositivoID = dispositivoID;
             Reglas = new List<Regla>();
         }

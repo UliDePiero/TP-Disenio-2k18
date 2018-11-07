@@ -10,9 +10,6 @@ namespace TP0.Helpers
 {
     public class Regla
     {
-        /*[NotMapped]
-        public bool seCumple;*/
-
         [Key]
         public int ReglaID { get; set; }
         public float ValorMax { get; set; }
@@ -55,11 +52,9 @@ namespace TP0.Helpers
 
         public void Notificar(Medicion m)
         {
-            //seCumple = false;
             if (m.Medida >= ValorMin && m.Medida <= ValorMax)
             {
                 SeCumple = true;
-                //Actuador.VerificarRegla();
                 using (var db = new DBContext())
                     Actuador = db.Actuadores.FirstOrDefault(a => a.ActuadorID == ActuadorID);
                 Actuador.EjecutarRegla(this);
@@ -78,9 +73,5 @@ namespace TP0.Helpers
                 Actuador = db.Actuadores.FirstOrDefault(a => a.ActuadorID == ActuadorID);
             }
         }
-        /*public bool ChequearComportamiento()
-        {
-            return seCumple;
-        }*/
     }
 }

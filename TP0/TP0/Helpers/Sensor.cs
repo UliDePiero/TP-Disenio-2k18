@@ -13,8 +13,6 @@ namespace TP0.Helpers
         [Key]
         public int SensorID { get; set; }
         public int UsuarioID { get; set; }
-       // [ForeignKey("UsuarioID")]
-      //  public Usuario Usuario { get; set; }
         public string Desc { get; set; }
         [NotMapped]
         public List<Regla> Reglas { get; set; }
@@ -25,7 +23,7 @@ namespace TP0.Helpers
         [NotMapped]
         public DateTime FechaUltimaMedicion { get; private set; }
         [NotMapped]
-        public List<Medicion> Mediciones;   //(Como seria guardar N mediciones??? Con un metodo???)
+        public List<Medicion> Mediciones; 
         [NotMapped]
         public Medicion UltimaMedicion;
 
@@ -62,7 +60,6 @@ namespace TP0.Helpers
         }
         public void Notificar()
         {
-            //Observers.ForEach(o => o.Notificar(UltimaMedicion));
             Reglas.ForEach(o => o.Notificar( UltimaMedicion ));
         }
 
@@ -112,46 +109,4 @@ namespace TP0.Helpers
             }
         }
     }
-    /*
-    public class SensorHumedad : Sensor
-    {
-        public SensorHumedad(string descripcion)
-        {
-            Desc = descripcion;
-        }
-        public SensorHumedad()
-        {
-        }
-    }
-    public class SensorMovimiento : Sensor
-    {
-        public SensorMovimiento(string descripcion)
-        {
-            Desc = descripcion;
-        }
-        public SensorMovimiento()
-        {
-        }
-    }
-    public class SensorTemperatura : Sensor
-    {
-        public SensorTemperatura(string descripcion)
-        {
-            Desc = descripcion;
-        }
-        public SensorTemperatura()
-        {
-        }
-    }
-    public class SensorLuz : Sensor
-    {
-        public SensorLuz(string descripcion)
-        {
-            Desc = descripcion;
-        }
-        public SensorLuz()
-        {
-        }
-    }
-    */
 }
