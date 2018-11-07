@@ -13,11 +13,11 @@ namespace TP0.Helpers
         [Key]
         public int SensorID { get; set; }
         public int UsuarioID { get; set; }
-        [ForeignKey("UsuarioID")]
-        public Usuario Usuario { get; set; }
+       // [ForeignKey("UsuarioID")]
+      //  public Usuario Usuario { get; set; }
         public string Desc { get; set; }
         [NotMapped]
-        public List<Regla> Observers { get; set; }
+        public List<Regla> Reglas { get; set; }
         [NotMapped]
         public bool Midiendo { get; set; }
         [NotMapped]
@@ -34,38 +34,34 @@ namespace TP0.Helpers
             Desc = descripcion;
             UsuarioID = usuarioID;
         }
-        public Sensor(string descripcion) 
-        {
-            Desc = descripcion;
-        }
+       
         public Sensor()
         {
         }
         
-        public void AgregarObservador(Regla c)
+        public void AgregarRegla(Regla c)
         {
-            Observers.Add(c);
+            c.SensorID = SensorID;
+            Reglas.Add(c);
             using (var db = new DBContext())
             {
-                db.Reglas.Add(c);
-                db.Actuadores.Add(c.Actuador);
+                db.Reglas.Add(c);               
                 db.SaveChanges();
             }
         }
-        public void QuitarObservador(Regla c)
+        public void QuitarRegla(Regla c)
         {
-            Observers.Remove(c);
+            Reglas.Remove(c);
             using (var db = new DBContext())
             {
-                db.Reglas.Remove(c);
-                db.Actuadores.Remove(c.Actuador);
+                db.Reglas.Remove(c);               
                 db.SaveChanges();
             }
         }
         public void Notificar()
         {
             //Observers.ForEach(o => o.Notificar(UltimaMedicion));
-            Observers.ForEach(o => o.Notificar( ObtenerMedicion() ));
+            Reglas.ForEach(o => o.Notificar( ObtenerMedicion() ));
         }
 
         public void Medir(float valorMedicion, DateTime tFinal)
@@ -93,6 +89,16 @@ namespace TP0.Helpers
                 db.SaveChanges();
             }
             return UltimaMedicion;
+        }
+
+        public void CargarReglas()
+        {
+            using (var db = new DBContext())
+            {
+                foreach (Regla r in db.Reglas)
+                    if (r.SensorID == SensorID)
+                        Reglas.Add(r);
+            }
         }
     }
     /*

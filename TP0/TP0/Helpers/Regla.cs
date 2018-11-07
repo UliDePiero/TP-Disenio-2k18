@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
+using TP0.Helpers.ORM;
 
 namespace TP0.Helpers
 {
@@ -12,14 +13,6 @@ namespace TP0.Helpers
         /*[NotMapped]
         public bool seCumple;*/
 
-        public Regla(float valorMax, float valorMin, Actuador actuador)
-        {
-            ValorMax = valorMax;
-            ValorMin = valorMin;
-            ActuadorID = actuador.ActuadorID;
-            actuador.AgregarRegla(this);
-        }
-
         [Key]
         public int ReglaID { get; set; }
         public float ValorMax { get; set; }
@@ -27,7 +20,21 @@ namespace TP0.Helpers
         public int ActuadorID { get; set; }
         [ForeignKey("ActuadorID")]
         public Actuador Actuador { get; set; }
+        public int SensorID { get; set; }
+        [ForeignKey("SensorID")]
+        public Sensor Sensor { get; set; }
+        public String Tipo { get; set; }
+        public String Descripcion { get; set; } //Que accion le indica al actuador que realice (apagar,encender,ahorro)
 
+        public Regla(float valorMax, float valorMin, int actuadorID, int sensorID, String tipo, String descripcion)
+        {
+            ValorMax = valorMax;
+            ValorMin = valorMin;
+            ActuadorID = actuadorID;
+            SensorID = sensorID;
+            Tipo = tipo;
+            Descripcion = descripcion; 
+        }
 
         public void Notificar(Medicion m)
         {
@@ -36,6 +43,14 @@ namespace TP0.Helpers
                 //seCumple = true;
                 //Actuador.VerificarRegla();
                 Actuador.EjecutarRegla(this);
+        }
+
+        public void CargarActuador()
+        {
+            using (var db = new DBContext())
+            {
+                Actuador = db.Actuadores.FirstOrDefault(a => a.ActuadorID == ActuadorID);
+            }
         }
         /*public bool ChequearComportamiento()
         {

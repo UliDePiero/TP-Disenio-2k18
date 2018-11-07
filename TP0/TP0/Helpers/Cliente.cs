@@ -111,6 +111,8 @@ namespace TP0.Helpers
                     db.Zonas.Add(new Zona(1, 1, 1, 1));
                     db.Transformadores.Add(new Transformador(1, 1, 1, 1, 1));
                 }
+                db.SaveChanges();
+                UsuarioID = db.Usuarios.FirstOrDefault(U => U.Username == Username).UsuarioID;
                 //Se agregan los sensores al cliente (Cada cliente tiene un sensor de cada tipo en su casa)
                 foreach(Sensor s in SensoresEstaticos.GetSensores())
                 {

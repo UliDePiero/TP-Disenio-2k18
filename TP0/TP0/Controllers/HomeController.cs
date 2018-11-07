@@ -189,38 +189,6 @@ namespace TP0.Controllers
 
 
         //VISTAS DE CLIENTE
-        public ActionResult AdministrarReglas(SubmitViewModel model)
-        {
-            ViewBag.Message = "Tus reglas";
-            List<Regla> reglas = new List<Regla>();
-            List<Dispositivo> dispositivosPropios = new List<Dispositivo>();
-            Usuario user;
-
-            using (var db = new DBContext())
-            {
-                user = db.Usuarios.FirstOrDefault(u => u.Username == User.Identity.Name);
-                dispositivosPropios = db.Dispositivos.Where(d => d.UsuarioID == user.UsuarioID).ToList();
-                List<String> sl = new List<String>();
-
-                foreach (Dispositivo disp in dispositivosPropios)
-                {
-                    sl.Add(disp.Nombre);
-
-                }
-                ViewBag.dispositivosDelusuario = sl;
-
-                if (ModelState.IsValid)
-                {
-                    //Regla r = new Regla(model.ValorMax, model.ValorMin, model.disSelec.act.ActuadorID);
-                    Regla r = new Regla(model.ValorMax, model.ValorMin, model.disSelec.act);
-                }
-
-
-                }
-            return View(dispositivosPropios);
-
-
-        }
 
         [HttpGet]
         public ActionResult DispositivosPropios()

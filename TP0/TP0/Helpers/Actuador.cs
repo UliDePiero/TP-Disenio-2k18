@@ -17,50 +17,48 @@ namespace TP0.Helpers
         public Dispositivo Dispositivo { get; set; }
         [NotMapped]
         public List<Regla> Reglas { get; set; }
-
-        /*public Actuador(int dispositivoID, int actuadorIDFAB)
-        {
-            ActuadorID = actuadorIDFAB;
-            DispositivoID = dispositivoID;
-            Reglas = new List<Regla>();
-        }*/
+        /*public int ReglaID { get; set; }
+        [ForeignKey("ReglaID")]
+        public Regla Regla { get; set; }*/
 
         public void AgregarRegla(Regla r)
         {
             Reglas.Add(r);
         }
 
-        /*public void VerificarRegla()
-        {
-            //if (Reglas.All(c => c.seCumple))
-            //{
-                EjecutarRegla();
-            //}
-        }*/
         public abstract void EjecutarRegla(Regla regla);
         /*{
             //Metodo para ejecutar la regla
             //Metodo Strategy donde hay varias acciones que podria enviar al dispositivo de acuerdo a la regla
         }*/
-        /*public void Notificar(float valor)
-        {
-            //Reglas.ForEach(o => o.Notificar(valor));
-            //Regla.Notificar(valor);
-        }*/
     }
     public class ActuadorLuz : Actuador
     {
-        public ActuadorLuz(int dispositivoID/*, int actuadorIDFAB*/)
-        {
-            //ActuadorID = actuadorIDFAB;
+        public ActuadorLuz(int dispositivoID/*, Regla regla*/)
+        {          
             DispositivoID = dispositivoID;
             Reglas = new List<Regla>();
+         //   Regla = regla;
+           // ReglaID = regla.ReglaID;
         }
 
         public override void EjecutarRegla(Regla regla)
         {
             //Metodo para ejecutar la regla
             //Metodo Strategy donde hay varias acciones que podria enviar al dispositivo de acuerdo a la regla
+            DispositivoInteligente d = new DispositivoInteligente(DispositivoID);
+            switch (regla.Descripcion)
+            {
+                case "encender":
+                    d.Encender();
+                    break;
+                case "apagar":
+                    d.Apagar();
+                    break;
+                case "ahorro":
+                    d.AhorrarEnergia();
+                    break;                
+            }
         }
     }
     public class ActuadorHumedad : Actuador
@@ -76,6 +74,19 @@ namespace TP0.Helpers
         {
             //Metodo para ejecutar la regla
             //Metodo Strategy donde hay varias acciones que podria enviar al dispositivo de acuerdo a la regla
+            DispositivoInteligente d = new DispositivoInteligente(DispositivoID);
+            switch (regla.Descripcion)
+            {
+                case "encender":
+                    d.Encender();
+                    break;
+                case "apagar":
+                    d.Apagar();
+                    break;
+                case "ahorro":
+                    d.AhorrarEnergia();
+                    break;
+            }
         }
     }
     public class ActuadorMovimiento : Actuador
@@ -91,6 +102,19 @@ namespace TP0.Helpers
         {
             //Metodo para ejecutar la regla
             //Metodo Strategy donde hay varias acciones que podria enviar al dispositivo de acuerdo a la regla
+            DispositivoInteligente d = new DispositivoInteligente(DispositivoID);
+            switch (regla.Descripcion)
+            {
+                case "encender":
+                    d.Encender();
+                    break;
+                case "apagar":
+                    d.Apagar();
+                    break;
+                case "ahorro":
+                    d.AhorrarEnergia();
+                    break;
+            }
         }
     }
      public class ActuadorTemperatura : Actuador
@@ -106,6 +130,19 @@ namespace TP0.Helpers
         {
             //Metodo para ejecutar la regla
             //Metodo Strategy donde hay varias acciones que podria enviar al dispositivo de acuerdo a la regla
+            DispositivoInteligente d = new DispositivoInteligente(DispositivoID);
+            switch (regla.Descripcion)
+            {
+                case "encender":
+                    d.Encender();
+                    break;
+                case "apagar":
+                    d.Apagar();
+                    break;
+                case "ahorro":
+                    d.AhorrarEnergia();
+                    break;
+            }
         }
     }
 }

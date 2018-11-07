@@ -9,10 +9,10 @@ namespace TP0.Helpers.Static
     {
         static List<Sensor> sensors = new List<Sensor>
         {
-            new Sensor("Humedad"),
-            new Sensor("Luz"),
-            new Sensor("Temperatura"),
-            new Sensor("Movimiento")
+            new Sensor("Humedad",1),
+            new Sensor("Luz",1),
+            new Sensor("Temperatura",1),
+            new Sensor("Movimiento",1)
         };
 
         public static List<Sensor> GetSensores()
