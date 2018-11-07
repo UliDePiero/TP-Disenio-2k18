@@ -5,6 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 using TP0.Helpers.ORM;
+using TP0.Helpers.Static;
 
 namespace TP0.Helpers
 {
@@ -16,7 +17,7 @@ namespace TP0.Helpers
         [JsonProperty]
         public ICollection<State> estadosAnteriores;
         [NotMapped]
-        public Actuador act;
+        public List<Actuador> actuadores;
 
         public DispositivoInteligente()
         {
@@ -35,6 +36,7 @@ namespace TP0.Helpers
             ConsumoAcumulado = 0;
             EsInteligente = true;
             Estado = null;
+            actuadores = new List<Actuador>();
             //act = new Actuador(DispositivoID);
         }
 
@@ -55,6 +57,7 @@ namespace TP0.Helpers
                 this.ActualizarUltimoEstado();
                 UsuarioID = Disp.UsuarioID;
                 DispositivoID = Disp.DispositivoID;
+                actuadores = new List<Actuador>();
                 //act = new Actuador(DispositivoID);
 
             }
@@ -205,6 +208,18 @@ namespace TP0.Helpers
                 db.SaveChanges();
             }
         }
+        public void AgregarActuadores()
+        {
+            //Al crear el disp se agregan los actuadores de este
+            using (var db = new DBContext())
+            {
+                db.Actuadores.Add(new ActuadorHumedad(DispositivoID));
+                db.Actuadores.Add(new ActuadorLuz(DispositivoID));
+                db.Actuadores.Add(new ActuadorMovimiento(DispositivoID));
+                db.Actuadores.Add(new ActuadorTemperatura(DispositivoID));
+                db.SaveChanges();
+            }
+        }
 
         public override DispositivoInteligente ConvertirEnInteligente(string marca)
         {
@@ -213,19 +228,91 @@ namespace TP0.Helpers
 
         public void AsignarActuadorHumedad()
         {
-            act = new ActuadorHumedad(DispositivoID);
+            actuadores.Add(new ActuadorHumedad(DispositivoID));
         }
         public void AsignarActuadorMovimiento()
         {
-            act = new ActuadorMovimiento(DispositivoID);
+            actuadores.Add(new ActuadorMovimiento(DispositivoID));
         }
         public void AsignarActuadorTemperatura()
         {
-            act = new ActuadorTemperatura(DispositivoID);
+            actuadores.Add(new ActuadorTemperatura(DispositivoID));
         }
         public void AsignarActuadorLuz()
         {
-            act = new ActuadorLuz(DispositivoID);
+            actuadores.Add(new ActuadorLuz(DispositivoID));
+        }
+
+        public void CargarActuador()
+        {
+            actuadores.Clear();
+            using (var db = new DBContext())
+                foreach (Actuador a in db.Actuadores)
+                    if (a.DispositivoID == DispositivoID)
+                        actuadores.Add(a);
+        }
+        public List<Regla> GetReglas()
+        {
+            List<Regla> reglas = new List<Regla>();
+            using (var db = new DBContext())
+            {
+                foreach (Regla r in db.Reglas)
+                    foreach (Actuador a in actuadores)
+                        if (r.ActuadorID == a.ActuadorID)
+                            reglas.Add(r);
+            }
+            return reglas;
+        }
+        public List<Sensor> GetSensores()
+        {
+            List<Sensor> sensores = new List<Sensor>();
+            using (var db = new DBContext())
+            {
+                foreach (Sensor s in db.Sensores)
+                    if (s.UsuarioID == UsuarioID)
+                        sensores.Add(s);
+            }
+            foreach (Sensor s in sensores)
+                s.CargarReglas();
+
+            return sensores;
+        }
+        public void AgregarRegla(Regla r)
+        {
+            switch(r.Tipo)
+            {
+                case "Humedad":
+                    foreach (Actuador a in actuadores)
+                        if (a is ActuadorHumedad)
+                            r.ActuadorID = a.ActuadorID;
+                    break;
+                case "Luz":
+                    foreach (Actuador a in actuadores)
+                        if (a is ActuadorLuz)
+                            r.ActuadorID = a.ActuadorID;
+                    break;
+                case "Movimiento":
+                    foreach (Actuador a in actuadores)
+                        if (a is ActuadorMovimiento)
+                            r.ActuadorID = a.ActuadorID;
+                    break;
+                default:
+                    foreach (Actuador a in actuadores)
+                        if(a is ActuadorTemperatura)
+                            r.ActuadorID = a.ActuadorID;
+                    break;
+            }
+            using (var db = new DBContext())
+            {
+                foreach (Sensor s in db.Sensores)
+                    if (s.UsuarioID == UsuarioID && s.Desc == r.Tipo)
+                    {
+                        r.SensorID = s.SensorID;
+                        break;
+                    }
+                db.Reglas.Add(r);
+                db.SaveChanges();
+            }
         }
     }
 }

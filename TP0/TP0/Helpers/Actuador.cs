@@ -34,6 +34,7 @@ namespace TP0.Helpers
     }
     public class ActuadorLuz : Actuador
     {
+        public ActuadorLuz() { }
         public ActuadorLuz(int dispositivoID/*, Regla regla*/)
         {          
             DispositivoID = dispositivoID;
@@ -63,6 +64,7 @@ namespace TP0.Helpers
     }
     public class ActuadorHumedad : Actuador
     {
+        public ActuadorHumedad() { }
         public ActuadorHumedad(int dispositivoID/*, int actuadorIDFAB*/)
         {
             //ActuadorID = actuadorIDFAB;
@@ -91,6 +93,7 @@ namespace TP0.Helpers
     }
     public class ActuadorMovimiento : Actuador
     {
+        public ActuadorMovimiento() { }
         public ActuadorMovimiento(int dispositivoID/*, int actuadorIDFAB*/)
         {
             //ActuadorID = actuadorIDFAB;
@@ -119,6 +122,7 @@ namespace TP0.Helpers
     }
      public class ActuadorTemperatura : Actuador
     {
+        public ActuadorTemperatura() { }
         public ActuadorTemperatura(int dispositivoID/*, int actuadorIDFAB*/)
         {
             //ActuadorID = actuadorIDFAB;

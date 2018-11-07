@@ -1,6 +1,5 @@
 ﻿@model TP0.Helpers.DispositivoInteligente
 
-
 <div class="jumbotron">
     <h2>@Model.Nombre</h2>
     <h4>KW por hora: @Model.KWxHora</h4>
@@ -15,18 +14,60 @@
 <div class="jumbotron">
     <table class="table">
         <tr>
-            <th style="text-align: center;">
-                Actuador
+            <th>
+                @Html.DisplayName("Sensor")
             </th>
             <th style="text-align: center;">
-                Regla
+                @Html.DisplayName("Regla")
             </th>
             <th style="text-align: center;">
-                Ultima medición
+                @Html.DisplayName("Descripción")
+            </th>
+            <th style="text-align: center;">
+                @Html.DisplayName("Se cumple")
             </th>
         </tr>
-    </table>
-    <h2>ACA ES DONDE PONDRÍA ESTAS COSAS, SI LAS TUVIERA</h2>
+    @foreach (TP0.Helpers.Sensor s in Model.GetSensores())
+    {
+        <tr>
+            <th>
+                @s.Desc
+            </th>
+            <th style="text-align: center;">
+            </th>
+            <th style="text-align: center;">
+            </th>
+            <th style="text-align: center;">
+            </th>
+        </tr>
+        foreach (TP0.Helpers.Regla r in s.Reglas)
+        {
+        <tr>
+            <th></th>
+            <th style="text-align: center;">
+                @r.Tipo
+            </th>
+            <th style="text-align: center;">
+                @r.Descripcion
+            </th>
+            <th style="text-align: center;">
+                
+            </th>
+        </tr>
+        }
+    }
+        <tr>
+            <th>
+                @Html.ActionLink("+Crear nueva regla", "CrearRegla", new { id = Model.DispositivoID})
+            </th>
+            <th style="text-align: center;">
+            </th>
+            <th style="text-align: center;">
+            </th>
+            <th style="text-align: center;">
+            </th>
+        </tr>
+</table>
 </div>
 <div class="jumbotron">
     @using (Html.BeginForm("BorrarDispositivoClie", "Home", new { id = Model.DispositivoID }))

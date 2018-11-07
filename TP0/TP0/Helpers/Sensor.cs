@@ -33,10 +33,12 @@ namespace TP0.Helpers
         {
             Desc = descripcion;
             UsuarioID = usuarioID;
+            Reglas = new List<Regla>();
         }
        
         public Sensor()
         {
+            Reglas = new List<Regla>();
         }
         
         public void AgregarRegla(Regla c)
@@ -93,6 +95,7 @@ namespace TP0.Helpers
 
         public void CargarReglas()
         {
+            Reglas = new List<Regla>();
             using (var db = new DBContext())
             {
                 foreach (Regla r in db.Reglas)

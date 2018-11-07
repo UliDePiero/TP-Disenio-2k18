@@ -278,6 +278,33 @@ namespace TP0.Controllers
         }
 
         [HttpGet]
+        public ActionResult CrearRegla(int id)
+        {
+            ViewBag.id = id;
+            ViewBag.Tipo = SensoresEstaticos.GetTipos();
+            ViewBag.Descripcion = SensoresEstaticos.GetDescripcion();
+            return View();
+        }
+        [HttpPost]
+        public ActionResult CrearRegla([Bind(Include = "ValorMax,ValorMin,Tipo,Descripcion")] Regla reglaNueva, int id)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    DispositivoInteligente di = new DispositivoInteligente(id);
+                    di.CargarActuador();
+                    di.AgregarRegla(reglaNueva);
+                }
+            }
+            catch (RetryLimitExceededException)
+            {
+                ModelState.AddModelError("", "No se pudo Crear");
+            }
+            return RedirectToAction("DispositivosPropios", "Home");
+        }
+
+        [HttpGet]
         public ActionResult AgregarDispositivoClie()
         {   //se llenan la lista de todas las opciones de dispositivos para poder agregarlos a los propios del usuario
             List<SelectListItem> disps = DispositivosTotales.GetDispositivos();

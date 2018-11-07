@@ -35,6 +35,7 @@ namespace TP0.Helpers
             Tipo = tipo;
             Descripcion = descripcion; 
         }
+        public Regla() { }
 
         public void Notificar(Medicion m)
         {

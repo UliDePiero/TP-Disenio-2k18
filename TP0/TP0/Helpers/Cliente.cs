@@ -218,8 +218,9 @@ namespace TP0.Helpers
                 }
                 db.Dispositivos.Add(DI);
                 db.SaveChanges();
-                DI.AgregarEstado(new Apagado(DI));
             }
+            DI.AgregarEstado(new Apagado(DI));
+            DI.AgregarActuadores();
         }
         public override void AgregarDispEstandar(DispositivoEstandar DE)
         {
