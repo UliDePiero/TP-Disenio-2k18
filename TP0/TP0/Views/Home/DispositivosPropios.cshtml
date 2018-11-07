@@ -44,7 +44,7 @@
         <th> </th>
     </tr>
 
-    @foreach (var item in Model.GetDisps())
+    @foreach (var item in Model.Dispositivos)
     {
         if (item.EsInteligente)
         {
@@ -101,20 +101,4 @@
                 <td></td>
                 <td></td>
             </tr>
-</table>
-
-<table class="table" style="border-collapse">
-    <tr>
-        <th>
-            @Html.DisplayName("Sensor")
-        </th>
-    </tr>
-    @foreach (TP0.Helpers.Sensor s in Model.GetSensores())
-    {
-        <tr>
-            <td>
-                @Html.DisplayName(s.Desc)
-            </td>
-        </tr>
-    }
 </table>

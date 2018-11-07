@@ -17,5 +17,12 @@ namespace TP0.Helpers
         public int SensorID { get; set; }
         [ForeignKey("SensorID")]
         public Sensor Sensor { get; set; }
+
+        public Medicion(DateTime fecha, float medida, int sensorID)
+        {
+            Fecha = fecha;
+            Medida = medida;
+            SensorID = sensorID;
+        }
     }
 }

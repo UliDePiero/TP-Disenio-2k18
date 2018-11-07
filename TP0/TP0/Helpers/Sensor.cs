@@ -63,15 +63,21 @@ namespace TP0.Helpers
         public void Notificar()
         {
             //Observers.ForEach(o => o.Notificar(UltimaMedicion));
-            Reglas.ForEach(o => o.Notificar( ObtenerMedicion() ));
+            Reglas.ForEach(o => o.Notificar( UltimaMedicion ));
         }
 
         public void Medir(float valorMedicion, DateTime tFinal)
         {
-            if(DateTime.Compare(DateTime.Now, tFinal) < 0)
+            if(DateTime.Compare(DateTime.Now, tFinal) <= 0)
             {
                 ValorMedicion = valorMedicion;
                 FechaUltimaMedicion = DateTime.Now;
+                UltimaMedicion = new Medicion(FechaUltimaMedicion, valorMedicion, SensorID);
+                using (var db = new DBContext())
+                {
+                    db.Mediciones.Add(UltimaMedicion);
+                    db.SaveChanges();
+                }
                 Notificar();
                 Midiendo = true;
                //Medir(valorMedicion, tFinal);
@@ -79,18 +85,20 @@ namespace TP0.Helpers
             Midiendo = false;
         }
 
-        public Medicion ObtenerMedicion()
+        public List<Medicion> ObtenerMediciones()
         {
-            UltimaMedicion.Medida = ValorMedicion;
-            UltimaMedicion.Fecha = FechaUltimaMedicion;
-            UltimaMedicion.SensorID = SensorID;
-            Mediciones.Add(UltimaMedicion);
+            Mediciones.Clear();
+            CargarMediciones();
+            return Mediciones;
+        }
+        public void CargarMediciones()
+        {
             using (var db = new DBContext())
             {
-                db.Mediciones.Add(UltimaMedicion);
-                db.SaveChanges();
+                foreach (Medicion m in db.Mediciones)
+                    if (m.SensorID == SensorID)
+                        Mediciones.Add(m);
             }
-            return UltimaMedicion;
         }
 
         public void CargarReglas()

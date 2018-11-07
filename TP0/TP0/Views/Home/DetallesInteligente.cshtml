@@ -26,6 +26,12 @@
                 @Html.DisplayName("Se cumple")
             </th>
             <th style="text-align: center;">
+                @Html.DisplayName("Valor minimo")
+            </th>
+            <th style="text-align: center;">
+                @Html.DisplayName("Valor maximo")
+            </th>
+            <th style="text-align: center;">
             </th>
         </tr>
     @foreach (TP0.Helpers.Sensor s in Model.GetSensores())
@@ -33,6 +39,10 @@
         <tr>
             <th>
                 @s.Desc
+            </th>
+            <th style="text-align: center;">
+            </th>
+            <th style="text-align: center;">
             </th>
             <th style="text-align: center;">
             </th>
@@ -54,7 +64,13 @@
                 @r.Descripcion
             </th>
             <th style="text-align: center;">
-
+                @r.SeCumple
+            </th>
+            <th style="text-align: center;">
+                @r.ValorMax
+            </th>
+            <th style="text-align: center;">
+                @r.ValorMin
             </th>
             <th style="text-align: center;">
                 @Html.ActionLink("Borrar regla", "BorrarRegla", new { rID = r.ReglaID, dID = Model.DispositivoID })

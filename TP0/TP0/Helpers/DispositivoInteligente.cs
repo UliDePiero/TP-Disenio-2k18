@@ -273,7 +273,10 @@ namespace TP0.Helpers
                         sensores.Add(s);
             }
             foreach (Sensor s in sensores)
+            {
                 s.CargarReglas();
+                s.Medir(20, DateTime.Now); //Se hardcodea el valor de la medicion
+            }
 
             return sensores;
         }

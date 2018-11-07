@@ -25,7 +25,8 @@ namespace TP0.Helpers
         public Sensor Sensor { get; set; }
         public String Tipo { get; set; }  //(Humedad, luz, movimiento, temperatura)
         public String Descripcion { get; set; } //Que accion le indica al actuador que realice (apagar,encender,ahorro)
-
+        [NotMapped]
+        public bool SeCumple;
 
         public Regla(int id)
         {
@@ -56,9 +57,18 @@ namespace TP0.Helpers
         {
             //seCumple = false;
             if (m.Medida >= ValorMin && m.Medida <= ValorMax)
-                //seCumple = true;
+            {
+                SeCumple = true;
                 //Actuador.VerificarRegla();
+                using (var db = new DBContext())
+                    Actuador = db.Actuadores.FirstOrDefault(a => a.ActuadorID == ActuadorID);
                 Actuador.EjecutarRegla(this);
+            }
+            else
+            {
+                SeCumple = false;
+            }
+                
         }
 
         public void CargarActuador()
