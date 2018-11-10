@@ -169,13 +169,24 @@ namespace TP0.Controllers
 
                 if (result.Succeeded)
                 {
-                    //Agrega el nuevo usuario a la base de datos
-                    Cliente cliente = new Cliente(model.nombre, model.apellido, model.domicilio, model.Email, model.Password, model.documento, model.tipo, model.telefono)
+                    Cliente cliente;
+                    if (model.Administrador=="admin")
                     {
-                        TransformadorID = 1, //Transformador default
-                    };
-                    cliente.AgregarALaBase();
+                        cliente = new Cliente(model.nombre, model.apellido, model.domicilio, model.Email, model.Password, model.documento, model.tipo, model.telefono);
+                            cliente.EsAdmin = true;
+                       
+                    }
+                    else
+                    {
+                        //Agrega el nuevo usuario a la base de datos
+                      cliente = new Cliente(model.nombre, model.apellido, model.domicilio, model.Email, model.Password, model.documento, model.tipo, model.telefono)
+                        {
+                            TransformadorID = 1, //Transformador default
+                        };
+                     
+                    }
 
+                    cliente.AgregarALaBase();
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
                     
                     // Para obtener más información sobre cómo habilitar la confirmación de cuentas y el restablecimiento de contraseña, visite https://go.microsoft.com/fwlink/?LinkID=320771
