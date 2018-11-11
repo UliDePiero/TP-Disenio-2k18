@@ -319,9 +319,9 @@ namespace TP0.Controllers
         {   //se llenan la lista de todas las opciones de dispositivos para poder agregarlos a los propios del usuario
             List<SelectListItem> disps = DispositivosTotales.GetDispositivos();
             if (disps.Count == 0)
-                ViewBag.Message = "No hay dispositivos para agregar actualmente.";
+                ViewBag.Message = "No hay dispositivos para agregar actualmente";
             else
-                ViewBag.Message = "Seleccione un dispositivo de la lista para agregar.";
+                ViewBag.Message = "Seleccione un dispositivo de la lista para agregar";
 
             ViewBag.selectListItems = disps;
             return View();

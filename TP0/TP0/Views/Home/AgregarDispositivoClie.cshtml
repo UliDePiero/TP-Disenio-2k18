@@ -10,12 +10,12 @@
 
 <body>
     <div class="jumbotron">
-        <h1> @ViewBag.Message </h1>
+        <h2> @ViewBag.Message </h2>
     </div>
     @using (Html.BeginForm("AgregarDispositivoClie", "Home", FormMethod.Post))
     {@*lista con todos los dispositivos para agregar uno a los propios*@
         <h4>
-            @Html.DropDownList("DispositivoSeleccionado", (IEnumerable<SelectListItem>)ViewBag.selectListItems)
+            @Html.DropDownList("DispositivoSeleccionado", (IEnumerable<SelectListItem>)ViewBag.selectListItems, null, new {@class="dropdown-menu"})
         </h4>
 
         <h4>
