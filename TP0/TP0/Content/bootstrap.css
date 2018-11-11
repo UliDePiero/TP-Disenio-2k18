@@ -3268,10 +3268,10 @@ input[type="button"].btn-block {
 }
 
 .dropdown-menu {
-    background-color: deepskyblue;
+    background-color: lightslategrey;
     color: white;
-    padding: 16px;
-    font-size: 16px;
+    padding: 10px 20px;
+    font-size: 14px;
     border: none;
     cursor: pointer;
 }
