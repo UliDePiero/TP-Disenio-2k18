@@ -17,13 +17,25 @@ namespace TP0.Helpers
         [JsonProperty]
         public double cargoVariable;  //  $/kWh
 
+        public Categoria()
+        {
+        }
+
+        public Categoria(double consMin, double consMax, double cFijo, double cVariable)
+        {
+            consumoMax = consMax;
+            consumoMin = consMin;
+            cargoFijo = cFijo;
+            cargoVariable = cVariable;
+        }
+
         public double CalcularTarifa(double consumo)
         {
             return (cargoFijo + consumo * cargoVariable);
         }
 
         public bool PerteneceA(double consumo){
-            return consumoMin <= consumo && consumo <= consumoMax;
+            return consumoMin <= consumo && consumo < consumoMax;
         }
     }
 }

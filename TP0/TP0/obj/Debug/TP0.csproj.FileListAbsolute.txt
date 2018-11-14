@@ -68,12 +68,6 @@ C:\Users\Administrador\Desktop\Github\TP-0\TP0\TP0\bin\roslyn\Microsoft.DiaSymRe
 C:\Users\Administrador\Desktop\Github\TP-0\TP0\TP0\bin\roslyn\System.IO.Compression.dll
 C:\Users\Administrador\Desktop\Github\TP-0\TP0\TP0\bin\roslyn\VBCSCompiler.exe
 C:\Users\Saku\Documents\GitHub\TP-0\TP0\TP0\bin\roslyn\System.IO.Compression.dll
-C:\Users\pow20\Desktop\Nico\UTN\Diseño\TP\TP-0\TP-0\TP0\TP0\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
-C:\Users\pow20\Desktop\Nico\UTN\Diseño\TP\TP-0\TP-0\TP0\TP0\bin\roslyn\Microsoft.CodeAnalysis.dll
-C:\Users\pow20\Desktop\Nico\UTN\Diseño\TP\TP-0\TP-0\TP0\TP0\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
-C:\Users\pow20\Desktop\Nico\UTN\Diseño\TP\TP-0\TP-0\TP0\TP0\bin\roslyn\Microsoft.DiaSymReader.Native.amd64.dll
-C:\Users\pow20\Desktop\Nico\UTN\Diseño\TP\TP-0\TP-0\TP0\TP0\bin\roslyn\System.IO.Compression.dll
-C:\Users\pow20\Desktop\Nico\UTN\Diseño\TP\TP-0\TP-0\TP0\TP0\bin\roslyn\VBCSCompiler.exe
 C:\Users\Uli\TP-0\TP0\TP0\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
 C:\Users\Uli\TP-0\TP0\TP0\bin\roslyn\Microsoft.CodeAnalysis.dll
 C:\Users\Uli\TP-0\TP0\TP0\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll

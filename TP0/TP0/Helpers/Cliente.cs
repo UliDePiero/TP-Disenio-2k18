@@ -407,7 +407,7 @@ namespace TP0.Helpers
 
     public override void ActualizarCategoria()
         {
-            
+            categoria = CategoriasPosibles.GetCategoria(TotalConsumo());
         }
 
         public void ConectarseAlTrafoMasProx()
