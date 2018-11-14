@@ -298,6 +298,7 @@
     <Compile Include="Helpers\Actuador.cs" />
     <Compile Include="Helpers\Resultado.cs" />
     <Compile Include="Helpers\Sensor.cs" />
+    <Compile Include="Helpers\Static\CategoriasPosibles.cs" />
     <Compile Include="Helpers\Static\DispositivoEstatico.cs" />
     <Compile Include="Helpers\Static\SensoresEstaticos.cs" />
     <Compile Include="Helpers\Static\TransformadoresImp.cs" />
