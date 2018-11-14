@@ -1,30 +1,26 @@
 [
   {
-    "id" : 1,
-    "zonaId" : 1,
-    "latitude": 0,
-    "longitude": 0,
-    "energiaTotal":1
+    "latitude": -34.575233814928914,
+    "longitude": -58.41500966716404
   },
   {
-    "id" : 2,
-    "zonaId" : 1,
-    "latitude": 2,
-    "longitude": 2,
-    "energiaTotal":1
+    "latitude": -34.58220308678515,
+    "longitude": -58.42022895812988
   },
   {
-    "id" : 3,
-    "zonaId" : 3,
-    "latitude": 50,
-    "longitude": 50,
-    "energiaTotal":1
+    "latitude": -34.56774230669942,
+    "longitude": -58.43784063029881
   },
   {
-"id" : 4,
-    "zonaId" : 4,
-    "latitude": -80,
-    "longitude": -80,
-    "energiaTotal":1
+    "latitude": -34.598834718415894,
+    "longitude": -58.38144986796971
+  },
+  {
+    "latitude": -34.5831486373521,
+    "longitude": -58.397242714649394
+  },
+  {
+    "latitude": -34.599611879656926,
+    "longitude": -58.40007512736912
   }
 ]

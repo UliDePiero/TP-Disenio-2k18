@@ -6,17 +6,18 @@ using System.Linq;
 using System.Web;
 using Newtonsoft.Json;
 using TP0.Helpers.ORM;
+using GoogleMaps;
 
 namespace TP0.Helpers
 {
     public class Transformador
     {
-        [JsonProperty("id")]
+        //[JsonProperty("id")]
         [Key]
         public int TransformadorID { get; set; }
 
         public int ZonaID { get; set; }
-        [JsonProperty("zonaGeografica")]
+        //[JsonProperty("zonaGeografica")]
         [ForeignKey("ZonaID")]
         public Zona ZonaGeografica { get; set; }
 
@@ -24,7 +25,7 @@ namespace TP0.Helpers
         public double Latitud { get; set; }
         [JsonProperty("longitude")]
         public double Longitud { get; set; }
-        [JsonProperty("energiaTotal")]
+        //[JsonProperty("energiaTotal")]
         public double EnergiaTotal { get; set; }
 
         //No se persiste en la db
@@ -65,6 +66,33 @@ namespace TP0.Helpers
             }
             return EnergiaTotal;
 	    }
+        public void asignarZona()
+        {
+            
+            using (var db = new DBContext())
+            {
+                foreach (var z in db.Zonas)
+                {
+                    if (CalcDistancia(z) <= z.Radio)
+                    {
+                        ZonaID = z.ZonaID;
+                        break;
+                    }
+                }
+            }
+        }
+
+        public double CalcDistancia(Zona zona)
+        {
+            double radioTierra = 6371;
+            double distance = 0;
+            double Lat = Math.Abs(Latitud - zona.Latitud) * (Math.PI / 180);
+            double Lon = Math.Abs(Longitud - zona.Longitud) * (Math.PI / 180);
+            double a = Math.Sin(Lat / 2) * Math.Sin(Lat / 2) + Math.Cos(zona.Latitud * (Math.PI / 180)) * Math.Cos(Latitud * (Math.PI / 180)) * Math.Sin(Lon / 2) * Math.Sin(Lon / 2);
+            double c = 2 * Math.Atan2(Math.Sqrt(a), Math.Sqrt(1 - a));
+            distance = Math.Round(radioTierra * c, 3);
+            return distance;
+        }
 
         public void ActualizarEnergiaQueEstaSuministrando()
         {

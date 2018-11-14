@@ -37,9 +37,13 @@ namespace TP0.Helpers.Static
             {
                 foreach(Transformador t in transformadores)
                 {
-                    if(!db.Transformadores.Any(tra => tra.TransformadorID == t.TransformadorID || (tra.Latitud == t.Latitud && tra.Longitud == t.Longitud)))
+                    if(!db.Transformadores.Any(tra => /*tra.TransformadorID == t.TransformadorID || */ (tra.Latitud == t.Latitud && tra.Longitud == t.Longitud)))
                     {
                         //Si no hay ningun transformador con el mismo id o las mismas coordenadas, se agrega.
+                        //El id debe saberse? si es un trafo q se carga por primera vez como se sabe el id?
+                        //Al igual que la zona id, se asignan al momento de subir el transoformador en base a su latitud y longitud
+                        t.asignarZona(); //metodo para calcular a q ZONA pertenece
+                        //t.ZonaID = 1;
                         db.Transformadores.Add(t);
                     }
                 }
