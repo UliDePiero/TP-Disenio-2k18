@@ -1,0 +1,26 @@
+﻿<div class="jumbotron">
+    <h4>Consumo por Hogar</h4>
+    @using (Html.BeginForm("GenerarReporte", "Home", FormMethod.Post))
+    {
+        <h4>
+            @Html.DropDownList("TipoReporte", (IEnumerable<SelectListItem>)ViewBag.selectListItems, null, new { @class = "dropdown-menu" })
+        </h4>
+        <div>
+            <label for="FechaInicio">Fecha inicio:</label>
+            <input type="date" id="fechaInicioID"
+                   name="FechaInicio"
+                   min="2018-01-01" max="@DateTime.Now.Date" required />
+            <span class="validity"></span>
+        </div>
+        <div>
+            <label for="FechaFin">Fecha fin:</label>
+            <input type="date" id="fechaFinID"
+                   name="FechaFin"
+                   min="2018-01-01" max="@DateTime.Now.Date" required />
+            <span class="validity"></span>
+        </div>
+        <h4>
+            <input type="submit" class="btn btn-default" value="Generar Reporte">
+        </h4>
+    }
+</div>

@@ -40,6 +40,34 @@ namespace TP0.Controllers
 
 
         //VISTAS DE ADMIN
+        public ActionResult ReportesAdmin()
+        {
+            List<SelectListItem> tiposReporte = new List<SelectListItem>();
+            tiposReporte.Add(new SelectListItem() { Value = "Hogar", Text = "Consumo por Hogar" });
+            tiposReporte.Add(new SelectListItem() { Value = "TipoDisp", Text = "Consumo por Tipo de Dispositivo" });
+            tiposReporte.Add(new SelectListItem() { Value = "Transformador", Text = "Consumo por Transformador" });
+            ViewBag.SelectListItems = tiposReporte;
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult GenerarReporte(SubmitViewModel model, DateTime FechaInicio, DateTime FechaFin)
+        {
+            string tipo = model.TipoReporte;
+            if (tipo == "Hogar")
+            {
+                //buscar en mongo, si no esta se llama al metodo
+            }
+            else if (tipo == "TipoDisp")
+            {
+                //buscar en mongo, si no esta se llama al metodo
+            }
+            else if(tipo == "Transformador")
+            {
+                //buscar en mongo, si no esta se llama al metodo
+            }
+            return View();
+        }
         public ActionResult AdministrarDispositivosAdmin()
         {
             DispositivosTotales.LlenarDisps();

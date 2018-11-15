@@ -14,6 +14,9 @@ namespace TP0.Models
         [Display(Name = "DispositivoSeleccionado")]
         public string DispositivoSeleccionado { get; set; }
         [Required]
+        [Display(Name = "TipoReporte")]
+        public string TipoReporte { get; set; }
+        [Required]
         public float ValorMax { get; set; }
         [Required]
         public float ValorMin { get; set; }
