@@ -38,35 +38,73 @@ namespace TP0.Controllers
         }
 
 
-
-
         //VISTAS DE ADMIN
         public ActionResult ReportesAdmin()
         {
             return View();
         }
+        [HttpGet]
+        public ActionResult ReporteHogar()
+        {
+            ViewBag.consumo = "";
+            IEnumerable<Cliente> casas = ClientesImportados.GetClientes();//se carga lista de casas
+            List<SelectListItem> hogares = new List<SelectListItem>();
+            foreach (Cliente c in casas)
+            {
+                hogares.Add(new SelectListItem() { Value = c.Username, Text = c.Username });
+            }
+            ViewBag.HogarSeleccionado = hogares;
 
+            return View();
+        }
         [HttpPost]
+        public ActionResult ReporteHogar(SubmitViewModel model, DateTime FechaInicio, DateTime FechaFin)
+        {
+            Reporte reporteModelo = new Reporte("Hogar", 0, FechaInicio, FechaFin);
+            
+            IEnumerable<Cliente> casas = ClientesImportados.GetClientes();//se carga lista de casas
+            List<SelectListItem> hogares = new List<SelectListItem>();
+            foreach (Cliente c in casas)
+            {
+                hogares.Add(new SelectListItem() { Value = c.Username, Text = c.Username });
+            }
+            ViewBag.HogarSeleccionado = hogares;
+
+            //if(reporte esta en mongo){find} else{ se crea y se guarda en mongo}
+            var client = Mongo.getInstance();
+            var dbmongo = client.GetDatabase("dbtp0");
+            var reportes = dbmongo.GetCollection<Reporte>("reportes");
+            var builder = Builders<Reporte>.Filter;
+            var filter = builder.Eq("tipoReporte", "Hogar") & builder.Eq("fechaInicio", FechaInicio) & builder.Eq("fechaFin", FechaFin);
+            var reportesEncontrados = reportes.Find<Reporte>(filter);
+            //No puede acceder al mongo (timeout)!!!
+            if (reportesEncontrados.ToList<Reporte>().Count > 0)
+            {
+                var reporte = reportesEncontrados.ToList<Reporte>()[0];
+                ViewBag.consumo = reporte.ToString();
+            }
+            else
+            {
+                using (var db = new DBContext())
+                {
+                    Usuario usu = db.Usuarios.FirstOrDefault(u => u.Username == model.HogarSeleccionado);
+                    reporteModelo.consumo = usu.KwTotales(FechaInicio, FechaFin);
+                    ViewBag.consumo = "Consumo: " + reporteModelo.consumo + "Kw";
+                }
+                reportes.InsertOne(reporteModelo);
+            }
+            ViewBag.fechas = FechaInicio.ToShortDateString() + " - " + FechaFin.ToShortDateString();
+            ViewBag.hogar = model.HogarSeleccionado;
+            return View();
+        }
+   /*     [HttpPost]
         public ActionResult GenerarReporte(SubmitViewModel model, DateTime FechaInicio, DateTime FechaFin)
         {
-            string tipo = model.TipoReporte;
+            string tipo = model.HogarSeleccionado.ToString();
             if (tipo == "Hogar")
             {
                 //buscar en mongo, si no esta se llama al metodo
-                var client = Mongo.getInstance();
-                var db = client.GetDatabase("dbtp0");
-                var reportes = db.GetCollection<Reporte>("reportes");
-                var builder = Builders<Reporte>.Filter;
-                var filter = builder.Eq("tipoReporte", "Hogar") & builder.Eq("fechaInicio", FechaInicio) & builder.Eq("fechaFin",FechaFin);
-                var reportesEncontrados = reportes. Find<Reporte>(filter);
-                if (reportesEncontrados.ToList<Reporte>().Count > 0)
-                {
-                    var reporte = reportesEncontrados.ToList<Reporte>()[0];
-                }
-                else
-                {
-
-                }
+                
 
             }
             else if (tipo == "TipoDisp")
@@ -78,7 +116,7 @@ namespace TP0.Controllers
                 //buscar en mongo, si no esta se llama al metodo
             }
             return View();
-        }
+        }*/
         public ActionResult AdministrarDispositivosAdmin()
         {
             DispositivosTotales.LlenarDisps();
