@@ -90,7 +90,17 @@ namespace TP0.Helpers.Static
             }
         }
 
-
+        public static double kwPorDispositivo(int id)
+        {
+            double kw;
+            using(var db = new DBContext())
+            {
+                List<Dispositivo> disps = db.Dispositivos.ToList();
+                disps.Where(d => d.DispositivoID == id);
+                kw = disps.Sum(d => d.KWxHora);
+                return kw;
+            }
+        }
 
     }
 }

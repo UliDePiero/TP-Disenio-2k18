@@ -14,8 +14,8 @@ namespace TP0.Models
         [Display(Name = "DispositivoSeleccionado")]
         public string DispositivoSeleccionado { get; set; }
         [Required]
-        [Display(Name = "HogarSeleccionado")]
-        public string HogarSeleccionado { get; set; }
+        [Display(Name = "IdSeleccionado")]
+        public int IdSeleccionado { get; set; }
         [Required]
         public float ValorMax { get; set; }
         [Required]

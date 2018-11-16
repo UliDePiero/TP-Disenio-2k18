@@ -51,72 +51,131 @@ namespace TP0.Controllers
             List<SelectListItem> hogares = new List<SelectListItem>();
             foreach (Cliente c in casas)
             {
-                hogares.Add(new SelectListItem() { Value = c.Username, Text = c.Username });
+                hogares.Add(new SelectListItem() { Value = c.UsuarioID.ToString(), Text = c.Username });
             }
-            ViewBag.HogarSeleccionado = hogares;
+            ViewBag.IdSeleccionado = hogares;
 
             return View();
         }
         [HttpPost]
         public ActionResult ReporteHogar(SubmitViewModel model, DateTime FechaInicio, DateTime FechaFin)
         {
-            Reporte reporteModelo = new Reporte("Hogar", 0, FechaInicio, FechaFin);
-            
-            IEnumerable<Cliente> casas = ClientesImportados.GetClientes();//se carga lista de casas
-            List<SelectListItem> hogares = new List<SelectListItem>();
-            foreach (Cliente c in casas)
-            {
-                hogares.Add(new SelectListItem() { Value = c.Username, Text = c.Username });
-            }
-            ViewBag.HogarSeleccionado = hogares;
 
-            //if(reporte esta en mongo){find} else{ se crea y se guarda en mongo}
-            var client = Mongo.getInstance();
-            var dbmongo = client.GetDatabase("dbtp0");
-            var reportes = dbmongo.GetCollection<Reporte>("reportes");
-            var builder = Builders<Reporte>.Filter;
-            var filter = builder.Eq("tipoReporte", "Hogar") & builder.Eq("fechaInicio", FechaInicio) & builder.Eq("fechaFin", FechaFin);
-            var reportesEncontrados = reportes.Find<Reporte>(filter);
-            //No puede acceder al mongo (timeout)!!!
-            if (reportesEncontrados.ToList<Reporte>().Count > 0)
+            using (var db = new DBContext())
             {
-                var reporte = reportesEncontrados.ToList<Reporte>()[0];
-                ViewBag.consumo = reporte.ToString();
-            }
-            else
-            {
-                using (var db = new DBContext())
+                Usuario usu = db.Usuarios.FirstOrDefault(u => u.UsuarioID == model.IdSeleccionado);
+                Reporte reporteModelo = new Reporte("Hogar", usu.UsuarioID.ToString(), 0, FechaInicio, FechaFin);
+
+                IEnumerable<Cliente> casas = ClientesImportados.GetClientes();//se carga lista de casas
+                List<SelectListItem> hogares = new List<SelectListItem>();
+                foreach (Cliente c in casas)
                 {
-                    Usuario usu = db.Usuarios.FirstOrDefault(u => u.Username == model.HogarSeleccionado);
+                    hogares.Add(new SelectListItem() { Value = c.UsuarioID.ToString(), Text = c.Username });
+                }
+                ViewBag.IdSeleccionado = hogares;
+
+                //if(reporte esta en mongo){find} else{ se crea y se guarda en mongo}
+                var client = Mongo.getInstance();
+                var dbmongo = client.GetDatabase("dbtp0");
+                var reportes = dbmongo.GetCollection<Reporte>("reportes");
+                var builder = Builders<Reporte>.Filter;
+                var filter = builder.Eq("tipoReporte", "Hogar") & builder.Eq("id",usu.UsuarioID) & builder.Eq("fechaInicio", FechaInicio) & builder.Eq("fechaFin", FechaFin);
+                var reportesEncontrados = reportes.Find<Reporte>(filter);
+                //No puede acceder al mongo (timeout)!!!
+                if (reportesEncontrados.ToList<Reporte>().Count > 0)
+                {
+                    var reporte = reportesEncontrados.ToList<Reporte>()[0];
+                    ViewBag.consumo = reporte.ToString();
+                }
+                else
+                {
                     reporteModelo.consumo = usu.KwTotales(FechaInicio, FechaFin);
                     ViewBag.consumo = "Consumo: " + reporteModelo.consumo + "Kw";
+
+                    reportes.InsertOne(reporteModelo);
                 }
-                reportes.InsertOne(reporteModelo);
+                ViewBag.fechas = FechaInicio.ToShortDateString() + " - " + FechaFin.ToShortDateString();
+                ViewBag.hogar = usu.Username;
             }
-            ViewBag.fechas = FechaInicio.ToShortDateString() + " - " + FechaFin.ToShortDateString();
-            ViewBag.hogar = model.HogarSeleccionado;
+                return View();
+        }
+        [HttpGet]
+        public ActionResult ReporteDispositivo()
+        {
+            ViewBag.consumo = "";
+            IEnumerable<Dispositivo> dispositivos = (IEnumerable<Dispositivo>)DispositivosTotales.GetDispositivos();//se carga lista de dispositivos
+            List<SelectListItem> dispositivosSelectList = new List<SelectListItem>();
+            foreach (Dispositivo d in dispositivos)
+            {
+                dispositivosSelectList.Add(new SelectListItem() { Value = d.DispositivoID.ToString(), Text = d.Nombre });
+            }
+            ViewBag.IdSeleccionado = dispositivosSelectList;
+
             return View();
         }
-   /*     [HttpPost]
-        public ActionResult GenerarReporte(SubmitViewModel model, DateTime FechaInicio, DateTime FechaFin)
+        [HttpPost]
+        public ActionResult ReporteDispositivo(SubmitViewModel model, DateTime FechaInicio, DateTime FechaFin)
         {
-            string tipo = model.HogarSeleccionado.ToString();
-            if (tipo == "Hogar")
-            {
-                //buscar en mongo, si no esta se llama al metodo
-                
 
-            }
-            else if (tipo == "TipoDisp")
+            using (var db = new DBContext())
             {
-                //buscar en mongo, si no esta se llama al metodo
-            }
-            else if(tipo == "Transformador")
-            {
-                //buscar en mongo, si no esta se llama al metodo
+                DispositivoEstatico disp = db.DispEstaticos.FirstOrDefault(d=>d.DispositivoID==model.IdSeleccionado);
+                Reporte reporteModelo = new Reporte("Dispositivo", disp.DispositivoID.ToString(), 0, FechaInicio, FechaFin);
+
+                IEnumerable<Dispositivo> dispositivos = (IEnumerable<Dispositivo>)DispositivosTotales.GetDispositivos();//se carga lista de dispositivos
+                List<SelectListItem> dispositivosSelectList = new List<SelectListItem>();
+                foreach (Dispositivo d in dispositivos)
+                {
+                    dispositivosSelectList.Add(new SelectListItem() { Value = d.DispositivoID.ToString(), Text = d.Nombre });
+                }
+                ViewBag.IdSeleccionado = dispositivosSelectList;
+
+                //if(reporte esta en mongo){find} else{ se crea y se guarda en mongo}
+                var client = Mongo.getInstance();
+                var dbmongo = client.GetDatabase("dbtp0");
+                var reportes = dbmongo.GetCollection<Reporte>("reportes");
+                var builder = Builders<Reporte>.Filter;
+                var filter = builder.Eq("tipoReporte", "Dispositivo") & builder.Eq("id", disp.DispositivoID) & builder.Eq("fechaInicio", FechaInicio) & builder.Eq("fechaFin", FechaFin);
+                var reportesEncontrados = reportes.Find<Reporte>(filter);
+                //No puede acceder al mongo (timeout)!!!
+                if (reportesEncontrados.ToList<Reporte>().Count > 0)
+                {
+                    var reporte = reportesEncontrados.ToList<Reporte>()[0];
+                    ViewBag.consumo = reporte.ToString();
+                }
+                else
+                {
+                    //   reporteModelo.consumo = usu.KwTotales(FechaInicio, FechaFin);
+                    reporteModelo.consumo = DispositivosTotales.kwPorDispositivo(disp.DispositivoID);
+                    ViewBag.consumo = "Consumo: " + reporteModelo.consumo + "Kw";
+
+                    reportes.InsertOne(reporteModelo);
+                }
+                ViewBag.fechas = FechaInicio.ToShortDateString() + " - " + FechaFin.ToShortDateString();
+                ViewBag.hogar = disp.Nombre;
             }
             return View();
-        }*/
+        }
+        /*     [HttpPost]
+             public ActionResult GenerarReporte(SubmitViewModel model, DateTime FechaInicio, DateTime FechaFin)
+             {
+                 string tipo = model.IdSeleccionado.ToString();
+                 if (tipo == "Hogar")
+                 {
+                     //buscar en mongo, si no esta se llama al metodo
+
+
+                 }
+                 else if (tipo == "TipoDisp")
+                 {
+                     //buscar en mongo, si no esta se llama al metodo
+                 }
+                 else if(tipo == "Transformador")
+                 {
+                     //buscar en mongo, si no esta se llama al metodo
+                 }
+                 return View();
+             }*/
         public ActionResult AdministrarDispositivosAdmin()
         {
             DispositivosTotales.LlenarDisps();
