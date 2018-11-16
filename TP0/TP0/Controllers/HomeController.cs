@@ -11,6 +11,7 @@ using Microsoft.AspNet.Identity;
 using TP0.Helpers.ORM;
 using TP0.Helpers.Static;
 using System.Data.Entity.Infrastructure;
+using MongoDB.Driver;
 
 namespace TP0.Controllers
 {
@@ -42,11 +43,6 @@ namespace TP0.Controllers
         //VISTAS DE ADMIN
         public ActionResult ReportesAdmin()
         {
-            List<SelectListItem> tiposReporte = new List<SelectListItem>();
-            tiposReporte.Add(new SelectListItem() { Value = "Hogar", Text = "Consumo por Hogar" });
-            tiposReporte.Add(new SelectListItem() { Value = "TipoDisp", Text = "Consumo por Tipo de Dispositivo" });
-            tiposReporte.Add(new SelectListItem() { Value = "Transformador", Text = "Consumo por Transformador" });
-            ViewBag.SelectListItems = tiposReporte;
             return View();
         }
 
@@ -57,6 +53,21 @@ namespace TP0.Controllers
             if (tipo == "Hogar")
             {
                 //buscar en mongo, si no esta se llama al metodo
+                var client = Mongo.getInstance();
+                var db = client.GetDatabase("dbtp0");
+                var reportes = db.GetCollection<Reporte>("reportes");
+                var builder = Builders<Reporte>.Filter;
+                var filter = builder.Eq("tipoReporte", "Hogar") & builder.Eq("fechaInicio", FechaInicio) & builder.Eq("fechaFin",FechaFin);
+                var reportesEncontrados = reportes. Find<Reporte>(filter);
+                if (reportesEncontrados.ToList<Reporte>().Count > 0)
+                {
+                    var reporte = reportesEncontrados.ToList<Reporte>()[0];
+                }
+                else
+                {
+
+                }
+
             }
             else if (tipo == "TipoDisp")
             {
