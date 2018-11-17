@@ -165,9 +165,9 @@ namespace TP0.Controllers
             if (ModelState.IsValid)
             {
                 var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
-                var result = await UserManager.CreateAsync(user, model.Password);
+                var result = await UserManager.CreateAsync(user, model.Password); //aca es donde rompe , espera a una tarea asyncrona..
 
-                if (result.Succeeded)
+                if (result.Succeeded) //aca da el false y se va para el add errors
                 {
                     Cliente cliente;
                     if (model.Administrador=="admin")
@@ -179,11 +179,7 @@ namespace TP0.Controllers
                     else
                     {
                         //Agrega el nuevo usuario a la base de datos
-                      cliente = new Cliente(model.nombre, model.apellido, model.domicilio, model.Email, model.Password, model.documento, model.tipo, model.telefono)
-                        {
-                            TransformadorID = 1, //Transformador default
-                        };
-                     
+                      cliente = new Cliente(model.nombre, model.apellido, model.domicilio, model.Email, model.Password, model.documento, model.tipo, model.telefono);
                     }
 
                     cliente.AgregarALaBase();
