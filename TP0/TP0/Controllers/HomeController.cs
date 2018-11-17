@@ -141,7 +141,7 @@ namespace TP0.Controllers
                 if (reportesEncontrados.ToList<Reporte>().Count > 0)
                 {
                     var reporte = reportesEncontrados.ToList<Reporte>()[0];
-                    ViewBag.consumo = reporte.ToString();
+                    ViewBag.consumo = reporte.consumo.ToString();
                 }
                 else
                 {
@@ -153,6 +153,63 @@ namespace TP0.Controllers
                 }
                 ViewBag.fechas = FechaInicio.ToShortDateString() + " - " + FechaFin.ToShortDateString();
                 ViewBag.hogar = disp.Nombre;
+            }
+            return View();
+        }
+        [HttpGet]
+        public ActionResult ReporteTransformador()
+        {
+            ViewBag.consumo = "";
+            IEnumerable<Transformador> transformadores = (IEnumerable<Transformador>)TransformadoresImp.transformadoresEnDb();//se carga lista de dispositivos
+            List<SelectListItem> dispositivosSelectList = new List<SelectListItem>();
+            foreach (Transformador t in transformadores)
+            {
+                dispositivosSelectList.Add(new SelectListItem() { Value = t.TransformadorID.ToString(), Text = t.TransformadorID.ToString() });
+            }
+            ViewBag.IdSeleccionado = dispositivosSelectList;
+
+            return View();
+        }
+        [HttpPost]
+        public ActionResult ReporteTransformador(SubmitViewModel model, DateTime FechaInicio, DateTime FechaFin)
+        {
+
+            using (var db = new DBContext())
+            {
+                Transformador trans = db.Transformadores.FirstOrDefault(t => t.TransformadorID == model.IdSeleccionado);
+                Reporte reporteModelo = new Reporte("Transformador", trans.TransformadorID.ToString(), 0, FechaInicio, FechaFin);
+
+                IEnumerable<Transformador> transformadores = (IEnumerable<Transformador>)TransformadoresImp.transformadoresEnDb();//se carga lista de dispositivos
+                List<SelectListItem> dispositivosSelectList = new List<SelectListItem>();
+                foreach (Transformador t in transformadores)
+                {
+                    dispositivosSelectList.Add(new SelectListItem() { Value = t.TransformadorID.ToString(), Text = t.TransformadorID.ToString() });
+                }
+                ViewBag.IdSeleccionado = dispositivosSelectList;
+
+                //if(reporte esta en mongo){find} else{ se crea y se guarda en mongo}
+                var client = Mongo.getInstance();
+                var dbmongo = client.GetDatabase("dbtp0");
+                var reportes = dbmongo.GetCollection<Reporte>("reportes");
+                var builder = Builders<Reporte>.Filter;
+                var filter = builder.Eq("tipoReporte", "Transformador") & builder.Eq("id", trans.TransformadorID) & builder.Eq("fechaInicio", FechaInicio) & builder.Eq("fechaFin", FechaFin);
+                var reportesEncontrados = reportes.Find<Reporte>(filter);
+                //No puede acceder al mongo (timeout)!!!
+                if (reportesEncontrados.ToList<Reporte>().Count > 0)
+                {
+                    var reporte = reportesEncontrados.ToList<Reporte>()[0];
+                    ViewBag.consumo = reporte.consumo.ToString();
+                }
+                else
+                {
+                    //      reporteModelo.consumo = DispositivosTotales.kwPorDispositivo(disp.DispositivoID);
+                    reporteModelo.consumo = trans.EnergiaQueEstaSuministrando(FechaInicio, FechaFin);
+                    ViewBag.consumo = "Consumo: " + reporteModelo.consumo.ToString() + "Kw";
+
+                    reportes.InsertOne(reporteModelo);
+                }
+                ViewBag.fechas = FechaInicio.ToShortDateString() + " - " + FechaFin.ToShortDateString();
+                ViewBag.hogar = trans.TransformadorID.ToString();
             }
             return View();
         }

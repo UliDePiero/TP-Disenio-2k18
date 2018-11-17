@@ -18,6 +18,14 @@ namespace TP0.Helpers.Static
             }
             else return null;
         }
+        public static List<Transformador> transformadoresEnDb()
+        {
+            using(var db = new DBContext())
+            {
+                List<Transformador> transformadores = db.Transformadores.ToList();
+                return transformadores;
+            }
+        }
         public static Transformador FiltrarTransformador(int idFiltro)
         {
             if (transformadores.Count > 0)

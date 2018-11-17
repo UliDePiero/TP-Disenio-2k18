@@ -51,14 +51,16 @@
             @Html.DisplayFor(modelItem => item.kWxHora)
         </td>
         <td>
-            @Html.ActionLink("Eliminar dispositivo", "EliminarDispositivoAdmin", new { id = item.DispositivoID }, FormMethod.Get)
+            <div class="btn" style="padding:10px;background-color:lightsteelblue;">
+                @Html.ActionLink("Eliminar dispositivo", "EliminarDispositivoAdmin", new { id = item.DispositivoID }, FormMethod.Get)
+            </div>
         </td>
     </tr>
     }
         <tr>
             <td>
               
-                <b>@Html.ActionLink("Agregar nuevo", "AgregarDispositivoAdmin", FormMethod.Get, new { @class = "btn" })</b>
+                <a>@Html.ActionLink("Agregar nuevo", "AgregarDispositivoAdmin", FormMethod.Get, new { @class = "btn" })</a>
             </td>
            
         </tr>
