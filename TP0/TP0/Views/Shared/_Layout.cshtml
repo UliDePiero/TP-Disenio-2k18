@@ -1,5 +1,5 @@
 ﻿<!DOCTYPE html>
-<html>
+<html class="imageBackground">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta charset="utf-8" />
@@ -18,13 +18,12 @@
         @RenderBody()
         <hr />
         <footer>
-            <p>&copy; @DateTime.Now.Year - TP Diseño</p>
+            <p style="color:white;text-decoration:solid;">&copy; @DateTime.Now.Year - TP Diseño</p>
         </footer>
     </div>
 
     <!-- @Scripts.Render("~/bundles/jquery")-->
     <!--   @Scripts.Render("~/bundles/bootstrap")-->
-
-    @RenderSection("scripts", required: false)
+    <!--@RenderSection("scripts", required: false)-->
 </body>
     </html>

@@ -11,13 +11,13 @@
 {
 
     <div class="login-page">
-        <a>
+        <div>
             @Html.ValidationSummary(true, "", new { @class = "message" })
-            @Html.ValidationMessageFor(m => m.Email, "", new { @class = "message" })
+        
 
             @Html.AntiForgeryToken()
-            @Html.ValidationSummary("", new { @class = "text-danger" })
-        </a>
+            @Html.ValidationSummary("", new { @class = "message" })
+        </div>
         <div class="form" style="column-count:2;">
 
 
@@ -42,16 +42,17 @@
                         @Html.TextBoxFor(m => m.domicilio, new { @class = "form-control" })
                     </div>
                 </div>
-                <div class="form-group">
-                    @Html.LabelFor(m => m.documento, new { @class = "col-md-2 control-label" })
-                    <div class="col-md-10">
-                        @Html.TextBoxFor(m => m.documento, new { @class = "form-control" })
-                    </div>
-                </div>
+
                 <div class="form-group">
                     @Html.LabelFor(m => m.tipo, new { @class = "col-md-2 control-label" })
                     <div class="col-md-10">
                         @Html.TextBoxFor(m => m.tipo, new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(m => m.documento, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(m => m.documento, new { @class = "form-control" })
                     </div>
                 </div>
                 <div class="form-group">
