@@ -1,11 +1,11 @@
-﻿<form action="~/Home/ReporteHogar" method="post">
+﻿<form action="~/Home/ReporteTransformador" method="post">
     <fieldset>
         <div class="jumbotron">
             <h2>@ViewBag.nombre</h2>
             <h2>@ViewBag.consumo</h2>
             <h4>@ViewBag.fechas</h4>
         </div>
-        @using (Html.BeginForm("ReporteHogar", "Home", FormMethod.Post))
+        @using (Html.BeginForm("ReporteTransformador", "Home", FormMethod.Post))
         {
             <div>
                 <h3>Consultar consumo</h3>
