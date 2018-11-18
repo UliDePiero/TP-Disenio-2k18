@@ -80,7 +80,7 @@ namespace TP0.Controllers
                 if (reportesEncontrados.Count > 0)
                 {
                     var reporte = reportesEncontrados[0];
-                    ViewBag.consumo = "Consumo: " + reporte.consumo.ToString() + "Kw";
+                    ViewBag.consumo = "Consumo mongo: " + reporte.consumo.ToString() + "Kw";
                 }
                 else
                 {
@@ -311,9 +311,31 @@ namespace TP0.Controllers
             Cliente clie = new Cliente(id);
             clie.CargarDisps();
 
+
+            using (var db = new DBContext())
+            {
+                Usuario usu = db.Usuarios.FirstOrDefault(u => u.UsuarioID == clie.UsuarioID);
+                Reporte reporteModelo = new Reporte("Hogar", usu.UsuarioID.ToString(), 0, FechaInicio, FechaFin);
+
+                //if(reporte esta en mongo){find} else{ se crea y se guarda en mongo}
+
+                var reportesEncontrados = Mongo.getReporte("Hogar", usu.UsuarioID, FechaInicio, FechaFin);
+                if (reportesEncontrados.Count > 0)
+                {
+                    var reporte = reportesEncontrados[0];
+                    ViewBag.consumo = "Consumo mongo: " + reporte.consumo.ToString() + "Kw";
+                }
+                else
+                {
+                    reporteModelo.consumo = usu.KwTotales(FechaInicio, FechaFin);
+                    ViewBag.consumo = "Consumo: " + reporteModelo.consumo + "Kw";
+                    Mongo.insertarReporte(reporteModelo);
+                }
+                ViewBag.fechas = FechaInicio.ToShortDateString() + " - " + FechaFin.ToShortDateString();
+                ViewBag.nombre = usu.Username;
+            }
+
             ViewBag.id = id;
-            ViewBag.consumo = "Consumo: " + clie.KwTotales(FechaInicio, FechaFin) + " Kw";
-            ViewBag.fechas = FechaInicio.ToShortDateString() + " - " + FechaFin.ToShortDateString();
             return View();
         }
 
@@ -522,9 +544,29 @@ namespace TP0.Controllers
         {
             Cliente clie = new Cliente(User.Identity.Name);
             clie.CargarDisps();
+            
+            using (var db = new DBContext())
+            {
+                Usuario usu = db.Usuarios.FirstOrDefault(u => u.UsuarioID == clie.UsuarioID);
+                Reporte reporteModelo = new Reporte("Hogar", usu.UsuarioID.ToString(), 0, FechaInicio, FechaFin);
 
-            ViewBag.consumo = "Consumo: " + clie.KwTotales(FechaInicio, FechaFin) + " Kw";
-            ViewBag.fechas = FechaInicio.ToShortDateString() + " - " + FechaFin.ToShortDateString();
+                //if(reporte esta en mongo){find} else{ se crea y se guarda en mongo}
+
+                var reportesEncontrados = Mongo.getReporte("Hogar", usu.UsuarioID, FechaInicio, FechaFin);
+                if (reportesEncontrados.Count > 0)
+                {
+                    var reporte = reportesEncontrados[0];
+                    ViewBag.consumo = "Consumo mongo: " + reporte.consumo.ToString() + "Kw";
+                }
+                else
+                {
+                    reporteModelo.consumo = usu.KwTotales(FechaInicio, FechaFin);
+                    ViewBag.consumo = "Consumo: " + reporteModelo.consumo + "Kw";
+                    Mongo.insertarReporte(reporteModelo);
+                }
+                ViewBag.fechas = FechaInicio.ToShortDateString() + " - " + FechaFin.ToShortDateString();
+                ViewBag.nombre = usu.Username;
+            }
             return View();
         }
 

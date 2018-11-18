@@ -1,0 +1,22 @@
+[
+ {
+  "latitude":-34.606680,
+  "longitude":-58.435451
+ },
+ {
+  "latitude":-34.590209,
+  "longitude":-58.458698
+ },
+ {
+  "latitude":-34.628947,
+  "longitude":-58.464297
+ },
+ {
+  "latitude":-34.584539,
+  "longitude":-58.504357
+ },
+ {
+  "latitude":-34.608297,
+  "longitude":-58.370261
+ }
+]

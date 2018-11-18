@@ -46,7 +46,7 @@ namespace TP0.Controllers
                                 List<Cliente> userList = JsonConvert.DeserializeObject<List<Cliente>>(Json);
                                 ClientesImportados.clientes = userList;
                                 break;
-                            case "transformadores.json":
+                            case "transformadores.json.txt":
                                 //Agarra el json y agrega los que no estan ya en la base
                                 TransformadoresImp.CargarNuevosTransformadores(JsonConvert.DeserializeObject<List<Transformador>>(Json));
                                 break;
