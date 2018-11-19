@@ -1,7 +1,7 @@
 ﻿<form action="~/Home/ReporteHogar" method="post">
     <fieldset>
         <div class="jumbotron">
-            <h2>@ViewBag.hogar</h2>
+            <h2>@ViewBag.nombre</h2>
             <h2>@ViewBag.consumo</h2>
             <h4>@ViewBag.fechas</h4>
         </div>
@@ -10,7 +10,7 @@
             <div>
                 <h3>Consultar consumo</h3>
 
-                 @Html.DropDownList("IdSeleccionado", (IEnumerable<SelectListItem>)ViewBag.IdSeleccionado, null, new { @class = "dropdown-menu" })
+                @Html.DropDownList("IdSeleccionado", (IEnumerable<SelectListItem>)ViewBag.IdSeleccionado, null, new { @class = "dropdown-menu" })
                 <label for="FechaInicio">Fecha inicio:</label>
                 <input type="date" id="fechaInicioID"
                        name="FechaInicio"
