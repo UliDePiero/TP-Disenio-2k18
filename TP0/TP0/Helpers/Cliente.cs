@@ -51,7 +51,7 @@ namespace TP0.Helpers
             Dispositivos = new List<Dispositivo>(); //Creo la lista vacia
             AccionAutomatica = false;
             FechaDeAlta = DateTime.Now.ToShortDateString();
-            ConectarseAlTrafoMasProx();
+
         }
         public Cliente(string username) //para buscar en la DB + instanciar
         {
@@ -97,7 +97,7 @@ namespace TP0.Helpers
                 UsuarioID = c.UsuarioID;
             }
         }
-        public void AgregarALaBase()
+        public override void AgregarALaBase()
         {
             //Agrega un usuario a la base
             //Solo se usa en registar
@@ -111,10 +111,14 @@ namespace TP0.Helpers
                     db.Zonas.Add(new Zona(1, 1, 1, 1));
                     db.Transformadores.Add(new Transformador(1, 1, 1, 1, 1));
                 }
+
                 db.SaveChanges();
+
+                ConectarseAlTrafoMasProx();
+
                 UsuarioID = db.Usuarios.FirstOrDefault(U => U.Username == Username).UsuarioID;
                 //Se agregan los sensores al cliente (Cada cliente tiene un sensor de cada tipo en su casa)
-                foreach(Sensor s in SensoresEstaticos.GetSensores())
+                foreach (Sensor s in SensoresEstaticos.GetSensores())
                 {
                     s.UsuarioID = this.UsuarioID;
                     db.Sensores.Add(s);

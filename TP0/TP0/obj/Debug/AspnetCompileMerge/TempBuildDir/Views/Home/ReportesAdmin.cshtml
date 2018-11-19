@@ -1,0 +1,39 @@
+﻿<div class="jumbotron">
+    <h2>Reportes</h2>
+    <h3>Elija el tipo de Reporte a realizar</h3>
+</div>
+<table class="table">
+    <tr>
+        <th>
+            <h4>Por Hogar</h4>
+        </th>
+        <th>
+            <h5>Genera un reporte sobre el consumo de un Hogar especifico en un periodo seleccionado</h5>
+        </th>
+        <th>
+            @Html.ActionLink("Generar Reporte por Hogar", "ReporteHogar", FormMethod.Get)
+        </th>
+    </tr>
+    <tr>
+        <th>
+            <h4>Por Dispositivo</h4>
+        </th>
+        <th>
+            <h5>Genera un reporte sobre el consumo de un Dispositivo especifico en un periodo seleccionado</h5>
+        </th>
+        <th>
+            @Html.ActionLink("Generar Reporte por Dispositivo", "ReporteDispositivo", FormMethod.Get)
+        </th>
+    </tr>
+    <tr>
+        <th>
+            <h4>Por Transformador</h4>
+        </th>
+        <th>
+            <h5>Genera un reporte sobre el consumo de un Transformador especifico en un periodo seleccionado</h5>
+        </th>
+        <th>
+            @Html.ActionLink("Generar Reporte por Transformador", "ReporteTransformador", FormMethod.Get)
+        </th>
+    </tr>
+</table>

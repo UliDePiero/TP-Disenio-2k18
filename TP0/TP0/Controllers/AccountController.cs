@@ -165,33 +165,35 @@ namespace TP0.Controllers
             if (ModelState.IsValid)
             {
                 var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
-                var result = await UserManager.CreateAsync(user, model.Password); //aca es donde rompe , espera a una tarea asyncrona..
+                var result = await UserManager.CreateAsync(user, model.Password);
 
-                if (result.Succeeded) //aca da el false y se va para el add errors
+                if (result.Succeeded) 
                 {
-                    Cliente cliente;
+                    Usuario usr;
                     if (model.Administrador=="admin")
                     {
-                        cliente = new Cliente(model.nombre, model.apellido, model.domicilio, model.Email, model.Password, model.documento, model.tipo, model.telefono);
-                            cliente.EsAdmin = true;
-                       
+
+                        usr = new Administrador(model.nombre, model.apellido, model.domicilio, model.Email, model.Password, model.documento, model.tipo, model.telefono);
+                        //se rompe aca, luego de crear el objeto ya no hace nada mas , se queda en timeout
+                        
                     }
                     else
                     {
-                        //Agrega el nuevo usuario a la base de datos
-                      cliente = new Cliente(model.nombre, model.apellido, model.domicilio, model.Email, model.Password, model.documento, model.tipo, model.telefono);
+                        usr = new Cliente(model.nombre, model.apellido, model.domicilio, model.Email, model.Password, model.documento, model.tipo, model.telefono);
+                        //se rompe aca, luego de crear el objeto ya no hace nada mas , se queda en timeout
                     }
+                    //Agrega el nuevo usuario a la base de datos
+                    usr.AgregarALaBase();
 
-                    cliente.AgregarALaBase();
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
-                    
+                    return RedirectToAction("Index", "Home");
                     // Para obtener más información sobre cómo habilitar la confirmación de cuentas y el restablecimiento de contraseña, visite https://go.microsoft.com/fwlink/?LinkID=320771
                     // Enviar correo electrónico con este vínculo
                     // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
                     // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                     // await UserManager.SendEmailAsync(user.Id, "Confirmar cuenta", "Para confirmar la cuenta, haga clic <a href=\"" + callbackUrl + "\">aquí</a>");
 
-                    return RedirectToAction("Index", "Home");
+
                 }
                 AddErrors(result);
             }

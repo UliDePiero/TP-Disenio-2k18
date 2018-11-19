@@ -1,0 +1,29 @@
+﻿<!DOCTYPE html>
+<html class="imageBackground">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title -Diseño</title>
+    <link href="~/Content/StyleSheet.css" rel="stylesheet" type="text/css" />
+    <!--@Scripts.Render("~/bundles/modernizr")-->
+
+</head>
+<body>
+
+
+    @Html.Partial("_LoginPartial")
+
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer>
+            <p style="color:white;text-decoration:solid;">&copy; @DateTime.Now.Year - TP Diseño</p>
+        </footer>
+    </div>
+
+    <!-- @Scripts.Render("~/bundles/jquery")-->
+    <!--   @Scripts.Render("~/bundles/bootstrap")-->
+    <!--@RenderSection("scripts", required: false)-->
+</body>
+    </html>

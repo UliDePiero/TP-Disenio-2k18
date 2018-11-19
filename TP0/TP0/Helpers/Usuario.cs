@@ -56,6 +56,7 @@ namespace TP0.Helpers
                 db.SaveChanges();
             }
         }
+        public abstract void AgregarALaBase();
         public struct RecomendacionXDisp
         {
             public string NombreDispositivo;

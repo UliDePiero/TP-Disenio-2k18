@@ -1,0 +1,26 @@
+﻿<html>
+<head>
+</head>
+
+<script>
+        function alertBox() {
+            alert("Dispositivo convertido exitosamente");
+        }
+</script>
+
+<body>
+    <div class="jumbotron">
+        <h1> @ViewBag.Message </h1>
+    </div>
+    @using (Html.BeginForm("ConvertirEnInteligente", "Home", new { id = ViewBag.Id}, FormMethod.Post))
+    {@*lista con las marcas*@
+    <h4>
+        @Html.DropDownList("marcas", (IEnumerable<SelectListItem>)ViewBag.marcas)
+    </h4>
+
+    <h4>
+        <input type="submit" class="btn btn-default" value="Seleccionar" onclick="alertBox()">
+    </h4>
+    }
+</body>
+</html>

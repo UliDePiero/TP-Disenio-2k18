@@ -1,0 +1,67 @@
+﻿@model IEnumerable<TP0.Helpers.Static.DispositivoEstatico>
+ 
+<div class="jumbotron">
+    <h2>Administrar dispositivos</h2>
+    <h4>Cantidad de dispositivos para elegir: @Model.Count()</h4>
+</div>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Nombre)
+        </th>
+        <th style="text-align: center;">
+
+            @Html.DisplayNameFor(model => model.EsInteligente)
+        </th>
+        <th style="text-align: center;">
+            @Html.DisplayNameFor(model => model.Codigo)
+        </th>
+        <th style="text-align: center;">
+            @Html.DisplayNameFor(model => model.Min)
+        </th>
+        <th style="text-align: center;">
+            @Html.DisplayNameFor(model => model.Max)
+        </th>
+        <th style="text-align: center;">
+            @Html.DisplayNameFor(model => model.kWxHora)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+    <tr>
+        <td>
+            @Html.ActionLink(item.Nombre, "ModificarDispositivoAdmin", new { id = item.DispositivoID }, FormMethod.Get)
+        </td>
+        <td style="text-align: center;">
+            @Html.DisplayFor(modelItem => item.EsInteligente)
+        </td>
+        <td style="text-align: center;">
+            @Html.DisplayFor(modelItem => item.Codigo)
+        </td>
+        <td style="text-align: center;">
+            @Html.DisplayFor(modelItem => item.Min)
+        </td>
+        <td style="text-align: center;">
+            @Html.DisplayFor(modelItem => item.Max)
+        </td>
+        <td style="text-align: center;">
+            @Html.DisplayFor(modelItem => item.kWxHora)
+        </td>
+        <td>
+            <div class="btn" style="padding:10px;background-color:lightsteelblue;">
+                @Html.ActionLink("Eliminar dispositivo", "EliminarDispositivoAdmin", new { id = item.DispositivoID }, FormMethod.Get)
+            </div>
+        </td>
+    </tr>
+    }
+        <tr>
+            <td>
+              
+                <a>@Html.ActionLink("Agregar nuevo", "AgregarDispositivoAdmin", FormMethod.Get, new { @class = "btn" })</a>
+            </td>
+           
+        </tr>
+</table>

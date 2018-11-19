@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+
+</head>
+<style type="text/css">
+    #acciones_dispositivos_botones {
+        display: block;
+        padding: 15px;
+    }
+
+    .boton_acciones_dispositivos {
+        display: block;
+    }
+</style>
+
+<body>
+    <div class="jumbotron">
+        <div class="jumbotron">
+            <h2>Resultado: </h2>	        <h2>Recomendación </h2>
+            <h2>@ViewBag.simplexResultado</h2>	        <h2>@ViewBag.simplexResultado</h2>
+        </div>
+    </div>
+</body>
+<table class="table">
+    <tr>
+        <th style="text-align: center;">
+            Dispositivo
+        </th>
+        <th style="text-align: center;">
+            KWxHora consumidos
+        </th>
+        <th style="text-align: center;">
+            KWxHora consumo recomendado
+        </th>
+    </tr>
+    @foreach (var item in ViewBag.recomendaciones)
+    {
+        <tr>
+            <td style="text-align: center;">@item.NombreDispositivo </td>
+            <td style="text-align: center;">@item.KWxHoraConsumidos</td>
+            <td style="text-align: center;">@item.KWxHoraPuedeConsumir</td>
+        </tr>
+    }
+
+</table>
+     </body>
+<h4>
+    <b>@Html.ActionLink("Volver", "DispositivosPropios", null, new { @class = "btn" })</b>
+</h4>
+
+</html>

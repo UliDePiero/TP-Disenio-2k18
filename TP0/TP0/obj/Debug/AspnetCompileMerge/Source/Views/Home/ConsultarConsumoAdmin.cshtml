@@ -1,0 +1,27 @@
+﻿<form action="~/Home/ConsultarConsumoAdmin" method="post">
+    <fieldset>
+        <div class="jumbotron">
+            <h2>@ViewBag.consumo</h2>
+            <h4>@ViewBag.fechas</h4>
+        </div>
+        <div>
+            <h3>Consultar consumo</h3>
+            <label for="FechaInicio">Fecha inicio:</label>
+            <input type="date" id="fechaInicioID"
+                   name="FechaInicio"
+                   min="2010-01-01" max="2050-06-14" required />
+            <span class="validity"></span>
+        </div>
+        <div>
+            <label for="FechaFin">Fecha fin:</label>
+            <input type="date" id="fechaFinID"
+                   name="FechaFin"
+                   min="2010-01-01" max="2050-06-14" required />
+            <span class="validity"></span>
+        </div>
+        <input type="hidden" name="id" value="@ViewBag.id" />
+        <h4>
+            <input type="submit" class="btn btn-default" value="Consultar">
+        </h4>
+    </fieldset>
+</form>

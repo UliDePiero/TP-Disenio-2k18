@@ -1,0 +1,116 @@
+﻿@model TP0.Helpers.Cliente
+
+
+
+
+<div class="jumbotron">
+    <h2>Tus dispositivos</h2>
+    <h4>Acá podes administrar tus dispositivos</h4>
+</div>
+
+
+<div class="container">
+    <span class="info">
+        <h3>Consumo promedio total: @Model.TotalConsumo() KwH</h3>
+           <h3>Dispositivos: @Model.Dispositivos.Count() </h3>
+        <div class="box">
+            <div>
+             
+                @using (Html.BeginForm("ConsultarConsumo", "Home", FormMethod.Get))
+    {@*Boton para consultar consumo entre fechas*@
+            <input type="submit" class="btn btn-default" value="Consultar consumo por periodo">
+} @using (Html.BeginForm("SimplexView", "Home", FormMethod.Get))
+    {@*Boton para ejecutar el simplex*@
+            <input type="submit" class="btn btn-default" value="Conocer recomendación" onclick="alertBox()">
+}
+
+
+            </div>
+            <vl />
+            <div>
+                <h5>Dispositivos encendidos: @Model.DispositivosEncendidos()</h5>
+                <h5>Dispositivos apagados: @Model.DispositivosApagados()</h5>
+                <h5>Dispositivos en ahorro: @Model.DispositivosEnAhorro()</h5>
+                <h5>Dispositivos estandares: @Model.DispositivosEstandares()</h5>
+            </div>
+        </div>
+        <script>
+            function alertBox() {
+                alert("Simplex ejecutado");
+            }
+        </script>
+
+        <table class="table">
+            <tr>
+                <th>
+                    @Html.DisplayName("Nombre")
+                </th>
+                <th style="text-align: center;">
+                    @Html.DisplayName("KWxHora")
+                </th>
+                <th style="text-align: center;">
+                    @Html.DisplayName("Inteligente")
+                </th>
+
+                <th style="text-align: center;">
+                    @Html.DisplayName("Consumo Acumulado en minutos")
+                </th>
+                <th>
+                    @Html.DisplayName("Estado")
+                </th>
+
+            </tr>
+
+            @foreach (var item in Model.Dispositivos)
+        {
+            if (item.EsInteligente)
+            {
+                <tr>
+                    <td>
+                        @Html.ActionLink(item.Nombre, "DetallesInteligente", new { id = item.DispositivoID })
+                    </td>
+                    <td style="text-align: center;">
+                        @Html.DisplayFor(modelItem => item.KWxHora)
+                    </td>
+                    <td style="text-align: center;">
+                        @Html.DisplayFor(modelItem => item.EsInteligente)
+                    </td>
+                    <td style="text-align: center;">
+                        @Html.DisplayFor(modelItem => item.ConsumoAcumulado)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Desc)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Encender", "Encender", new { id = item.DispositivoID, estadoActual = item.Desc }) |
+                        @Html.ActionLink("Apagar", "Apagar", new { id = item.DispositivoID, estadoActual = item.Desc }) |
+                        @Html.ActionLink("Ahorro", "Ahorro", new { id = item.DispositivoID, estadoActual = item.Desc })
+                    </td>
+                </tr>
+        }
+        else
+        {
+            <tr>
+                <td>
+                    @Html.ActionLink(item.Nombre, "DetallesEstandar", new { id = item.DispositivoID })
+                </td>
+                <td style="text-align: center;">
+                    @Html.DisplayFor(modelItem => item.KWxHora)
+                </td>
+                <td style="text-align: center;">
+                    @Html.DisplayFor(modelItem => item.EsInteligente)
+                </td>
+                <td style="text-align: center;">
+                    @Html.DisplayFor(modelItem => item.ConsumoAcumulado)
+                </td>
+
+            </tr>
+    }
+}
+
+        </table>
+
+        @Html.ActionLink("Agregar dispositivo", "AgregarDispositivoClie", null, new { @class = "btn" })
+    </span>
+
+</div>
