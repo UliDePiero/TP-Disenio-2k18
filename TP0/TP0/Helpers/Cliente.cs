@@ -274,7 +274,7 @@ namespace TP0.Helpers
                 acumuladoKw += disp.Consumo();
                 Disp++;
             }
-            return acumuladoKw / Disp;
+            return (acumuladoKw == 0 || Disp == 0) ? 0 : acumuladoKw / Disp;
         }
         public double ConsumoActual()
         {
@@ -295,16 +295,16 @@ namespace TP0.Helpers
             double Consumo = 0;
             Dispositivos = GetDisps();
             foreach (var disp in Dispositivos)
-                    if (disp.EsInteligente)
-                    {
-                        var di = new DispositivoInteligente(disp.DispositivoID);
-                        Consumo += di.ConsumoEnPeriodo(fInicial, fFinal);
-                    }
-                    else
-                    {
-                        var de = new DispositivoEstandar(disp.DispositivoID);
-                        Consumo += de.ConsumoEnPeriodo(fInicial, fFinal);
-                    }
+                if (disp.EsInteligente)
+                {
+                    var di = new DispositivoInteligente(disp.DispositivoID);
+                    Consumo += di.ConsumoEnPeriodo(fInicial, fFinal);
+                }
+                else
+                {
+                    var de = new DispositivoEstandar(disp.DispositivoID);
+                    Consumo += de.ConsumoEnPeriodo(fInicial, fFinal);
+                }
             
             return Consumo;
         }

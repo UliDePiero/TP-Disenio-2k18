@@ -542,31 +542,29 @@ namespace TP0.Controllers
         [HttpPost]
         public ActionResult ConsultarConsumo(DateTime FechaInicio, DateTime FechaFin)
         {
+            if (FechaFin > DateTime.Now)
+                FechaFin = DateTime.Now;
+
             Cliente clie = new Cliente(User.Identity.Name);
             clie.CargarDisps();
-            
-            using (var db = new DBContext())
+            Reporte reporteModelo = new Reporte("Hogar", clie.UsuarioID.ToString(), 0, FechaInicio, FechaFin);
+
+            //if(reporte esta en mongo){find} else{ se crea y se guarda en mongo}
+            var reportesEncontrados = Mongo.getReporte("Hogar", clie.UsuarioID, FechaInicio, FechaFin);
+            if (reportesEncontrados.Count > 0)
             {
-                Usuario usu = db.Usuarios.FirstOrDefault(u => u.UsuarioID == clie.UsuarioID);
-                Reporte reporteModelo = new Reporte("Hogar", usu.UsuarioID.ToString(), 0, FechaInicio, FechaFin);
-
-                //if(reporte esta en mongo){find} else{ se crea y se guarda en mongo}
-
-                var reportesEncontrados = Mongo.getReporte("Hogar", usu.UsuarioID, FechaInicio, FechaFin);
-                if (reportesEncontrados.Count > 0)
-                {
-                    var reporte = reportesEncontrados[0];
-                    ViewBag.consumo = "Consumo mongo: " + reporte.consumo.ToString() + "Kw";
-                }
-                else
-                {
-                    reporteModelo.consumo = usu.KwTotales(FechaInicio, FechaFin);
-                    ViewBag.consumo = "Consumo: " + reporteModelo.consumo + "Kw";
-                    Mongo.insertarReporte(reporteModelo);
-                }
-                ViewBag.fechas = FechaInicio.ToShortDateString() + " - " + FechaFin.ToShortDateString();
-                ViewBag.nombre = usu.Username;
+                var reporte = reportesEncontrados[0];
+                ViewBag.consumo = "Consumo mongo: " + reporte.consumo.ToString() + "Kw";
             }
+            else
+            {
+                reporteModelo.consumo = clie.KwTotales(FechaInicio, FechaFin);
+                ViewBag.consumo = "Consumo: " + reporteModelo.consumo + "Kw";
+                Mongo.insertarReporte(reporteModelo);
+            }
+
+            ViewBag.fechas = FechaInicio.ToShortDateString() + " - " + FechaFin.ToShortDateString();
+            ViewBag.nombre = clie.Username;
             return View();
         }
 
