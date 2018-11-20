@@ -27,14 +27,14 @@
             var marcador = new google.maps.Marker({
                 position: new google.maps.LatLng(obj.latitude, obj.longitude),
                 map: map,
-                title: obj.id
+                title: obj.TransformadorID
             });
             var contentString = '<div id="content">' +
                 '<div id="siteNotice">' +
                 '</div>' +
-                '<h1 id="firstHeading" class="firstHeading"> Transformador ' + obj.id + '</h1>' +
+                '<h1 id="firstHeading" class="firstHeading"> Transformador ' + obj.TransformadorID + '</h1>' +
                 '<div id="bodyContent">' +
-                '<p><b> Consumo actual: ' + obj.energiaTotal + ' KWxHora</b>';
+                '<p><b> Consumo actual: ' + obj.EnergiaTotal + ' KWxHora</b>';
             var infowindow = new google.maps.InfoWindow({
                 content: contentString
             });
