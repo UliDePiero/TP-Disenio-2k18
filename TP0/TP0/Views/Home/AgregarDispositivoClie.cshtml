@@ -12,20 +12,16 @@
     <div class="jumbotron">
         <h2> @ViewBag.Message </h2>
     </div>
-    @using (Html.BeginForm("AgregarDispositivoClie", "Home", FormMethod.Post))
-    {@*lista con todos los dispositivos para agregar uno a los propios*@
-        <h4>
-            @Html.DropDownList("DispositivoSeleccionado", (IEnumerable<SelectListItem>)ViewBag.selectListItems, null, new {@class="dropdown-menu"})
-        </h4>
+  
+    <h4>
+        @Html.DropDownList("DispositivoSeleccionado", (IEnumerable<SelectListItem>)ViewBag.selectListItems, new { @class = "dropdownbox" })
+    </h4>
+  
 
-        <h4>
-            <input type="submit" class="btn btn-default" value="Agregar dispositivo" onclick="alertBox()">
-        </h4>
-    }
-    @using (Html.BeginForm("DispositivosPropios", "Home", FormMethod.Get))
-    {
-        <input type="submit" class="btn btn-default" value="Volver">
-    }
+    <h4>
+        <input type="submit" class="btn" value="Agregar dispositivo" onclick="alertBox()">
+    </h4>
+
 
 </body>
 </html>

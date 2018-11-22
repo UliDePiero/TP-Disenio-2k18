@@ -6,6 +6,53 @@ body {
     align-items: center;
     background-image: radial-gradient(rgba(255, 255, 255, 0.65), transparent);
 }
+
+
+h2 {
+    text-align: center;
+    font-size: 40px;
+}
+
+h4 {
+    text-align: center;
+}
+
+.jumbotron { /*titlecontainer*/
+    position: relative;
+}
+
+.message {
+    color: white;
+    font-size: 12px;
+    background-color: #c31d1d;
+}
+
+h3 {
+    display: block;
+    font-size: 1.17em;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+
+
+.box {
+    padding: 25px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+}
+
+vl {
+    border-left: 6px solid #f2f2f2;
+    padding: 25px;
+    height: auto;
+}
 .imageBackground {
     background-image:url(/Images/fondo_hexa.jpg);
     background-size: cover;
@@ -15,13 +62,19 @@ body {
 nav {
     text-align: center;
     font-size: 1.25em;
+   
 }
+    nav h3 {
+    padding-top: 15px;
+ 
+            }
 
     nav ul {
         border-radius: .25em;
         background: white;
         list-style: none;
         text-align: center;
+   
     }
 
     nav li {
@@ -29,6 +82,7 @@ nav {
         display: inline-block;
         border-bottom: none;
         border-radius: .25em .25em 0 0;
+     
     }
 
         nav li:hover {
@@ -38,6 +92,7 @@ nav {
          
         }
 
+ 
     nav a {
         color: #369dea;
         display: block;
@@ -170,12 +225,16 @@ table {
     text-align: center;
 }
 
-table a {
-    text-decoration:none;
+    table a {
+        text-decoration: underline;
+        color: yellow;
+        
     }
-table a:hover {
-        text-decoration:underline;
-        color:midnightblue;
+
+    table a:hover {
+        text-decoration: none;
+        font-weight:900;
+      
     }
 
 
@@ -219,7 +278,7 @@ table tr {
     text-transform: uppercase;
     outline: 0;
     background: rgb(120, 182, 233);
-   margin:4px;
+    margin:4px;
     border: 0;
     padding: 15px;
     color: #FFFFFF;
@@ -233,55 +292,44 @@ table tr {
         color: black;
     }
 
-h2 {
-    text-align: center;
-    font-size:40px;
-}
-h4 {
-    text-align: center;
+.dropdownbox {
+   width:100%;
 }
 
-.jumbotron { /*titlecontainer*/
-    position: relative;
-}
+    .dropdownbox select {
+        background-color: #0563af;
+        color: white;
+        padding: 12px;
+        width: 250px;
+        border: none;
+        font-size: 20px;
+        box-shadow: 0 5px 25px rgba(0, 0, 0, 0.2);
+        -webkit-appearance: button;
+        appearance: button;
+        outline: none;
+    }
 
-.message {
-   
-    color: white;
-    font-size: 12px;
-    background-color:#c31d1d;
-   
- 
-}
+    .dropdownbox::before {
+        content: "\f13a";
+        font-family: FontAwesome;
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 20%;
+        height: 100%;
+        text-align: center;
+        font-size: 28px;
+        line-height: 45px;
+        color: rgba(255, 255, 255, 0.5);
+        background-color: rgba(255, 255, 255, 0.1);
+        pointer-events: none;
+    }
 
-h3 {
-    display: block;
-    font-size: 1.17em;
-    margin-block-start: 1em;
-    margin-block-end: 1em;
-    margin-inline-start: 0px;
-    margin-inline-end: 0px;
-    font-weight: bold;
-    text-decoration:none;
-}
+    .dropdownbox:hover::before {
+        color: rgba(255, 255, 255, 0.6);
+        background-color: rgba(255, 255, 255, 0.2);
+    }
 
-a{
-    text-decoration:dotted;
-    color:black;
-}
-
-.box {
-    padding: 25px;
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: center;
- 
-}
-
-vl {
-    border-left: 6px solid #f2f2f2;
-    padding:25px;
-    height: auto;
-
-}
+    .dropdownbox select option {
+        padding: 30px;
+    }

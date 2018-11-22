@@ -3,7 +3,7 @@
     <h2>Crear Dispositivo</h2>
 </div>
 
-<table class="table">
+<table class="table" style="width:50%;">
     @using (Html.BeginForm("AgregarDispositivoAdmin", "Home", FormMethod.Post))
     {
         <tr>
@@ -56,11 +56,11 @@
         </tr>
         <tr>
             <td>
-                <button type="submit">
+                <button class="btn" style="padding:10px;background-color:lightsteelblue;">
                     Crear
                 </button>
             </td>
         </tr>
     }
 </table>
-<div>@Html.ActionLink("Volver", "AdministrarDispositivosAdmin")</div>
+<div class="btn" style="width:5%;text-align:center;">@Html.ActionLink("Volver", "AdministrarDispositivosAdmin")</div>
