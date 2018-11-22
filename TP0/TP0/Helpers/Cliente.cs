@@ -99,12 +99,9 @@ namespace TP0.Helpers
         }
         public override void AgregarALaBase()
         {
-            //Agrega un usuario a la base
-            //Solo se usa en registar
+
             using (var db = new DBContext())
             {
-                db.Usuarios.Add(this);
-
                 if (db.Zonas.Count() == 0)
                 {
                     //Agrega el transformador default si no existe
@@ -112,11 +109,14 @@ namespace TP0.Helpers
 
                     db.Zonas.Add(zonaInicial);
                     db.Transformadores.Add(new Transformador(zonaInicial.ZonaID, -34.606572636116475, -58.47955891104914, 0));
+                    db.SaveChanges();
                 }
 
-                db.SaveChanges();
-
+                db.Usuarios.Add(this);
                 ConectarseAlTrafoMasProx();
+
+                db.SaveChanges(); 
+
 
                 UsuarioID = db.Usuarios.FirstOrDefault(U => U.Username == Username).UsuarioID;
                 //Se agregan los sensores al cliente (Cada cliente tiene un sensor de cada tipo en su casa)
