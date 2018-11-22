@@ -108,8 +108,10 @@ namespace TP0.Helpers
                 if (db.Zonas.Count() == 0)
                 {
                     //Agrega el transformador default si no existe
-                    db.Zonas.Add(new Zona(1, 1, 1, 1));
-                    db.Transformadores.Add(new Transformador(1, 1, 1, 1, 1));
+                    var zonaInicial = new Zona(-34.60530102052386, -58.48007389518, 0.4);
+
+                    db.Zonas.Add(zonaInicial);
+                    db.Transformadores.Add(new Transformador(zonaInicial.ZonaID, -34.606572636116475, -58.47955891104914, 0));
                 }
 
                 db.SaveChanges();

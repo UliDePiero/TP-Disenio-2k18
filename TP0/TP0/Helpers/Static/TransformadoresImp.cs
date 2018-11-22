@@ -56,6 +56,14 @@ namespace TP0.Helpers.Static
                     }
                 }
                 db.SaveChanges();
+                foreach (var cli in db.Usuarios)
+                {
+                    if (!cli.EsAdmin)
+                    {
+                        var c = new Cliente(cli.UsuarioID);
+                        c.ConectarseAlTrafoMasProx();
+                    }
+                }
             }
         }
     }

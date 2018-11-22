@@ -48,7 +48,13 @@ namespace TP0.Helpers
             Latitud = latitud;
             Longitud = longitud;
         }
-
+        public Transformador(int Zonaid, double latitud, double longitud, int Energia)
+        {
+            ZonaID = Zonaid;
+            EnergiaTotal = Energia;
+            Latitud = latitud;
+            Longitud = longitud;
+        }
         public double EnergiaQueEstaSuministrando(DateTime fInicial, DateTime fFinal)
         {
             //double[] CoordUbicacion = new double[] { Latitud, Longitud };
