@@ -46,6 +46,7 @@ h3 {
     flex-wrap: wrap;
     align-items: center;
     justify-content: center;
+    
 }
 
 vl {
@@ -157,7 +158,7 @@ nav {
 
     .form .message {
         margin: 50px ;
-        color: #EF3B3A;
+        color: white;
         font-size: 12px;
     }
  
@@ -227,13 +228,13 @@ table {
 
     table a {
         text-decoration: underline;
-        color: yellow;
+        color: blue;
         
     }
 
     table a:hover {
         text-decoration: none;
-        font-weight:900;
+    
       
     }
 
@@ -293,7 +294,9 @@ table tr {
     }
 
 .dropdownbox {
-   width:100%;
+    position: absolute;
+    text-align:center;
+ 
 }
 
     .dropdownbox select {

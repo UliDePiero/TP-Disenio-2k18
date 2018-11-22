@@ -5,43 +5,53 @@
 
 <div class="jumbotron" style="text-align: center;">
     <h2>Importar usuarios, dispositivos o transformadores</h2>
-    <p class="lead">Seleccione el archivo .json que desea cargar a memoria</p>
-    <p class="lead">Para cargar dispositivos estaticos el archivo debe llamarse: "dispositivos.json".</p>
+    <p class="lead">Seleccione el tipo de información y luego el archivo .json que desea cargar a memoria</p>
+
 </div>
-<div class="container" style="text-align: center;">
+
+
+<hr />
+
+<div class="container" style="width:50%;position:relative; ">
+
     @using (Html.BeginForm("Index", "FileUpload", FormMethod.Post, new { enctype = "multipart/form-data" }))
     {
         @Html.AntiForgeryToken()
 
 
-        <hr />
-        <div> @Html.ValidationSummary(true, "", new { @class = "text-danger" }) </div>
 
-        <div>
-            @Html.LabelFor(model => model.file, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="form" style="left:50%; margin-top:50px;">
+            <div> @Html.ValidationSummary(true, "", new { @class = "text-danger" }) </div>
+
+
+
+            <div class="container">
+                <div class="dropdownbox text-center">
+                    @Html.DropDownList("DispositivoSeleccionado", (IEnumerable<SelectListItem>)ViewBag.IdSeleccionado)
+                </div>
+                <div style="margin-top:55px;">
+                    @Html.EditorFor(model => model.file, new { htmlAttributes = new { @class = "form-control", @type = "file" } })
+                </div>
+
+
+
+
+                <div>
+                    @Html.ValidationMessageFor(model => model.file, "", new { @class = "message" })
+                </div>
+            </div>
+
+            <div>
+                @ViewBag.FileStatus
+            </div>
+
+            <button type="submit" class="btn" style="width:50px%;text-align:center;position:relative;">Importar</button>
+
         </div>
 
-        <div>
-            @Html.DropDownList("DispositivoSeleccionado", (IEnumerable<SelectListItem>)ViewBag.IdSeleccionado, null, new { @class = "dropdown-menu" })
-            @Html.EditorFor(model => model.file, new { htmlAttributes = new { @class = "form-control", @type = "file" } })
-        </div>
 
-
-        <div>
-            @Html.ValidationMessageFor(model => model.file, "", new { @class = "message" })
-        </div>
-
-
-        <div>
-            @ViewBag.FileStatus
-    </div>
-
-    <input type="submit" value="Importar" class="btn">
-
-
-
-}
+    }
 </div>
-    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
-    <script src="~/Scripts/jquery.validate.min.js"></script>
-    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
