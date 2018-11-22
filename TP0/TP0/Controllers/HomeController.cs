@@ -22,7 +22,6 @@ namespace TP0.Controllers
         {
             return View();
         }
-
         public ActionResult Map()
         {
             List<Transformador> transformadores;
@@ -39,11 +38,13 @@ namespace TP0.Controllers
 
 
         //VISTAS DE ADMIN
+        [Authorize]
         public ActionResult ReportesAdmin()
         {
             return View();
         }
         [HttpGet]
+        [Authorize]
         public ActionResult ReporteHogar()
         {
             ViewBag.consumo = "";
@@ -58,6 +59,7 @@ namespace TP0.Controllers
             return View();
         }
         [HttpPost]
+        [Authorize]
         public ActionResult ReporteHogar(SubmitViewModel model, DateTime FechaInicio, DateTime FechaFin)
         {
 
@@ -94,6 +96,7 @@ namespace TP0.Controllers
                 return View();
         }
         [HttpGet]
+        [Authorize]
         public ActionResult ReporteDispositivo()
         {
             ViewBag.consumo = "";
@@ -103,6 +106,7 @@ namespace TP0.Controllers
             return View();
         }
         [HttpPost]
+        [Authorize]
         public ActionResult ReporteDispositivo(SubmitViewModel model, DateTime FechaInicio, DateTime FechaFin)
         {
 
@@ -133,6 +137,7 @@ namespace TP0.Controllers
             return View();
         }
         [HttpGet]
+        [Authorize]
         public ActionResult ReporteTransformador()
         {
             ViewBag.consumo = "";
@@ -147,6 +152,7 @@ namespace TP0.Controllers
             return View();
         }
         [HttpPost]
+        [Authorize]
         public ActionResult ReporteTransformador(SubmitViewModel model, DateTime FechaInicio, DateTime FechaFin)
         {
 
@@ -181,6 +187,7 @@ namespace TP0.Controllers
             }
             return View();
         }
+        [Authorize]
         public ActionResult AdministrarDispositivosAdmin()
         {
             DispositivosTotales.LlenarDisps();
@@ -190,6 +197,7 @@ namespace TP0.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         public ActionResult ModificarDispositivoAdmin(int id)
         {
             DispositivoEstatico dispositivoEditado;
@@ -199,6 +207,7 @@ namespace TP0.Controllers
             return View(dispositivoEditado);
         }
         [HttpPost]
+        [Authorize]
         public ActionResult GuardarCambioDispositivoAdmin(int id)
         {
             using (var db = new DBContext())
@@ -221,6 +230,7 @@ namespace TP0.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         public ActionResult EliminarDispositivoAdmin(int id)
         {
             using (var db = new DBContext())
@@ -233,11 +243,13 @@ namespace TP0.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         public ActionResult AgregarDispositivoAdmin()
         {
             return View();
         }
         [HttpPost]
+        [Authorize]
         public ActionResult AgregarDispositivoAdmin([Bind(Include = "Codigo,Nombre,kWxHora,Min,Max,EsInteligente")] DispositivoEstatico nuevo)
         {
             try
@@ -254,6 +266,7 @@ namespace TP0.Controllers
             return RedirectToAction("AdministrarDispositivosAdmin", "Home");
         }
 
+        [Authorize]
         public ActionResult AdministrarCasasAdmin()
         {
             IEnumerable<Cliente> casas = ClientesImportados.GetClientes();
@@ -263,6 +276,7 @@ namespace TP0.Controllers
             return View(casas);
         }
 
+        [Authorize]
         public ActionResult DetallesCliente(int id)
         {
             Cliente c = new Cliente(id);
@@ -299,6 +313,7 @@ namespace TP0.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         public ActionResult ConsultarConsumoAdmin(int id)
         {//Metodo para consultar el consumo en un periodo
             ViewBag.consumo = "";
@@ -306,6 +321,7 @@ namespace TP0.Controllers
             return View();
         }
         [HttpPost]
+        [Authorize]
         public ActionResult ConsultarConsumoAdmin(DateTime FechaInicio, DateTime FechaFin, int id)
         {
             Cliente clie = new Cliente(id);
@@ -340,6 +356,7 @@ namespace TP0.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public ActionResult SimplexView(int id)
         {
             Cliente clie = new Cliente(id);
@@ -354,6 +371,7 @@ namespace TP0.Controllers
         //VISTAS DE CLIENTE
 
         [HttpGet]
+        [Authorize]
         public ActionResult DispositivosPropios()
         {
             ViewBag.Message = "Tus dispositivos:";
@@ -418,6 +436,7 @@ namespace TP0.Controllers
             }
             return RedirectToAction("DetallesInteligente", "Home", new { id });
         }
+        [Authorize]
         public ActionResult BorrarDispositivoClie(int id)
         {
             using (var db = new DBContext())
@@ -429,10 +448,12 @@ namespace TP0.Controllers
             return RedirectToAction("DispositivosPropios", "Home");
         }
 
+        [Authorize]
         public ActionResult DetallesEstandar(int id)
         {
             return View(new DispositivoEstandar(id));
         }
+        [Authorize]
         public ActionResult DetallesInteligente(int id)
         {
             DispositivoInteligente d = new DispositivoInteligente(id);
@@ -441,6 +462,7 @@ namespace TP0.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         public ActionResult CrearRegla(int id)
         {
             ViewBag.id = id;
@@ -449,6 +471,7 @@ namespace TP0.Controllers
             return View();
         }
         [HttpPost]
+        [Authorize]
         public ActionResult CrearRegla([Bind(Include = "ValorMax,ValorMin,Tipo,Descripcion")] Regla reglaNueva, int id)
         {
             try
@@ -466,6 +489,7 @@ namespace TP0.Controllers
             }
             return RedirectToAction("DispositivosPropios", "Home");
         }
+        [Authorize]
         public ActionResult BorrarRegla(int rID, int dID)
         {
             using (var db = new DBContext())
@@ -478,6 +502,7 @@ namespace TP0.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         public ActionResult AgregarDispositivoClie()
         {   //se llenan la lista de todas las opciones de dispositivos para poder agregarlos a los propios del usuario
             List<SelectListItem> disps = DispositivosTotales.GetDispositivos();
@@ -490,6 +515,7 @@ namespace TP0.Controllers
             return View();
         }
         [HttpPost]
+        [Authorize]
         public ActionResult AgregarDispositivoClie(SubmitViewModel model)
         {
             //Agrega el nuevo dispositivo al usuario
@@ -511,6 +537,7 @@ namespace TP0.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         public ActionResult ConvertirEnInteligente(int id)
         {
             List<SelectListItem> marcas = new List<SelectListItem>
@@ -526,6 +553,7 @@ namespace TP0.Controllers
             return View();
         }
         [HttpPost]
+        [Authorize]
         public ActionResult ConvertirEnInteligente(int id, FormCollection form)
         {
             Cliente c = new Cliente(User.Identity.GetUserName());
@@ -534,12 +562,14 @@ namespace TP0.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         public ActionResult ConsultarConsumo()
         {//Metodo para consultar el consumo en un periodo
             ViewBag.consumo = "";
             return View();
         }
         [HttpPost]
+        [Authorize]
         public ActionResult ConsultarConsumo(DateTime FechaInicio, DateTime FechaFin)
         {
             if (FechaFin > DateTime.Now)
@@ -569,6 +599,7 @@ namespace TP0.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         public ActionResult SimplexView()
         {
             if (User.Identity.IsAuthenticated || ClientesImportados.GetClientes() != null)
