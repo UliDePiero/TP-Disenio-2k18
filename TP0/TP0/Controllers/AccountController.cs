@@ -174,13 +174,13 @@ namespace TP0.Controllers
                     {
 
                         usr = new Administrador(model.nombre, model.apellido, model.domicilio, model.Email, model.Password, model.documento, model.tipo, model.telefono);
-                        //se rompe aca, luego de crear el objeto ya no hace nada mas , se queda en timeout
+    
                         
                     }
                     else
                     {
                         usr = new Cliente(model.nombre, model.apellido, model.domicilio, model.Email, model.Password, model.documento, model.tipo, model.telefono);
-                        //se rompe aca, luego de crear el objeto ya no hace nada mas , se queda en timeout
+                      
                     }
                     //Agrega el nuevo usuario a la base de datos
                     usr.AgregarALaBase();

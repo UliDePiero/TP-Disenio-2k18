@@ -82,9 +82,11 @@ namespace TP0.Helpers
                     if (CalcDistancia(z) <= z.Radio)
                     {
                         ZonaID = z.ZonaID;
-                        break;
+                        return;
                     }
                 }
+                var zonaDefault = db.Zonas.First(z => z.Radio == 0.4);
+                ZonaID = zonaDefault.ZonaID;
             }
         }
 
