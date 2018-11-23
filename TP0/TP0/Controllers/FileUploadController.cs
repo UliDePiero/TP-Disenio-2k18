@@ -19,6 +19,7 @@ namespace TP0.Controllers
         // GET: FileUpload
 
         //Pagina del admin
+        [Authorize]
         public ActionResult Index()
         {
             List<SelectListItem> opciones = new List<SelectListItem>();
@@ -29,6 +30,7 @@ namespace TP0.Controllers
             return View();
         }
         [HttpPost]
+        [Authorize]
         public ActionResult Index(HttpPostedFileBase file, SubmitViewModel model)
         {
             List<SelectListItem> opciones = new List<SelectListItem>();
@@ -87,11 +89,13 @@ namespace TP0.Controllers
         }
 
         //Pagina del usuario
+        [Authorize]
         public ActionResult IndexClie()
         {
             return View();
         }
         [HttpPost]
+        [Authorize]
         public ActionResult IndexClie(HttpPostedFileBase file)
         {
             Cliente c = new Cliente(User.Identity.Name);
