@@ -15,7 +15,7 @@
            <h3>Dispositivos: @Model.Dispositivos.Count() </h3>
         <div class="box">
             <div>
-             
+
                 @using (Html.BeginForm("ConsultarConsumo", "Home", FormMethod.Get))
     {@*Boton para consultar consumo entre fechas*@
             <input type="submit" class="btn btn-default" value="Consultar consumo por periodo">
@@ -23,7 +23,6 @@
     {@*Boton para ejecutar el simplex*@
             <input type="submit" class="btn btn-default" value="Conocer recomendación" onclick="alertBox()">
 }
-
 
             </div>
             <vl />

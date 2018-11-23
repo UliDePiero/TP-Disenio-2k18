@@ -1,27 +1,35 @@
 ﻿<form action="~/Home/ConsultarConsumo" method="post">
-    <fieldset>
+    
         <div class="jumbotron">
             <h2>Consultar consumo</h2>
-            <h3>@ViewBag.consumo</h3>
-            <h5>@ViewBag.fechas</h5>
+           
         </div>
         <div>
-          
-            <label for="FechaInicio">Fecha inicio:</label>
-            <input type="date" id="fechaInicioID"
-                   name="FechaInicio"
-                   min="2010-01-01" max="2050-06-14" required />
-            <span class="validity"></span>
+
+            <hr />
+            <div class="container" style="align-content:center;text-align:center; margin-bottom:15px;">
+                <h3>@ViewBag.consumo</h3>
+                <h5>@ViewBag.fechas</h5>
+            </div>
+
+
+            <div class="form" style="width:50%; text-align:center;">
+                <label for="FechaInicio">Fecha inicio:</label>
+                <input type="date" id="fechaInicioID"
+                       name="FechaInicio"
+                       min="2010-01-01" max="2050-06-14" required />
+                <span class="validity"></span>
+
+                <label for="FechaFin">Fecha fin:</label>
+                <input type="date" id="fechaFinID"
+                       name="FechaFin"
+                       min="2010-01-01" max="2050-06-14" required />
+                <span class="validity"></span>
+
+                <button type="submit" class="btn ">Consultar</button>
+            </div>
+                 
+
         </div>
-        <div>
-            <label for="FechaFin">Fecha fin:</label>
-            <input type="date" id="fechaFinID"
-                   name="FechaFin"
-                   min="2010-01-01" max="2050-06-14" required />
-            <span class="validity"></span>
-        </div>
-        <h4>
-            <input type="submit" class="btn btn-default" value="Consultar">
-        </h4>
-    </fieldset>
+   
 </form>
