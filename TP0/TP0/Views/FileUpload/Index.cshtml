@@ -22,6 +22,7 @@
         </div>
 
         <div>
+            @Html.DropDownList("DispositivoSeleccionado", (IEnumerable<SelectListItem>)ViewBag.IdSeleccionado, null, new { @class = "dropdown-menu" })
             @Html.EditorFor(model => model.file, new { htmlAttributes = new { @class = "form-control", @type = "file" } })
         </div>
 
