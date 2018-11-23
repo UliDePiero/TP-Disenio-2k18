@@ -75,6 +75,11 @@ namespace TP0.Helpers
         }
         public override double ConsumoEnPeriodo(DateTime fInicial, DateTime fFinal)
         {
+            if (fFinal > DateTime.Now)
+            {
+                fFinal = DateTime.Now;
+            }
+
             return fFinal.Subtract(fInicial).Days*Consumo();
         }
         public override double ConsumoEnHoras(double horas)

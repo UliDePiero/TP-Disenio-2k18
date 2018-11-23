@@ -102,7 +102,7 @@ namespace TP0.Helpers
 
             using (var db = new DBContext())
             {
-                if (db.Zonas.Count() == 0)
+                if (!db.Zonas.Any(z => z.Radio == 0.4))
                 {
                     //Agrega el transformador default si no existe
                     var zonaInicial = new Zona(-34.60530102052386, -58.48007389518, 0.4);
@@ -273,7 +273,8 @@ namespace TP0.Helpers
             double acumuladoKw = 0;
             foreach (Dispositivo disp in Dispositivos)
             {
-                acumuladoKw += disp.Consumo();
+                //acumuladoKw += disp.Consumo();
+                acumuladoKw += disp.ConsumoEnPeriodo(Convert.ToDateTime(FechaDeAlta), DateTime.Now);
                 Disp++;
             }
             return (acumuladoKw == 0 || Disp == 0) ? 0 : acumuladoKw / Disp;
