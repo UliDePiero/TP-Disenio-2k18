@@ -409,6 +409,11 @@ namespace TP0.Helpers
                 j++;
             }
 
+            for (i = 1; i < j; i++)
+            {
+                RecomendacionXDispositivos[0].KWxHoraConsumidos += RecomendacionXDispositivos[i].KWxHoraConsumidos;
+            }
+
             return RecomendacionXDispositivos;
     }
 
