@@ -17,31 +17,32 @@
 
 
 
-        <div class="form" style="left:50%; margin-top:50px;">
-            <div> @Html.ValidationSummary(true, "", new { @class = "text-danger" }) </div>
+    <div class="form" style="left:50%; margin-top:50px;">
+        <div> @Html.ValidationSummary(true, "", new { @class = "text-danger" }) </div>
 
-            <div>
-                @Html.LabelFor(model => model.file, htmlAttributes: new { @class = "control-label col-md-2" })
-            </div>
-
-            <div class="container">
-
-                @Html.EditorFor(model => model.file, new { htmlAttributes = new { @class = "form-control", @type = "file" } })
-            </div>
-
-
-            <div>
-                @Html.ValidationMessageFor(model => model.file, "", new { @class = "message" })
-            </div>
+        <div>
+            @Html.LabelFor(model => model.file, htmlAttributes: new { @class = "control-label col-md-2" })
         </div>
+
+        <div class="container">
+
+            @Html.EditorFor(model => model.file, new { htmlAttributes = new { @class = "form-control", @type = "file" } })
+        </div>
+
+
+        <div>
+            @Html.ValidationMessageFor(model => model.file, "", new { @class = "message" })
+        </div>
+
 
         <div>
             @ViewBag.FileStatus
         </div>
-
-    }
+        <button type="submit" class="btn">Importar</button>
+    </div>
+    }  
+ 
 </div>
-<button type="submit" class="btn" style="width:15%;text-align:center;position:relative;left:40%;">Importar</button>
 
 <script src="~/Scripts/jquery-1.10.2.min.js"></script>
 <script src="~/Scripts/jquery.validate.min.js"></script>

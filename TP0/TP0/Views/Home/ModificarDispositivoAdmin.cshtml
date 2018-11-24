@@ -1,60 +1,73 @@
 ﻿@model TP0.Helpers.Static.DispositivoEstatico
 
-<div class="jumbotron">
-    <h2>Editar Dispositivo</h2>
-</div>
+@if ((string)System.Web.HttpContext.Current.Session["admin"] == "true")
+{
+    <div class="jumbotron">
+        <h2>Editar Dispositivo</h2>
+    </div>
 
-<table class="table">
-    <tr>
-        <th>
-            @Html.Label("Nombre")
-        </th>
-        <th style="text-align: center;">
-
-            @Html.Label("EsInteligente")
-        </th>
-        <th style="text-align: center;">
-            @Html.Label("Codigo")
-        </th>
-        <th style="text-align: center;">
-            @Html.Label("Min")
-        </th>
-        <th style="text-align: center;">
-            @Html.Label("Max")
-        </th>
-        <th style="text-align: center;">
-            @Html.Label("kWxHora")
-        </th>
-    </tr>
-
-    @using (Html.BeginForm("GuardarCambioDispositivoAdmin/" + Model.DispositivoID, "Home", FormMethod.Post))
-    {
+    <table class="table">
         <tr>
-            <td>
-                @Html.EditorFor(model => model.Nombre)
-            </td>
-            <td style="text-align: center;">
-                @Html.CheckBoxFor(model => model.EsInteligente, new { onclick = "return false" })
-            </td>
-            <td style="text-align: center;">
-                @Html.EditorFor(model => model.Codigo)
-            </td>
-            <td style="text-align: center;">
-                @Html.EditorFor(model => model.Min)
-            </td>
-            <td style="text-align: center;">
-                @Html.EditorFor(model => model.Max)
-            </td>
-            <td style="text-align: center;">
-                @Html.EditorFor(model => model.kWxHora)
-            </td>
-            <td>
-                <div class="btn" style="padding:10px;background-color:lightsteelblue;">
-                    Guardar
-                </div>
-            </td>
-        </tr>
-    }
-</table>
+            <th>
+                @Html.Label("Nombre")
+            </th>
+            <th style="text-align: center;">
 
-<button class="btn" style="width:5%;text-align:center;position:relative; left:50%">@Html.ActionLink("Volver", "AdministrarDispositivosAdmin")</button>
+                @Html.Label("EsInteligente")
+            </th>
+            <th style="text-align: center;">
+                @Html.Label("Codigo")
+            </th>
+            <th style="text-align: center;">
+                @Html.Label("Min")
+            </th>
+            <th style="text-align: center;">
+                @Html.Label("Max")
+            </th>
+            <th style="text-align: center;">
+                @Html.Label("kWxHora")
+            </th>
+        </tr>
+
+        @using (Html.BeginForm("GuardarCambioDispositivoAdmin" + Model.DispositivoID, "Home", FormMethod.Post))
+        {
+            <tr>
+                <td>
+                    @Html.EditorFor(model => model.Nombre)
+                </td>
+                <td style="text-align: center;">
+                    @Html.CheckBoxFor(model => model.EsInteligente, new { onclick = "return false" })
+                </td>
+                <td style="text-align: center;">
+                    @Html.EditorFor(model => model.Codigo)
+                </td>
+                <td style="text-align: center;">
+                    @Html.EditorFor(model => model.Min)
+                </td>
+                <td style="text-align: center;">
+                    @Html.EditorFor(model => model.Max)
+                </td>
+                <td style="text-align: center;">
+                    @Html.EditorFor(model => model.kWxHora)
+                </td>
+
+            </tr>
+        }
+    </table>
+
+
+
+    <h4>
+        <button class="btn">
+            Guardar
+        </button>
+    </h4>
+
+    <hr />
+    <h4>
+        <button class="btn">
+            @Html.ActionLink("Volver", "AdministrarDispositivosAdmin")
+
+        </button>
+    </h4>
+}

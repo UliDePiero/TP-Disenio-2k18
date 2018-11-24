@@ -2,56 +2,122 @@
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+@if ((string)System.Web.HttpContext.Current.Session["admin"] == "true")
+{
+    <div class="jumbotron" style="text-align: center;">
+        <h2>Importar usuarios, dispositivos o transformadores</h2>
+        <p class="lead">Seleccione el tipo de información y luego el archivo .json que desea cargar a memoria</p>
 
-<div class="jumbotron" style="text-align: center;">
-    <h2>Importar usuarios, dispositivos o transformadores</h2>
-    <p class="lead">Seleccione el tipo de información y luego el archivo .json que desea cargar a memoria</p>
-
-</div>
-
-
-<hr />
-
-<div class="container" style="width:50%;position:relative; ">
-
-    @using (Html.BeginForm("Index", "FileUpload", FormMethod.Post, new { enctype = "multipart/form-data" }))
-    {
-        @Html.AntiForgeryToken()
+    </div>
 
 
+    <hr />
 
-        <div class="form" style="left:50%; margin-top:50px;">
-            <div> @Html.ValidationSummary(true, "", new { @class = "text-danger" }) </div>
+    <div class="container" style="width:50%;position:relative; ">
+
+        @using (Html.BeginForm("Index", "FileUpload", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            @Html.AntiForgeryToken()
 
 
 
-            <div class="container">
-                <div class="dropdownbox">
-                    @Html.DropDownList("DispositivoSeleccionado", (IEnumerable<SelectListItem>)ViewBag.IdSeleccionado)
-                </div>
-                <div style="margin-top:55px;">
+            <div class="form" style="left:50%; margin-top:50px;">
+                <div> @Html.ValidationSummary(true, "", new { @class = "text-danger" }) </div>
+
+                <div class="container">
+
+                    <div class="custom-dropdown">
+                        @Html.DropDownList("DispositivoSeleccionado", (IEnumerable<SelectListItem>)ViewBag.IdSeleccionado)
+                    </div>
+
                     @Html.EditorFor(model => model.file, new { htmlAttributes = new { @class = "form-control", @type = "file" } })
-                </div>
+
+                    <div>
+                        @Html.ValidationMessageFor(model => model.file, "", new { @class = "message" })
+                    </div>
 
 
+                    <div>
+                        @if (ViewBag.FileStatus != "" && ViewBag.FileStatus != "Archivo cargado correctamente.")
+                        {
+                            <div class="message">@ViewBag.FileStatus </div>
+                        }
+                    </div>
 
+                    <button type="submit" class="btn">Importar</button>
 
-                <div>
-                    @Html.ValidationMessageFor(model => model.file, "", new { @class = "message" })
                 </div>
             </div>
 
-            <div>
-                @ViewBag.FileStatus
-            </div>
+        }
+    </div>
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+}
 
-            <button type="submit" class="btn" style="width:50px%;text-align:center;position:relative;">Importar</button>
 
-        </div>
-
-
+<style>
+    /* Custom dropdown */
+    .custom-dropdown {
+        position: relative;
+        display: inline-block;
+        vertical-align: middle;
+        margin: 10px; /* demo only */
     }
-</div>
-<script src="~/Scripts/jquery-1.10.2.min.js"></script>
-<script src="~/Scripts/jquery.validate.min.js"></script>
-<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+
+        .custom-dropdown select {
+            background-color: #2d7ce8;
+            color: white;
+            font-size: inherit;
+            padding: .5em;
+            padding-right: 2.5em;
+            border: 0;
+            margin: 0;
+            border-radius: 3px;
+            text-indent: 0.01px;
+            text-overflow: '';
+            -webkit-appearance: button; /* hide default arrow in chrome OSX */
+        }
+
+        .custom-dropdown::before,
+        .custom-dropdown::after {
+            content: "";
+            position: absolute;
+            pointer-events: none;
+        }
+
+        .custom-dropdown::after { /*  Custom dropdown arrow */
+            content: "\25BC";
+            height: 1em;
+            font-size: .625em;
+            line-height: 1;
+            right: 1.2em;
+            top: 50%;
+            margin-top: -.5em;
+        }
+
+        .custom-dropdown::before { /*  Custom dropdown arrow cover */
+            width: 2em;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            border-radius: 0 3px 3px 0;
+        }
+
+        .custom-dropdown select[disabled] {
+            color: rgba(0,0,0,.3);
+        }
+
+            .custom-dropdown select[disabled]::after {
+                color: rgba(0,0,0,.1);
+            }
+
+        .custom-dropdown::before {
+            background-color: rgba(0,0,0,.15);
+        }
+
+        .custom-dropdown::after {
+            color: rgba(0,0,0,.9);
+        }
+</style>

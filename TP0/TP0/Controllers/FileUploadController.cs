@@ -33,6 +33,7 @@ namespace TP0.Controllers
         [Authorize]
         public ActionResult Index(HttpPostedFileBase file, SubmitViewModel model)
         {
+            ViewBag.FileStatus = "";
             List<SelectListItem> opciones = new List<SelectListItem>();
             opciones.Add(new SelectListItem() { Value = "clientes", Text = "clientes" });
             opciones.Add(new SelectListItem() { Value = "transformadores", Text = "transformadores" });

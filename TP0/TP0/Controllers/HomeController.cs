@@ -82,7 +82,7 @@ namespace TP0.Controllers
                 if (reportesEncontrados.Count > 0)
                 {
                     var reporte = reportesEncontrados[0];
-                    ViewBag.consumo = "Consumo mongo: " + reporte.consumo.ToString() + "Kw";
+                    ViewBag.consumo = "Consumo: " + reporte.consumo.ToString() + "Kw";
                 }
                 else
                 {
@@ -123,7 +123,7 @@ namespace TP0.Controllers
                 if (reportesEncontrados.Count > 0)
                 {
                     var reporte = reportesEncontrados[0];
-                    ViewBag.consumo = "Consumo mongo: " + reporte.consumo.ToString() + "Kw";
+                    ViewBag.consumo = "Consumo: " + reporte.consumo.ToString() + "Kw";
                 }
                 else
                 {
@@ -174,7 +174,7 @@ namespace TP0.Controllers
                 if (reportesEncontrados.ToList<Reporte>().Count > 0)
                 {
                     var reporte = reportesEncontrados.ToList<Reporte>()[0];
-                    ViewBag.consumo = "Consumo mongo: " + reporte.consumo.ToString() + "Kw";
+                    ViewBag.consumo = "Consumo: " + reporte.consumo.ToString() + "Kw";
                 }
                 else
                 {
@@ -339,7 +339,7 @@ namespace TP0.Controllers
                 if (reportesEncontrados.Count > 0)
                 {
                     var reporte = reportesEncontrados[0];
-                    ViewBag.consumo = "Consumo mongo: " + reporte.consumo.ToString() + "Kw";
+                    ViewBag.consumo = "Consumo : " + reporte.consumo.ToString() + "Kw";
                 }
                 else
                 {
@@ -487,7 +487,7 @@ namespace TP0.Controllers
             {
                 ModelState.AddModelError("", "No se pudo Crear");
             }
-            return RedirectToAction("DispositivosPropios", "Home");
+            return RedirectToAction("DetallesInteligente/"+id, "Home");
         }
         [Authorize]
         public ActionResult BorrarRegla(int rID, int dID)
@@ -584,7 +584,7 @@ namespace TP0.Controllers
             if (reportesEncontrados.Count > 0)
             {
                 var reporte = reportesEncontrados[0];
-                ViewBag.consumo = "Consumo mongo: " + reporte.consumo.ToString() + "Kw";
+                ViewBag.consumo = "Consumo : " + reporte.consumo.ToString() + "Kw";
             }
             else
             {

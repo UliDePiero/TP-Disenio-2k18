@@ -1,67 +1,76 @@
 ﻿@model TP0.Helpers.Static.DispositivoEstatico
-<div class="jumbotron">
-    <h2>Crear Dispositivo</h2>
-</div>
 
-<table>
-    @using (Html.BeginForm("AgregarDispositivoAdmin", "Home", FormMethod.Post))
-    {
-        <tr>
-            <td>
-                @Html.Label("Codigo")
-            </td>
-            <td style="text-align: center;">
-                @Html.EditorFor(model => model.Codigo)
-            </td>
-        </tr>
-        <tr>
-            <td>
-                @Html.Label("Nombre")
-            </td>
-            <td style="text-align: center;">
-                @Html.EditorFor(model => model.Nombre)
-            </td>
-        </tr>
-        <tr>
-            <td>
-                @Html.Label("kWxHora")
-            </td>
-            <td style="text-align: center;">
-                @Html.EditorFor(model => model.kWxHora)
-            </td>
-        </tr>
-        <tr>
-            <td>
-                @Html.Label("Min")
-            </td>
-            <td style="text-align: center;">
-                @Html.EditorFor(model => model.Min)
-            </td>
-        </tr>
-        <tr>
-            <td>
-                @Html.Label("Max")
-            </td>
-            <td style="text-align: center;">
-                @Html.EditorFor(model => model.Max)
-            </td>
-        </tr>
-        <tr>
-            <td>
-                @Html.Label("EsInteligente")
-            </td>
-            <td style="text-align: center;">
-                @Html.CheckBoxFor(model => model.EsInteligente)
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <button class="btn" style="padding:10px;background-color:lightsteelblue;">
-                    Crear
-                </button>
-            </td>
-        </tr>
-    }
-</table>
+@if ((string)System.Web.HttpContext.Current.Session["admin"] == "true")
+{
 
-<button class="btn" style="width:5%;text-align:center;position:relative; left:50%">@Html.ActionLink("Volver", "AdministrarDispositivosAdmin")</button>
+    <div class="jumbotron">
+        <h2>Crear Dispositivo</h2>
+    </div>
+
+    <table>
+        @using (Html.BeginForm("AgregarDispositivoAdmin", "Home", FormMethod.Post))
+        {
+            <tr>
+                <td>
+                    @Html.Label("Codigo")
+                </td>
+                <td style="text-align: center;">
+                    @Html.EditorFor(model => model.Codigo)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.Label("Nombre")
+                </td>
+                <td style="text-align: center;">
+                    @Html.EditorFor(model => model.Nombre)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.Label("kWxHora")
+                </td>
+                <td style="text-align: center;">
+                    @Html.EditorFor(model => model.kWxHora)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.Label("Min")
+                </td>
+                <td style="text-align: center;">
+                    @Html.EditorFor(model => model.Min)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.Label("Max")
+                </td>
+                <td style="text-align: center;">
+                    @Html.EditorFor(model => model.Max)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.Label("EsInteligente")
+                </td>
+                <td style="text-align: center;">
+                    @Html.CheckBoxFor(model => model.EsInteligente)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <button class="btn" style="padding:10px;background-color:lightsteelblue;">
+                        Crear
+                    </button>
+                </td>
+            </tr>
+        }
+    </table>
+
+    <button class="btn" style="width:5%;text-align:center;position:relative; left:50%">@Html.ActionLink("Volver", "AdministrarDispositivosAdmin")</button>
+}
+else
+{
+
+}

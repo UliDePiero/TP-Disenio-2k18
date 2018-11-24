@@ -3,28 +3,34 @@
     ViewBag.Title = "Gestionar";
 }
 
-    <h2>@ViewBag.Title</h2>
+<h2>@ViewBag.Title</h2>
 
-  
-        <p class="text-success">@ViewBag.StatusMessage</p>
-        <div>
-            <h4>Cambiar la configuración de la cuenta</h4>
-            <hr />
-            <div class="form" style="width:50%; margin-top:50px;">
-               
-                <h3>Cambiar contraseña</h3>    
-                [
-                    @if (Model.HasPassword)
-            {
-                @Html.ActionLink("Cambiar la contraseña", "ChangePassword")
-    }
-    else
-    {
-        @Html.ActionLink("Crear", "SetPassword")
+
+<p class="text-success">@ViewBag.StatusMessage</p>
+<div>
+    <h4>Cambiar la configuración de la cuenta</h4>
+    <hr />
+    <div class="form" style="width:50%; margin-top:50px;">
+
+        <h3>Cambiar contraseña</h3>
+        [
+        @if (Model.HasPassword)
+        {
+            @Html.ActionLink("Cambiar la contraseña", "ChangePassword")
+        }
+        else
+        {
+            @Html.ActionLink("Crear", "SetPassword")
+        }
+        ]
+
+
+
+    </div>
+</div>
+
+@if ((string)System.Web.HttpContext.Current.Session["admin"] == "true")
+{
+
+
 }
-                    ]
-            
-
-              
-            </div>
-        </div>
