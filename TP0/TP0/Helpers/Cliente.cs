@@ -384,7 +384,7 @@ namespace TP0.Helpers
             int j=0;
             var tiempoTotal = new RecomendacionXDisp(); //Estructura
             tiempoTotal.NombreDispositivo = "Total acumulado";
-            tiempoTotal.KWxHoraPuedeConsumir = doubleV[j];
+            tiempoTotal.KWxHoraPuedeConsumir = Math.Round(doubleV[j],2);
             RecomendacionXDispositivos[0]=tiempoTotal;
             j++;
 
@@ -394,16 +394,16 @@ namespace TP0.Helpers
             {
                 var recXdisp = new RecomendacionXDisp();
                 recXdisp.NombreDispositivo = disp.Nombre;
-                recXdisp.KWxHoraPuedeConsumir = doubleV[j];
+                recXdisp.KWxHoraPuedeConsumir = Math.Round(doubleV[j],2);
                 if (disp.EsInteligente)
                 {
                     var di = new DispositivoInteligente(disp.DispositivoID);
-                    recXdisp.KWxHoraConsumidos = di.ConsumoEnHoras(horasDelMes);
+                    recXdisp.KWxHoraConsumidos = Math.Round(di.ConsumoEnHoras(horasDelMes),2);
                 }
                 else
                 {
                     var de = new DispositivoEstandar(disp.DispositivoID);
-                    recXdisp.KWxHoraConsumidos = de.ConsumoEnHoras(horasDelMes);
+                    recXdisp.KWxHoraConsumidos = Math.Round(de.ConsumoEnHoras(horasDelMes),2);
                 }
                 RecomendacionXDispositivos[j] = recXdisp;
                 j++;

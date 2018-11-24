@@ -114,6 +114,7 @@ namespace TP0.Helpers
             double[] respuestaArrayDouble = new double[respuestaArrayString.Length];
             for (int i = 0; i < respuestaArrayString.Length; i++)
             {
+                respuestaArrayString[i] = respuestaArrayString[i].Replace(".",",");
                 respuestaArrayDouble[i] = Convert.ToDouble(respuestaArrayString[i]);
             }
             return respuestaArrayDouble;
