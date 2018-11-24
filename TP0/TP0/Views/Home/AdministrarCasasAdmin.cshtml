@@ -31,25 +31,26 @@
 
     @foreach (var item in Model)
     {
-    <tr>
-        <td>
-            @Html.ActionLink(item.Nombre, "DetallesCliente", new { id = item.UsuarioID})
-        </td>
-        <td style="text-align: center;">
-            @Html.DisplayFor(modelItem => item.Domicilio)
-        </td>
-        <td style="text-align: center;">
-            @Html.DisplayFor(modelItem => item.Telefono)
-        </td>
-        <td style="text-align: center;">
-            @item.DispositivosTotales()
-        </td>
-        <td style="text-align: center;">
-            @item.DispositivosEncendidos()
-        </td>
-        <td style="text-align: center;">
-            @item.ConsumoActual()
-        </td>
-    </tr>
+        <tr>
+            <td>
+                @Html.ActionLink(item.Nombre, "DetallesCliente", new { id = item.UsuarioID })
+            </td>
+            <td style="text-align: center;">
+                @Html.DisplayFor(modelItem => item.Domicilio)
+            </td>
+            <td style="text-align: center;">
+                @Html.DisplayFor(modelItem => item.Telefono)
+            </td>
+            <td style="text-align: center;">
+                @item.DispositivosTotales()
+            </td>
+            <td style="text-align: center;">
+                @item.DispositivosEncendidos()
+            </td>
+            <td style="text-align: center;">
+                @item.ConsumoActual()
+            </td>
+        </tr>
     }
 </table>
+

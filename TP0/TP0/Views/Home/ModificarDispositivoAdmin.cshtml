@@ -34,7 +34,7 @@
                 @Html.EditorFor(model => model.Nombre)
             </td>
             <td style="text-align: center;">
-                @Html.CheckBoxFor(model => model.EsInteligente, new { onclick = "return false"})
+                @Html.CheckBoxFor(model => model.EsInteligente, new { onclick = "return false" })
             </td>
             <td style="text-align: center;">
                 @Html.EditorFor(model => model.Codigo)
@@ -49,11 +49,12 @@
                 @Html.EditorFor(model => model.kWxHora)
             </td>
             <td>
-                <button type="submit">
+                <div class="btn" style="padding:10px;background-color:lightsteelblue;">
                     Guardar
-                </button>
+                </div>
             </td>
         </tr>
     }
 </table>
-<div>@Html.ActionLink("Volver","AdministrarDispositivosAdmin")</div>
+
+<button class="btn" style="width:5%;text-align:center;position:relative; left:50%">@Html.ActionLink("Volver", "AdministrarDispositivosAdmin")</button>
