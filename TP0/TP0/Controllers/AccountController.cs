@@ -184,9 +184,8 @@ namespace TP0.Controllers
                     }
                     //Agrega el nuevo usuario a la base de datos
                     usr.AgregarALaBase();
-
-                    await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
-                    return RedirectToAction("Index", "Home");
+                    
+                    return RedirectToAction("Login", "Account");
                     // Para obtener más información sobre cómo habilitar la confirmación de cuentas y el restablecimiento de contraseña, visite https://go.microsoft.com/fwlink/?LinkID=320771
                     // Enviar correo electrónico con este vínculo
                     // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
