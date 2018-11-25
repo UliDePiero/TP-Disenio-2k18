@@ -42,6 +42,12 @@
     </div>
 
 }
+
+    <script>
+        var today = new Date().toISOString().split('T')[0];
+        document.getElementsByName("FechaFin")[0].setAttribute('max', today);
+
+    </script>
     <style>
         /* Custom dropdown */
         .custom-dropdown {
