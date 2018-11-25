@@ -61,7 +61,7 @@ namespace TP0.Helpers
         {
             public string NombreDispositivo;
             public double KWxHoraConsumidos;
-            public double KWxHoraPuedeConsumir;
+            public string KWxHoraPuedeConsumir;
         }
     }
 }

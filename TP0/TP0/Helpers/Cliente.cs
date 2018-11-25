@@ -369,7 +369,7 @@ namespace TP0.Helpers
             var LDE = new List<Dispositivo>();
 
             var result = recomendacion.GenerarRecomendacion(this);
-            double[] doubleV = recomendacion.ParsearString(result);
+            string[] doubleV = recomendacion.ParsearString(result);
             foreach (var d in Dispositivos)
             {
                 if (d.EsInteligente)
@@ -384,7 +384,7 @@ namespace TP0.Helpers
             int j=0;
             var tiempoTotal = new RecomendacionXDisp(); //Estructura
             tiempoTotal.NombreDispositivo = "Total acumulado";
-            tiempoTotal.KWxHoraPuedeConsumir = Math.Round(doubleV[j],2);
+            tiempoTotal.KWxHoraPuedeConsumir = doubleV[j];
             RecomendacionXDispositivos[0]=tiempoTotal;
             j++;
 
@@ -394,7 +394,7 @@ namespace TP0.Helpers
             {
                 var recXdisp = new RecomendacionXDisp();
                 recXdisp.NombreDispositivo = disp.Nombre;
-                recXdisp.KWxHoraPuedeConsumir = Math.Round(doubleV[j],2);
+                recXdisp.KWxHoraPuedeConsumir = doubleV[j];
                 if (disp.EsInteligente)
                 {
                     var di = new DispositivoInteligente(disp.DispositivoID);

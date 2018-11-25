@@ -80,7 +80,7 @@ namespace TP0.Helpers
                 var cl = new Cliente(c.Username);
                 var result = GenerarRecomendacion(cl);
 
-                    double[] doubleV = ParsearString(result);
+                    string[] doubleV = ParsearString(result);
                     
                     int i=1;
 
@@ -92,8 +92,12 @@ namespace TP0.Helpers
                         }
                         foreach (var di in LDI)
                         {
+                        
+                        var rep = doubleV[i].Replace(".", ",");
+                        var valorDouble = Convert.ToDouble(rep);
+                        
                         var disp = new DispositivoInteligente(di.DispositivoID);
-                            if (doubleV[i]* disp.KWxHora < disp.ConsumoEnHoras(DateTime.Now.Day*24))
+                            if (valorDouble * disp.KWxHora < disp.ConsumoEnHoras(DateTime.Now.Day*24))
                             {
                                 disp.Apagar();
                             }
@@ -105,19 +109,23 @@ namespace TP0.Helpers
  
 
 
-        public double[] ParsearString(string str)
+        public string[] ParsearString(string str)
         {
             str = str.Replace("[", "");
             str = str.Replace("]", "");
             str = str.Replace(".0", "");
             string[] respuestaArrayString = str.Split(',');
             double[] respuestaArrayDouble = new double[respuestaArrayString.Length];
+
             for (int i = 0; i < respuestaArrayString.Length; i++)
             {
-                respuestaArrayString[i] = respuestaArrayString[i].Replace(".",",");
+                respuestaArrayString[i] = respuestaArrayString[i].Replace(".", ",");
                 respuestaArrayDouble[i] = Convert.ToDouble(respuestaArrayString[i]);
+                respuestaArrayString[i] = Convert.ToString(Math.Round(respuestaArrayDouble[i], 2));
+                respuestaArrayString[i] = respuestaArrayString[i].Replace(",", ".");
             }
-            return respuestaArrayDouble;
+            
+            return respuestaArrayString;
         }
 
         public void CrearTimer()
