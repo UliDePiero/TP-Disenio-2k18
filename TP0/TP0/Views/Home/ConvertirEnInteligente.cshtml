@@ -1,14 +1,20 @@
 ﻿
-    <div class="container text-center">
-        <h2> @ViewBag.Message </h2>
-    </div>
-    @using (Html.BeginForm("ConvertirEnInteligente", "Home", new { id = ViewBag.Id}, FormMethod.Post))
-    {@*lista con las marcas*@
-    <h4 class="custom-dropdown">
+<div class="container text-center">
+    <h2> @ViewBag.Message </h2>
+</div>
+@using (Html.BeginForm("ConvertirEnInteligente", "Home", new { id = ViewBag.Id }, FormMethod.Post))
+{@*lista con las marcas*@
+<div class="box">
+    <div class="custom-dropdown">
+
+
         @Html.DropDownList("marcas", (IEnumerable<SelectListItem>)ViewBag.marcas)
-    </h4>
+
+
+    </div>
 
     <h4>
         <input type="submit" class="btn" value="Seleccionar">
     </h4>
-    }
+</div>
+}
