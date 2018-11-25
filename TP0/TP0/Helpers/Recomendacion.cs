@@ -93,7 +93,7 @@ namespace TP0.Helpers
                         foreach (var di in LDI)
                         {
                         var disp = new DispositivoInteligente(di.DispositivoID);
-                            if (doubleV[i]* disp.KWxHora < disp.ConsumoEnHoras(720))
+                            if (doubleV[i]* disp.KWxHora < disp.ConsumoEnHoras(DateTime.Now.Day*24))
                             {
                                 disp.Apagar();
                             }
