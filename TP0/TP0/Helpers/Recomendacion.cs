@@ -80,9 +80,10 @@ namespace TP0.Helpers
                 var cl = new Cliente(c.Username);
                 var result = GenerarRecomendacion(cl);
 
-                    string[] doubleV = ParsearString(result);
-                    
-                    int i=1;
+                    //string[] doubleV = ParsearString(result);
+                    double[] doubleV = ParsearString(result);
+
+                int i =1;
 
                     if (cl.AccionAutomatica == true)
                     {
@@ -93,11 +94,11 @@ namespace TP0.Helpers
                         foreach (var di in LDI)
                         {
                         
-                        var rep = doubleV[i].Replace(".", ",");
-                        var valorDouble = Convert.ToDouble(rep);
+                        //var rep = doubleV[i].Replace(".", ",");
+                        //var valorDouble = Convert.ToDouble(rep);
                         
                         var disp = new DispositivoInteligente(di.DispositivoID);
-                            if (valorDouble * disp.KWxHora < disp.ConsumoEnHoras(DateTime.Now.Day*24))
+                            if (/*valorDouble*/ doubleV[i] * disp.KWxHora < disp.ConsumoEnHoras(DateTime.Now.Day*24))
                             {
                                 disp.Apagar();
                             }
@@ -106,10 +107,10 @@ namespace TP0.Helpers
                     }
                 }
         }
- 
 
 
-        public string[] ParsearString(string str)
+        //public string[] ParsearString(string str)
+        public double[] ParsearString(string str)
         {
             str = str.Replace("[", "");
             str = str.Replace("]", "");
@@ -119,13 +120,14 @@ namespace TP0.Helpers
 
             for (int i = 0; i < respuestaArrayString.Length; i++)
             {
-                respuestaArrayString[i] = respuestaArrayString[i].Replace(".", ",");
-                respuestaArrayDouble[i] = Convert.ToDouble(respuestaArrayString[i]);
-                respuestaArrayString[i] = Convert.ToString(Math.Round(respuestaArrayDouble[i], 2));
-                respuestaArrayString[i] = respuestaArrayString[i].Replace(",", ".");
+                //respuestaArrayString[i] = respuestaArrayString[i].Replace(".", ",");
+                var num = float.Parse(respuestaArrayString[i], System.Globalization.CultureInfo.InvariantCulture.NumberFormat);
+                respuestaArrayDouble[i] = Math.Round(num, 2);
+                //respuestaArrayString[i] = Convert.ToString(respuestaArrayDouble[i]);
+                //respuestaArrayString[i] = respuestaArrayString[i].Replace(",", ".");
             }
-            
-            return respuestaArrayString;
+            return respuestaArrayDouble;
+            //return respuestaArrayString;
         }
 
         public void CrearTimer()
