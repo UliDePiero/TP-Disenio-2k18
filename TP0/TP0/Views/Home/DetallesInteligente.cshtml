@@ -19,80 +19,76 @@
 </div>
 
 
+<div class="box">
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayName("Sensor")
+            </th>
 
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayName("Sensor")
-        </th>
+            <th style="text-align: center;">
+                @Html.DisplayName("Descripción")
+            </th>
+            <th style="text-align: center;">
+                @Html.DisplayName("Se cumple")
+            </th>
+            <th style="text-align: center;">
+                @Html.DisplayName("Valor minimo")
+            </th>
+            <th style="text-align: center;">
+                @Html.DisplayName("Valor maximo")
 
-        <th style="text-align: center;">
-            @Html.DisplayName("Descripción")
-        </th>
-        <th style="text-align: center;">
-            @Html.DisplayName("Se cumple")
-        </th>
-        <th style="text-align: center;">
-            @Html.DisplayName("Valor minimo")
-        </th>
-        <th style="text-align: center;">
-            @Html.DisplayName("Valor maximo")
-
-    </tr>
-    @foreach (TP0.Helpers.Sensor s in Model.GetSensores())
-    {
-        foreach (TP0.Helpers.Regla r in s.Reglas)
+        </tr>
+        @foreach (TP0.Helpers.Sensor s in Model.GetSensores())
         {
-            <tr>
+            foreach (TP0.Helpers.Regla r in s.Reglas)
+            {
+                <tr>
 
-                <td style="text-align: center;">
-                    @r.Tipo
-                </td>
-                <td style="text-align: center;">
-                    @r.Descripcion
-                </td>
-                <td style="text-align: center;">
-                    @r.SeCumple
-                </td>
-                <td style="text-align: center;">
-                    @r.ValorMax
-                </td>
-                <td style="text-align: center;">
-                    @r.ValorMin
-                </td>
-                <td class="btn" style="border-style: solid;
+                    <td style="text-align: center;">
+                        @r.Tipo
+                    </td>
+                    <td style="text-align: center;">
+                        @r.Descripcion
+                    </td>
+                    <td style="text-align: center;">
+                        @r.SeCumple
+                    </td>
+                    <td style="text-align: center;">
+                        @r.ValorMax
+                    </td>
+                    <td style="text-align: center;">
+                        @r.ValorMin
+                    </td>
+                    <td class="btn" style="border-style: solid;
         border-color:steelblue;">
-                    @Html.ActionLink("Borrar regla", "BorrarRegla", new { rID = r.ReglaID, dID = Model.DispositivoID })
-                </td>
-            </tr>
+                        @Html.ActionLink("Borrar regla", "BorrarRegla", new { rID = r.ReglaID, dID = Model.DispositivoID })
+                    </td>
+                </tr>
+            }
         }
-    }
 
-</table>
+    </table>
+
+</div>
 <div class="container">
     <span class="info">
         <div style="    margin: 0px 0px 50px 0px;">
 
             @Html.ActionLink("+Crear nueva regla", "CrearRegla", new { id = Model.DispositivoID }, new { @class = "btn" })
         </div>
-        </span></div>
+    </span>
+</div>
 <hr />
-        <div class="container">
-            <span class="info">
-              
-                <div style="margin:10px;">
-                    @using (Html.BeginForm("BorrarDispositivoClie", "Home", new { id = Model.DispositivoID }))
-                    {
-                        <input type="submit" class="btn" value="Eliminar dispositivo" onclick="alertBox()">
-                    }
-                    <h4><font color="red">ADVERTENCIA: ESTA ACCIÓN NO PUEDE DESHACERSE</font></h4>
-                </div>
-            </span>
-        </div>
+<div class="container">
+    <span class="info">
 
-
-        <script>
-            function alertBox() {
-                alert("Dispositivo eliminado exitosamente");
+        <div style="margin:10px;">
+            @using (Html.BeginForm("BorrarDispositivoClie", "Home", new { id = Model.DispositivoID }))
+            {
+                <input type="submit" class="btn" value="Eliminar dispositivo" onclick="alertBox()">
             }
-        </script>
+            <h4><font color="red">ADVERTENCIA: ESTA ACCIÓN NO PUEDE DESHACERSE</font></h4>
+        </div>
+    </span>
+</div>

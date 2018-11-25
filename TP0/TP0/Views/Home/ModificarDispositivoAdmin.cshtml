@@ -6,31 +6,31 @@
         <h2>Editar Dispositivo</h2>
     </div>
 
-    <table class="table">
-        <tr>
-            <th>
-                @Html.Label("Nombre")
-            </th>
-            <th style="text-align: center;">
+    using (Html.BeginForm("GuardarCambioDispositivoAdmin/" + Model.DispositivoID, "Home", FormMethod.Post))
+    {
+        <table class="table">
+            <tr>
+                <th>
+                    @Html.Label("Nombre")
+                </th>
+                <th style="text-align: center;">
 
-                @Html.Label("EsInteligente")
-            </th>
-            <th style="text-align: center;">
-                @Html.Label("Codigo")
-            </th>
-            <th style="text-align: center;">
-                @Html.Label("Min")
-            </th>
-            <th style="text-align: center;">
-                @Html.Label("Max")
-            </th>
-            <th style="text-align: center;">
-                @Html.Label("kWxHora")
-            </th>
-        </tr>
+                    @Html.Label("EsInteligente")
+                </th>
+                <th style="text-align: center;">
+                    @Html.Label("Codigo")
+                </th>
+                <th style="text-align: center;">
+                    @Html.Label("Min")
+                </th>
+                <th style="text-align: center;">
+                    @Html.Label("Max")
+                </th>
+                <th style="text-align: center;">
+                    @Html.Label("kWxHora")
+                </th>
+            </tr>
 
-        @using (Html.BeginForm("GuardarCambioDispositivoAdmin" + Model.DispositivoID, "Home", FormMethod.Post))
-        {
             <tr>
                 <td>
                     @Html.EditorFor(model => model.Nombre)
@@ -52,17 +52,17 @@
                 </td>
 
             </tr>
-        }
-    </table>
+
+        </table>
 
 
 
-    <h4>
-        <button class="btn">
-            Guardar
-        </button>
-    </h4>
-
+        <h4>
+            <button class="btn">
+                Guardar
+            </button>
+        </h4>
+    }
     <hr />
     <h4>
         <button class="btn">

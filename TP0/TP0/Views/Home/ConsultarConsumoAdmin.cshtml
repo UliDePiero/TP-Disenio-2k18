@@ -29,3 +29,11 @@
         </fieldset>
     </form>
 }
+<input type="text" id="txtFromDate" />
+
+<script>
+    var today = new Date().toISOString().split('T')[0];
+    document.getElementsByName("FechaFin")[0].setAttribute('max', today);
+    document.getElementsByName("FechaInicio")[0].setAttribute('max', today);
+
+</script>

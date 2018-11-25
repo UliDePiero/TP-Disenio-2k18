@@ -6,31 +6,31 @@
         <h2>Administracion de casas de usuarios</h2>
         <h4>Total casas: @Model.Count()</h4>
     </div>
+    <div class="box" >
+        <table class="table">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Nombre)
+                </th>
+                <th style="text-align: center;">
+                    @Html.DisplayNameFor(model => model.Domicilio)
+                </th>
+                <th style="text-align: center;">
+                    @Html.DisplayNameFor(model => model.Telefono)
+                </th>
 
-    <table class="table">
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Nombre)
-            </th>
-            <th style="text-align: center;">
-                @Html.DisplayNameFor(model => model.Domicilio)
-            </th>
-            <th style="text-align: center;">
-                @Html.DisplayNameFor(model => model.Telefono)
-            </th>
+                <th style="text-align: center;">
+                    @Html.DisplayName("Dispositivos")
+                </th>
+                <th style="text-align: center;">
+                    @Html.DisplayName("Dispositivos encendidos")
+                </th>
+                <th style="text-align: center;">
+                    @Html.DisplayName("Consumo actual")
+                </th>
+            </tr>
 
-            <th style="text-align: center;">
-                @Html.DisplayName("Dispositivos")
-            </th>
-            <th style="text-align: center;">
-                @Html.DisplayName("Dispositivos encendidos")
-            </th>
-            <th style="text-align: center;">
-                @Html.DisplayName("Consumo actual")
-            </th>
-        </tr>
-
-        @foreach (var item in Model)
+            @foreach (var item in Model)
         {
             <tr>
                 <td>
@@ -52,11 +52,11 @@
                     @item.ConsumoActual()
                 </td>
             </tr>
-        }
-    </table>
-
+    }
+        </table>
+    </div>
 }
 else
 {
-    @{ Response.Redirect("~/Shared/Error");}
+
 }

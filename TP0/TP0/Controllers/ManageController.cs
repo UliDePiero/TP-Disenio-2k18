@@ -7,6 +7,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using TP0.Models;
+using TP0.Helpers;
 
 namespace TP0.Controllers
 {
@@ -73,6 +74,14 @@ namespace TP0.Controllers
                 BrowserRemembered = await AuthenticationManager.TwoFactorBrowserRememberedAsync(userId)
             };
             return View(model);
+        }
+
+        public ActionResult GetDatos() {
+            var userId = User.Identity.GetUserId();
+            Cliente c = new Cliente(userId);
+
+
+            return View(c);
         }
 
         //
