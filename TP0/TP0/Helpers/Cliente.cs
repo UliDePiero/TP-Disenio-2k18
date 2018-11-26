@@ -269,14 +269,10 @@ namespace TP0.Helpers
 
         public double TotalConsumo()
         {
-            int Disp = 0;
+            int Disp = Dispositivos.Count();
             double acumuladoKw = 0;
-            foreach (Dispositivo disp in Dispositivos)
-            {
-                //acumuladoKw += disp.Consumo();
-                acumuladoKw += disp.ConsumoEnPeriodo(Convert.ToDateTime(FechaDeAlta), DateTime.Now);
-                Disp++;
-            }
+            acumuladoKw = KwTotales(Convert.ToDateTime(FechaDeAlta), DateTime.Now);
+
             return (acumuladoKw == 0 || Disp == 0) ? 0 : acumuladoKw / Disp;
         }
         public double ConsumoActual()
@@ -296,19 +292,10 @@ namespace TP0.Helpers
         public override double KwTotales(DateTime fInicial, DateTime fFinal)
         {
             double Consumo = 0;
-            Dispositivos = GetDisps();
+
             foreach (var disp in Dispositivos)
-                if (disp.EsInteligente)
-                {
-                    var di = new DispositivoInteligente(disp.DispositivoID);
-                    Consumo += di.ConsumoEnPeriodo(fInicial, fFinal);
-                }
-                else
-                {
-                    var de = new DispositivoEstandar(disp.DispositivoID);
-                    Consumo += de.ConsumoEnPeriodo(fInicial, fFinal);
-                }
-            
+                Consumo += disp.ConsumoEnPeriodo(fInicial, fFinal);
+                            
             return Consumo;
         }
 
