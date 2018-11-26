@@ -69,3 +69,9 @@
         </tr>
     </table>
 }
+else
+{
+    var page = HttpContext.Current.Handler as Page;
+    Response.Redirect(page.GetRouteUrl("Default",
+        new { Controller = "Shared", Action = "Error" }), false);
+}

@@ -90,18 +90,18 @@ namespace TP0.Helpers.Static
             }
         }
 
-        public static double kwPorDispositivo(int id)
+        public static double kwPorDispositivo(string id)
         {
             double kw;
             using (var db = new DBContext())
             {
                 LlenarDisps();
                 List<DispositivoEstatico> dispEstaticos = opcionesDeDispositivos;
-                DispositivoEstatico dispEstatico = opcionesDeDispositivos.Find(d => d.DispositivoID == id);
-                string nombre = dispEstatico.Nombre;
+                DispositivoEstatico dispEstatico = opcionesDeDispositivos.Find(d => d.Codigo == id);
+                string codigo = dispEstatico.Codigo;
 
                 List<Dispositivo> disps = db.Dispositivos.ToList();
-                disps.Where(d => d.Nombre == nombre);
+                disps.Where(d => d.Codigo == codigo);
                 kw = disps.Sum(d => d.KWxHora);
                 return kw;
             }
