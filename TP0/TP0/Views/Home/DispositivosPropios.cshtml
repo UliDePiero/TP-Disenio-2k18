@@ -11,7 +11,7 @@
 
 <div class="box">
     <span class="info">
-        <h3>Consumo promedio total: @Model.TotalConsumo() KwH</h3>
+        <h3>Consumo promedio historico: @Model.TotalConsumo() KwH</h3>
            <h3>Dispositivos: @Model.Dispositivos.Count() </h3>
         <div class="box">
             <div>
@@ -48,7 +48,7 @@
                 </th>
 
                 <th style="text-align: center;">
-                    @Html.DisplayName("Consumo Acumulado")
+                    @Html.DisplayName("Consumo Acumulado Historico")
                 </th>
                 <th>
                     @Html.DisplayName("Estado")
