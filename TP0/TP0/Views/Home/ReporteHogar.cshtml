@@ -19,15 +19,15 @@
                 </div>
                 <div>
                     <label for="FechaInicio">Fecha inicio:</label>
-                    <input type="date" id="fechaInicioID"
+                    <input type="datetime-local" id="fechaInicioID" value="@DateTime.Now.ToString("yyyy-"+(DateTime.Now.Month-1)+"-ddTHH:mm")"
                            name="FechaInicio"
                            min="2010-01-01" max="2050-06-14" required />
                     <span class="validity"></span>
 
                     <div>
                         <label for="FechaFin">Fecha fin:</label>
-                        <input type="date" id="fechaFinID"
-                               name="FechaFin"
+                        <input type="datetime-local" id="fechaFinID"
+                               name="FechaFin" value="@DateTime.Now.ToString("yyyy-MM-ddTHH:mm")"
                                min="2010-01-01" max="2050-06-14" required />
                         <span class="validity"></span>
                     </div>
