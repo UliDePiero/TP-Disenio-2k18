@@ -19,7 +19,7 @@ namespace TP0.Helpers
             }
             else {return mongo;}
         }
-        public static List<Reporte> getReporte(string tipo, int id, DateTime fechaInicio, DateTime fechaFin)
+        public static List<Reporte> getReporte(string tipo, string id, DateTime fechaInicio, DateTime fechaFin)
         {
             var client = getInstance();
             var dbmongo = client.GetDatabase("dbtp0");

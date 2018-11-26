@@ -78,7 +78,7 @@ namespace TP0.Controllers
 
                 //if(reporte esta en mongo){find} else{ se crea y se guarda en mongo}
 
-                var reportesEncontrados = Mongo.getReporte("Hogar", usu.UsuarioID, FechaInicio, FechaFin);
+                var reportesEncontrados = Mongo.getReporte("Hogar", usu.UsuarioID.ToString(), FechaInicio, FechaFin);
                 if (reportesEncontrados.Count > 0)
                 {
                     var reporte = reportesEncontrados[0];
@@ -101,7 +101,7 @@ namespace TP0.Controllers
         {
             ViewBag.consumo = "";
             List<SelectListItem> dispositivosSelectList = DispositivosTotales.GetDispositivos();//se carga lista de dispositivos
-            ViewBag.IdSeleccionado = dispositivosSelectList;
+            ViewBag.DispositivoSeleccionado = dispositivosSelectList;
 
             return View();
         }
@@ -109,30 +109,36 @@ namespace TP0.Controllers
         [Authorize]
         public ActionResult ReporteDispositivo(SubmitViewModel model, DateTime FechaInicio, DateTime FechaFin)
         {
-
             using (var db = new DBContext())
             {
-                DispositivoEstatico disp = db.DispEstaticos.FirstOrDefault(d=>d.DispositivoID==model.IdSeleccionado);
-                Reporte reporteModelo = new Reporte("Dispositivo", disp.DispositivoID.ToString(), 0, FechaInicio, FechaFin);
-
                 List<SelectListItem> dispositivosSelectList = DispositivosTotales.GetDispositivos();//se carga lista de dispositivos
-                ViewBag.IdSeleccionado = dispositivosSelectList;
+                ViewBag.DispositivoSeleccionado = dispositivosSelectList;
+                DispositivoEstatico disp = db.DispEstaticos.FirstOrDefault(d => d.Codigo == model.DispositivoSeleccionado);
+                ViewBag.nombre = disp.Nombre;
 
-                //if(reporte esta en mongo){find} else{ se crea y se guarda en mongo}
-                var reportesEncontrados = Mongo.getReporte("Dispositivo", disp.DispositivoID, FechaInicio, FechaFin);
-                if (reportesEncontrados.Count > 0)
-                {
-                    var reporte = reportesEncontrados[0];
-                    ViewBag.consumo = "Consumo: " + reporte.consumo.ToString() + "Kw";
+                if (db.Dispositivos.FirstOrDefault(d => d.Codigo == disp.Codigo) != null) {
+                    Reporte reporteModelo = new Reporte("Dispositivo", disp.Codigo, 0, FechaInicio, FechaFin);
+
+                    //if(reporte esta en mongo){find} else{ se crea y se guarda en mongo}
+                    var reportesEncontrados = Mongo.getReporte("Dispositivo", disp.Codigo, FechaInicio, FechaFin);
+                    if (reportesEncontrados.Count > 0)
+                    {
+                        var reporte = reportesEncontrados[0];
+                        ViewBag.consumo = "Consumo: " + reporte.consumo.ToString() + "Kw";
+                    }
+                    else
+                    {
+                        reporteModelo.consumo = DispositivosTotales.kwPorDispositivo(disp.Codigo);
+                        ViewBag.consumo = "Consumo: " + reporteModelo.consumo + "Kw";
+                        Mongo.insertarReporte(reporteModelo);
+                    }
+                    ViewBag.fechas = FechaInicio.ToShortDateString() + " - " + FechaFin.ToShortDateString();
                 }
                 else
                 {
-                    reporteModelo.consumo = DispositivosTotales.kwPorDispositivo(disp.DispositivoID);
-                    ViewBag.consumo = "Consumo: " + reporteModelo.consumo + "Kw";
-                    Mongo.insertarReporte(reporteModelo);
+                    ViewBag.consumo = "Ningun usuario utiliza este dispositivo";
+                    ViewBag.fechas = "";
                 }
-                ViewBag.fechas = FechaInicio.ToShortDateString() + " - " + FechaFin.ToShortDateString();
-                ViewBag.nombre = disp.Nombre;
             }
             return View();
         }
@@ -170,7 +176,7 @@ namespace TP0.Controllers
                 ViewBag.IdSeleccionado = dispositivosSelectList;
 
                 //if(reporte esta en mongo){find} else{ se crea y se guarda en mongo}
-                var reportesEncontrados = Mongo.getReporte("Transformador", trans.TransformadorID, FechaInicio, FechaFin);
+                var reportesEncontrados = Mongo.getReporte("Transformador", trans.TransformadorID.ToString(), FechaInicio, FechaFin);
                 if (reportesEncontrados.ToList<Reporte>().Count > 0)
                 {
                     var reporte = reportesEncontrados.ToList<Reporte>()[0];
@@ -335,7 +341,7 @@ namespace TP0.Controllers
 
                 //if(reporte esta en mongo){find} else{ se crea y se guarda en mongo}
 
-                var reportesEncontrados = Mongo.getReporte("Hogar", usu.UsuarioID, FechaInicio, FechaFin);
+                var reportesEncontrados = Mongo.getReporte("Hogar", usu.UsuarioID.ToString(), FechaInicio, FechaFin);
                 if (reportesEncontrados.Count > 0)
                 {
                     var reporte = reportesEncontrados[0];
@@ -580,7 +586,7 @@ namespace TP0.Controllers
             Reporte reporteModelo = new Reporte("Hogar", clie.UsuarioID.ToString(), 0, FechaInicio, FechaFin);
 
             //if(reporte esta en mongo){find} else{ se crea y se guarda en mongo}
-            var reportesEncontrados = Mongo.getReporte("Hogar", clie.UsuarioID, FechaInicio, FechaFin);
+            var reportesEncontrados = Mongo.getReporte("Hogar", clie.UsuarioID.ToString(), FechaInicio, FechaFin);
             if (reportesEncontrados.Count > 0)
             {
                 var reporte = reportesEncontrados[0];
