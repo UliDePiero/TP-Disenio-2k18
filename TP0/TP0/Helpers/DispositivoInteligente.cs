@@ -59,7 +59,7 @@ namespace TP0.Helpers
                 DispositivoID = Disp.DispositivoID;
                 actuadores = new List<Actuador>();
                 //act = new Actuador(DispositivoID);
-
+                ActualizarConsumoAcumulado(new Cliente(UsuarioID).FechaDeAlta);
             }
         }
 
@@ -127,6 +127,10 @@ namespace TP0.Helpers
             Estado.AhorrarEnergia(this);
         }
 
+        public override void ActualizarConsumoAcumulado(string fechaAlta)
+        {
+            ConsumoAcumulado = ConsumoEnPeriodo(DateTime.Parse(fechaAlta), DateTime.Now);
+        }
         public override double Consumo()
         {
             double acumuladoKw = 0;

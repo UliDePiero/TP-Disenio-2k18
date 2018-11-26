@@ -40,6 +40,7 @@ namespace TP0.Helpers
                 UsuarioID = Disp.UsuarioID;
                 DispositivoID = Disp.DispositivoID;
                 //act = new Actuador(DispositivoID);
+                ActualizarConsumoAcumulado(new Cliente(UsuarioID).FechaDeAlta);
             }
         }
 
@@ -64,6 +65,10 @@ namespace TP0.Helpers
             return convertido;
         }
 
+        public override void ActualizarConsumoAcumulado(string fechaAlta)
+        {
+            ConsumoAcumulado = ConsumoEnPeriodo(DateTime.Parse(fechaAlta), DateTime.Now);
+        }
         public override double Consumo()
         {
             //ConsumoAcumulado = HorasXDia * KWxHora;

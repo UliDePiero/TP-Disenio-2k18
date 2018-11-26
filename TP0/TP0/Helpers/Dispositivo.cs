@@ -46,5 +46,6 @@ namespace TP0.Helpers
         public abstract void AgregarEstado(State est);
         public abstract DispositivoInteligente ConvertirEnInteligente(string marca);
         public abstract State GetEstado();
+        public abstract void ActualizarConsumoAcumulado(string FechaAlta);
     }
 }

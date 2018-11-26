@@ -344,6 +344,7 @@ namespace TP0.Helpers
                     //Reconoce que hay un error pero
                     //No hace nada porque los standar no tienen estados
                 }
+                d.ActualizarConsumoAcumulado(FechaDeAlta);
             }
         }
 

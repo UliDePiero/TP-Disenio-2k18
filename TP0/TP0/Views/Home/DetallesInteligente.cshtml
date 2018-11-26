@@ -3,8 +3,14 @@
 <div class="jumbotron">
     <h2>@Model.Nombre</h2>
     <h4>KW por hora: @Model.KWxHora</h4>
-    <h4>Consumo Acumulado en minutos: @Model.ConsumoAcumulado</h4>
+    <h4>Consumo Acumulado: @Model.ConsumoAcumulado Kw</h4>
     <h4>Estado actual: @Model.GetEstado().Desc</h4>
+    <div style="margin:10px;">
+        @using (Html.BeginForm("DispositivosPropios", "Home", FormMethod.Get))
+        {
+            <input type="submit" class="btn" value="Volver">
+        }
+    </div>
 </div>
 
 <div class="container">
