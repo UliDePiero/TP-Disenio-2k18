@@ -273,7 +273,7 @@ namespace TP0.Helpers
             double acumuladoKw = 0;
             acumuladoKw = KwTotales(Convert.ToDateTime(FechaDeAlta), DateTime.Now);
 
-            return (acumuladoKw == 0 || Disp == 0) ? 0 : acumuladoKw / Disp;
+            return (acumuladoKw == 0 || Disp == 0) ? 0 : Math.Round(acumuladoKw / Disp, 3);
         }
         public double ConsumoActual()
         {
@@ -295,8 +295,8 @@ namespace TP0.Helpers
 
             foreach (var disp in Dispositivos)
                 Consumo += disp.ConsumoEnPeriodo(fInicial, fFinal);
-                            
             return Consumo;
+            
         }
 
         public void AccionAutomaticaON()
@@ -369,15 +369,15 @@ namespace TP0.Helpers
                 i++;
             }
             var DispsOrdernados = LDE.Concat(LDI); //Ordenar dispositivos: Primero LDI y despues los LDE
-            var RecomendacionXDispositivos = new RecomendacionXDisp[i];
+            var RecomendacionXDispositivos = new RecomendacionXDisp[i-1];
 
             int j=0;
-            var tiempoTotal = new RecomendacionXDisp(); //Estructura
+            /*var tiempoTotal = new RecomendacionXDisp(); //Estructura
             tiempoTotal.NombreDispositivo = "Total acumulado";
-            tiempoTotal.KWxHoraPuedeConsumir = Math.Round(doubleV[j], 2);
+            tiempoTotal.KWxHoraPuedeConsumir = Math.Round(doubleV[j], 3);
             //tiempoTotal.KWxHoraPuedeConsumir = doubleV[j];
             RecomendacionXDispositivos[0]=tiempoTotal;
-            j++;
+            j++;*/
 
             double horasDelMes = DateTime.Now.Day*24;
 
@@ -385,25 +385,32 @@ namespace TP0.Helpers
             {
                 var recXdisp = new RecomendacionXDisp();
                 recXdisp.NombreDispositivo = disp.Nombre;
+                
+                //esto no borrar, soluciona el desfasaje del simplex
+                if (doubleV[j] > disp.Max)
+                    doubleV[j] = disp.Max;
+                if (doubleV[j] < disp.Min)
+                    doubleV[j] = disp.Min;
+                    
                 recXdisp.KWxHoraPuedeConsumir = doubleV[j];
                 if (disp.EsInteligente)
                 {
                     var di = new DispositivoInteligente(disp.DispositivoID);
-                    recXdisp.KWxHoraConsumidos = Math.Round(di.ConsumoEnHoras(horasDelMes),2);
+                    recXdisp.KWxHoraConsumidos = Math.Round(di.ConsumoEnHoras(horasDelMes), 3);
                 }
                 else
                 {
                     var de = new DispositivoEstandar(disp.DispositivoID);
-                    recXdisp.KWxHoraConsumidos = Math.Round(de.ConsumoEnHoras(horasDelMes),2);
+                    recXdisp.KWxHoraConsumidos = Math.Round(de.ConsumoEnHoras(horasDelMes), 3);
                 }
                 RecomendacionXDispositivos[j] = recXdisp;
                 j++;
             }
 
-            for (i = 1; i < j; i++)
+            /*for (i = 1; i < j; i++)
             {
                 RecomendacionXDispositivos[0].KWxHoraConsumidos += RecomendacionXDispositivos[i].KWxHoraConsumidos;
-            }
+            }*/
 
             return RecomendacionXDispositivos;
     }

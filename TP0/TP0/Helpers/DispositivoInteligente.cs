@@ -201,7 +201,7 @@ namespace TP0.Helpers
                 estadosAnteriores = db.Estados.Where(e => e.DispositivoID == DispositivoID).ToList();
             }
             double hs = Static.FechasAdmin.ConsumoHsTotalPeriodo(fInicial, fFinal, estadosAnteriores);
-            return hs * KWxHora;
+            return Math.Round(hs * KWxHora, 3);
         }
 
         public override void AgregarEstado(State est)

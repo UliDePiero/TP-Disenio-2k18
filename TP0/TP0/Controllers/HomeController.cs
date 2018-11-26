@@ -582,6 +582,11 @@ namespace TP0.Controllers
                 FechaFin = DateTime.Now;
 
             Cliente clie = new Cliente(User.Identity.Name);
+
+            var fmin = Convert.ToDateTime(clie.FechaDeAlta);
+            if (FechaInicio < fmin)
+                FechaInicio = fmin;
+
             clie.CargarDisps();
             Reporte reporteModelo = new Reporte("Hogar", clie.UsuarioID.ToString(), 0, FechaInicio, FechaFin);
 

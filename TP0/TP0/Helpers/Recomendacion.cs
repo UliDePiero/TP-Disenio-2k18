@@ -122,7 +122,7 @@ namespace TP0.Helpers
             {
                 //respuestaArrayString[i] = respuestaArrayString[i].Replace(".", ",");
                 var num = float.Parse(respuestaArrayString[i], System.Globalization.CultureInfo.InvariantCulture.NumberFormat);
-                respuestaArrayDouble[i] = Math.Round(num, 2);
+                respuestaArrayDouble[i] = Math.Round(num, 3);
                 //respuestaArrayString[i] = Convert.ToString(respuestaArrayDouble[i]);
                 //respuestaArrayString[i] = respuestaArrayString[i].Replace(",", ".");
             }
