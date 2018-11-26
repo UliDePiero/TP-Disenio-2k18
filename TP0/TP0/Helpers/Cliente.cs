@@ -369,15 +369,15 @@ namespace TP0.Helpers
                 i++;
             }
             var DispsOrdernados = LDE.Concat(LDI); //Ordenar dispositivos: Primero LDI y despues los LDE
-            var RecomendacionXDispositivos = new RecomendacionXDisp[i-1];
+            var RecomendacionXDispositivos = new RecomendacionXDisp[i];
 
             int j=0;
-            /*var tiempoTotal = new RecomendacionXDisp(); //Estructura
+            var tiempoTotal = new RecomendacionXDisp(); //Estructura
             tiempoTotal.NombreDispositivo = "Total acumulado";
             tiempoTotal.KWxHoraPuedeConsumir = Math.Round(doubleV[j], 3);
             //tiempoTotal.KWxHoraPuedeConsumir = doubleV[j];
             RecomendacionXDispositivos[0]=tiempoTotal;
-            j++;*/
+            j++;
 
             double horasDelMes = DateTime.Now.Day*24;
 
@@ -391,8 +391,9 @@ namespace TP0.Helpers
                     doubleV[j] = disp.Max;
                 if (doubleV[j] < disp.Min)
                     doubleV[j] = disp.Min;
-                    
+
                 recXdisp.KWxHoraPuedeConsumir = doubleV[j];
+
                 if (disp.EsInteligente)
                 {
                     var di = new DispositivoInteligente(disp.DispositivoID);
@@ -407,10 +408,10 @@ namespace TP0.Helpers
                 j++;
             }
 
-            /*for (i = 1; i < j; i++)
+            for (i = 1; i < j; i++)
             {
                 RecomendacionXDispositivos[0].KWxHoraConsumidos += RecomendacionXDispositivos[i].KWxHoraConsumidos;
-            }*/
+            }
 
             return RecomendacionXDispositivos;
     }
