@@ -90,22 +90,29 @@ namespace TP0.Helpers.Static
             }
         }
 
-        public static double kwPorDispositivo(string id)
+        public static double kwPorDispositivo(string codigo)
         {
-            double kw;
+            double kw = 0;
             using (var db = new DBContext())
             {
                 LlenarDisps();
-                List<DispositivoEstatico> dispEstaticos = opcionesDeDispositivos;
-                DispositivoEstatico dispEstatico = opcionesDeDispositivos.Find(d => d.Codigo == id);
-                string codigo = dispEstatico.Codigo;
-
                 List<Dispositivo> disps = db.Dispositivos.ToList();
                 disps.Where(d => d.Codigo == codigo);
                 kw = disps.Sum(d => d.KWxHora);
-                return kw;
             }
+            return kw;
         }
 
+        public static double kwPorDispositivo(string codigo, DateTime fechaI, DateTime fechaF)
+        {
+            double kw = 0;
+            using (var db = new DBContext())
+            {
+                List <Dispositivo> dispositivos = db.Dispositivos.Where(d => d.Codigo == codigo).ToList();
+                foreach (Dispositivo d in dispositivos)
+                    kw += d.ConsumoEnPeriodo(fechaI, fechaF);
+            }
+            return kw;
+        }
     }
 }

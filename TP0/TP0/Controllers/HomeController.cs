@@ -128,7 +128,7 @@ namespace TP0.Controllers
                     }
                     else
                     {
-                        reporteModelo.consumo = DispositivosTotales.kwPorDispositivo(disp.Codigo);
+                        reporteModelo.consumo = DispositivosTotales.kwPorDispositivo(disp.Codigo, FechaInicio, FechaFin);
                         ViewBag.consumo = "Consumo: " + reporteModelo.consumo + "Kw";
                         Mongo.insertarReporte(reporteModelo);
                     }
