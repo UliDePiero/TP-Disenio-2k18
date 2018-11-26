@@ -387,11 +387,11 @@ namespace TP0.Helpers
                 recXdisp.NombreDispositivo = disp.Nombre;
                 
                 //esto no borrar, soluciona el desfasaje del simplex
-                if (doubleV[j] > disp.Max)
+                /*if (doubleV[j] > disp.Max)
                     doubleV[j] = disp.Max;
                 if (doubleV[j] < disp.Min)
                     doubleV[j] = disp.Min;
-
+                */
                 recXdisp.KWxHoraPuedeConsumir = doubleV[j];
 
                 if (disp.EsInteligente)
