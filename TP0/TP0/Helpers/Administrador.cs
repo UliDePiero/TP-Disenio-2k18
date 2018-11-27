@@ -83,7 +83,10 @@ namespace TP0.Helpers
         {
             throw new NotImplementedException();
         }
-
+        public override void ConectarseAlTrafoMasProx()
+        {
+            throw new NotImplementedException();
+        }
         public override double EstimarFacturacion(DateTime fInicial, DateTime fFinal)
         {
             throw new NotImplementedException();

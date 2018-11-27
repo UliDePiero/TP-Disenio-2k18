@@ -376,7 +376,7 @@ namespace TP0.Helpers
             tiempoTotal.NombreDispositivo = "Total acumulado";
             tiempoTotal.KWxHoraPuedeConsumir = Math.Round(doubleV[j], 3);
             //tiempoTotal.KWxHoraPuedeConsumir = doubleV[j];
-            RecomendacionXDispositivos[0]=tiempoTotal;
+            RecomendacionXDispositivos[j]=tiempoTotal;
             j++;
 
             double horasDelMes = DateTime.Now.Day*24;
@@ -394,6 +394,8 @@ namespace TP0.Helpers
                 */
                 recXdisp.KWxHoraPuedeConsumir = doubleV[j];
 
+                recXdisp.KWxHoraConsumidos = Math.Round(disp.ConsumoEnHoras(horasDelMes), 3);
+                /*
                 if (disp.EsInteligente)
                 {
                     var di = new DispositivoInteligente(disp.DispositivoID);
@@ -403,7 +405,7 @@ namespace TP0.Helpers
                 {
                     var de = new DispositivoEstandar(disp.DispositivoID);
                     recXdisp.KWxHoraConsumidos = Math.Round(de.ConsumoEnHoras(horasDelMes), 3);
-                }
+                }*/
                 RecomendacionXDispositivos[j] = recXdisp;
                 j++;
             }
@@ -421,7 +423,7 @@ namespace TP0.Helpers
             categoria = CategoriasPosibles.GetCategoria(TotalConsumo());
         }
 
-        public void ConectarseAlTrafoMasProx()
+        public override void ConectarseAlTrafoMasProx()
         {
             var point = UbicacionDomicilio();
             using (var context = new DBContext())
@@ -436,6 +438,7 @@ namespace TP0.Helpers
                         dmin = d;
                     }
                 }
+                context.SaveChanges();
             }
         }
 

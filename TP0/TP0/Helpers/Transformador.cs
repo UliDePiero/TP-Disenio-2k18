@@ -38,7 +38,8 @@ namespace TP0.Helpers
         public Transformador(double latitud, double longitud)
         {
             Latitud = latitud;
-            Longitud = longitud; 
+            Longitud = longitud;
+
         }
         public Transformador(int id, int Zonaid, double latitud, double longitud, int Energia)
         {
