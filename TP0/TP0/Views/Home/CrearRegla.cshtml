@@ -2,53 +2,54 @@
 <div class="jumbotron">
     <h2>Crear regla</h2>
 </div>
-<div class="form">
-    <table class="table">
-        @using (Html.BeginForm("CrearRegla", "Home", FormMethod.Post, new { id = ViewBag.id }))
-        {
-            <tr>
-                <td>
-                    @Html.Label("ValorMax")
-                </td>
-                <td style="text-align: center;">
-                    @Html.EditorFor(model => model.ValorMax)
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    @Html.Label("ValorMin")
-                </td>
-                <td style="text-align: center;">
-                    @Html.EditorFor(model => model.ValorMin)
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    @Html.Label("Tipo")
-                </td>
-                <td style="text-align: center;">
-                    @Html.DropDownListFor(model => model.Tipo, (IEnumerable<SelectListItem>)ViewBag.Tipo)
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    @Html.Label("Descripcion")
-                </td>
-                <td style="text-align: center;">
-                    @Html.DropDownListFor(model => model.Descripcion, (IEnumerable<SelectListItem>)ViewBag.Descripcion)
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <button class="btn" style="background-color:steelblue;">
-                        Crear
-                    </button>
-                </td>
-                <td></td>
-            </tr>
-        }
-    </table>
-
+<div class="box">
+  
+        <table class="table">
+            @using (Html.BeginForm("CrearRegla", "Home", FormMethod.Post, new { id = ViewBag.id }))
+            {
+                <tr>
+                    <td>
+                        @Html.Label("ValorMax")
+                    </td>
+                    <td style="text-align: center;">
+                        @Html.EditorFor(model => model.ValorMax)
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        @Html.Label("ValorMin")
+                    </td>
+                    <td style="text-align: center;">
+                        @Html.EditorFor(model => model.ValorMin)
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        @Html.Label("Tipo")
+                    </td>
+                    <td style="text-align: center;">
+                        @Html.DropDownListFor(model => model.Tipo, (IEnumerable<SelectListItem>)ViewBag.Tipo)
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        @Html.Label("Descripcion")
+                    </td>
+                    <td style="text-align: center;">
+                        @Html.DropDownListFor(model => model.Descripcion, (IEnumerable<SelectListItem>)ViewBag.Descripcion)
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <button class="btn" style="background-color:steelblue;">
+                            Crear
+                        </button>
+                    </td>
+                    <td></td>
+                </tr>
+            }
+        </table>
+       
 </div>
 <h4>
     <button class="btn">
