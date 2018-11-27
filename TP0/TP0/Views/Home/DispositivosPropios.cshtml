@@ -53,7 +53,8 @@
                 <th>
                     @Html.DisplayName("Estado")
                 </th>
-
+                <th>Cambiar estado</th>
+              
             </tr>
 
             @foreach (var item in Model.Dispositivos)
@@ -81,6 +82,7 @@
                         @Html.ActionLink("Apagar", "Apagar", new { id = item.DispositivoID, estadoActual = item.Desc }) |
                         @Html.ActionLink("Ahorro", "Ahorro", new { id = item.DispositivoID, estadoActual = item.Desc })
                     </td>
+                
                 </tr>
         }
         else
@@ -98,7 +100,8 @@
                 <td style="text-align: center;">
                     @Html.DisplayFor(modelItem => item.ConsumoAcumulado) Kw
                 </td>
-
+                <td>Se desconoce estado</td>
+                <td>No se puede cambiar el estado de un dispositivo estandar</td>
             </tr>
     }
 }

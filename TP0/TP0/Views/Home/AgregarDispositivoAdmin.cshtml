@@ -6,9 +6,10 @@
     <div class="jumbotron">
         <h2>Crear Dispositivo</h2>
     </div>
+    <div class="box">
+        <table>
+            @using (Html.BeginForm("AgregarDispositivoAdmin", "Home", FormMethod.Post))
 
-    <table>
-        @using (Html.BeginForm("AgregarDispositivoAdmin", "Home", FormMethod.Post))
         {
             <tr>
                 <td>
@@ -65,8 +66,10 @@
                     </button>
                 </td>
             </tr>
+
         }
     </table>
+</div>
 
     <h4>
         <button class="btn">

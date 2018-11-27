@@ -289,8 +289,10 @@ namespace TP0.Helpers
         {
             return categoria.CalcularTarifa(KwTotales(fInicial, fFinal));
         }
+
         public override double KwTotales(DateTime fInicial, DateTime fFinal)
         {
+            CargarDisps();
             double Consumo = 0;
 
             foreach (var disp in Dispositivos)
