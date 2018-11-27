@@ -24,84 +24,84 @@
 
     </div>
 </div>
+<div class="box">
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayName("Nombre")
+            </th>
+            <th style="text-align: center;">
+                @Html.DisplayName("KWxHora")
+            </th>
+            <th style="text-align: center;">
+                @Html.DisplayName("Inteligente")
+            </th>
 
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayName("Nombre")
-        </th>
-        <th style="text-align: center;">
-            @Html.DisplayName("KWxHora")
-        </th>
-        <th style="text-align: center;">
-            @Html.DisplayName("Inteligente")
-        </th>
+            <th style="text-align: center;">
+                @Html.DisplayName("Consumo Acumulado en minutos")
+            </th>
+            <th>
+                @Html.DisplayName("Estado")
+            </th>
+            <th> </th>
+        </tr>
 
-        <th style="text-align: center;">
-            @Html.DisplayName("Consumo Acumulado en minutos")
-        </th>
-        <th>
-            @Html.DisplayName("Estado")
-        </th>
-        <th> </th>
-    </tr>
-
-    @foreach (TP0.Helpers.Dispositivo item in ViewBag.Dispositivos)
-    {
-        if (item.EsInteligente)
+        @foreach (TP0.Helpers.Dispositivo item in ViewBag.Dispositivos)
         {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Nombre)
+            if (item.EsInteligente)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Nombre)
 
-                </td>
-                <td style="text-align: center;">
-                    @Html.DisplayFor(modelItem => item.KWxHora)
-                </td>
-                <td style="text-align: center;">
-                    @Html.DisplayFor(modelItem => item.EsInteligente)
-                </td>
-                <td style="text-align: center;">
-                    @Html.DisplayFor(modelItem => item.ConsumoAcumulado)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Desc)
-                </td>
-                <td>
-                    @Html.ActionLink("Encender", "Encender3", new { id = item.DispositivoID, estadoActual = item.Desc, Uid = Model.UsuarioID }) |
-                    @Html.ActionLink("Apagar", "Apagar3", new { id = item.DispositivoID, estadoActual = item.Desc, Uid = Model.UsuarioID }) |
-                    @Html.ActionLink("Ahorro", "Ahorro3", new { id = item.DispositivoID, estadoActual = item.Desc, Uid = Model.UsuarioID })
-                </td>
-            </tr>
+                    </td>
+                    <td style="text-align: center;">
+                        @Html.DisplayFor(modelItem => item.KWxHora)
+                    </td>
+                    <td style="text-align: center;">
+                        @Html.DisplayFor(modelItem => item.EsInteligente)
+                    </td>
+                    <td style="text-align: center;">
+                        @Html.DisplayFor(modelItem => item.ConsumoAcumulado)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Desc)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Encender", "Encender3", new { id = item.DispositivoID, estadoActual = item.Desc, Uid = Model.UsuarioID }) |
+                        @Html.ActionLink("Apagar", "Apagar3", new { id = item.DispositivoID, estadoActual = item.Desc, Uid = Model.UsuarioID }) |
+                        @Html.ActionLink("Ahorro", "Ahorro3", new { id = item.DispositivoID, estadoActual = item.Desc, Uid = Model.UsuarioID })
+                    </td>
+                </tr>
+            }
+            else
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Nombre)
+                    </td>
+                    <td style="text-align: center;">
+                        @Html.DisplayFor(modelItem => item.KWxHora)
+                    </td>
+                    <td style="text-align: center;">
+                        @Html.DisplayFor(modelItem => item.EsInteligente)
+                    </td>
+                    <td style="text-align: center;">
+                        @Html.DisplayFor(modelItem => item.ConsumoAcumulado)
+                    </td>
+                    <td></td>
+                    <td></td>
+                </tr>
+
+            }
         }
-        else
-        {
-            <tr>
-                <td>
-                    @Html.ActionLink(item.Nombre, "DetallesEstandar", new { id = item.DispositivoID })
-                </td>
-                <td style="text-align: center;">
-                    @Html.DisplayFor(modelItem => item.KWxHora)
-                </td>
-                <td style="text-align: center;">
-                    @Html.DisplayFor(modelItem => item.EsInteligente)
-                </td>
-                <td style="text-align: center;">
-                    @Html.DisplayFor(modelItem => item.ConsumoAcumulado)
-                </td>
-                <td></td>
-                <td></td>
-            </tr>
 
-        }
-    }
-
-</table>
+    </table>
+    </div>
 
 
-
-<h4>
-    <button class="btn">
-        @Html.ActionLink("Volver", "AdministrarCasasAdmin", FormMethod.Get)
-    </button>
-</h4>
+    <h4>
+        <button class="btn">
+            @Html.ActionLink("Volver", "AdministrarCasasAdmin", FormMethod.Get)
+        </button>
+    </h4>

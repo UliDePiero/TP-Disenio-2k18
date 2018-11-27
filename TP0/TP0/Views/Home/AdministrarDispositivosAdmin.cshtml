@@ -6,32 +6,32 @@
         <h2>Administrar dispositivos</h2>
         <h4>Cantidad de dispositivos para elegir: @Model.Count()</h4>
     </div>
+    <div class="box">
+        <table class="table">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Nombre)
+                </th>
+                <th style="text-align: center;">
 
-    <table class="table">
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Nombre)
-            </th>
-            <th style="text-align: center;">
+                    @Html.DisplayNameFor(model => model.EsInteligente)
+                </th>
+                <th style="text-align: center;">
+                    @Html.DisplayNameFor(model => model.Codigo)
+                </th>
+                <th style="text-align: center;">
+                    @Html.DisplayNameFor(model => model.Min)
+                </th>
+                <th style="text-align: center;">
+                    @Html.DisplayNameFor(model => model.Max)
+                </th>
+                <th style="text-align: center;">
+                    @Html.DisplayNameFor(model => model.kWxHora)
+                </th>
+                <th></th>
+            </tr>
 
-                @Html.DisplayNameFor(model => model.EsInteligente)
-            </th>
-            <th style="text-align: center;">
-                @Html.DisplayNameFor(model => model.Codigo)
-            </th>
-            <th style="text-align: center;">
-                @Html.DisplayNameFor(model => model.Min)
-            </th>
-            <th style="text-align: center;">
-                @Html.DisplayNameFor(model => model.Max)
-            </th>
-            <th style="text-align: center;">
-                @Html.DisplayNameFor(model => model.kWxHora)
-            </th>
-            <th></th>
-        </tr>
-
-        @foreach (var item in Model)
+            @foreach (var item in Model)
         {
             <tr>
                 <td>
@@ -58,14 +58,16 @@
                     </div>
                 </td>
             </tr>
-        }
-        <tr>
-            <td>
-                <button class="btn" style="padding:10px;background-color:lightsteelblue;">
-                    @Html.ActionLink("Agregar nuevo", "AgregarDispositivoAdmin", FormMethod.Get)
-                </button>
-            </td>
+    }
+            <tr>
+                <td>
+                    <button class="btn" style="padding:10px;background-color:lightsteelblue;">
+                        @Html.ActionLink("Agregar nuevo", "AgregarDispositivoAdmin", FormMethod.Get)
+                    </button>
+                </td>
 
-        </tr>
-    </table>
-}
+            </tr>
+        </table>
+    </div>
+        }
+     
