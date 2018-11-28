@@ -271,8 +271,9 @@ namespace TP0.Helpers
         {
             int Disp = Dispositivos.Count();
             double acumuladoKw = 0;
-            acumuladoKw = KwTotales(Convert.ToDateTime(FechaDeAlta), DateTime.Now);
-
+            //acumuladoKw = KwTotales(Convert.ToDateTime(FechaDeAlta), DateTime.Now);
+            foreach (var d in Dispositivos)
+                acumuladoKw += d.Consumo();
             return (acumuladoKw == 0 || Disp == 0) ? 0 : Math.Round(acumuladoKw / Disp, 3);
         }
         public double ConsumoActual()
