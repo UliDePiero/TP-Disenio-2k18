@@ -19,14 +19,13 @@ namespace TP0.Helpers
             EsAdmin = false;
             Documento = doc;
             PuntosAcum = 0;
-            AccionAutomatica = false;
             TipoDocumento = tipo;
             Telefono = tel;
             AccionAutomatica = false;
             FechaDeAlta = DateTime.Now.ToShortDateString();
             this.EsAdmin = true;
         }
-        public Administrador (Usuario u)
+        public Administrador(Usuario u)
         {
             this.EsAdmin = true;
         }
@@ -56,7 +55,7 @@ namespace TP0.Helpers
 
         public override int MesesQueLleva()
         {
-            return Static.FechasAdmin.diferenciaDeMeses(DateTime.Parse(FechaDeAlta), DateTime.Now);
+            return Static.FechasAdmin.DiferenciaDeMeses(DateTime.Parse(FechaDeAlta), DateTime.Now);
         }
 
         public override bool AlgunDispositivoEncendido()
@@ -122,6 +121,6 @@ namespace TP0.Helpers
             throw new NotImplementedException();
         }
 
-      
+
     }
 }

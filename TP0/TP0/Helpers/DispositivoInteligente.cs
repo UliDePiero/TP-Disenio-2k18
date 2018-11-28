@@ -65,25 +65,25 @@ namespace TP0.Helpers
 
         public override void ActualizarUltimoEstado()
         {
-                using (var db = new DBContext())
+            using (var db = new DBContext())
+            {
+                var ultimoEstado = db.Estados.Find(IDUltimoEstado);
+                switch (ultimoEstado.Desc)
                 {
-                    var ultimoEstado = db.Estados.Find(IDUltimoEstado);
-                    switch (ultimoEstado.Desc)
-                    {
-                        case "Apagado":
-                            Estado = new Apagado(this);
-                            Estado.StateID = ultimoEstado.StateID;
-                            break;
-                        case "Encendido":
-                            Estado = new Encendido(this);
-                            Estado.StateID = ultimoEstado.StateID;
-                            break;
-                        case "Ahorro":
-                            Estado = new Ahorro(this);
-                            Estado.StateID = ultimoEstado.StateID;
-                            break;
-                        default:
-                            throw new Exception("Estado no reconocido");
+                    case "Apagado":
+                        Estado = new Apagado(this);
+                        Estado.StateID = ultimoEstado.StateID;
+                        break;
+                    case "Encendido":
+                        Estado = new Encendido(this);
+                        Estado.StateID = ultimoEstado.StateID;
+                        break;
+                    case "Ahorro":
+                        Estado = new Ahorro(this);
+                        Estado.StateID = ultimoEstado.StateID;
+                        break;
+                    default:
+                        throw new Exception("Estado no reconocido");
                 }
             }
         }
@@ -107,7 +107,7 @@ namespace TP0.Helpers
         }
         public override bool EstaApagado()
         {
-            return Estado is Apagado ;
+            return Estado is Apagado;
         }
         public override bool EnAhorro()
         {
@@ -133,36 +133,34 @@ namespace TP0.Helpers
         }
         public override double Consumo()
         {
-            double acumuladoKw = 0;
-            ConsumoAcumulado = 0;
+            //Retorna el consumo que genero el dispositivo
             double tiempoTotal = 0;
+            double c = 0;
 
             estadosAnteriores = GetEstados();
             foreach (State s in estadosAnteriores)
             {
-                double c = 0;
                 if (s.FechaFinal == new DateTime(3000, 1, 1)) //Si el estado no termino, se usa la fecha de ahora como la final
                     s.FechaFinal = DateTime.Now;
 
                 switch (s.Desc)
                 {
                     case "Encendido":
-                        c = (s.FechaFinal - s.FechaInicial).Minutes;
+                        c += (s.FechaFinal - s.FechaInicial).TotalHours;
                         tiempoTotal += c;
                         break;
                     case "Ahorro":
-                        c = (s.FechaFinal - s.FechaInicial).Minutes / 2;
+                        c += (s.FechaFinal - s.FechaInicial).TotalHours / 2;
                         tiempoTotal += c;
                         break;
                     case "Apagado":
-                        tiempoTotal = (s.FechaFinal - s.FechaInicial).Minutes;
+                        tiempoTotal += (s.FechaFinal - s.FechaInicial).TotalHours;
                         break;
                 }
-                ConsumoAcumulado += c;
-                acumuladoKw += c * KWxHora / 60;
             }
-            ConsumoPromedio = acumuladoKw / tiempoTotal;
-            return acumuladoKw;
+            ConsumoAcumulado = Math.Round(c * KWxHora, 3);
+            ConsumoPromedio = Math.Round(ConsumoAcumulado / tiempoTotal, 3);
+            return ConsumoAcumulado;
         }
         public override double ConsumoActual()
         {
@@ -179,28 +177,18 @@ namespace TP0.Helpers
         }
         public override double ConsumoEnHoras(double horas)
         {
-            using (var db = new DBContext())
-            {
-                estadosAnteriores = db.Estados.Where(e => e.DispositivoID == DispositivoID).ToList();
-            }
+            estadosAnteriores = GetEstados();
             DateTime fFinal = DateTime.Now;
             DateTime fInicial = fFinal.AddHours(-horas);
-            double hs = Static.FechasAdmin.ConsumoHsTotalPeriodo(fInicial, fFinal, estadosAnteriores);
-            return hs * KWxHora;
+            double hs = FechasAdmin.HsConsumidasTotalPeriodo(fInicial, fFinal, estadosAnteriores);
+            return Math.Round(hs * KWxHora, 3);
         }
         public override double ConsumoEnPeriodo(DateTime fInicial, DateTime fFinal)
         {
-
             if (fFinal > DateTime.Now)
-            {
                 fFinal = DateTime.Now;
-            }
-
-            using (var db = new DBContext())
-            {
-                estadosAnteriores = db.Estados.Where(e => e.DispositivoID == DispositivoID).ToList();
-            }
-            double hs = Static.FechasAdmin.ConsumoHsTotalPeriodo(fInicial, fFinal, estadosAnteriores);
+            estadosAnteriores = GetEstados();
+            double hs = FechasAdmin.HsConsumidasTotalPeriodo(fInicial, fFinal, estadosAnteriores);
             return Math.Round(hs * KWxHora, 3);
         }
 
@@ -292,7 +280,7 @@ namespace TP0.Helpers
         }
         public void AgregarRegla(Regla r)
         {
-            switch(r.Tipo)
+            switch (r.Tipo)
             {
                 case "Humedad":
                     foreach (Actuador a in actuadores)
@@ -311,7 +299,7 @@ namespace TP0.Helpers
                     break;
                 default:
                     foreach (Actuador a in actuadores)
-                        if(a is ActuadorTemperatura)
+                        if (a is ActuadorTemperatura)
                             r.ActuadorID = a.ActuadorID;
                     break;
             }

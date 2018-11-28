@@ -3,7 +3,8 @@
 <div class="jumbotron">
     <h2>@Model.Nombre</h2>
     <h4>KW por hora: @Model.KWxHora</h4>
-    <h4>Consumo Acumulado: @Model.ConsumoAcumulado Kw</h4>
+    <h4>Consumo Acumulado: @Model.Consumo() KW</h4>
+    <h4>Consumo Promedio: @Model.ConsumoPromedio KWxHora</h4>
     <h4>Estado actual: @Model.GetEstado().Desc</h4>
 
 </div>
@@ -88,17 +89,18 @@
                 <input type="submit" class="btn" value="Volver">
             }
         </div>
-        </span></div>
-        <hr />
-        <div class="container">
-            <span class="info">
+    </span>
+</div>
+<hr />
+<div class="container">
+    <span class="info">
 
-                <div style="margin:10px;">
-                    @using (Html.BeginForm("BorrarDispositivoClie", "Home", new { id = Model.DispositivoID }))
-                    {
-                        <input type="submit" class="btn" value="Eliminar dispositivo" onclick="alertBox()">
-                    }
-                    <h4><font color="red">ADVERTENCIA: ESTA ACCIÓN NO PUEDE DESHACERSE</font></h4>
-                </div>
-            </span>
+        <div style="margin:10px;">
+            @using (Html.BeginForm("BorrarDispositivoClie", "Home", new { id = Model.DispositivoID }))
+            {
+                <input type="submit" class="btn" value="Eliminar dispositivo" onclick="alertBox()">
+            }
+            <h4><font color="red">ADVERTENCIA: ESTA ACCIÓN NO PUEDE DESHACERSE</font></h4>
         </div>
+    </span>
+</div>

@@ -5,7 +5,7 @@
         <form action="~/Home/ReporteTransformador" method="post">
 
             <div class="jumbotron">
-                <h2>@ViewBag.nombre</h2>
+                <h2>Transformador @ViewBag.nombre</h2>
                 <h2>@ViewBag.consumo</h2>
                 <h4>@ViewBag.fechas</h4>
             </div>
@@ -20,8 +20,8 @@
 
                     <label for="FechaInicio">Fecha inicio:</label>
                     <input type="datetime-local" id="fechaInicioID"
-                           name="FechaInicio" value="@DateTime.Now.ToString("yyyy-"+(DateTime.Now.Month-1)+"-ddTHH:mm")"
-                          max="@DateTime.Now.ToString("yyyy-MM-ddTHH:mm")" required />
+                           name="FechaInicio" value="@DateTime.Now.ToString("yyyy-MM-ddTHH:mm")"
+                           max="@DateTime.Now.ToString("yyyy-MM-ddTHH:mm")" required />
                     <span class="validity"></span>
 
 
@@ -29,7 +29,7 @@
                         <label for="FechaFin">Fecha fin:</label>
                         <input type="datetime-local" id="fechaFinID"
                                name="FechaFin" value="@DateTime.Now.ToString("yyyy-MM-ddTHH:mm")"
-                             max="@DateTime.Now.ToString("yyyy-MM-ddTHH:mm")" required />
+                               max="@DateTime.Now.ToString("yyyy-MM-ddTHH:mm")" required />
                         <span class="validity"></span>
                     </div>
                     <h4>
@@ -37,6 +37,16 @@
                     </h4>
                 </div>
             }
+            <div class="container">
+                <span class="info">
+                    <div style="margin:10px;">
+                        @using (Html.BeginForm("ReportesAdmin", "Home", FormMethod.Get))
+                        {
+                            <input type="submit" class="btn" value="Volver">
+                        }
+                    </div>
+                </span>
+            </div>
 
         </form>
     </div>

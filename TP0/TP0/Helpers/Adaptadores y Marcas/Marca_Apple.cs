@@ -130,7 +130,7 @@ namespace TP0.Helpers
             }
             DateTime fFinal = DateTime.Now;
             DateTime fInicial = fFinal.AddHours(-horas);
-            double hs = Static.FechasAdmin.ConsumoHsTotalPeriodo(fInicial, fFinal, DI.estadosAnteriores);
+            double hs = Static.FechasAdmin.HsConsumidasTotalPeriodo(fInicial, fFinal, DI.estadosAnteriores);
             return hs * DI.KWxHora;
         }
         public double ConsumoEnPeriodoAPPLE(DateTime fInicial, DateTime fFinal, DispositivoInteligente DI)
@@ -145,7 +145,7 @@ namespace TP0.Helpers
             {
                 DI.estadosAnteriores = db.Estados.Where(e => e.DispositivoID == DI.DispositivoID).ToList();
             }
-            double hs = Static.FechasAdmin.ConsumoHsTotalPeriodo(fInicial, fFinal, DI.estadosAnteriores);
+            double hs = Static.FechasAdmin.HsConsumidasTotalPeriodo(fInicial, fFinal, DI.estadosAnteriores);
             return Math.Round(hs * DI.KWxHora, 3);
         }
 

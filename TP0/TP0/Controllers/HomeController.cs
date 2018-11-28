@@ -39,6 +39,7 @@ namespace TP0.Controllers
 
         //VISTAS DE ADMIN
         [Authorize]
+        [HttpGet]
         public ActionResult ReportesAdmin()
         {
             return View();
@@ -62,38 +63,32 @@ namespace TP0.Controllers
         [Authorize]
         public ActionResult ReporteHogar(SubmitViewModel model, DateTime FechaInicio, DateTime FechaFin)
         {
+            IEnumerable<Cliente> casas = ClientesImportados.GetClientes();//se carga lista de casas
+            List<SelectListItem> hogares = new List<SelectListItem>();
+            foreach (Cliente c in casas)
+                hogares.Add(new SelectListItem() { Value = c.UsuarioID.ToString(), Text = c.Username });
+            ViewBag.IdSeleccionado = hogares;
 
-            using (var db = new DBContext())
+
+            Cliente usu = new Cliente(model.IdSeleccionado);
+            Reporte reporteModelo = new Reporte("Hogar", usu.UsuarioID.ToString(), 0, FechaInicio, FechaFin);
+
+            //if(reporte esta en mongo){find} else{ se crea y se guarda en mongo}
+            var reportesEncontrados = Mongo.getReporte("Hogar", usu.UsuarioID.ToString(), FechaInicio, FechaFin);
+            if (reportesEncontrados.Count > 0)
             {
-                Usuario usu = db.Usuarios.FirstOrDefault(u => u.UsuarioID == model.IdSeleccionado);
-                Reporte reporteModelo = new Reporte("Hogar", usu.UsuarioID.ToString(), 0, FechaInicio, FechaFin);
-
-                IEnumerable<Cliente> casas = ClientesImportados.GetClientes();//se carga lista de casas
-                List<SelectListItem> hogares = new List<SelectListItem>();
-                foreach (Cliente c in casas)
-                {
-                    hogares.Add(new SelectListItem() { Value = c.UsuarioID.ToString(), Text = c.Username });
-                }
-                ViewBag.IdSeleccionado = hogares;
-
-                //if(reporte esta en mongo){find} else{ se crea y se guarda en mongo}
-
-                var reportesEncontrados = Mongo.getReporte("Hogar", usu.UsuarioID.ToString(), FechaInicio, FechaFin);
-                if (reportesEncontrados.Count > 0)
-                {
-                    var reporte = reportesEncontrados[0];
-                    ViewBag.consumo = "Consumo: " + reporte.consumo.ToString() + "Kw";
-                }
-                else
-                {
-                    reporteModelo.consumo = usu.KwTotales(FechaInicio, FechaFin);
-                    ViewBag.consumo = "Consumo: " + reporteModelo.consumo + "Kw";
-                    Mongo.insertarReporte(reporteModelo);
-                }
-                ViewBag.fechas = FechaInicio.ToShortDateString() + " - " + FechaFin.ToShortDateString();
-                ViewBag.nombre = usu.Username;
+                var reporte = reportesEncontrados[0];
+                ViewBag.consumo = "Consumo: " + reporte.consumo.ToString() + "Kw";
             }
-                return View();
+            else
+            {
+                reporteModelo.consumo = usu.KwTotales(FechaInicio, FechaFin);
+                ViewBag.consumo = "Consumo: " + reporteModelo.consumo + " Kw";
+                Mongo.insertarReporte(reporteModelo);
+            }
+            ViewBag.fechas = FechaInicio.ToShortDateString() + " - " + FechaFin.ToShortDateString();
+            ViewBag.nombre = usu.Username;
+            return View();
         }
         [HttpGet]
         [Authorize]
@@ -116,7 +111,8 @@ namespace TP0.Controllers
                 DispositivoEstatico disp = db.DispEstaticos.FirstOrDefault(d => d.Codigo == model.DispositivoSeleccionado);
                 ViewBag.nombre = disp.Nombre;
 
-                if (db.Dispositivos.FirstOrDefault(d => d.Codigo == disp.Codigo) != null) {
+                if (db.Dispositivos.FirstOrDefault(d => d.Codigo == disp.Codigo) != null)
+                {
                     Reporte reporteModelo = new Reporte("Dispositivo", disp.Codigo, 0, FechaInicio, FechaFin);
 
                     //if(reporte esta en mongo){find} else{ se crea y se guarda en mongo}
@@ -207,7 +203,8 @@ namespace TP0.Controllers
         public ActionResult ModificarDispositivoAdmin(int id)
         {
             DispositivoEstatico dispositivoEditado;
-            using (var db = new DBContext()) {
+            using (var db = new DBContext())
+            {
                 dispositivoEditado = db.DispEstaticos.Find(id);
             }
             return View(dispositivoEditado);
@@ -219,7 +216,7 @@ namespace TP0.Controllers
             using (var db = new DBContext())
             {
                 var dispositivoEditado = db.DispEstaticos.Find(id);
-                if(TryUpdateModel(dispositivoEditado, "",new string[] { "Nombre","EsInteligente","Codigo","Min","Max","kWxHora"}))
+                if (TryUpdateModel(dispositivoEditado, "", new string[] { "Nombre", "EsInteligente", "Codigo", "Min", "Max", "kWxHora" }))
                 {
                     try
                     {
@@ -493,7 +490,7 @@ namespace TP0.Controllers
             {
                 ModelState.AddModelError("", "No se pudo Crear");
             }
-            return RedirectToAction("DetallesInteligente/"+id, "Home");
+            return RedirectToAction("DetallesInteligente/" + id, "Home");
         }
         [Authorize]
         public ActionResult BorrarRegla(int rID, int dID)

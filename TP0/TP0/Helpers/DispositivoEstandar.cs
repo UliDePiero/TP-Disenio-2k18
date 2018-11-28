@@ -9,7 +9,7 @@ namespace TP0.Helpers
 {
     public class DispositivoEstandar : Dispositivo
     {
-        
+
         public DispositivoEstandar()
         {
 
@@ -85,7 +85,7 @@ namespace TP0.Helpers
                 fFinal = DateTime.Now;
             }
 
-            return fFinal.Subtract(fInicial).Days*Consumo();
+            return fFinal.Subtract(fInicial).Days * Consumo();
         }
         public override double ConsumoEnHoras(double horas)
         {

@@ -35,7 +35,7 @@ namespace TP0.Helpers
         }
 
         //constructor para crear nuevos
-        public Cliente(string nombre, string apellido, string domicilio, string usuario, string contrasenia, string doc, string tipo, string tel) 
+        public Cliente(string nombre, string apellido, string domicilio, string usuario, string contrasenia, string doc, string tipo, string tel)
         {
             Nombre = nombre;
             Apellido = apellido;
@@ -45,13 +45,11 @@ namespace TP0.Helpers
             EsAdmin = false;
             Documento = doc;
             PuntosAcum = 0;
-            AccionAutomatica = false;
             TipoDocumento = tipo;
             Telefono = tel;
             Dispositivos = new List<Dispositivo>(); //Creo la lista vacia
             AccionAutomatica = false;
             FechaDeAlta = DateTime.Now.ToShortDateString();
-
         }
         public Cliente(string username) //para buscar en la DB + instanciar
         {
@@ -72,7 +70,7 @@ namespace TP0.Helpers
                 Dispositivos = GetDisps(); //levanto todos los dispositivos del cliente de una
                 AccionAutomatica = c.AccionAutomatica;
                 FechaDeAlta = c.FechaDeAlta;
-                UsuarioID = c.UsuarioID; 
+                UsuarioID = c.UsuarioID;
             }
         }
         public Cliente(int id) //para buscar en la DB + instanciar
@@ -115,7 +113,7 @@ namespace TP0.Helpers
                 db.Usuarios.Add(this);
                 ConectarseAlTrafoMasProx();
 
-                db.SaveChanges(); 
+                db.SaveChanges();
 
 
                 UsuarioID = db.Usuarios.FirstOrDefault(U => U.Username == Username).UsuarioID;
@@ -213,7 +211,7 @@ namespace TP0.Helpers
             Dispositivos.Add(DI);
             using (var db = new DBContext())
             {
-                foreach(Usuario u in db.Usuarios)
+                foreach (Usuario u in db.Usuarios)
                 {
                     if (u.Username == Username)
                     {
@@ -274,6 +272,15 @@ namespace TP0.Helpers
             //acumuladoKw = KwTotales(Convert.ToDateTime(FechaDeAlta), DateTime.Now);
             foreach (var d in Dispositivos)
                 acumuladoKw += d.Consumo();
+            return (acumuladoKw == 0 || Disp == 0) ? 0 : Math.Round(acumuladoKw, 3);
+        }
+        public double TotalConsumoPromedio()
+        {
+            int Disp = Dispositivos.Count();
+            double acumuladoKw = 0;
+            //acumuladoKw = KwTotales(Convert.ToDateTime(FechaDeAlta), DateTime.Now);
+            foreach (var d in Dispositivos)
+                acumuladoKw += d.Consumo();
             return (acumuladoKw == 0 || Disp == 0) ? 0 : Math.Round(acumuladoKw / Disp, 3);
         }
         public double ConsumoActual()
@@ -293,13 +300,28 @@ namespace TP0.Helpers
 
         public override double KwTotales(DateTime fInicial, DateTime fFinal)
         {
-            CargarDisps();
+            using (var db = new DBContext())
+            {
+                Dispositivos = db.Dispositivos.Where(x => x.UsuarioID == UsuarioID).ToList();
+            }
+            foreach (Dispositivo d in Dispositivos)
+            {
+                d.ActualizarUltimoEstado();
+                try
+                {
+                    d.Desc = d.GetEstado().Desc;
+                }
+                catch (NotImplementedException e)
+                {
+                    //Reconoce que hay un error pero
+                    //No hace nada porque los standar no tienen estados
+                }
+            }
             double Consumo = 0;
 
             foreach (var disp in Dispositivos)
                 Consumo += disp.ConsumoEnPeriodo(fInicial, fFinal);
             return Consumo;
-            
         }
 
         public void AccionAutomaticaON()
@@ -320,7 +342,7 @@ namespace TP0.Helpers
                 db.SaveChanges();
             }
         }
-        
+
         public List<Dispositivo> GetDisps()
         {
             using (var db = new DBContext())
@@ -374,21 +396,21 @@ namespace TP0.Helpers
             var DispsOrdernados = LDE.Concat(LDI); //Ordenar dispositivos: Primero LDI y despues los LDE
             var RecomendacionXDispositivos = new RecomendacionXDisp[i];
 
-            int j=0;
+            int j = 0;
             var tiempoTotal = new RecomendacionXDisp(); //Estructura
             tiempoTotal.NombreDispositivo = "Total acumulado";
             tiempoTotal.KWxHoraPuedeConsumir = Math.Round(doubleV[j], 3);
             //tiempoTotal.KWxHoraPuedeConsumir = doubleV[j];
-            RecomendacionXDispositivos[j]=tiempoTotal;
+            RecomendacionXDispositivos[j] = tiempoTotal;
             j++;
 
-            double horasDelMes = DateTime.Now.Day*24;
+            double horasDelMes = DateTime.Now.Day * 24;
 
             foreach (var disp in Dispositivos)
             {
                 var recXdisp = new RecomendacionXDisp();
                 recXdisp.NombreDispositivo = disp.Nombre;
-                
+
                 //esto no borrar, soluciona el desfasaje del simplex
                 /*if (doubleV[j] > disp.Max)
                     doubleV[j] = disp.Max;
@@ -419,11 +441,11 @@ namespace TP0.Helpers
             }
 
             return RecomendacionXDispositivos;
-    }
+        }
 
-    public override void ActualizarCategoria()
+        public override void ActualizarCategoria()
         {
-            categoria = CategoriasPosibles.GetCategoria(TotalConsumo());
+            categoria = CategoriasPosibles.GetCategoria(TotalConsumoPromedio());
         }
 
         public override void ConectarseAlTrafoMasProx()
@@ -431,11 +453,11 @@ namespace TP0.Helpers
             var point = UbicacionDomicilio();
             using (var context = new DBContext())
             {
-                double dmin=999999; //poner un high value
+                double dmin = 999999; //poner un high value
                 foreach (Transformador t in context.Transformadores)
                 {
                     var d = CalcDistancia(point, t.Latitud, t.Longitud);
-                    if(d<dmin)
+                    if (d < dmin)
                     {
                         TransformadorID = t.TransformadorID;
                         dmin = d;
@@ -464,7 +486,7 @@ namespace TP0.Helpers
             double Lon = Math.Abs(longTrafo - casa[1]) * (Math.PI / 180);
             double a = Math.Sin(Lat / 2) * Math.Sin(Lat / 2) + Math.Cos(casa[0] * (Math.PI / 180)) * Math.Cos(latTrafo * (Math.PI / 180)) * Math.Sin(Lon / 2) * Math.Sin(Lon / 2);
             double c = 2 * Math.Atan2(Math.Sqrt(a), Math.Sqrt(1 - a));
-            distance = Math.Round(radioTierra * c,3);
+            distance = Math.Round(radioTierra * c, 3);
             return distance;
         }
 

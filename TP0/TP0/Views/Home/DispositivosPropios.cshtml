@@ -11,53 +11,54 @@
 
 <div class="box">
     <span class="info">
-        <h3>Consumo promedio historico: @Model.TotalConsumo() KwH</h3>
-           <h3>Dispositivos: @Model.Dispositivos.Count() </h3>
+        <h3>Consumo promedio: @Model.TotalConsumoPromedio() KwH</h3>
+        <h3>Consumo total historico: @Model.TotalConsumo() KwH</h3>
+        <h3>Dispositivos: @Model.Dispositivos.Count() </h3>
         <div class="box">
             <div>
 
                 @using (Html.BeginForm("ConsultarConsumo", "Home", FormMethod.Get))
-    {@*Boton para consultar consumo entre fechas*@
-            <input type="submit" class="btn btn-default" value="Consultar consumo por periodo">
-} @using (Html.BeginForm("SimplexView", "Home", FormMethod.Get))
-    {@*Boton para ejecutar el simplex*@
-            <input type="submit" class="btn btn-default" value="Conocer recomendación" onclick="alertBox()">
-}
+                {@*Boton para consultar consumo entre fechas*@
+                <input type="submit" class="btn btn-default" value="Consultar consumo por periodo">
+            } @using (Html.BeginForm("SimplexView", "Home", FormMethod.Get))
+                {@*Boton para ejecutar el simplex*@
+                <input type="submit" class="btn btn-default" value="Conocer recomendación" onclick="alertBox()">
+            }
 
-            </div>
-        <vl/>
-            <div>
-                <h5>Dispositivos encendidos: @Model.DispositivosEncendidos()</h5>
-                <h5>Dispositivos apagados: @Model.DispositivosApagados()</h5>
-                <h5>Dispositivos en ahorro: @Model.DispositivosEnAhorro()</h5>
-                <h5>Dispositivos estandares: @Model.DispositivosEstandares()</h5>
-            </div>
         </div>
-        
+        <vl />
+        <div>
+            <h5>Dispositivos encendidos: @Model.DispositivosEncendidos()</h5>
+            <h5>Dispositivos apagados: @Model.DispositivosApagados()</h5>
+            <h5>Dispositivos en ahorro: @Model.DispositivosEnAhorro()</h5>
+            <h5>Dispositivos estandares: @Model.DispositivosEstandares()</h5>
+        </div>
+    </div>
 
-        <table class="table">
-            <tr>
-                <th>
-                    @Html.DisplayName("Nombre")
-                </th>
-                <th style="text-align: center;">
-                    @Html.DisplayName("KWxHora")
-                </th>
-                <th style="text-align: center;">
-                    @Html.DisplayName("Inteligente")
-                </th>
 
-                <th style="text-align: center;">
-                    @Html.DisplayName("Consumo Acumulado Historico")
-                </th>
-                <th>
-                    @Html.DisplayName("Estado")
-                </th>
-                <th>Cambiar estado</th>
-              
-            </tr>
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayName("Nombre")
+            </th>
+            <th style="text-align: center;">
+                @Html.DisplayName("KWxHora")
+            </th>
+            <th style="text-align: center;">
+                @Html.DisplayName("Inteligente")
+            </th>
 
-            @foreach (var item in Model.Dispositivos)
+            <th style="text-align: center;">
+                @Html.DisplayName("Consumo Acumulado Historico")
+            </th>
+            <th>
+                @Html.DisplayName("Estado")
+            </th>
+            <th>Cambiar estado</th>
+
+        </tr>
+
+        @foreach (var item in Model.Dispositivos)
         {
             if (item.EsInteligente)
             {
@@ -82,35 +83,35 @@
                         @Html.ActionLink("Apagar", "Apagar", new { id = item.DispositivoID, estadoActual = item.Desc }) |
                         @Html.ActionLink("Ahorro", "Ahorro", new { id = item.DispositivoID, estadoActual = item.Desc })
                     </td>
-                
+
                 </tr>
+            }
+            else
+            {
+                <tr>
+                    <td>
+                        @Html.ActionLink(item.Nombre, "DetallesEstandar", new { id = item.DispositivoID })
+                    </td>
+                    <td style="text-align: center;">
+                        @Html.DisplayFor(modelItem => item.KWxHora)
+                    </td>
+                    <td style="text-align: center;">
+                        @Html.DisplayFor(modelItem => item.EsInteligente)
+                    </td>
+                    <td style="text-align: center;">
+                        @item.Consumo() Kw
+                    </td>
+                    <td>Se desconoce estado</td>
+                    <td>No se puede cambiar el estado de un dispositivo estandar</td>
+                </tr>
+            }
         }
-        else
-        {
-            <tr>
-                <td>
-                    @Html.ActionLink(item.Nombre, "DetallesEstandar", new { id = item.DispositivoID })
-                </td>
-                <td style="text-align: center;">
-                    @Html.DisplayFor(modelItem => item.KWxHora)
-                </td>
-                <td style="text-align: center;">
-                    @Html.DisplayFor(modelItem => item.EsInteligente)
-                </td>
-                <td style="text-align: center;">
-                    @item.Consumo() Kw
-                </td>
-                <td>Se desconoce estado</td>
-                <td>No se puede cambiar el estado de un dispositivo estandar</td>
-            </tr>
-    }
-}
 
-        </table>
-        <h4>
+    </table>
+    <h4>
 
-            @Html.ActionLink("Agregar dispositivo", "AgregarDispositivoClie", null, new { @class = "btn" })
-        </h4>
+        @Html.ActionLink("Agregar dispositivo", "AgregarDispositivoClie", null, new { @class = "btn" })
+    </h4>
     </span>
 
 </div>

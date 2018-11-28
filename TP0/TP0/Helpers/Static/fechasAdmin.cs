@@ -9,7 +9,7 @@ namespace TP0.Helpers.Static
     {
 
 
-        public static int diferenciaDeMeses(DateTime fechaDeInicial, DateTime fechaFinal)
+        public static int DiferenciaDeMeses(DateTime fechaDeInicial, DateTime fechaFinal)
         {
             DateTime fechaActual = DateTime.Now;
 
@@ -36,47 +36,46 @@ namespace TP0.Helpers.Static
             return mesesTotales;
         }
 
-        public static double ConsumoHsTotalPeriodo(DateTime fInicialPer, DateTime fFinalPer, ICollection<State> estadosAntes)
+        public static double HsConsumidasTotalPeriodo(DateTime fInicialPer, DateTime fFinalPer, ICollection<State> estadosAntes)
         {
-            double consumo = 0;
-            List<State> EstadosPartePeriodo = estadosAntes.Where(x => parteDelPeriodo(fInicialPer, fFinalPer, x)).ToList();
-
-            if (EstadosPartePeriodo.Count() == 0)
-                estadosAntes.ElementAt(0).ConsumoEnIntervalor(fInicialPer, fFinalPer);
-            /*if (EstadosPartePeriodo.Count() == 1) //igual de tamaño , o mayor de tamaño
-                return EstadosPartePeriodo.ElementAt(0).ConsumoEnIntervalor(fInicialPer, fFinalPer);
-            */
-            foreach (State e in EstadosPartePeriodo)
+            double Hs = 0;
+            foreach (State e in estadosAntes)
             {
-                if (dentroDelPeriodo(fInicialPer, fFinalPer, e))
-                    consumo += e.ConsumoEnIntervalor(fInicialPer, fFinalPer);
+                if (e.FechaFinal == new DateTime(3000, 1, 1)) //Si el estado no termino, se usa la fecha de ahora como la final
+                    e.FechaFinal = DateTime.Now;
 
-                else
-                    consumo += consumoExtremoPeriodo(fInicialPer, fFinalPer, e);
+                if (DentroDelPeriodo(fInicialPer, fFinalPer, e))
+                    Hs += e.CalculoHoras(e.FechaInicial, e.FechaFinal);
+                else if (ParteDelPeriodoIzq(fInicialPer, fFinalPer, e))
+                    Hs += e.CalculoHoras(e.FechaInicial, fFinalPer);
+                else if (ParteDelPeriodoDer(fInicialPer, fFinalPer, e))
+                    Hs += e.CalculoHoras(fInicialPer, e.FechaFinal);
             }
-
-            return consumo;
-            
+            return Hs;
         }
 
-        public static double consumoExtremoPeriodo(DateTime fInicial, DateTime fFinal, State Estado)
+        public static double ConsumoExtremoPeriodo(DateTime fInicial, DateTime fFinal, State Estado)
         {
-            if (Estado.FechaInicial <= fFinal && fFinal <= Estado.FechaFinal )
-                return Estado.ConsumoEnIntervalor(Estado.FechaInicial, fFinal);
+            if (Estado.FechaInicial <= fFinal && fFinal <= Estado.FechaFinal)
+                return Estado.CalculoHoras(Estado.FechaInicial, fFinal);
             else
-                return Estado.ConsumoEnIntervalor(fInicial, Estado.FechaFinal);
+                return Estado.CalculoHoras(fInicial, Estado.FechaFinal);
         }
 
-        public static bool dentroDelPeriodo(DateTime fInicial, DateTime fFinal, State Estado)
+        public static bool DentroDelPeriodo(DateTime fInicial, DateTime fFinal, State Estado)
         {
-            return fInicial < Estado.FechaInicial && Estado.FechaFinal < fFinal;
+            return  (fInicial <= Estado.FechaInicial && Estado.FechaFinal > fInicial && Estado.FechaFinal <= fFinal && fFinal > Estado.FechaInicial);
         }
 
-        public static bool parteDelPeriodo(DateTime fInicialPer, DateTime fFinalPer, State Estado)
+        public static bool ParteDelPeriodoIzq(DateTime fInicial, DateTime fFinal, State Estado)
         {
-            return (fInicialPer <= Estado.FechaInicial && Estado.FechaInicial <= fFinalPer) || (fInicialPer <= Estado.FechaFinal && Estado.FechaFinal <= fFinalPer);
+            return (fInicial <= Estado.FechaInicial && fFinal <= Estado.FechaFinal && Estado.FechaInicial < fFinal);
         }
 
+        public static bool ParteDelPeriodoDer(DateTime fInicial, DateTime fFinal, State Estado)
+        {
+            return (Estado.FechaInicial <= fInicial && Estado.FechaFinal <= fFinal && fInicial < Estado.FechaFinal);
+        }
     }
 
 }

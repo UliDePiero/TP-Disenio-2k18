@@ -27,24 +27,24 @@ namespace TP0.Helpers
 
         public abstract void AhorrarEnergia(DispositivoInteligente d);
 
-        public abstract double ConsumoEnIntervalor(DateTime fInicial, DateTime fFinal);
+        public abstract double CalculoHoras(DateTime fInicial, DateTime fFinal);
 
         public void FinalizarEstado()
         {
             //Agrega la fecha final del ultimo estado del dispositivo
-           using (var db = new DBContext()) //instancia del singleton
-           {
+            using (var db = new DBContext()) //instancia del singleton
+            {
                 var est = db.Estados.Find(StateID);
                 est.FechaFinal = DateTime.Now;
                 db.SaveChanges();
-           }
+            }
         }
     }
 
     public class Encendido : State
     {
         // Constructor
- 
+
         public Encendido() { }
 
         public Encendido(DispositivoInteligente d)
@@ -74,7 +74,7 @@ namespace TP0.Helpers
             d.AgregarEstado(new Ahorro(d));
         }
 
-        public override double ConsumoEnIntervalor(DateTime fInicial, DateTime fFinal)
+        public override double CalculoHoras(DateTime fInicial, DateTime fFinal)
         {
             double diff = (fFinal - fInicial).TotalHours;
             return diff;
@@ -110,7 +110,7 @@ namespace TP0.Helpers
 
         public override void Apagar(DispositivoInteligente d)
         {
-          //  throw new Exception("El dispositivo ya esta apagado!");
+            //  throw new Exception("El dispositivo ya esta apagado!");
         }
 
         public override void AhorrarEnergia(DispositivoInteligente d)
@@ -120,9 +120,9 @@ namespace TP0.Helpers
             d.AgregarEstado(new Ahorro(d));
         }
 
-        public override double ConsumoEnIntervalor(DateTime fInicial, DateTime fFinal)
+        public override double CalculoHoras(DateTime fInicial, DateTime fFinal)
         {
-           return 0;
+            return 0;
         }
 
     }
@@ -155,12 +155,12 @@ namespace TP0.Helpers
 
         public override void AhorrarEnergia(DispositivoInteligente d)
         {
-           // throw new Exception("El dispositivo ya esta ahorrando!");
+            // throw new Exception("El dispositivo ya esta ahorrando!");
         }
 
-        public override double ConsumoEnIntervalor(DateTime fInicial, DateTime fFinal)
+        public override double CalculoHoras(DateTime fInicial, DateTime fFinal)
         {
-            double diff = (fFinal - fInicial).TotalHours*1/2;
+            double diff = (fFinal - fInicial).TotalHours * 1 / 2;
             return diff;
         }
     }
