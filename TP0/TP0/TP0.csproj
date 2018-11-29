@@ -353,6 +353,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\StyleSheet.css" />
+    <Content Include="Content\StyleSheetMAPA.css" />
     <Content Include="Controllers\bin\Antlr3.Runtime.dll" />
     <Content Include="Controllers\bin\EntityFramework.dll" />
     <Content Include="Controllers\bin\EntityFramework.SqlServer.dll" />

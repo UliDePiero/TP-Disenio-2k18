@@ -9,7 +9,8 @@
 </div>
 
 <hr />
-<div class="container" style="width:50%;position:relative;text-align:center; ">
+<!--<div class="container" style="width:50%;position:relative;text-align:center; ">-->
+<div class="container" style="text-align:center;">
     @using (Html.BeginForm("IndexClie", "FileUpload", FormMethod.Post, new { enctype = "multipart/form-data" }))
     {
         @Html.AntiForgeryToken()
@@ -17,7 +18,8 @@
 
 
 
-    <div class="form" style="left:50%; margin-top:50px;">
+    <!--<div class="form" style="left:50%; margin-top:50px;">-->
+    <div class="form" style=" margin-top:50px;">
         <div> @Html.ValidationSummary(true, "", new { @class = "text-danger" }) </div>
 
         <div>
@@ -25,7 +27,6 @@
         </div>
 
         <div class="container">
-
             @Html.EditorFor(model => model.file, new { htmlAttributes = new { @class = "form-control", @type = "file" } })
         </div>
 
@@ -33,7 +34,12 @@
         <div>
             @Html.ValidationMessageFor(model => model.file, "", new { @class = "message" })
         </div>
-
+        <div>
+            @if (ViewBag.FileStatus != "" && ViewBag.FileStatus != "Archivo cargado correctamente.")
+            {
+                <div class="message">@ViewBag.FileStatus </div>
+            }
+        </div>
 
         <div>
             @ViewBag.FileStatus

@@ -1,4 +1,5 @@
-﻿@model IEnumerable<TP0.Helpers.Cliente>
+﻿<link href="~/Content/StyleSheetMAPA.css" rel="stylesheet" type="text/css" />
+@model IEnumerable<TP0.Helpers.Cliente>
 @if ((string)System.Web.HttpContext.Current.Session["admin"] == "true")
 {
     <div class="jumbotron">
@@ -6,7 +7,7 @@
         <h2>Administracion de casas de usuarios</h2>
         <h4>Total casas: @Model.Count()</h4>
     </div>
-    <div class="box">
+    <div class="table-responsive">
         <table class="table">
             <tr>
                 <th>

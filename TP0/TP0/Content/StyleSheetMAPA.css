@@ -1,0 +1,599 @@
+﻿body {
+    font-family: "Trebuchet MS";
+    letter-spacing: .1em;
+    margin: 5em;
+    text-transform: uppercase;
+    align-items: center;
+    background-image: radial-gradient(rgba(255, 255, 255, 0.65), transparent);
+}
+
+
+h2 {
+    text-align: center;
+    font-size: 40px;
+    color: white;
+}
+
+h4 {
+    text-align: center;
+    color: white;
+}
+
+.jumbotron { /*titlecontainer*/
+    position: relative;
+}
+
+.message {
+    color: white;
+    font-size: 12px;
+    background-color: #c31d1d;
+}
+
+h3 {
+    display: block;
+    font-size: 1.17em;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    font-weight: bold;
+    text-decoration: none;
+    color: white;
+}
+
+
+
+.box {
+    padding: 25px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+}
+
+vl {
+    border-left: 6px solid #f2f2f2;
+    padding: 25px;
+    height: auto;
+}
+
+.imageBackground {
+    background-image: url(/Images/fondo_hexa.jpg);
+    background-size: cover;
+    background-position: center center;
+    background-attachment: fixed;
+}
+
+nav {
+    font-size: 1.25em;
+    text-align: center;
+}
+
+    nav h3 {
+        padding-top: 15px;
+    }
+
+    nav ul {
+        border-radius: .25em;
+        background: black;
+        list-style: none;
+    }
+
+    nav li {
+        position: relative;
+        display: inline-block;
+        border-bottom: none;
+        border-radius: .25em .25em 0 0;
+    }
+
+        nav li:hover {
+            border-radius: 0 0 .25em .25em;
+            /*background: dodgerblue;*/
+        }
+
+
+    nav a {
+        color: #369dea;
+        display: block;
+        padding: .5em;
+        text-decoration: none;
+    }
+
+        nav a:hover {
+            color: white;
+        }
+
+@import url(https://fonts.googleapis.com/css?family=Roboto:300);
+
+.login-page {
+    position: relative;
+    align-items: center;
+    margin: auto;
+    width: 50%;
+}
+
+.form {
+    position: relative;
+    z-index: 1;
+    background: #FFFFFF;
+    margin: 0 auto 100px;
+    padding: 45px;
+    text-align: center;
+    box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+}
+
+    .form input {
+        font-family: "Roboto", sans-serif;
+        outline: 0;
+        background: #f2f2f2;
+        width: 100%;
+        border: 0;
+        margin: 0 0 15px;
+        padding: 15px;
+        box-sizing: border-box;
+        font-size: 14px;
+    }
+
+    .form button {
+        font-family: "Roboto", sans-serif;
+        text-transform: uppercase;
+        outline: 0;
+        background: lightblue;
+        width: 100%;
+        border: 0;
+        padding: 15px;
+        color: black;
+        font-size: 14px;
+        -webkit-transition: all 0.3 ease;
+        transition: all 0.3 ease;
+        cursor: pointer;
+    }
+
+        .form button:hover, .form button:active, .form button:focus {
+            background-color: lightblue;
+            color: black;
+        }
+
+    .form .message {
+        margin: 50px;
+        color: white;
+        font-size: 12px;
+    }
+
+
+
+    .form .register-form {
+        display: none;
+    }
+
+.container {
+    position: relative;
+    z-index: 1;
+    padding: 15px;
+}
+
+    .container:before, .container:after {
+        content: "";
+        display: block;
+        clear: both;
+    }
+
+    .container .info {
+        margin: 50px auto;
+        text-align: center;
+    }
+
+        .container .info h1 {
+            margin: 0 0 15px;
+            padding: 0;
+            font-size: 36px;
+            font-weight: 300;
+            color: #1a1a1a;
+        }
+
+        .container .info span {
+            color: #4d4d4d;
+            font-size: 12px;
+        }
+
+            .container .info span a {
+                color: #000000;
+                text-decoration: none;
+            }
+
+            .container .info span .fa {
+                color: #EF3B3A;
+            }
+
+    .container table {
+        align-content: center;
+    }
+
+table {
+    display: -webkit-box;
+    padding: 40px;
+    position: relative;
+}
+
+    table a {
+        text-decoration: underline;
+        color: blue;
+    }
+
+        table a:hover {
+            text-decoration: none;
+        }
+
+
+    table th {
+        background-color: #2caceb;
+        color: white;
+        font-weight: normal;
+        padding: 20px 30px;
+    }
+
+    table td {
+        background-color: rgb(238, 238, 238);
+        color: rgb(111, 111, 111);
+        padding: 10px 15px;
+    }
+
+    table tr {
+        background-color: rgb(69, 150, 218);
+        color: rgb(111, 111, 111);
+        padding: 20px 30px;
+    }
+
+        table tr .btn, table td .btn, table th .btn {
+            border-radius: 10px;
+            background-color: white;
+            cursor: pointer;
+            font-weight: bolder;
+            border-style: solid;
+            border-color: steelblue;
+        }
+
+            table tr .btn:hover, table td .btn:hover, table th .btn:hover {
+                background-color: steelblue;
+                font-weight: 500;
+            }
+
+.btn {
+    font-family: "Roboto", sans-serif;
+    text-transform: uppercase;
+    outline: 0;
+    background: rgb(120, 182, 233);
+    margin: 4px;
+    border: 0;
+    padding: 15px;
+    color: #FFFFFF;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+    .btn:hover {
+        background-color: lightblue;
+        color: black;
+    }
+
+.dropdownbox {
+    position: absolute;
+    text-align: center;
+}
+
+    .dropdownbox select {
+        background-color: #0563af;
+        color: white;
+        padding: 12px;
+        border: none;
+        font-size: 20px;
+        box-shadow: 0 5px 25px rgba(0, 0, 0, 0.2);
+        -webkit-appearance: button;
+        appearance: button;
+        outline: none;
+    }
+
+    .dropdownbox::before {
+        content: "\f13a";
+        font-family: FontAwesome;
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 20%;
+        height: 100%;
+        text-align: center;
+        font-size: 28px;
+        line-height: 45px;
+        color: rgba(255, 255, 255, 0.5);
+        background-color: rgba(255, 255, 255, 0.1);
+        pointer-events: none;
+    }
+
+    .dropdownbox:hover::before {
+        color: rgba(255, 255, 255, 0.6);
+        background-color: rgba(255, 255, 255, 0.2);
+    }
+
+    .dropdownbox select option {
+        padding: 30px;
+    }
+
+.custom-dropdown {
+    position: relative;
+    display: inline-block;
+    vertical-align: middle;
+    margin: 10px; /* demo only */
+}
+
+    .custom-dropdown select {
+        background-color: #1abc9c;
+        color: #fff;
+        font-size: inherit;
+        padding: .5em;
+        padding-right: 2.5em;
+        border: 0;
+        margin: 0;
+        border-radius: 3px;
+        text-indent: 0.01px;
+        text-overflow: '';
+        -webkit-appearance: button; /* hide default arrow in chrome OSX */
+    }
+
+    .custom-dropdown::before,
+    .custom-dropdown::after {
+        content: "";
+        position: absolute;
+        pointer-events: none;
+    }
+
+    .custom-dropdown::after { /*  Custom dropdown arrow */
+        content: "\25BC";
+        height: 1em;
+        font-size: .625em;
+        line-height: 1;
+        right: 1.2em;
+        top: 50%;
+        margin-top: -.5em;
+    }
+
+    .custom-dropdown::before { /*  Custom dropdown arrow cover */
+        width: 2em;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        border-radius: 0 3px 3px 0;
+    }
+
+    .custom-dropdown select[disabled] {
+        color: rgba(0,0,0,.3);
+    }
+
+        .custom-dropdown select[disabled]::after {
+            color: rgba(0,0,0,.1);
+        }
+
+    .custom-dropdown::before {
+        background-color: rgba(0,0,0,.15);
+    }
+
+    .custom-dropdown::after {
+        color: rgba(0,0,0,.4);
+    }
+
+.ui-datepicker {
+    padding: .2em .2em 0;
+    display: none;
+    height: 210px;
+    width: 195px;
+    font-family: Trebuchet MS;
+}
+
+    .ui-datepicker .ui-datepicker-header {
+        position: relative;
+        padding: .2em 0;
+        font-size: 9pt;
+        background-color: #BFDBFF;
+        font-family: Trebuchet MS;
+    }
+
+    .ui-datepicker .ui-datepicker-prev,
+    .ui-datepicker .ui-datepicker-next {
+        position: absolute;
+        top: 2px;
+        width: 1.8em;
+        height: 1.8em;
+    }
+
+    .ui-datepicker .ui-datepicker-prev-hover,
+    .ui-datepicker .ui-datepicker-next-hover {
+        top: 1px;
+    }
+
+    .ui-datepicker .ui-datepicker-prev span,
+    .ui-datepicker .ui-datepicker-next span {
+        display: block;
+        position: absolute;
+        left: 50%;
+        margin-left: -8px;
+        top: 50%;
+        margin-top: -8px;
+    }
+
+    .ui-datepicker .ui-datepicker-title {
+        margin: 0 4em;
+        line-height: 1.8em;
+        text-align: center;
+        background-color: #BFDBFF;
+    }
+
+        .ui-datepicker .ui-datepicker-title select {
+            font-size: 1em;
+            margin: 1px 0;
+        }
+
+    .ui-datepicker select.ui-datepicker-month,
+    .ui-datepicker select.ui-datepicker-year {
+        width: 45%;
+    }
+
+    .ui-datepicker table {
+        width: 100%;
+        font-size: 9pt;
+        border-collapse: collapse;
+        margin: 20px 0 .4em;
+        font-family: Trebuchet MS;
+    }
+
+    .ui-datepicker th {
+        padding: .7em .3em;
+        text-align: center;
+        font-weight: bold;
+        border: 0;
+    }
+
+    .ui-datepicker td {
+        border: 0;
+        padding: 1px;
+    }
+
+        .ui-datepicker td span,
+        .ui-datepicker td a {
+            display: block;
+            padding: .2em;
+            text-align: right;
+            text-decoration: none;
+        }
+
+    .ui-datepicker .ui-datepicker-buttonpane {
+        background-image: none;
+        margin: .7em 0 0 0;
+        padding: 0 .2em;
+        border-left: 0;
+        border-right: 0;
+        border-bottom: 0;
+    }
+
+        .ui-datepicker .ui-datepicker-buttonpane button {
+            float: right;
+            margin: .5em .2em .4em;
+            cursor: pointer;
+            padding: .2em .6em .3em .6em;
+            width: auto;
+            overflow: visible;
+        }
+
+            .ui-datepicker .ui-datepicker-buttonpane button.ui-datepicker-current {
+                float: left;
+            }
+
+.ui-datepicker-calendar > tbody > tr > td.ui-datepicker-unselectable > span.ui-state-default:before {
+    bottom: 0;
+    content: "X";
+    height: 4px;
+    left: 7px;
+    margin: auto;
+    position: relative;
+    right: 0;
+    top: 0;
+    width: 4px;
+}
+/*******************************EDITADO-MOBILE***************************************/
+#btn-menu {
+    display: none;
+}
+
+.menu ul {
+    /*margin: 0;*/
+    border-radius: .25em;
+    background: black;
+    list-style: none;
+    display: flex;
+    /*justify-content: center;*/
+}
+
+.menu li {
+    /*position: relative;
+    display: inline-block;*/
+    border-top: 1px solid #fff;
+    border-radius: .25em .25em 0 0;
+}
+
+#imagen {
+    display: none;
+    width: 50px;
+    height: 50px;
+    padding: 10px;
+    border-right: 5px solid #fff;
+    background: transparent;
+}
+
+    #imagen:hover {
+        cursor: pointer;
+        background: white;
+    }
+
+@media (max-width:972px) {
+    body {
+        margin: 0;
+    }
+
+    #imagen {
+        display: none;
+    }
+
+    .menu {
+        font-size: 1.25em;
+        position: relative;
+        top: -20px;
+        width: 100%;
+        margin-left: 0;
+        text-align: left;
+        transition: all 0.5s;
+    }
+
+        .menu ul {
+            flex-direction: column;
+            border-radius: .25em;
+            background: black;
+            list-style: none;
+        }
+
+        .menu li {
+            /*position: relative;*/
+            /*display: block;*/
+            border-top: 1px solid #fff;
+            border-bottom: none;
+            border-radius: .25em .25em 0 0;
+        }
+
+    #btn-menu:checked ~ .menu {
+        margin: 0;
+    }
+
+    .jumbotron { /*titlecontainer*/
+        position: unset;
+    }
+
+    .container {
+        position: unset;
+    }
+    .table-responsive {
+        width: 100%;
+        margin-bottom: 15px;
+        overflow-y: hidden;
+        -ms-overflow-style: -ms-autohiding-scrollbar;
+    }
+
+        .table-responsive > .table {
+            margin-bottom: 0;
+        }
+
+            .table-responsive > .table > thead > tr > th,
+            .table-responsive > .table > tbody > tr > th,
+            .table-responsive > .table > tfoot > tr > th,
+            .table-responsive > .table > thead > tr > td,
+            .table-responsive > .table > tbody > tr > td,
+            .table-responsive > .table > tfoot > tr > td {
+                white-space: nowrap;
+            }
+}

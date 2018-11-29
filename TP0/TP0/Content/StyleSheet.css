@@ -176,8 +176,7 @@ nav {
 .container {
     position: relative;
     z-index: 1;
-    padding:15px;
-    
+    padding: 15px;
 }
 
     .container:before, .container:after {
@@ -220,7 +219,7 @@ table {
     display: -webkit-box;
     padding: 40px;
     position: relative;
-   
+    overflow-x: auto;
 }
 
     table a {
@@ -549,10 +548,15 @@ table tr {
     }
     #imagen {
         display: block;
+        /*position: sticky;
+        top: 0px;*/
+        position: relative;
     }
     .menu {
         font-size: 1.25em;
-        position:absolute;
+        /*position:sticky;
+        top: 65px;*/
+        position: absolute;
         width: 80%;
         text-align: center;
         margin-left: -90%;
@@ -580,4 +584,63 @@ table tr {
     .container {
         position: unset;
     }
+    .login-page {
+        width: 90%;
+    }
+    .form {
+        position: unset;
+    }
+        .form input {
+            font-size: 10px;
+        }
+    h3 {
+        font-size: 1em;
+    }
+    h5 {
+        font-size: 1em;
+    }
+    .dropdownbox {
+        position: unset;
+        text-align: center;
+    }
+        .dropdownbox::before {
+            position: unset;
+            display:none;
+        }
+        .dropdownbox select {
+            padding: 10px;
+            font-size: 16px;
+            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.2);
+            -webkit-appearance: button;
+            appearance: button;
+            outline: none;
+        }
+
+    #btn-consumoPeriodo{
+        position: center;
+        font-size:1em;
+    }
+    #btn-recomendacion {
+        position: center;
+        font-size: 1em;
+    }
+    .table-responsive {
+        width: 100%;
+        margin-bottom: 15px;
+        overflow-y: hidden;
+        -ms-overflow-style: -ms-autohiding-scrollbar;
+    }
+
+        .table-responsive > .table {
+            margin-bottom: 0;
+        }
+
+            .table-responsive > .table > thead > tr > th,
+            .table-responsive > .table > tbody > tr > th,
+            .table-responsive > .table > tfoot > tr > th,
+            .table-responsive > .table > thead > tr > td,
+            .table-responsive > .table > tbody > tr > td,
+            .table-responsive > .table > tfoot > tr > td {
+                white-space: nowrap;
+            }
 }
