@@ -39,7 +39,7 @@ h3 {
     margin-inline-end: 0px;
     font-weight: bold;
     text-decoration: none;
-    color: white;
+    /*color: white;*/
 }
 
 
@@ -94,7 +94,7 @@ nav {
         nav li:hover {
             border-radius: 0 0 .25em .25em;
            
-            /*background: dodgerblue;*/
+            background: dodgerblue;
          
         }
 
@@ -519,15 +519,14 @@ table tr {
 .menu ul {
     /*margin: 0;*/
     border-radius: .25em;
-    background: black;
+    background: white;
     list-style: none;
     display: flex;
     /*justify-content: center;*/
 }
 .menu li {
     /*position: relative;
-    display: inline-block;*/
-    border-top: 1px solid #fff;    
+    display: inline-block;*/  
     border-radius: .25em .25em 0 0;
 }
 #imagen {
@@ -542,7 +541,72 @@ table tr {
         cursor: pointer;   
         background: white;
     }
-@media (max-width:972px){
+/* Custom dropdown */
+.custom-dropdown {
+    position: relative;
+    display: inline-block;
+    vertical-align: middle;
+    margin: 10px; /* demo only */
+}
+
+    .custom-dropdown select {
+        background-color: #2d7ce8;
+        color: white;
+        font-size: inherit;
+        padding: .5em;
+        padding-right: 2.5em;
+        border: 0;
+        margin: 0;
+        border-radius: 3px;
+        text-indent: 0.01px;
+        text-overflow: '';
+        -webkit-appearance: button; /* hide default arrow in chrome OSX */
+    }
+
+    .custom-dropdown::before,
+    .custom-dropdown::after {
+        content: "";
+        position: absolute;
+        pointer-events: none;
+    }
+
+    .custom-dropdown::after { /*  Custom dropdown arrow */
+        content: "\25BC";
+        height: 1em;
+        font-size: .625em;
+        line-height: 1;
+        right: 1.2em;
+        top: 50%;
+        margin-top: -.5em;
+    }
+
+    .custom-dropdown::before { /*  Custom dropdown arrow cover */
+        width: 2em;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        border-radius: 0 3px 3px 0;
+    }
+
+    .custom-dropdown select[disabled] {
+        color: rgba(0,0,0,.3);
+    }
+
+        .custom-dropdown select[disabled]::after {
+            color: rgba(0,0,0,.1);
+        }
+
+    .custom-dropdown::before {
+        background-color: rgba(0,0,0,.15);
+    }
+
+    .custom-dropdown::after {
+        color: rgba(0,0,0,.9);
+    }
+    #cuadroBlanco{
+        width: 20%;
+    }
+@media (max-width:1082px){
     body {
         margin: 0;
     }
@@ -565,13 +629,13 @@ table tr {
         .menu ul {
             flex-direction: column;
             border-radius: .25em;
-            background: black;
+            /*background: black;*/
             list-style: none;
         }
         .menu li {
             /*position: relative;*/
             /*display: block;*/
-            border-top: 1px solid #fff;
+            border-top: 1px solid black;
             border-bottom: none;
             border-radius: .25em .25em 0 0;
         }
@@ -599,6 +663,9 @@ table tr {
     h5 {
         font-size: 1em;
     }
+    #cuadroBlanco {
+        width: 70%;
+    }
     .dropdownbox {
         position: unset;
         text-align: center;
@@ -615,6 +682,9 @@ table tr {
             appearance: button;
             outline: none;
         }
+    .custom-dropdown {     
+        margin-top: 100px;
+    }
 
     #btn-consumoPeriodo{
         position: center;
