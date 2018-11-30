@@ -21,7 +21,7 @@ namespace TP0.Helpers
         {
         }
 
-        public Categoria(double consMin, double consMax, double cFijo, double cVariable)
+        public Categoria(double consMin, double consMax, double cVariable, double cFijo)
         {
             consumoMax = consMax;
             consumoMin = consMin;
