@@ -82,7 +82,7 @@ namespace TP0.Controllers
             }
             else
             {
-                reporteModelo.consumo = usu.KwTotales(FechaInicio, FechaFin);
+                reporteModelo.consumo = usu.CalcularConsumo(FechaInicio, FechaFin);
                 ViewBag.consumo = "Consumo: " + reporteModelo.consumo + " Kw";
                 Mongo.insertarReporte(reporteModelo);
             }
@@ -283,7 +283,6 @@ namespace TP0.Controllers
         public ActionResult DetallesCliente(int id)
         {
             Cliente c = new Cliente(id);
-            c.CargarDisps();
             ViewBag.Dispositivos = c.Dispositivos;
             return View(c);
         }
@@ -328,9 +327,6 @@ namespace TP0.Controllers
         public ActionResult ConsultarConsumoAdmin(DateTime FechaInicio, DateTime FechaFin, int id)
         {
             Cliente clie = new Cliente(id);
-            clie.CargarDisps();
-
-
             using (var db = new DBContext())
             {
                 Usuario usu = db.Usuarios.FirstOrDefault(u => u.UsuarioID == clie.UsuarioID);
@@ -346,7 +342,7 @@ namespace TP0.Controllers
                 }
                 else
                 {
-                    reporteModelo.consumo = usu.KwTotales(FechaInicio, FechaFin);
+                    reporteModelo.consumo = usu.CalcularConsumo(FechaInicio, FechaFin);
                     ViewBag.consumo = "Consumo: " + reporteModelo.consumo + "Kw";
                     Mongo.insertarReporte(reporteModelo);
                 }
@@ -363,7 +359,6 @@ namespace TP0.Controllers
         public ActionResult SimplexView(int id)
         {
             Cliente clie = new Cliente(id);
-            clie.CargarDisps();
 
             ViewBag.simplexResultado = clie.SolicitarRecomendacion();
             return View();
@@ -378,9 +373,7 @@ namespace TP0.Controllers
         public ActionResult DispositivosPropios()
         {
             ViewBag.Message = "Tus dispositivos:";
-
             Cliente clie = new Cliente(User.Identity.Name);
-            clie.CargarDisps();
             return View(clie);
         }
         //Metodos para cambiar el estado del dispositivo
@@ -583,8 +576,7 @@ namespace TP0.Controllers
             var fmin = Convert.ToDateTime(clie.FechaDeAlta);
             if (FechaInicio < fmin)
                 FechaInicio = fmin;
-
-            clie.CargarDisps();
+            
             Reporte reporteModelo = new Reporte("Hogar", clie.UsuarioID.ToString(), 0, FechaInicio, FechaFin);
 
             //if(reporte esta en mongo){find} else{ se crea y se guarda en mongo}
@@ -596,7 +588,7 @@ namespace TP0.Controllers
             }
             else
             {
-                reporteModelo.consumo = clie.KwTotales(FechaInicio, FechaFin);
+                reporteModelo.consumo = clie.CalcularConsumo(FechaInicio, FechaFin);
                 ViewBag.consumo = "Consumo: " + reporteModelo.consumo + "Kw";
                 Mongo.insertarReporte(reporteModelo);
             }
@@ -613,7 +605,6 @@ namespace TP0.Controllers
             if (User.Identity.IsAuthenticated || ClientesImportados.GetClientes() != null)
             {
                 Cliente clie = new Cliente(User.Identity.Name);
-                clie.CargarDisps();
                 ViewBag.recomendaciones = clie.SolicitarRecomendacion().ToList();
                 return View();
             }

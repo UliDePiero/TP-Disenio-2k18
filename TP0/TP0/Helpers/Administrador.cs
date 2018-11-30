@@ -91,7 +91,7 @@ namespace TP0.Helpers
             throw new NotImplementedException();
         }
 
-        public override double KwTotales(DateTime fInicial, DateTime fFinal)
+        public override double CalcularConsumo(DateTime fInicial, DateTime fFinal)
         {
             throw new NotImplementedException();
         }

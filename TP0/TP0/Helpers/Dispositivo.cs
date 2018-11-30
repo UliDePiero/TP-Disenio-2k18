@@ -44,6 +44,7 @@ namespace TP0.Helpers
         public abstract double ConsumoActual();
         public abstract double ConsumoEnHoras(double horas);
         public abstract double ConsumoEnPeriodo(DateTime fInicial, DateTime fFinal);
+        public abstract double ConsumoDelMes();
         public abstract void AgregarEstado(State est);
         public abstract DispositivoInteligente ConvertirEnInteligente(string marca);
         public abstract State GetEstado();

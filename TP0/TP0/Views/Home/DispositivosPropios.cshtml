@@ -11,8 +11,10 @@
 
 <div class="box">
     <span class="info">
+        <h3>Consumo total del mes: @Model.ConsumoDelMes() Kw</h3>
+        <h3>Tarifa del mes pasado: $ @Model.FacturaMesPasado()</h3>
         <h3>Consumo promedio: @Model.TotalConsumoPromedio() KwH</h3>
-        <h3>Consumo total historico: @Model.TotalConsumo() KwH</h3>
+        <h3>Consumo total historico: @Model.TotalConsumo() Kw</h3>
         <h3>Dispositivos: @Model.Dispositivos.Count() </h3>
         <div class="box">
             <div>
@@ -49,11 +51,11 @@
                     </th>
 
                     <th style="text-align: center;">
-                        @Html.DisplayName("Consumo Acumulado Historico")
+                        @Html.DisplayName("Consumo del mes")
                     </th>
                     <th>
                         @Html.DisplayName("Estado")
-                    </th>
+                    </th style="text-align: center;">
                     <th>Cambiar estado</th>
 
                 </tr>
@@ -73,9 +75,9 @@
                                 @Html.DisplayFor(modelItem => item.EsInteligente)
                             </td>
                             <td style="text-align: center;">
-                                @item.Consumo() Kw
+                                @item.ConsumoDelMes() Kw
                             </td>
-                            <td>
+                            <td style="text-align: center;">
                                 @Html.DisplayFor(modelItem => item.Desc)
                             </td>
                             <td>
@@ -99,9 +101,9 @@
                                 @Html.DisplayFor(modelItem => item.EsInteligente)
                             </td>
                             <td style="text-align: center;">
-                                @item.Consumo() Kw
+                                @item.ConsumoDelMes() Kw
                             </td>
-                            <td>Se desconoce estado</td>
+                            <td style="text-align: center;">Se desconoce estado</td>
                             <td>No se puede cambiar el estado de un dispositivo estandar</td>
                         </tr>
                     }

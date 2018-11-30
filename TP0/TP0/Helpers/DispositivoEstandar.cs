@@ -96,6 +96,10 @@ namespace TP0.Helpers
         {
             return ConsumoEnPeriodo(DateTime.Now.AddHours(-horas), DateTime.Now);
         }
+        public override double ConsumoDelMes()
+        {
+            return ConsumoEnPeriodo(new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1), DateTime.Now);
+        }
 
         public override bool EstaEncendido()
         {

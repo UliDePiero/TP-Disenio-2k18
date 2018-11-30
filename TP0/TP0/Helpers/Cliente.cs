@@ -72,6 +72,8 @@ namespace TP0.Helpers
                 FechaDeAlta = c.FechaDeAlta;
                 UsuarioID = c.UsuarioID;
             }
+            CargarDisps();
+            ActualizarCategoria();
         }
         public Cliente(int id) //para buscar en la DB + instanciar
         {
@@ -94,6 +96,8 @@ namespace TP0.Helpers
                 FechaDeAlta = c.FechaDeAlta;
                 UsuarioID = c.UsuarioID;
             }
+            CargarDisps();
+            ActualizarCategoria();
         }
         public override void AgregarALaBase()
         {
@@ -125,6 +129,35 @@ namespace TP0.Helpers
                 }
 
                 db.SaveChanges();
+            }
+        }
+
+        public List<Dispositivo> GetDisps()
+        {
+            using (var db = new DBContext())
+            {
+                return db.Dispositivos.Where(x => x.UsuarioID == UsuarioID).ToList();
+            }
+        }
+        public void CargarDisps()
+        {
+            using (var db = new DBContext())
+            {
+                Dispositivos = db.Dispositivos.Where(x => x.UsuarioID == UsuarioID).ToList();
+            }
+            foreach (Dispositivo d in Dispositivos)
+            {
+                d.ActualizarUltimoEstado();
+                try
+                {
+                    d.Desc = d.GetEstado().Desc;
+                }
+                catch (NotImplementedException e)
+                {
+                    //Reconoce que hay un error pero
+                    //No hace nada porque los standar no tienen estados
+                }
+                d.ActualizarConsumoAcumulado(FechaDeAlta);
             }
         }
 
@@ -295,10 +328,15 @@ namespace TP0.Helpers
         }
         public override double EstimarFacturacion(DateTime fInicial, DateTime fFinal)
         {
-            return categoria.CalcularTarifa(KwTotales(fInicial, fFinal));
+            return categoria.CalcularTarifa(CalcularConsumo(fInicial, fFinal));
         }
-
-        public override double KwTotales(DateTime fInicial, DateTime fFinal)
+        public double FacturaMesPasado()
+        {
+            //Retorna la factura del ultimo mes
+            DateTime fin = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1, 23, 59, 59).AddDays(-1);
+            return EstimarFacturacion(new DateTime(fin.Year, fin.Month, 1, 23, 59, 59), fin);
+        }
+        public override double CalcularConsumo(DateTime fInicial, DateTime fFinal)
         {
             using (var db = new DBContext())
             {
@@ -323,6 +361,11 @@ namespace TP0.Helpers
                 Consumo += disp.ConsumoEnPeriodo(fInicial, fFinal);
             return Consumo;
         }
+        public double ConsumoDelMes()
+        {
+            //Retorna el consumo del mes
+            return CalcularConsumo(new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1), DateTime.Now);
+        }
 
         public void AccionAutomaticaON()
         {
@@ -342,37 +385,6 @@ namespace TP0.Helpers
                 db.SaveChanges();
             }
         }
-
-        public List<Dispositivo> GetDisps()
-        {
-            using (var db = new DBContext())
-            {
-                return db.Dispositivos.Where(x => x.UsuarioID == UsuarioID).ToList();
-            }
-        }
-
-        public void CargarDisps()
-        {
-            using (var db = new DBContext())
-            {
-                Dispositivos = db.Dispositivos.Where(x => x.UsuarioID == UsuarioID).ToList();
-            }
-            foreach (Dispositivo d in Dispositivos)
-            {
-                d.ActualizarUltimoEstado();
-                try
-                {
-                    d.Desc = d.GetEstado().Desc;
-                }
-                catch (NotImplementedException e)
-                {
-                    //Reconoce que hay un error pero
-                    //No hace nada porque los standar no tienen estados
-                }
-                d.ActualizarConsumoAcumulado(FechaDeAlta);
-            }
-        }
-
 
         public override RecomendacionXDisp[] SolicitarRecomendacion() //Convierte el string en una lista de doubles
         {
@@ -442,7 +454,6 @@ namespace TP0.Helpers
 
             return RecomendacionXDispositivos;
         }
-
         public override void ActualizarCategoria()
         {
             categoria = CategoriasPosibles.GetCategoria(TotalConsumoPromedio());
@@ -466,7 +477,6 @@ namespace TP0.Helpers
                 context.SaveChanges();
             }
         }
-
         public double[] UbicacionDomicilio()
         {
             var direccion = new AddressData { Address = Domicilio, City = "CABA", State = "Buenos Aires", Country = "Argentina" };
@@ -477,7 +487,6 @@ namespace TP0.Helpers
             double[] punto = new double[] { latitude, longitude };
             return punto;
         }
-
         public double CalcDistancia(double[] casa, double latTrafo, double longTrafo)
         {
             double radioTierra = 6371;

@@ -67,7 +67,7 @@ namespace TP0.Helpers
                 {
                     if (c.TransformadorID == TransformadorID)
                     {
-                        EnergiaTotal += c.KwTotales(fInicial, fFinal);
+                        EnergiaTotal += c.CalcularConsumo(fInicial, fFinal);
                     }
                 }
             }

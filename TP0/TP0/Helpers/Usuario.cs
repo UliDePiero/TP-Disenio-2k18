@@ -33,7 +33,7 @@ namespace TP0.Helpers
         public abstract int DispositivosEnAhorro();
         public abstract int DispositivosTotales();
         public abstract double EstimarFacturacion(DateTime fInicial, DateTime fFinal);
-        public abstract double KwTotales(DateTime fInicial, DateTime fFinal);
+        public abstract double CalcularConsumo(DateTime fInicial, DateTime fFinal);
         public abstract void AgregarDispInteligente(DispositivoInteligente DI);
         public abstract void AgregarDispEstandar(DispositivoEstandar DE);
         public abstract void AdaptarDispositivo(DispositivoEstandar D, string marca);

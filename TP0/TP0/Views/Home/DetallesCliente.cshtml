@@ -12,7 +12,9 @@
     </div>
 
     <div>
-
+        <h3>Consumo total del mes: @Model.ConsumoDelMes() Kw</h3>
+        <h3>Tarifa del mes pasado: $ @Model.FacturaMesPasado()</h3>
+        <h3>Tarifa del mes: $ @Model.categoria.CalcularTarifa(Model.ConsumoDelMes())</h3>
         <h3>Consumo promedio: @Model.TotalConsumoPromedio() KwH</h3>
         <h3>Consumo total historico: @Model.TotalConsumo() KwH</h3>
         <h3>Dispositivos: @Model.Dispositivos.Count() </h3>
@@ -39,7 +41,7 @@
             </th>
 
             <th style="text-align: center;">
-                @Html.DisplayName("Consumo Acumulado")
+                @Html.DisplayName("Consumo del mes")
             </th>
             <th style="text-align: center;">
                 @Html.DisplayName("Estado")
@@ -63,7 +65,7 @@
                         @Html.DisplayFor(modelItem => item.EsInteligente)
                     </td>
                     <td style="text-align: center;">
-                        @item.Consumo() Kw
+                        @item.ConsumoDelMes() Kw
                     </td>
                     <td style="text-align: center;">
                         @Html.DisplayFor(modelItem => item.Desc)
@@ -88,7 +90,7 @@
                         @Html.DisplayFor(modelItem => item.EsInteligente)
                     </td>
                     <td style="text-align: center;">
-                        @item.Consumo() Kw
+                        @item.ConsumoDelMes() Kw
                     </td>
                     <td></td>
                     <td></td>

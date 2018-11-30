@@ -193,6 +193,10 @@ namespace TP0.Helpers
             double hs = FechasAdmin.HsConsumidasTotalPeriodo(fInicial, fFinal, estadosAnteriores);
             return Math.Round(hs * KWxHora, 3);
         }
+        public override double ConsumoDelMes()
+        {
+            return ConsumoEnPeriodo(new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1), DateTime.Now);
+        }
 
         public override void AgregarEstado(State est)
         {

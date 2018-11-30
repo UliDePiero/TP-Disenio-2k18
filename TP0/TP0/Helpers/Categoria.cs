@@ -31,7 +31,7 @@ namespace TP0.Helpers
 
         public double CalcularTarifa(double consumo)
         {
-            return (cargoFijo + consumo * cargoVariable);
+            return Math.Round(cargoFijo + consumo * cargoVariable, 2);
         }
 
         public bool PerteneceA(double consumo){
