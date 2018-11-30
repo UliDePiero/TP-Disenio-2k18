@@ -1,0 +1,61 @@
+﻿@model TP0.Models.FileUploadViewModel
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@if ((string)System.Web.HttpContext.Current.Session["admin"] == "true")
+{
+    <div class="jumbotron" style="text-align: center;">
+        <h2>Importar usuarios, dispositivos o transformadores</h2>
+        <p class="lead">Seleccione el tipo de información y luego el archivo .json que desea cargar a memoria</p>
+
+    </div>
+
+
+    <hr />
+
+    <!--<div class="container" style="width:50%;position:relative;">-->
+    <div class="container">
+
+        @using (Html.BeginForm("Index", "FileUpload", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            @Html.AntiForgeryToken()
+
+           
+            <!--<div class="form" style="left:50%; margin-top:50px;">-->
+            <div class="form" id="cuadroBlanco"style=" margin-top:50px;">
+                <div> @Html.ValidationSummary(true, "", new { @class = "text-danger" }) </div>
+
+                <div class="container">
+
+                    <div class="custom-dropdown">
+                        @Html.DropDownList("DispositivoSeleccionado", (IEnumerable<SelectListItem>)ViewBag.IdSeleccionado)
+                    </div>
+
+                    @Html.EditorFor(model => model.file, new { htmlAttributes = new { @class = "form-control", @type = "file" } })
+
+                    <div>
+                        @Html.ValidationMessageFor(model => model.file, "", new { @class = "message" })
+                    </div>
+
+
+                    <div>
+                        @if (ViewBag.FileStatus != "" && ViewBag.FileStatus != "Archivo cargado correctamente.")
+                        {
+                            <div class="message">@ViewBag.FileStatus </div>
+                        }
+                    </div>
+                    <div>
+                        @ViewBag.FileStatus
+                    </div>
+
+                    <button type="submit" class="btn">Importar</button>
+
+                </div>
+            </div>
+
+        }
+    </div>
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+}

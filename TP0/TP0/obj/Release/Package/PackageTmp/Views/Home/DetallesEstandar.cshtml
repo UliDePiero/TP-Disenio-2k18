@@ -1,0 +1,40 @@
+﻿@model TP0.Helpers.DispositivoEstandar
+
+
+<div class="jumbotron">
+    <h2>@Model.Nombre</h2>
+    <h4>Fecha de alta: @Model.FechaAlta.ToShortDateString()</h4>
+    <h4>KW por hora: @Model.KWxHora</h4>
+    <h4>Consumo Acumulado: @Model.Consumo() KW</h4>
+</div>
+<h4>
+    Este dispositivo es estandar, por lo que no se pueden saber sus estados ni hacer mediciones.
+</h4>
+<h4>
+    <button type="submit" class="btn" style="width:50px%;text-align:center;position:relative;">
+
+        @Html.ActionLink("Convertir en inteligente", "ConvertirEnInteligente", new { id = Model.DispositivoID })
+    </button>
+</h4>
+<div class="container">
+    <span class="info">
+        <div style="margin:10px;">
+            @using (Html.BeginForm("DispositivosPropios", "Home", FormMethod.Get))
+            {
+                <input type="submit" class="btn" value="Volver">
+            }
+        </div>
+    </span>
+</div>
+<hr />
+<h4>
+    <div class="container">
+
+        @using (Html.BeginForm("BorrarDispositivoClie", "Home", new { id = Model.DispositivoID }))
+        {
+            <input type="submit" class="btn" value="Eliminar dispositivo" onclick="alertBox()">
+        }
+
+        <h4 class="message">ADVERTENCIA: ESTA ACCIÓN NO PUEDE DESHACERSE</h4>
+    </div>
+</h4>

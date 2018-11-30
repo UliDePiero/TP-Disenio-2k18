@@ -1,0 +1,51 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+<div class="jumbotron">
+    <h2>Bienvenido</h2>
+
+</div>
+@if (!System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
+{
+    <h4>
+        Esta web tiene como propósito y utilidad administrar dispositivos y poder conocer tanto su consumo como un consumo sugerido.
+        Los dispositivos pueden ser inteligentes o no. Los inteligentes pueden ser administrados mientras que los estándar deberán ser
+        adaptados para poder acceder a su información.
+    </h4>
+    <h4 style="font-size:20px;">
+        Para empezar a gestionar sus dispositivos, regístrese o inicie sesión
+    </h4>
+}
+else if ((string)System.Web.HttpContext.Current.Session["admin"] == "true" && Request.IsAuthenticated)
+{
+
+    <h4 style="font-size:20px;">
+        Para empezar a gestionar sus dispositivos elegí alguna opción del navegador
+    </h4>
+    <div class="container" style="left:10%;">
+        <p> Como administrador del sistema podrás:</p>
+        <p>+ Agragar, eliminar y editar dispositivos al sistema</p>
+        <p>+ Ver el consumo de los usuarios</p>
+        <p>+ Generar reportes por periodos sobre transformadores, dispositivos o usuarios</p>
+        <p>+ Cargar información desde un .json</p>
+        <p>+ ¡y más!</p>
+    </div>
+
+}
+else
+
+{
+    <h4 style="font-size:20px;">
+        Para empezar a gestionar sus dispositivos elegí alguna opción del navegador
+    </h4>
+    <div class="container" style="left:10%;">
+        <p> Como usuario del sistema podrás:</p>
+        <p>+ Agragar dispositivos a tu casa para administrarlos</p>
+        <p>+ Crear reglas para cada uno de tus dispositivos</p>
+        <p>+ Convertir dispositivos estándar a inteligentes para administrarlos</p>
+        <p>+ Conocer tu consumo por periodos</p>
+        <p>+ Cargar dispositivos desde un .json</p>
+        <p>+ ¡y más!</p>
+    </div>
+
+}

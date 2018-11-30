@@ -1,0 +1,107 @@
+﻿@model TP0.Helpers.DispositivoInteligente
+
+<div class="jumbotron">
+    <h2>@Model.Nombre</h2>
+    <h4>Fecha de alta: @Model.FechaAlta.ToShortDateString()</h4>
+    <h4>KW por hora: @Model.KWxHora</h4>
+    <h4>Consumo Acumulado: @Model.Consumo() KW</h4>
+    <h4>Consumo Promedio: @Model.ConsumoPromedio KWxHora</h4>
+    <h4>Estado actual: @Model.GetEstado().Desc</h4>
+
+</div>
+
+<div class="container">
+    <span class="info">
+        <h3>
+            @Html.ActionLink("Encender", "Encender2", new { id = Model.DispositivoID, estadoActual = Model.Desc }, new { @class = "btn" }) |
+            @Html.ActionLink("Apagar", "Apagar2", new { id = Model.DispositivoID, estadoActual = Model.Desc }, new { @class = "btn" }) |
+            @Html.ActionLink("Ahorro", "Ahorro2", new { id = Model.DispositivoID, estadoActual = Model.Desc }, new { @class = "btn" })
+        </h3>
+
+    </span>
+</div>
+
+
+<div class="box">
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayName("Sensor")
+            </th>
+
+            <th style="text-align: center;">
+                @Html.DisplayName("Descripción")
+            </th>
+            <th style="text-align: center;">
+                @Html.DisplayName("Se cumple")
+            </th>
+            <th style="text-align: center;">
+                @Html.DisplayName("Valor minimo")
+            </th>
+            <th style="text-align: center;">
+                @Html.DisplayName("Valor maximo")
+
+        </tr>
+        @foreach (TP0.Helpers.Sensor s in Model.GetSensores())
+        {
+            foreach (TP0.Helpers.Regla r in s.Reglas)
+            {
+                <tr>
+
+                    <td style="text-align: center;">
+                        @r.Tipo
+                    </td>
+                    <td style="text-align: center;">
+                        @r.Descripcion
+                    </td>
+                    <td style="text-align: center;">
+                        @r.SeCumple
+                    </td>
+                    <td style="text-align: center;">
+                        @r.ValorMax
+                    </td>
+                    <td style="text-align: center;">
+                        @r.ValorMin
+                    </td>
+                    <td class="btn" style="border-style: solid;
+        border-color:steelblue;">
+                        @Html.ActionLink("Borrar regla", "BorrarRegla", new { rID = r.ReglaID, dID = Model.DispositivoID })
+                    </td>
+                </tr>
+            }
+        }
+
+    </table>
+
+</div>
+<div class="container">
+    <span class="info">
+        <div style="    margin: 0px 0px 50px 0px;">
+
+            @Html.ActionLink("+Crear nueva regla", "CrearRegla", new { id = Model.DispositivoID }, new { @class = "btn" })
+        </div>
+    </span>
+</div>
+<div class="container">
+    <span class="info">
+        <div style="margin:10px;">
+            @using (Html.BeginForm("DispositivosPropios", "Home", FormMethod.Get))
+            {
+                <input type="submit" class="btn" value="Volver">
+            }
+        </div>
+    </span>
+</div>
+<hr />
+<div class="container">
+    <span class="info">
+
+        <div style="margin:10px;">
+            @using (Html.BeginForm("BorrarDispositivoClie", "Home", new { id = Model.DispositivoID }))
+            {
+                <input type="submit" class="btn" value="Eliminar dispositivo" onclick="alertBox()">
+            }
+            <h4><font color="red">ADVERTENCIA: ESTA ACCIÓN NO PUEDE DESHACERSE</font></h4>
+        </div>
+    </span>
+</div>

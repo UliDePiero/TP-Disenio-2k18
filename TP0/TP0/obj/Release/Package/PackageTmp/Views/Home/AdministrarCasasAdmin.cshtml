@@ -1,0 +1,59 @@
+﻿<link href="~/Content/StyleSheetMAPA.css" rel="stylesheet" type="text/css" />
+@model IEnumerable<TP0.Helpers.Cliente>
+@if ((string)System.Web.HttpContext.Current.Session["admin"] == "true")
+{
+    <div class="jumbotron">
+
+        <h2>Administracion de casas de usuarios</h2>
+        <h4>Total casas: @Model.Count()</h4>
+    </div>
+    <div class="table-responsive">
+        <table class="table">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Nombre)
+                </th>
+                <th style="text-align: center;">
+                    @Html.DisplayNameFor(model => model.Domicilio)
+                </th>
+                <th style="text-align: center;">
+                    @Html.DisplayNameFor(model => model.Telefono)
+                </th>
+
+                <th style="text-align: center;">
+                    @Html.DisplayName("Dispositivos")
+                </th>
+                <th style="text-align: center;">
+                    @Html.DisplayName("Dispositivos encendidos")
+                </th>
+                <th style="text-align: center;">
+                    @Html.DisplayName("Consumo actual")
+                </th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.ActionLink(item.Nombre, "DetallesCliente", new { id = item.UsuarioID })
+                    </td>
+                    <td style="text-align: center;">
+                        @Html.DisplayFor(modelItem => item.Domicilio)
+                    </td>
+                    <td style="text-align: center;">
+                        @Html.DisplayFor(modelItem => item.Telefono)
+                    </td>
+                    <td style="text-align: center;">
+                        @item.DispositivosTotales()
+                    </td>
+                    <td style="text-align: center;">
+                        @item.DispositivosEncendidos()
+                    </td>
+                    <td style="text-align: center;">
+                        @item.ConsumoActual()
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
+}

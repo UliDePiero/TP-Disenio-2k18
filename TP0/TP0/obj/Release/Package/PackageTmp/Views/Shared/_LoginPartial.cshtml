@@ -1,0 +1,63 @@
+﻿<!--<link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">-->
+<link href="~/Content/StyleSheet.css" rel="stylesheet" type="text/css" />
+<input type="checkbox" id="btn-menu">
+<label for="btn-menu" id="imagen"><img src="~/Images/DropDown_Menu-2-512.png"></label>
+<nav class="menu">
+    <ul>
+
+        @using Microsoft.AspNet.Identity
+
+        @if ((string)System.Web.HttpContext.Current.Session["admin"] == "true" && Request.IsAuthenticated)
+        {
+            using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-left" }))
+            {
+                @Html.AntiForgeryToken()
+
+                <ul class="nav navbar-nav navbar-left">
+                    <h3>
+                        Hola administrador: @User.Identity.GetUserName()
+                    </h3>
+                    @*pestañas de admin*@
+                    <li>@Html.ActionLink("Casas", "AdministrarCasasAdmin", "Home")</li> @*Pagina de casas (clientes)*@
+                    <li>@Html.ActionLink("Dispositivos", "AdministrarDispositivosAdmin", "Home")</li> @*Pagina de dispositivos*@
+                    <li>@Html.ActionLink("Cargar info", "Index", "FileUpload")</li>@*Pagina de Carga de Informacion*@
+                    <li>@Html.ActionLink("Reportes", "ReportesAdmin", "Home")</li>@*Pagina de reportes*@
+                    <li>@Html.ActionLink("Mapa", "Map", "Home")</li> @*Pagina de mapa*@
+                    <li>@Html.ActionLink("Gestionar cuenta", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })</li>
+                    <li><a href="javascript:document.getElementById('logoutForm').submit()">Cerrar sesión</a></li>
+                </ul>
+            }
+
+        }
+        else if (Request.IsAuthenticated)
+        {
+                    using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-left" }))
+                    {
+                    @Html.AntiForgeryToken()
+
+                    <ul class="nav navbar-nav navbar-left">
+
+                        <h3>
+                            Hola usuario: @User.Identity.GetUserName()
+                        </h3>
+
+
+                        @*pestañas de usuario*@
+                        <li>@Html.ActionLink("Tu casa", "DispositivosPropios", "Home")</li> @*Pagina de dispositivos*@
+                        <li>@Html.ActionLink("Cargar info", "IndexClie", "FileUpload")</li>
+                        <li>@Html.ActionLink("Mapa", "Map", "Home")</li> @*Pagina de mapa*@
+                        <li>@Html.ActionLink("Gestionar cuenta", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })</li>
+                        <li><a href="javascript:document.getElementById('logoutForm').submit()">Cerrar sesión</a></li>
+                    </ul>
+                    }
+        }
+                else
+                {
+                    <ul class="nav navbar-nav navbar-left">
+                        <li>@Html.ActionLink("Iniciar sesión", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
+                        <li>@Html.ActionLink("Registrarse", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
+                        <li>@Html.ActionLink("Mapa", "Map", "Home")</li>
+                    </ul>
+                }
+     </ul>
+</nav>

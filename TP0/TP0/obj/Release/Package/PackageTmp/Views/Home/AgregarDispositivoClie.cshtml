@@ -1,0 +1,26 @@
+<html>
+<head>
+</head>
+
+<body>
+    <div class="jumbotron">
+        <h3 style="text-align:center"> @ViewBag.Message </h3>
+    </div>
+    @using (Html.BeginForm("AgregarDispositivoClie", "Home", FormMethod.Post))
+    {
+        <div class="container" style="width:50%;left:25%;">
+            <div class="dropdownbox" style="left:25%">
+
+                @Html.DropDownList("DispositivoSeleccionado", (IEnumerable<SelectListItem>)ViewBag.selectListItems)
+            </div>
+
+
+            <div style="margin-top:55px;">
+                <h4>
+                    <input type="submit" class="btn" value="Agregar dispositivo" >
+                </h4>
+            </div>
+        </div>
+    }
+</body>
+</html>

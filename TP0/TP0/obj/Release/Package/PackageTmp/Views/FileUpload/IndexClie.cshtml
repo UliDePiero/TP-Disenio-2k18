@@ -1,0 +1,55 @@
+﻿@model TP0.Models.FileUploadViewModel
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="jumbotron">
+    <h2>Importar dispositivos</h2>
+    <h4 class="lead">El archivo debe ser llamado: "dispositivosPropios.json"</h4>
+</div>
+
+<hr />
+<!--<div class="container" style="width:50%;position:relative;text-align:center; ">-->
+<div class="container" style="text-align:center;">
+    @using (Html.BeginForm("IndexClie", "FileUpload", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        @Html.AntiForgeryToken()
+
+
+
+
+    <!--<div class="form" style="left:50%; margin-top:50px;">-->
+    <div class="form" id="cuadroBlanco" style=" margin-top:50px;">
+        <div> @Html.ValidationSummary(true, "", new { @class = "text-danger" }) </div>
+
+        <div>
+            @Html.LabelFor(model => model.file, htmlAttributes: new { @class = "control-label col-md-2" })
+        </div>
+
+        <div class="container">
+            @Html.EditorFor(model => model.file, new { htmlAttributes = new { @class = "form-control", @type = "file" } })
+        </div>
+
+
+        <div>
+            @Html.ValidationMessageFor(model => model.file, "", new { @class = "message" })
+        </div>
+        <div>
+            @if (ViewBag.FileStatus != "" && ViewBag.FileStatus != "Archivo cargado correctamente.")
+            {
+                <div class="message">@ViewBag.FileStatus </div>
+            }
+        </div>
+
+        <div>
+            @ViewBag.FileStatus
+        </div>
+        <button type="submit" class="btn">Importar</button>
+    </div>
+    }  
+ 
+</div>
+
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>

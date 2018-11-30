@@ -1,0 +1,108 @@
+﻿@model TP0.Helpers.Cliente
+
+<div style="text-align:center;column-count: 2;">
+
+    <div>
+        <h4>Datos de usuario</h4>
+        <h4>  Casa de @Model.Nombre @Model.Apellido</h4>
+        <h4>  Usuario: @Model.Username</h4>
+        <h4>  Telefono: @Model.Telefono</h4>
+        <h4>   Direccion: @Model.Domicilio</h4>
+        <h4>Documento (@Model.TipoDocumento): @Model.Documento</h4>
+    </div>
+
+    <div>
+
+        <h3>Consumo promedio: @Model.TotalConsumoPromedio() KwH</h3>
+        <h3>Consumo total historico: @Model.TotalConsumo() KwH</h3>
+        <h3>Dispositivos: @Model.Dispositivos.Count() </h3>
+    </div>
+    <div>
+        <h5>Dispositivos encendidos: @Model.DispositivosEncendidos()</h5>
+        <h5>Dispositivos apagados: @Model.DispositivosApagados()</h5>
+        <h5>Dispositivos en ahorro: @Model.DispositivosEnAhorro()</h5>
+        <h5>Dispositivos estandares: @Model.DispositivosEstandares()</h5>
+
+    </div>
+</div>
+<div class="box">
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayName("Nombre")
+            </th>
+            <th style="text-align: center;">
+                @Html.DisplayName("KWxHora")
+            </th>
+            <th style="text-align: center;">
+                @Html.DisplayName("Inteligente")
+            </th>
+
+            <th style="text-align: center;">
+                @Html.DisplayName("Consumo Acumulado")
+            </th>
+            <th style="text-align: center;">
+                @Html.DisplayName("Estado")
+            </th>
+            <th> </th>
+        </tr>
+
+        @foreach (TP0.Helpers.Dispositivo item in ViewBag.Dispositivos)
+        {
+            if (item.EsInteligente)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Nombre)
+
+                    </td>
+                    <td style="text-align: center;">
+                        @Html.DisplayFor(modelItem => item.KWxHora)
+                    </td>
+                    <td style="text-align: center;">
+                        @Html.DisplayFor(modelItem => item.EsInteligente)
+                    </td>
+                    <td style="text-align: center;">
+                        @item.Consumo() Kw
+                    </td>
+                    <td style="text-align: center;">
+                        @Html.DisplayFor(modelItem => item.Desc)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Encender", "Encender3", new { id = item.DispositivoID, estadoActual = item.Desc, Uid = Model.UsuarioID }) |
+                        @Html.ActionLink("Apagar", "Apagar3", new { id = item.DispositivoID, estadoActual = item.Desc, Uid = Model.UsuarioID }) |
+                        @Html.ActionLink("Ahorro", "Ahorro3", new { id = item.DispositivoID, estadoActual = item.Desc, Uid = Model.UsuarioID })
+                    </td>
+                </tr>
+            }
+            else
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Nombre)
+                    </td>
+                    <td style="text-align: center;">
+                        @Html.DisplayFor(modelItem => item.KWxHora)
+                    </td>
+                    <td style="text-align: center;">
+                        @Html.DisplayFor(modelItem => item.EsInteligente)
+                    </td>
+                    <td style="text-align: center;">
+                        @item.Consumo() Kw
+                    </td>
+                    <td></td>
+                    <td></td>
+                </tr>
+
+            }
+        }
+
+    </table>
+    </div>
+
+
+    <h4>
+        <button class="btn">
+            @Html.ActionLink("Volver", "AdministrarCasasAdmin", FormMethod.Get)
+        </button>
+    </h4>
