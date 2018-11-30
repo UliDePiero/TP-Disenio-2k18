@@ -300,12 +300,8 @@ namespace TP0.Helpers
 
         public double TotalConsumo()
         {
-            int Disp = Dispositivos.Count();
-            double acumuladoKw = 0;
-            //acumuladoKw = KwTotales(Convert.ToDateTime(FechaDeAlta), DateTime.Now);
-            foreach (var d in Dispositivos)
-                acumuladoKw += d.Consumo();
-            return (acumuladoKw == 0 || Disp == 0) ? 0 : Math.Round(acumuladoKw, 3);
+            double consumo = CalcularConsumo(DateTime.Parse(FechaDeAlta), DateTime.Now);
+            return Math.Round(consumo, 3);
         }
         public double TotalConsumoPromedio()
         {
@@ -330,11 +326,11 @@ namespace TP0.Helpers
         {
             return categoria.CalcularTarifa(CalcularConsumo(fInicial, fFinal));
         }
-        public double FacturaMesPasado()
+        public double EstimarFacturaDelMes()
         {
             //Retorna la factura del ultimo mes
-            DateTime fin = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1, 23, 59, 59).AddDays(-1);
-            return EstimarFacturacion(new DateTime(fin.Year, fin.Month, 1, 23, 59, 59), fin);
+            DateTime fin = DateTime.Now;
+            return EstimarFacturacion(new DateTime(fin.Year, fin.Month, 1, 0, 0, 0), fin);
         }
         public override double CalcularConsumo(DateTime fInicial, DateTime fFinal)
         {

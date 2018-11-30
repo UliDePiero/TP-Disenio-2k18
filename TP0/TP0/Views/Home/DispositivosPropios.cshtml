@@ -11,12 +11,21 @@
 
 <div class="box">
     <span class="info">
+<<<<<<< HEAD
         <div class="form">
         <h4 style="color:black;">Consumo total del mes: @Model.ConsumoDelMes() Kw</h4>
         <h4 style="color:black;">Tarifa del mes pasado: $ @Model.FacturaMesPasado()</h4>
         <h4 style="color:black;">Consumo promedio: @Model.TotalConsumoPromedio() KwH</h4>
         <h4 style="color:black;">Consumo total historico: @Model.TotalConsumo() Kw</h4>
         <h4 style="color:black;">Dispositivos: @Model.Dispositivos.Count() </h4>
+=======
+        <div style="text-align:center;">
+        <h3>Consumo total del mes: @Model.ConsumoDelMes() Kw</h3>
+        <h3>Tarifa del mes estimada: $ @Model.EstimarFacturaDelMes()</h3>
+        <h3>Consumo promedio: @Model.TotalConsumoPromedio() KwH</h3>
+        <h3>Consumo total historico: @Model.TotalConsumo() Kw</h3>
+        <h3>Dispositivos: @Model.Dispositivos.Count() </h3>
+>>>>>>> f9273e1a50a897d6137f70f9bc79f3bc371d79e1
         </div>
         
         <div class="box">
