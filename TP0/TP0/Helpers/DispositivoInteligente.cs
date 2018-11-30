@@ -37,6 +37,7 @@ namespace TP0.Helpers
             EsInteligente = true;
             Estado = null;
             actuadores = new List<Actuador>();
+            FechaAlta = DateTime.Now;
             //act = new Actuador(DispositivoID);
         }
 
@@ -58,6 +59,7 @@ namespace TP0.Helpers
                 UsuarioID = Disp.UsuarioID;
                 DispositivoID = Disp.DispositivoID;
                 actuadores = new List<Actuador>();
+                FechaAlta = Disp.FechaAlta;
                 //act = new Actuador(DispositivoID);
                 ActualizarConsumoAcumulado(new Cliente(UsuarioID).FechaDeAlta);
             }

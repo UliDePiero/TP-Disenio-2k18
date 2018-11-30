@@ -38,17 +38,12 @@
             var infowindow = new google.maps.InfoWindow({
                 content: contentString
             });
-            google.maps.event.addListener(marcador, 'mouseover', (function (marcador, contentString, infowindow) {
+            google.maps.event.addListener(marcador, 'click', (function (marcador, contentString, infowindow) {
                 return function () {
                     infowindow.setContent(contentString);
                     infowindow.open(map, marcador);
                 };
             })(marcador, contentString, infowindow));
-            google.maps.event.addListener(marcador, 'mouseout', (function (marcador, infowindow) {
-                return function () {
-                    infowindow.close();
-                };
-            })(marcador, infowindow));
         }
     }
 </script>

@@ -19,6 +19,7 @@ namespace TP0.Helpers
         public bool EsInteligente { get; set; }
         public int UsuarioID { get; set; }
         public int IDUltimoEstado { get; set; } //es el equivalente a ESTADO
+        public DateTime FechaAlta { get; set; }
         public double HorasXDia { get; set; }
         [NotMapped]
         public string Desc { get; set; }

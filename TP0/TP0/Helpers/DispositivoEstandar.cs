@@ -24,6 +24,7 @@ namespace TP0.Helpers
             Max = mx;
             Min = mn;
             EsInteligente = false;
+            FechaAlta = DateTime.Now;
         }
         public DispositivoEstandar(int DEID)//para buscar en la DB + instanciar
         {
@@ -39,6 +40,7 @@ namespace TP0.Helpers
                 EsInteligente = false;
                 UsuarioID = Disp.UsuarioID;
                 DispositivoID = Disp.DispositivoID;
+                FechaAlta = Disp.FechaAlta;
                 //act = new Actuador(DispositivoID);
                 ActualizarConsumoAcumulado(new Cliente(UsuarioID).FechaDeAlta);
             }
@@ -71,8 +73,10 @@ namespace TP0.Helpers
         }
         public override double Consumo()
         {
+            //Se asume que los disp estandares estan siempre prendidos
             //ConsumoAcumulado = HorasXDia * KWxHora;
-            return HorasXDia * KWxHora;
+            double horasActivo = (DateTime.Now - FechaAlta).TotalHours;
+            return Math.Round(horasActivo * KWxHora, 3);
         }
         public override double ConsumoActual()
         {
@@ -85,7 +89,8 @@ namespace TP0.Helpers
                 fFinal = DateTime.Now;
             }
 
-            return fFinal.Subtract(fInicial).Days * Consumo();
+            double horasActivo = (fFinal - fInicial).TotalHours;
+            return Math.Round(horasActivo * KWxHora, 3);
         }
         public override double ConsumoEnHoras(double horas)
         {
