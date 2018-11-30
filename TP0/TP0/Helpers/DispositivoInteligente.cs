@@ -187,6 +187,10 @@ namespace TP0.Helpers
         }
         public override double ConsumoEnPeriodo(DateTime fInicial, DateTime fFinal)
         {
+            if (fFinal < FechaAlta)
+                return 0;
+            if (fInicial < FechaAlta)
+                fInicial = FechaAlta;
             if (fFinal > DateTime.Now)
                 fFinal = DateTime.Now;
             estadosAnteriores = GetEstados();
