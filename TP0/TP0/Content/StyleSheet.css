@@ -650,6 +650,7 @@ table tr {
     }
     .login-page {
         width: 90%;
+        position: unset;
     }
     .form {
         position: unset;
