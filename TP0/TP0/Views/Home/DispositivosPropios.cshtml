@@ -29,8 +29,9 @@
                 {@*Boton para ejecutar el simplex*@
                 <input type="submit" id="btn-recomendacion" class="btn btn-default" value="Conocer recomendación" onclick="alertBox()">
             }
+            <input type="checkbox" class="checkbox" />Accion automatica
+            </div>
 
-        </div>
         <vl />
         <div>
             <h5>Dispositivos encendidos: @Model.DispositivosEncendidos()</h5>
@@ -38,7 +39,7 @@
             <h5>Dispositivos en ahorro: @Model.DispositivosEnAhorro()</h5>
             <h5>Dispositivos estandares: @Model.DispositivosEstandares()</h5>
         </div>
-    </div>
+        </div>
     </span>
         <div class="table-responsive">
             <table class="table">

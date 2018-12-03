@@ -1,14 +1,13 @@
 ﻿@model TP0.Helpers.DispositivoInteligente
 
-<div class="jumbotron">
-    <h2>@Model.Nombre</h2>
-    <h4>Fecha de alta: @Model.FechaAlta.ToShortDateString()</h4>
-    <h4>KW por hora: @Model.KWxHora</h4>
-    <h4>Consumo del mes: @Model.ConsumoDelMes() Kw</h4>
-    <h4>Consumo Acumulado Total: @Model.Consumo() KW</h4>
-    <h4>Consumo Promedio: @Model.ConsumoPromedio KWxHora</h4>
-    <h4>Estado actual: @Model.GetEstado().Desc</h4>
-
+<h2>@Model.Nombre</h2>
+<div class="form" style="width:500px;text-align:center;position:relative;">
+    <h3 style="color: black;">Fecha de alta: @Model.FechaAlta.ToShortDateString()</h3>
+    <h3 style="color: black;">KW por hora: @Model.KWxHora</h3>
+    <h3 style="color: black;">Consumo del mes: @Model.ConsumoDelMes() Kw</h3>
+    <h3 style="color: black;">Consumo Acumulado Total: @Model.Consumo() KW</h3>
+    <h3 style="color: black;">Consumo Promedio: @Model.ConsumoPromedio KWxHora</h3>
+    <h3 style="color: black;">Estado actual: @Model.GetEstado().Desc</h3>
 </div>
 
 <div class="container">
