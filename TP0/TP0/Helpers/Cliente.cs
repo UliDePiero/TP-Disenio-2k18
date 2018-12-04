@@ -120,11 +120,11 @@ namespace TP0.Helpers
                 db.SaveChanges();
 
 
-                UsuarioID = db.Usuarios.FirstOrDefault(U => U.Username == Username).UsuarioID;
+                //UsuarioID = db.Usuarios.FirstOrDefault(U => U.Username == Username).UsuarioID;
                 //Se agregan los sensores al cliente (Cada cliente tiene un sensor de cada tipo en su casa)
                 foreach (Sensor s in SensoresEstaticos.GetSensores())
                 {
-                    s.UsuarioID = this.UsuarioID;
+                    s.UsuarioID = UsuarioID;
                     db.Sensores.Add(s);
                 }
 
@@ -286,12 +286,11 @@ namespace TP0.Helpers
 
             using (var db = new DBContext())
             {
-                var cldb = db.Usuarios.Find(UsuarioID);
-                cldb.PuntosAcum += 10;
+                /*var cldb = db.Usuarios.Find(UsuarioID);
+                cldb.PuntosAcum += 10;*/
+                PuntosAcum += 10;
                 var borrarDEst = db.Dispositivos.Find(D.DispositivoID);
                 db.Dispositivos.Remove(borrarDEst);
-                db.SaveChanges();
-
                 db.Dispositivos.Add(DI);
                 db.SaveChanges();
                 DI.AgregarEstado(new Apagado(DI));

@@ -8,6 +8,7 @@ namespace TP0.Helpers
 {
     public class Marca_Samsung
     {
+
         public void ActualizarUltimoEstadoSAMSUNG(DispositivoInteligente DI)
         {
             using (var db = new DBContext())

@@ -70,7 +70,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AdapterTest.cs" />
-    <Compile Include="Cargar base.cs" />
     <Compile Include="ZonaTest.cs" />
     <Compile Include="TrafoTest.cs" />
     <Compile Include="APITest.cs" />

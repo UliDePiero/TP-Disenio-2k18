@@ -17,29 +17,10 @@ namespace TestsNuevos
         {
             using (var db = new DBContext())
             {
-                var cliente = new Cliente("Luciano", "Panizza", "Medrano 951", "RecomendacionesDelCliente@test.com", "asdqwe123", "12345678", "dni", "12345678");
-
-                cliente.AgregarALaBase();
-
-                var Lampara60W = new DispositivoInteligente("lampara halogena de 60 W", "0011", 0.06, 360, 90);
-                cliente.AgregarDispInteligente(Lampara60W);
-
-                var microondas = new DispositivoEstandar("microondas convencional", "0011", 0.64, 0, 15, 3);
-                cliente.AgregarDispEstandar(microondas);
-
-                var televisor40 = new DispositivoEstandar("televisor LCD de 40 pulgadas", "0014", 0.18, 0, 360, 90);
-                cliente.AgregarDispEstandar(televisor40);
-
-                var lavarropa = new DispositivoEstandar("lavarropas automatico de 5kg con calentamiento", "0021", 0.875, 0, 30, 6);
-                cliente.AgregarDispEstandar(lavarropa);
-
-
-                Cliente cliente2 = new Cliente("Luciano", "Panizza", "Lafinur 300", "ConsumoEnergiaEnUltimas10Hs@test.com", "asdqwe123", "12345678", "dni", "12345678");
-
-                cliente2.AgregarALaBase();
+                var cliente = new Cliente("luc@gmail.com");
 
                 var Aire3500fg = new DispositivoInteligente("aire acondicionado de 3500 frigorias", "0011", 1.613, 360, 90);
-                Aire3500fg.UsuarioID = cliente2.UsuarioID;
+                Aire3500fg.UsuarioID = cliente.UsuarioID;
                 db.Dispositivos.Add(Aire3500fg);
                 db.SaveChanges();
 
@@ -53,30 +34,13 @@ namespace TestsNuevos
                 Aire3500fg.AgregarEstado(est3);
                 Aire3500fg.AgregarEstado(est4);
 
-                var cliente3 = new Cliente("Luciano", "Panizza", "Av de mayo 300", "AccionesAutomaticaON@test.com", "asdqwe123", "12345678", "dni", "12345678");
-                cliente3.AgregarALaBase();
-                cliente3.AccionAutomaticaON();
-
                 var tvAire24LEd = new DispositivoInteligente("televisor LED de 24 pulgadas", "0015", 0.04, 365, 90);
-                tvAire24LEd.UsuarioID = cliente3.UsuarioID;
+                tvAire24LEd.UsuarioID = cliente.UsuarioID;
                 db.Dispositivos.Add(tvAire24LEd);
                 db.SaveChanges();
 
-                var microondas2 = new DispositivoEstandar("microondas convencional", "0011", 0.64, 0, 15, 3);
-                microondas.UsuarioID = cliente3.UsuarioID;
-                db.Dispositivos.Add(microondas);
-                db.SaveChanges();
-
-                var televisor402 = new DispositivoEstandar("televisor LCD de 40 pulgadas", "0014", 0.18, 0, 360, 90);
-                televisor40.UsuarioID = cliente3.UsuarioID;
-                db.Dispositivos.Add(televisor40);
-                db.SaveChanges();
-
-                var lavarropa2 = new DispositivoEstandar("lavarropas automatico de 5kg con calentamiento", "0021", 0.875, 0, 30, 6);
-                lavarropa.UsuarioID = cliente3.UsuarioID;
-                db.Dispositivos.Add(lavarropa);
-                db.SaveChanges();
-
+                tvAire24LEd.AgregarEstado(new Apagado(tvAire24LEd) { FechaInicial = DateTime.Now.AddHours(-720), FechaFinal = DateTime.Now.AddHours(-680) });
+                tvAire24LEd.AgregarEstado(new Encendido(tvAire24LEd) { FechaInicial = DateTime.Now.AddHours(-680), FechaFinal = DateTime.Now.AddHours(-500) });
                 tvAire24LEd.AgregarEstado(new Apagado(tvAire24LEd) { FechaInicial = DateTime.Now.AddHours(-500), FechaFinal = DateTime.Now.AddHours(-370) });
                 tvAire24LEd.AgregarEstado(new Encendido(tvAire24LEd) { FechaInicial = DateTime.Now.AddHours(-370) });
 

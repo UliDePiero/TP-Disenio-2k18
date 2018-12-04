@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using TP0.Helpers.ORM;
 
 namespace TP0.Helpers
 {
@@ -18,6 +19,29 @@ namespace TP0.Helpers
             ConsumoAcumulado = 0;
             EsInteligente = true;
             //act = new Actuador(Int32.Parse(idnuevo));
+        }
+        public AdaptadorApple(int DIID)//para buscar en la DB + instanciar
+        {
+            using (var context = new DBContext())
+            {
+                var Disp = context.Dispositivos.Find(DIID);
+                KWxHora = Disp.KWxHora;
+                Nombre = Disp.Nombre;
+                Codigo = Disp.Codigo;
+                Max = Disp.Max;
+                Min = Disp.Min;
+                estadosAnteriores = new List<State>();
+                ConsumoAcumulado = 0;
+                EsInteligente = true;
+                IDUltimoEstado = Disp.IDUltimoEstado;
+                this.ActualizarUltimoEstado();
+                UsuarioID = Disp.UsuarioID;
+                DispositivoID = Disp.DispositivoID;
+                actuadores = new List<Actuador>();
+                FechaAlta = Disp.FechaAlta;
+                //act = new Actuador(DispositivoID);
+                ActualizarConsumoAcumulado(new Cliente(UsuarioID).FechaDeAlta);
+            }
         }
         public AdaptadorApple()
         {
