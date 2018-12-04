@@ -281,14 +281,13 @@ namespace TP0.Helpers
 
         public override void AdaptarDispositivo(DispositivoEstandar D, string marca)
         {
-            var DI = D.ConvertirEnInteligente(marca);
-            PuntosAcum += 10;
-
+            
             using (var db = new DBContext())
             {
+                var DI = D.ConvertirEnInteligente(marca);
+                PuntosAcum += 10;
                 /*var cldb = db.Usuarios.Find(UsuarioID);
                 cldb.PuntosAcum += 10;*/
-                PuntosAcum += 10;
                 var borrarDEst = db.Dispositivos.Find(D.DispositivoID);
                 db.Dispositivos.Remove(borrarDEst);
                 db.Dispositivos.Add(DI);
