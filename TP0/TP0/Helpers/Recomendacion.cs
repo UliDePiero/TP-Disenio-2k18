@@ -114,7 +114,7 @@ namespace TP0.Helpers
         {
             str = str.Replace("[", "");
             str = str.Replace("]", "");
-            str = str.Replace(".0", "");
+            //str = str.Replace(".0", "");
             string[] respuestaArrayString = str.Split(',');
             double[] respuestaArrayDouble = new double[respuestaArrayString.Length];
 

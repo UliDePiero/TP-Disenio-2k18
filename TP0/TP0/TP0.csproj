@@ -474,6 +474,7 @@
     <Content Include="Views\Home\ReporteHogar.cshtml" />
     <Content Include="Views\Home\ReporteDispositivo.cshtml" />
     <Content Include="Views\Home\ReporteTransformador.cshtml" />
+    <Content Include="Views\Home\ConsultarConsumoHS.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\uploads\" />

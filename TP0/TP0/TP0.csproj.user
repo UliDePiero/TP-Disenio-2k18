@@ -16,7 +16,7 @@
     <WebStackScaffolding_IsReferencingScriptLibrariesSelected>False</WebStackScaffolding_IsReferencingScriptLibrariesSelected>
     <WebStackScaffolding_LayoutPageFile />
     <WebStackScaffolding_DbContextTypeFullName>TP0.Helpers.ORM.DBContext</WebStackScaffolding_DbContextTypeFullName>
-    <NameOfLastUsedPublishProfile>tpdds2018avengers - Web Deploy</NameOfLastUsedPublishProfile>
+    <NameOfLastUsedPublishProfile>avengerstpdds2018 - Web Deploy</NameOfLastUsedPublishProfile>
   </PropertyGroup>
   <ProjectExtensions>
     <VisualStudio>
