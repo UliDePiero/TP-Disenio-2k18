@@ -13,14 +13,14 @@
 
     <div class="login-page">
         <div>
-            @Html.ValidationSummary(true, "", new { @class = "message" })
+         
+          
+        @Html.ValidationSummary("", new { @class = "message" })
 
-            
+
         </div>
         <!--<div class="form" style="width:35%;">-->
         <div class="form">
-
-
 
             <div class="col-md-4">
 
@@ -94,16 +94,16 @@
                         @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
 
                     </div>
-                  
-                </div>
-               @* <div class="form-group">
-                    @Html.LabelFor(m => m.Administrador, new { @class = "col-md-2 control-label" })
-                    <div class="col-md-10">
-                        @Html.PasswordFor(m => m.Administrador, new { @class = "form-control" })
 
-                    </div>
                 </div>
-                   *@
+                @* <div class="form-group">
+                        @Html.LabelFor(m => m.Administrador, new { @class = "col-md-2 control-label" })
+                        <div class="col-md-10">
+                            @Html.PasswordFor(m => m.Administrador, new { @class = "form-control" })
+
+                        </div>
+                    </div>
+                *@
             </div>
 
             <div class="form-group">

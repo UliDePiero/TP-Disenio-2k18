@@ -21,6 +21,10 @@ namespace TP0.Models
         [Required]
         public float ValorMin { get; set; }
         [Required]
+        public float horas { get; set; }
+        [Required]
         public DispositivoInteligente disSelec { get; internal set; }
+        [Required]
+        public bool aplicarRecomendacion { get; set; }
     }
 }

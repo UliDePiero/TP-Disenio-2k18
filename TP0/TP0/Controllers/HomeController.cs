@@ -354,16 +354,7 @@ namespace TP0.Controllers
             return View();
         }
 
-        [HttpPost]
-        [Authorize]
-        public ActionResult SimplexView(int id)
-        {
-            Cliente clie = new Cliente(id);
-
-            ViewBag.simplexResultado = clie.SolicitarRecomendacion();
-            return View();
-        }
-
+     
 
 
         //VISTAS DE CLIENTE
@@ -576,6 +567,7 @@ namespace TP0.Controllers
 
             ViewBag.horas = horas;
             ViewBag.nombre = clie.Username;
+            ViewBag.texto = "Su consumo en las ultimas " + horas + " horas fue de " + consumo + " KW";
             return View();
         }
 
@@ -622,16 +614,29 @@ namespace TP0.Controllers
 
         [HttpGet]
         [Authorize]
-        public ActionResult SimplexView()
+        public ActionResult SimplexView(bool aplicarRecomendacion)
         {
             if (User.Identity.IsAuthenticated || ClientesImportados.GetClientes() != null)
             {
                 Cliente clie = new Cliente(User.Identity.Name);
                 ViewBag.recomendaciones = clie.SolicitarRecomendacion().ToList();
+                clie.AccionAutomatica = aplicarRecomendacion;
+
                 return View();
             }
             ViewBag.simplexResultado = "Hubo un error al ejecutar el simplex";
             return View();
         }
+
+        [HttpPost]
+        [Authorize]
+        public ActionResult SimplexView(int id)
+        {
+            Cliente clie = new Cliente(id);
+           
+            ViewBag.simplexResultado = clie.SolicitarRecomendacion();
+            return View();
+        }
+
     }
 }
