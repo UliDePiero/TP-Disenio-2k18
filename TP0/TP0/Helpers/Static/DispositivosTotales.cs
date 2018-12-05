@@ -21,13 +21,18 @@ namespace TP0.Helpers.Static
         static DispositivoInteligente televisorLED40 = new DispositivoInteligente("televisor LED de 40 pulgadas", "0018", 0.08, 360, 90);
         //static DispositivoInteligente heladeraConFreezer = new DispositivoInteligente("heladera con freezer", "0019", 0.09);
         //static DispositivoInteligente heladeraSinFreezer = new DispositivoInteligente("heladera sin freezer", "0020", 0.075);
-        static DispositivoInteligente lavarropasAuto = new DispositivoInteligente("lavarropas automatico de 5kg", "0021", 0.175, 30, 6);
+
+        
         static DispositivoEstandar lavarropasAutoCalentamiento = new DispositivoEstandar("lavarropas automatico de 5kg con calentamiento", "0022", 0.875, 0, 30, 6);
+        
+            static DispositivoInteligente lavarropasAuto = new DispositivoInteligente("lavarropas automatico de 5kg", "0021", 0.175,    30, 6);
         static DispositivoEstandar lavarropasSemiAuto = new DispositivoEstandar("lavarropas semi-automatico de 5kg", "0023", 0.1275, 0, 30, 6);
+        static DispositivoEstandar microondasConvencional = new DispositivoEstandar("microondas convencional", "0027", 0.64, 0,         15, 3);
+
         static DispositivoEstandar ventiladorDePie = new DispositivoEstandar("ventilador de pie", "0024", 0.09, 0, 360, 120);
         static DispositivoInteligente ventiladorDeTecho = new DispositivoInteligente("ventilador de techo", "0025", 0.06, 360, 120);
         static DispositivoEstandar planchaAVapor = new DispositivoEstandar("plancha a vapor", "0026", 0.75, 0, 30, 3);
-        static DispositivoEstandar microondasConvencional = new DispositivoEstandar("microondas convencional", "0027", 0.64, 0, 15, 3);
+
         static DispositivoInteligente pcDeEscritorio = new DispositivoInteligente("pc de escritorio", "0028", 0.4, 360, 90);
         static DispositivoInteligente lamparaHalogena40W = new DispositivoInteligente("lampara halogena de 40 W", "0029", 0.04, 360, 90);
         static DispositivoInteligente lamparaHalogena60W = new DispositivoInteligente("lampara halogena de 60 W", "0030", 0.06, 360, 90);

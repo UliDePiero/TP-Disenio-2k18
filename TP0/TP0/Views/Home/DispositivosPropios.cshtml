@@ -22,19 +22,24 @@
 
         <div class="form">
             @using (Html.BeginForm("ConsultarConsumo", "Home", FormMethod.Get))
-        {@*Boton para consultar consumo entre fechas*@
-        <input type="submit" id="btn-consumoPeriodo" class="btn btn-default" value="Consultar consumo por periodo">
-} @using (Html.BeginForm("SimplexView", "Home", FormMethod.Get))
-        {@*Boton para ejecutar el simplex*@
-        <input type="submit" id="btn-recomendacion" class="btn btn-default" value="Conocer recomendación" onclick="alertBox()">
-}
-    <div>
-        Activá el checkbox si querés que los cambios recomendados se apliquen
-        <input type="checkbox" class="checkbox" />
+            {@*Boton para consultar consumo entre fechas*@
+            <input type="submit" id="btn-consumoPeriodo" class="btn btn-default" value="Consultar consumo por periodo">
+        }
+            @using (Html.BeginForm("ConsultarConsumoHS", "Home", FormMethod.Get))
+            {@*Boton para consultar consumo entre fechas*@
+            <input type="submit" id="btn-consumoHS" class="btn btn-default" value="Consultar consumo en ultimas horas">
+        }
+            @using (Html.BeginForm("SimplexView", "Home", FormMethod.Get))
+            {@*Boton para ejecutar el simplex*@
+            <input type="submit" id="btn-recomendacion" class="btn btn-default" value="Conocer recomendación" onclick="alertBox()">
+        }
+            <div>
+                Permitir acciones automaticas a partir de las recomendaciones
+                <input type="checkbox" class="checkbox" />
 
-    </div>
+            </div>
 
-    </div>
+        </div>
     <div class="form">
 
         <h5>Dispositivos encendidos: @Model.DispositivosEncendidos()</h5>

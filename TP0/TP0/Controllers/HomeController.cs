@@ -559,6 +559,28 @@ namespace TP0.Controllers
 
         [HttpGet]
         [Authorize]
+        public ActionResult ConsultarConsumoHS()
+        {//Metodo para consultar el consumo en un periodo
+            ViewBag.consumo = "";
+            return View();
+        }
+        [HttpPost]
+        [Authorize]
+        public ActionResult ConsultarConsumoHS(double horas)
+        {
+            
+            Cliente clie = new Cliente(User.Identity.Name);
+
+                var consumo = clie.CalcularConsumoHS(horas);
+                ViewBag.consumo = "Consumo: " + consumo + "Kw";
+
+            ViewBag.horas = horas;
+            ViewBag.nombre = clie.Username;
+            return View();
+        }
+
+        [HttpGet]
+        [Authorize]
         public ActionResult ConsultarConsumo()
         {//Metodo para consultar el consumo en un periodo
             ViewBag.consumo = "";

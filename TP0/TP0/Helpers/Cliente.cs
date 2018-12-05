@@ -355,6 +355,33 @@ namespace TP0.Helpers
                 Consumo += disp.ConsumoEnPeriodo(fInicial, fFinal);
             return Consumo;
         }
+
+        public double CalcularConsumoHS(double hs)
+        {
+            using (var db = new DBContext())
+            {
+                Dispositivos = db.Dispositivos.Where(x => x.UsuarioID == UsuarioID).ToList();
+            }
+            foreach (Dispositivo d in Dispositivos)
+            {
+                d.ActualizarUltimoEstado();
+                try
+                {
+                    d.Desc = d.GetEstado().Desc;
+                }
+                catch (NotImplementedException e)
+                {
+                    //Reconoce que hay un error pero
+                    //No hace nada porque los standar no tienen estados
+                }
+            }
+            double Consumo = 0;
+
+            foreach (var disp in Dispositivos)
+                Consumo += disp.ConsumoEnHoras(hs);
+            return Consumo;
+        }
+
         public double ConsumoDelMes()
         {
             //Retorna el consumo del mes
@@ -412,7 +439,7 @@ namespace TP0.Helpers
 
             double horasDelMes = DateTime.Now.Day * 24;
 
-            foreach (var disp in Dispositivos)
+            foreach (var disp in DispsOrdernados)
             {
                 var recXdisp = new RecomendacionXDisp();
                 recXdisp.NombreDispositivo = disp.Nombre;
