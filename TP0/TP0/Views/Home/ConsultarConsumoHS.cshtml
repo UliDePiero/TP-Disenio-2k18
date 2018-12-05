@@ -1,0 +1,29 @@
+﻿<form action="~/Home/ConsultarConsumo" method="post">
+    
+        <div class="jumbotron">
+            <h2>Consultar consumo</h2>
+           
+        </div>
+        <div>
+
+            <hr />
+            <div class="container" style="align-content:center;text-align:center; margin-bottom:15px;">
+                <h3>@ViewBag.consumo</h3>
+                <h5>@ViewBag.horas</h5>
+            </div>
+
+
+            <div class="form" style="width:10%; text-align:center;">
+                <label for="horas">Horas:</label>
+                <input type="number" id="horasID"
+                       name="FechaInicio" value="0"
+                       min="0" max="2000" required />
+                <span class="validity"></span>
+
+                <button type="submit" class="btn" >Consultar</button>
+            </div>
+                 
+
+        </div>
+   
+</form>
