@@ -1,12 +1,14 @@
-﻿<link href="~/Content/StyleSheetMAPA.css" rel="stylesheet" type="text/css" />
+﻿
 @if ((string)System.Web.HttpContext.Current.Session["admin"] == "true")
 {
     <div class="jumbotron">
         <h2>Reportes</h2>
-        <h3>Elija el tipo de Reporte a realizar</h3>
+        <h4>Elija el tipo de Reporte a realizar</h4>
     </div>
+    <hr />
 
     <div class="table-responsive">
+        <div class="box">
         <table class="table">
             <tr>
                 <th>
@@ -42,5 +44,6 @@
                 </td>
             </tr>
         </table>
+    </div>
     </div>
         }

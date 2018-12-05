@@ -7,7 +7,7 @@
         height: 100%
     }
 </style>
-<link href="~/Content/StyleSheetMAPA.css" rel="stylesheet" type="text/css" />
+
 <div class="jumbotron">
     <h2>Mapa</h2>
     <h4>Localice su transformador más cercano</h4>
@@ -18,7 +18,7 @@
     var markers = @Html.Raw(ViewBag.Transformadores);
     function myMap() {
         var mapOptions = {
-            center: new google.maps.LatLng(-34.599166,-58.458118), 
+            center: new google.maps.LatLng(-34.599166,-58.458118),
             zoom: 12,
         };
         var map = new google.maps.Map(document.getElementById("mapDiv"), mapOptions);
@@ -47,4 +47,5 @@
         }
     }
 </script>
+
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBcLWyEOryOmZ9cgjgV54cs0UPG3OXZKqU&callback=myMap"></script>

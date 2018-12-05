@@ -11,6 +11,7 @@
 
 <div class="box">
     <span class="info">
+
         <div class="form">
             <h3>Consumo total del mes: @Model.ConsumoDelMes() Kw</h3>
             <h3>Tarifa estimada del mes : $ @Model.EstimarFacturaDelMes()</h3>
@@ -18,28 +19,29 @@
             <h3>Consumo total historico: @Model.TotalConsumo() Kw</h3>
             <h3>Dispositivos: @Model.Dispositivos.Count() </h3>
         </div>
-        
-        <div class="box">
-            <div>
 
-                @using (Html.BeginForm("ConsultarConsumo", "Home", FormMethod.Get))
-                {@*Boton para consultar consumo entre fechas*@
-                <input type="submit" id="btn-consumoPeriodo" class="btn btn-default" value="Consultar consumo por periodo">
-            } @using (Html.BeginForm("SimplexView", "Home", FormMethod.Get))
-                {@*Boton para ejecutar el simplex*@
-                <input type="submit" id="btn-recomendacion" class="btn btn-default" value="Conocer recomendación" onclick="alertBox()">
-            }
-            <input type="checkbox" class="checkbox" />Accion automatica
-            </div>
+        <div class="form">
+            @using (Html.BeginForm("ConsultarConsumo", "Home", FormMethod.Get))
+        {@*Boton para consultar consumo entre fechas*@
+        <input type="submit" id="btn-consumoPeriodo" class="btn btn-default" value="Consultar consumo por periodo">
+} @using (Html.BeginForm("SimplexView", "Home", FormMethod.Get))
+        {@*Boton para ejecutar el simplex*@
+        <input type="submit" id="btn-recomendacion" class="btn btn-default" value="Conocer recomendación" onclick="alertBox()">
+}
+    <div>
+        Activá el checkbox si querés que los cambios recomendados se apliquen
+        <input type="checkbox" class="checkbox" />
 
-        <vl />
-        <div>
-            <h5>Dispositivos encendidos: @Model.DispositivosEncendidos()</h5>
-            <h5>Dispositivos apagados: @Model.DispositivosApagados()</h5>
-            <h5>Dispositivos en ahorro: @Model.DispositivosEnAhorro()</h5>
-            <h5>Dispositivos estandares: @Model.DispositivosEstandares()</h5>
-        </div>
-        </div>
+    </div>
+
+    </div>
+    <div class="form">
+
+        <h5>Dispositivos encendidos: @Model.DispositivosEncendidos()</h5>
+        <h5>Dispositivos apagados: @Model.DispositivosApagados()</h5>
+        <h5>Dispositivos en ahorro: @Model.DispositivosEnAhorro()</h5>
+        <h5>Dispositivos estandares: @Model.DispositivosEstandares()</h5>
+    </div>
     </span>
         <div class="table-responsive">
             <table class="table">
