@@ -439,7 +439,9 @@ namespace TP0.Controllers
         public ActionResult DetallesEstandar(SubmitViewModel model, int id)
         {
                 DispositivoEstandar d = new DispositivoEstandar(id);
+               
                 d.setHorasXDia(model.HorasEstandar);
+                ViewBag.horas = d.HorasXDia;
 
             return View(new DispositivoEstandar(id));
         }

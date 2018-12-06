@@ -41,6 +41,7 @@ namespace TP0.Helpers
                 UsuarioID = Disp.UsuarioID;
                 DispositivoID = Disp.DispositivoID;
                 FechaAlta = Disp.FechaAlta;
+                HorasXDia = Disp.HorasXDia;
                 //act = new Actuador(DispositivoID);
                 ActualizarConsumoAcumulado(new Cliente(UsuarioID).FechaDeAlta);
             }
