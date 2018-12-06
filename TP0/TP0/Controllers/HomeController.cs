@@ -614,16 +614,23 @@ namespace TP0.Controllers
 
         [HttpGet]
         [Authorize]
-        public ActionResult SimplexView(bool aplicarRecomendacion)
+        public ActionResult SimplexView(SubmitViewModel model)
         {
             if (User.Identity.IsAuthenticated || ClientesImportados.GetClientes() != null)
             {
                 Cliente clie = new Cliente(User.Identity.Name);
                 ViewBag.recomendaciones = clie.SolicitarRecomendacion().ToList();
-                clie.AccionAutomatica = aplicarRecomendacion;
-
+                /*
+                if (@System.Boolean.) {
+                    clie.AccionAutomaticaON();
+                }
+                else
+                {
+                    clie.AccionAutomaticaOFF();
+                }*/
                 return View();
             }
+
             ViewBag.simplexResultado = "Hubo un error al ejecutar el simplex";
             return View();
         }

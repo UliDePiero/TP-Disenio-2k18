@@ -23,28 +23,30 @@
         </div>
     </div>
 </body>
-<table class="table">
-    <tr>
-        <th style="text-align: center;">
-            Dispositivo
-        </th>
-        <th style="text-align: center;">
-            Horas consumidas en el periodo
-        </th>
-        <th style="text-align: center;">
-            Hs max de consumo en el periodo
-        </th>
-    </tr>
-    @foreach (var item in ViewBag.recomendaciones)
-    {
+<div class="box">
+    <table class="table">
         <tr>
-            <td style="text-align: center;">@item.NombreDispositivo </td>
-            <td style="text-align: center;">@item.KWxHoraConsumidos</td>
-            <td style="text-align: center;">@item.KWxHoraPuedeConsumir</td>
+            <th style="text-align: center;">
+                Dispositivo
+            </th>
+            <th style="text-align: center;">
+                Horas consumidas en el periodo
+            </th>
+            <th style="text-align: center;">
+                Hs max de consumo en el periodo
+            </th>
         </tr>
-    }
+        @foreach (var item in ViewBag.recomendaciones)
+        {
+            <tr>
+                <td style="text-align: center;">@item.NombreDispositivo </td>
+                <td style="text-align: center;">@item.KWxHoraConsumidos</td>
+                <td style="text-align: center;">@item.KWxHoraPuedeConsumir</td>
+            </tr>
+        }
 
-</table>
+    </table>
+</div>
      </body>
 <h4>
     <b>@Html.ActionLink("Volver", "DispositivosPropios", null, new { @class = "btn" })</b>
