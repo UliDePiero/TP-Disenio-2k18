@@ -1,26 +1,38 @@
 ﻿<form action="~/Home/ConsultarConsumoHS" method="post">
-    
-        <div class="jumbotron">
-            <h2>Consultar consumo en horas</h2>
-           
-        </div>
+
+    <div class="jumbotron">
+        <h2>Consultar consumo en horas</h2>
+
+    </div>
+    <div>
+
+        <hr />
+
         <div>
+            <h4>@ViewBag.texto</h4>
 
-            <hr />
-            
-            <div>
-           <h4>@ViewBag.texto</h4>
-              
-            </div>
-
-            <div class="form" style="width:10%; text-align:center;">
-                <label for="horas">Horas:</label>
-                <input type="number" id="horas"
-                       name="horas" value="0"
-                       min="0" max="2000" required />
-                <span class="validity"></span>
-
-                <button type="submit" class="btn" >Consultar</button>
-            </div>
         </div>
+
+        <div class="form" style="width:10%; text-align:center;">
+            <label for="horas">Horas:</label>
+            <input type="number" id="horas"
+                   name="horas" value="0"
+                   min="0" max="2000" required />
+            <span class="validity"></span>
+
+            <button type="submit" class="btn">Consultar</button>
+        </div>
+    </div>
+
 </form>
+
+<div class="container">
+    <span class="info">
+        <div style="margin:10px;">
+            @using (Html.BeginForm("DispositivosPropios", "Home", FormMethod.Get))
+            {
+                <input type="submit" class="btn" value="Volver">
+            }
+        </div>
+    </span>
+</div>
