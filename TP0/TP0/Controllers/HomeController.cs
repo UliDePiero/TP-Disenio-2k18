@@ -436,10 +436,15 @@ namespace TP0.Controllers
         }
 
         [Authorize]
-        public ActionResult DetallesEstandar(int id)
+        public ActionResult DetallesEstandar(SubmitViewModel model, int id)
         {
+                DispositivoEstandar d = new DispositivoEstandar(id);
+                d.setHorasXDia(model.HorasEstandar);
+
             return View(new DispositivoEstandar(id));
         }
+        
+
         [Authorize]
         public ActionResult DetallesInteligente(int id)
         {
@@ -523,19 +528,6 @@ namespace TP0.Controllers
             return RedirectToAction("DispositivosPropios", "Home");
         }
 
-        [HttpPost]
-        [Authorize]
-        public ActionResult HorasXDia(double horas, int id)
-
-        //public ActionResult CrearRegla([Bind(Include = "ValorMax,ValorMin,Tipo,Descripcion")] Regla reglaNueva, int id)
-        {
-            
-                 var de = new DispositivoEstandar(id);
-                 de.setHorasXDia(horas);
-
-            return RedirectToAction("DetallesEstandar", "Home");
-        }
-
         [HttpGet]
         [Authorize]
         public ActionResult ConvertirEnInteligente(int id)
@@ -570,17 +562,17 @@ namespace TP0.Controllers
         }
         [HttpPost]
         [Authorize]
-        public ActionResult ConsultarConsumoHS(double horas)
+        public ActionResult ConsultarConsumoHS(double HorasEstandar)
         {
             
             Cliente clie = new Cliente(User.Identity.Name);
 
-                var consumo = clie.CalcularConsumoHS(horas);
+                var consumo = clie.CalcularConsumoHS(HorasEstandar);
                 ViewBag.consumo = "Consumo: " + consumo + "Kw";
 
-            ViewBag.horas = horas;
+            ViewBag.horas = HorasEstandar;
             ViewBag.nombre = clie.Username;
-            ViewBag.texto = "Su consumo en las ultimas " + horas + " horas fue de " + consumo + " KW";
+            ViewBag.texto = "Su consumo en las ultimas " + HorasEstandar + " horas fue de " + consumo + " KW";
             return View();
         }
 

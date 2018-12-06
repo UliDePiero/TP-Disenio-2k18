@@ -8,27 +8,28 @@
     <h3 style="color: black;">Consumo acumulado total: @Model.Consumo() KW</h3>
 </div>
 
-@using (Html.BeginForm("HorasXDia", "Home", FormMethod.Post))
+@using (Html.BeginForm("DetallesEstandar", "Home", FormMethod.Post))
 {
     <div class="form" style="width:15%; text-align:center;">
-        <label for="horas">Horas diarias de consumo:</label>
-        <input type="number" id="horas"
-               name="horas" value="0"
+        <label for="HorasEstandar">Horas diarias de consumo:</label>
+        <input type="number" id="HorasEstandar"
+               name="HorasEstandar" value="0"
                min="0" max="24" required />
         <span class="validity"></span>
         <button type="submit" class="btn ">Guardar</button>
     </div>
 }
-
+    <hr />
 <h4>
     Este dispositivo es estandar, por lo que no se pueden saber sus estados ni hacer mediciones.
 </h4>
-<h4>
-    <button type="submit" class="btn" style="width:50px%;text-align:center;position:relative;">
-
+<div class="box">
+    <button type="submit" class="btn">
         @Html.ActionLink("Convertir en inteligente", "ConvertirEnInteligente", new { id = Model.DispositivoID })
     </button>
-</h4>
+</div>
+
+<hr />
 <div class="container">
     <span class="info">
         <div style="margin:10px;">

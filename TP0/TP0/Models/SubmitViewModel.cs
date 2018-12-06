@@ -26,5 +26,7 @@ namespace TP0.Models
         public DispositivoInteligente disSelec { get; internal set; }
         [Required]
         public bool aplicarRecomendacion { get; set; }
+        [Required]
+        public int HorasEstandar { get; set; }
     }
 }
