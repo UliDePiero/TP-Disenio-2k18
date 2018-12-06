@@ -124,7 +124,7 @@ namespace TP0.Helpers
         public void CrearTimer()
         {
             aTimer = new Timer();
-            aTimer.Interval = 10 * 60 * 1000;
+            aTimer.Interval = 5 * 60 * 1000;
             aTimer.Elapsed += HandleTimerElapsed;
             aTimer.Start();
         }

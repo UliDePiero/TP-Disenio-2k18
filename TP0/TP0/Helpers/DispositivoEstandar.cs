@@ -64,6 +64,7 @@ namespace TP0.Helpers
                     break;
             }
             convertido.UsuarioID = UsuarioID;
+            convertido.FechaAlta = DateTime.Now;
 
             return convertido;
         }
