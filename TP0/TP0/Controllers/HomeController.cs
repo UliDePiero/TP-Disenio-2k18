@@ -523,6 +523,19 @@ namespace TP0.Controllers
             return RedirectToAction("DispositivosPropios", "Home");
         }
 
+        [HttpPost]
+        [Authorize]
+        public ActionResult HorasXDia(double horas, int id)
+
+        //public ActionResult CrearRegla([Bind(Include = "ValorMax,ValorMin,Tipo,Descripcion")] Regla reglaNueva, int id)
+        {
+            
+                 var de = new DispositivoEstandar(id);
+                 de.setHorasXDia(horas);
+
+            return RedirectToAction("DetallesEstandar", "Home");
+        }
+
         [HttpGet]
         [Authorize]
         public ActionResult ConvertirEnInteligente(int id)

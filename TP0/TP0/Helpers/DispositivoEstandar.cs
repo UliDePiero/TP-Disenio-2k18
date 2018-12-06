@@ -75,8 +75,8 @@ namespace TP0.Helpers
         {
             //Se asume que los disp estandares estan siempre prendidos
             //ConsumoAcumulado = HorasXDia * KWxHora;
-            double horasActivo = (DateTime.Now - FechaAlta).TotalHours;
-            return Math.Round(horasActivo * KWxHora, 3);
+            double diasDesde = DateTime.Now.Subtract(FechaAlta).TotalDays;
+            return Math.Round(HorasXDia * KWxHora * diasDesde, 3);
         }
         public override double ConsumoActual()
         {
@@ -91,8 +91,18 @@ namespace TP0.Helpers
             if (fFinal > DateTime.Now)
                 fFinal = DateTime.Now;
 
-            double horasActivo = (fFinal - fInicial).TotalHours;
-            return Math.Round(horasActivo * KWxHora, 3);
+            double diasDesde = DateTime.Now.Subtract(fInicial).TotalDays;
+            return Math.Round(HorasXDia * KWxHora * diasDesde, 3);
+
+        }
+        public void setHorasXDia(double horas)
+        {
+            using (var db = new DBContext())
+            {
+                var disp = db.Dispositivos.Find(DispositivoID);
+                disp.HorasXDia = horas;
+                db.SaveChanges();
+            }
         }
         public override double ConsumoEnHoras(double horas)
         {

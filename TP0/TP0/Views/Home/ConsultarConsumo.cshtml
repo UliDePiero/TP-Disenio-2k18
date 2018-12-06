@@ -1,38 +1,49 @@
 ﻿<form action="~/Home/ConsultarConsumo" method="post">
-    
-        <div class="jumbotron">
-            <h2>Consultar consumo</h2>
-           
+
+    <div class="jumbotron">
+        <h2>Consultar consumo</h2>
+
+    </div>
+    <div>
+
+        <hr />
+        <div class="container" style="align-content:center;text-align:center; margin-bottom:15px;">
+            <h3>@ViewBag.consumo</h3>
+            <h5>@ViewBag.fechas</h5>
         </div>
-        <div>
-
-            <hr />
-            <div class="container" style="align-content:center;text-align:center; margin-bottom:15px;">
-                <h3>@ViewBag.consumo</h3>
-                <h5>@ViewBag.fechas</h5>
-            </div>
 
 
-            <div class="form" style="width:50%; text-align:center;">
-                <label for="FechaInicio">Fecha inicio:</label>
-                <input type="datetime-local" id="fechaInicioID"
-                       name="FechaInicio" value="@DateTime.Now.ToString("yyyy-"+(DateTime.Now.Month-1)+"-ddTHH:mm")"
-                       min="2010-01-01" max="2050-06-14" required />
-                <span class="validity"></span>
+        <div class="form" style="width:50%; text-align:center;">
+            <label for="FechaInicio">Fecha inicio:</label>
+            <input type="datetime-local" id="fechaInicioID"
+                   name="FechaInicio" value="@DateTime.Now.ToString("yyyy-"+(DateTime.Now.Month-1)+"-ddTHH:mm")"
+                   min="2010-01-01" max="2050-06-14" required />
+            <span class="validity"></span>
 
-                <label for="FechaFin">Fecha fin:</label>
-                <input type="datetime-local" id="fechaFinID"
-                       name="FechaFin" value="@DateTime.Now.ToString("yyyy-MM-ddTHH:mm")"
-                       min="2010-01-01" max="2050-06-14" required />
-                <span class="validity"></span>
+            <label for="FechaFin">Fecha fin:</label>
+            <input type="datetime-local" id="fechaFinID"
+                   name="FechaFin" value="@DateTime.Now.ToString("yyyy-MM-ddTHH:mm")"
+                   min="2010-01-01" max="2050-06-14" required />
+            <span class="validity"></span>
 
-                <button type="submit" class="btn ">Consultar</button>
-            </div>
-                 
-
+            <button type="submit" class="btn ">Consultar</button>
         </div>
-   
+
+
+    </div>
+
 </form>
+
+<div class="container">
+    <span class="info">
+        <div style="margin:10px;">
+            @using (Html.BeginForm("DispositivosPropios", "Home", FormMethod.Get))
+            {
+                <input type="submit" class="btn" value="Volver">
+            }
+        </div>
+    </span>
+</div>
 
 <script>
         var today = new Date().toISOString().split('T')[0];

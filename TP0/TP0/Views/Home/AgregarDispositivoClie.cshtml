@@ -17,10 +17,23 @@
 
             <div style="margin-top:55px;">
                 <h4>
-                    <input type="submit" class="btn" value="Agregar dispositivo" >
+                    <input type="submit" class="btn" value="Agregar dispositivo">
                 </h4>
             </div>
         </div>
     }
+
 </body>
+
+<div class="container">
+    <span class="info">
+        <div style="margin:10px;">
+            @using (Html.BeginForm("DispositivosPropios", "Home", FormMethod.Get))
+            {
+                <input type="submit" class="btn" value="Volver">
+            }
+        </div>
+    </span>
+</div>
+
 </html>
