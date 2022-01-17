@@ -1,2 +1,2 @@
-*.HTML linguist-detectable=false
+*.HTML linguist-vendored
 *.powershell linguist-detectable=false
